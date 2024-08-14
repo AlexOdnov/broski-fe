@@ -1,0 +1,21 @@
+.app {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	padding: 24px;
+	align-items: center;
+}
+
+.pageContainer {
+	flex-grow: 1;
+}
+
+.page {
+	height: 100%;
+}
+
+.navigation {
+	display: flex;
+	gap: 12px;
+}
