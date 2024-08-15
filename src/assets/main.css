@@ -2,7 +2,7 @@
 
 @font-face {
 	font-family: 'BarcadeBrawlRegular';
-	src: local('BarcadeBrawlRegular'), url('./fonts/BarcadeBrawlRegular/BarcadeBrawlRegular.ttf');
+	src: local('BarcadeBrawlRegular'), url('./fonts/BarcadeBrawlRegular/BarcadeBrawlRegular.woff');
 }
 
 #app {
