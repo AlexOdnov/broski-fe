@@ -1,0 +1,20 @@
+.loadingScreenWrapper {
+	background-color: #141517;
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+.loadingScreen {
+	margin: 0 auto;
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+}
+.fist {
+	max-width: 306px;
+}
+
+.logo {
+	max-width: 282px;
+	margin: 0 auto;
+}

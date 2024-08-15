@@ -1,11 +1,11 @@
 import { defineComponent } from 'vue'
 
-import style from './style.module.css'
+import styles from './styles.module.css'
 
 const GamePage = defineComponent({
 	name: 'GamePage',
 	setup() {
-		return () => <div class={style.game}>Game Page</div>
+		return () => <div class={styles.game}>Game</div>
 	}
 })
 

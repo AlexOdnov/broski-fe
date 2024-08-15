@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
 
-import style from './HelloWorld.module.css'
+import styles from './styles.module.css'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',

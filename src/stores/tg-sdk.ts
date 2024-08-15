@@ -1,5 +1,10 @@
 import { defineStore } from 'pinia'
+import { useState } from './helpers'
 
 export const useTgSdkStore = defineStore('tgSdk', () => {
-	return {}
+	const [isLoading, setIsLoading] = useState<boolean>(false)
+	return {
+		isLoading,
+		setIsLoading,
+	}
 })
