@@ -11,54 +11,54 @@
 
 export interface UserCreatePayload {
 	/** @example "antonprox" */
-	username?: string
+	username: string
 	/** @example "624161982" */
-	user_id?: number
+	user_id: number
 	/** @example "None" */
 	ref_code?: string
 }
 
 export interface TasksCreatePayload {
 	/** @example "antonprox" */
-	username?: string
+	username: string
 }
 
 export interface TasksCreateBody {
 	/** @example "antonprox" */
-	username?: string
+	username: string
 	/**
 	 * Id таски
 	 * @example "1"
 	 */
-	task_id?: number
+	task_id: number
 }
 
 export interface ScoreCreatePayload {
 	/** @example "antonprox" */
-	username?: string
+	username: string
 	/** @example "1000" */
-	score?: number
+	score: number
 }
 
 export interface TicketsCreatePayload {
 	/** @example "antonprox" */
-	username?: string
+	username: string
 	/** @example "1" */
-	tickets?: number
+	tickets: number
 }
 
 export interface ScoreCreateBody {
 	/** @example "antonprox" */
-	username?: string
+	username: string
 	/** @example "1000" */
-	score?: number
+	score: number
 }
 
 export interface TicketsCreateBody {
 	/** @example "antonprox" */
-	username?: string
+	username: string
 	/** @example "1" */
-	tickets?: number
+	tickets: number
 }
 
 import type {
