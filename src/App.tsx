@@ -1,18 +1,33 @@
 import { RouterLink, RouterView } from 'vue-router'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import styles from './style.module.css'
 import { LoadingScreen } from './components'
 import { useUserStore } from './stores/user'
+import { useTgSdkStore } from './stores/tg-sdk'
 
 export default defineComponent({
 	setup() {
 		const userStore = useUserStore()
-		const isLoading = computed(() => {
-			return userStore.isLoading
+		const tgStore = useTgSdkStore()
+
+		const isUserError = ref(false)
+
+		const isLoaderVisible = computed(() => {
+			return userStore.isLoading || isUserError.value
 		})
 
-		const onCreated = () => {
-			userStore.loadUser()
+		const onCreated = async () => {
+			// tgStore.initTgApp()
+			// if (!tgStore.user) {
+			// 	isUserError.value = true
+			// 	console.warn('Failed to get telegram user information')
+			// 	return
+			// }
+			await userStore.loadUser()
+			// if (!userStore.user) {
+			// 	isUserError.value = true
+			// 	console.warn('Failed to get broski user information')
+			// }
 		}
 
 		const coins = computed(() => Intl.NumberFormat('en-US').format(100500))
@@ -21,7 +36,7 @@ export default defineComponent({
 
 		return () => (
 			<>
-				{isLoading.value ? (
+				{isLoaderVisible.value ? (
 					<LoadingScreen />
 				) : (
 					<div class={styles.app}>

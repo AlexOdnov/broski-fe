@@ -2,6 +2,7 @@ import { shuffle } from '@/utils/shuffle'
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
 import { useState } from '@/utils/useState'
+import { useUserStore } from './user'
 
 export interface IGameElement {
 	isOpen: boolean
@@ -39,6 +40,8 @@ const createGameField = (): IGameElement[] => {
 }
 
 export const useGameStore = defineStore('game', () => {
+	const userStore = useUserStore()
+
 	const [gameField, setGameField, resetGameField] = useState<IGameElement[]>(createGameField)
 	const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.Idle)
 	const [remainAttempts, setRemainAttempts, resetRemainAttempts] =
@@ -49,12 +52,12 @@ export const useGameStore = defineStore('game', () => {
 	)
 
 	const startGame = () => {
-		if (gameStatus.value !== GameStatus.Idle) {
+		if (gameStatus.value !== GameStatus.Idle || !userStore.user?.tickets) {
 			return
 		}
 		setGameField(shuffle(gameField.value))
 		setGameStatus(GameStatus.InProgress)
-		// remove ticket
+		userStore.changeUserTickets(-1)
 	}
 
 	const finishGame = () => {
@@ -63,7 +66,7 @@ export const useGameStore = defineStore('game', () => {
 		}
 
 		if (gameStatus.value === GameStatus.Win) {
-			// claim points
+			userStore.changeUserScore(100)
 		}
 
 		setGameStatus(GameStatus.Idle)
