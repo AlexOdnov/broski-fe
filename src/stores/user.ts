@@ -4,6 +4,7 @@ import type { UserCreateResponse } from '@/api/responseTypes'
 import { useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
 import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/generatedApi'
+import { computed } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
 	const api = useApi()
@@ -12,6 +13,9 @@ export const useUserStore = defineStore('user', () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 
 	const [user, setUser] = useState<UserCreateResponse | null>(null)
+
+	const userTickets = computed(() => user.value?.tickets || 0)
+	const userScore = computed(() => user.value?.score || 0)
 
 	const setUserProperty = <T extends keyof UserCreateResponse>(
 		key: T,
@@ -24,7 +28,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const changeUserScore = (value: number) => {
 		if (user.value) {
-			setUserProperty('score', user.value.score + value)
+			setUserProperty('score', userScore.value + value)
 			const payload: ScoreCreatePayload = {
 				username: tgStore.username,
 				score: Math.abs(value)
@@ -39,7 +43,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const changeUserTickets = (value: number) => {
 		if (user.value) {
-			setUserProperty('tickets', user.value.tickets + value)
+			setUserProperty('tickets', userTickets.value + value)
 			const payload: TicketsCreatePayload = {
 				username: tgStore.username,
 				tickets: Math.abs(value)
@@ -70,6 +74,8 @@ export const useUserStore = defineStore('user', () => {
 
 	return {
 		user,
+		userTickets,
+		userScore,
 		isLoading,
 		loadUser,
 		changeUserScore,

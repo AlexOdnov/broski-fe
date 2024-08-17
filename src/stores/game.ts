@@ -52,7 +52,7 @@ export const useGameStore = defineStore('game', () => {
 	)
 
 	const startGame = () => {
-		if (gameStatus.value !== GameStatus.Idle || !userStore.user?.tickets) {
+		if (gameStatus.value !== GameStatus.Idle || !userStore.userTickets) {
 			return
 		}
 		setGameField(shuffle(gameField.value))
