@@ -1,21 +1,21 @@
 import { RouterLink, RouterView } from 'vue-router'
-import { computed, defineComponent, onMounted } from 'vue'
+import { computed, defineComponent } from 'vue'
 import style from './style.module.css'
-import { useTgSdkStore } from './stores/tg-sdk'
 import { LoadingScreen } from './components'
+import { useUserStore } from './stores/user'
 
 export default defineComponent({
 	setup() {
-		const tgStore = useTgSdkStore()
+		const userStore = useUserStore()
 		const isLoading = computed(() => {
-			return tgStore.isLoading
+			return userStore.isLoading
 		})
-		onMounted(() => {
-			tgStore.setIsLoading(true)
-			setTimeout(() => {
-				tgStore.setIsLoading(false)
-			}, 5000) // for example
-		})
+
+		const onCreated = () => {
+			userStore.loadUser()
+		}
+
+		onCreated()
 
 		return () => (
 			<>

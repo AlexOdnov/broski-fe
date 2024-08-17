@@ -1,0 +1,175 @@
+openapi: 3.0.0
+info:
+  title: Brocoin
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8000
+paths:
+  /get/user/:
+    post:
+      tags:
+        - default
+      summary: /get/user/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: antonprox
+                  required: true
+                user_id:
+                  type: integer
+                  example: '624161982'
+                  required: true
+                ref_code:
+                  type: string
+                  example: None
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /get/tasks/:
+    post:
+      tags:
+        - default
+      summary: /get/tasks/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: antonprox
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /done/tasks/:
+    post:
+      tags:
+        - default
+      summary: /done/tasks/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: antonprox
+                  required: true
+                task_id:
+                  type: integer
+                  description: Id таски
+                  example: '1'
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /add/score/:
+    post:
+      tags:
+        - default
+      summary: /add/score/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: antonprox
+                  required: true
+                score:
+                  type: integer
+                  example: '1000'
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /add/tickets/:
+    post:
+      tags:
+        - default
+      summary: /add/tickets/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: antonprox
+                  required: true
+                tickets:
+                  type: integer
+                  example: '1'
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /remove/score/:
+    post:
+      tags:
+        - default
+      summary: /remove/score/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: antonprox
+                  required: true
+                score:
+                  type: integer
+                  example: '1000'
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /remove/tickets/:
+    post:
+      tags:
+        - default
+      summary: remove/tickets/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: antonprox
+                  required: true
+                tickets:
+                  type: integer
+                  example: '1'
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
