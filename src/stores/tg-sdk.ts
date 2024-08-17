@@ -1,10 +1,21 @@
 import { defineStore } from 'pinia'
-import { useState } from '@/utils/useState'
+import { computed } from 'vue'
 
 export const useTgSdkStore = defineStore('tgSdk', () => {
-	const [isLoading, setIsLoading] = useState<boolean>(false)
+	const tg = Telegram.WebApp
+
+	const user = computed(() => tg.initDataUnsafe.user)
+	const username = computed(() => user.value?.username || '')
+	const userId = computed(() => user.value?.id || 0)
+	const startParam = computed(() => tg.initDataUnsafe.start_param)
+
+	const initTgApp = () => tg.ready()
+
 	return {
-		isLoading,
-		setIsLoading
+		user,
+		username,
+		userId,
+		startParam,
+		initTgApp
 	}
 })
