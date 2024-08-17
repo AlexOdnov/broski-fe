@@ -1,8 +1,8 @@
 import { computed, defineComponent, type PropType } from 'vue'
 import styles from './styles.module.css'
 
-type ButtonSize = 'sm' | 'md' | 'lg'
-type ButtonMod = 'primary' | 'secondary' | 'inverse'
+export type ButtonSize = 'sm' | 'md' | 'lg'
+export type ButtonMod = 'primary' | 'secondary' | 'inverse'
 
 export const UiButton = defineComponent({
 	name: 'UiButton',
