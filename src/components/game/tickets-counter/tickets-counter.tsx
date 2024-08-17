@@ -12,7 +12,8 @@ export const TicketsCounter = defineComponent({
 				{userStore.userTickets ? (
 					<>
 						You got <span class={styles.ticketsExist}>{userStore.userTickets}</span>
-						<img class={styles.ticketImg} src="/images/ticket.png" /> Tickets
+						<img class={styles.ticketImg} src="/images/ticket.png" />
+						{userStore.userTickets > 1 ? 'Tickets' : 'Ticket'}
 					</>
 				) : (
 					<>
