@@ -1,10 +1,15 @@
 .app {
+	font-family: 'Roboto';
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
-	padding: 24px;
 	align-items: center;
+	background-color: #141517;
+}
+
+.footer {
+	width: 100%;
 }
 
 .pageContainer {
@@ -16,6 +21,98 @@
 }
 
 .navigation {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 15px;
+	max-width: 525px;
+	margin: 0 auto;
+}
+
+.navigation a {
+	text-decoration: none;
+}
+
+.navBtn {
 	display: flex;
-	gap: 12px;
+	padding: 15px;
+	position: relative;
+	background-color: #35332e;
+	aspect-ratio: 1 / 1;
+	border-radius: 15px;
+	font-family: 'BarcadeBrawlRegular';
+	font-size: 42px;
+	font-weight: 400;
+	line-height: 42px;
+	text-align: center;
+}
+
+.btnImg {
+	filter: drop-shadow(5px, 5px, #0b0c0e);
+	width: 40px;
+	margin: 0 auto;
+}
+
+.letter {
+	align-self: center;
+	margin: 0 auto;
+	position: relative;
+	background: linear-gradient(#f0f0f0, #333333);
+	background-clip: text;
+	color: transparent;
+	z-index: 2;
+}
+
+.letterShadow {
+	position: absolute;
+	top: calc(50% - 15px);
+	left: calc(50% - 17px);
+	color: #000000;
+	z-index: 1;
+}
+
+.btnText {
+	font-family: 'Roboto';
+	color: #f0f0f0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 14px;
+	text-align: center;
+	position: absolute;
+	bottom: 5px;
+	left: 0;
+	width: 100%;
+	z-index: 3;
+}
+
+.rotateRight {
+	transform: rotate(15deg);
+}
+
+.rotateLeft {
+	transform: rotate(-15deg);
+}
+
+.active .navBtn {
+	background: linear-gradient(#0a0a0a, #232323);
+}
+
+@media screen and (max-width: 356px) {
+	.navBtn {
+		padding: 10px;
+	}
+}
+
+.coins {
+	display: flex;
+	align-items: center;
+	font-size: 42px;
+	font-weight: 700;
+	line-height: 42px;
+	text-align: center;
+}
+
+.coinIcon {
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
 }

@@ -5,7 +5,14 @@
 	src: local('BarcadeBrawlRegular'), url('./fonts/BarcadeBrawlRegular/BarcadeBrawlRegular.woff');
 }
 
+@font-face {
+	font-family: 'Roboto';
+	src: local('Roboto'), url('./fonts/Roboto/Roboto-Regular.woff');
+}
+
 #app {
+	font-family: 'Roboto';
+	color: #cbcbcb;
 	width: 100vw;
 	height: 100vh;
 	font-weight: normal;
