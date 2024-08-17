@@ -1,39 +1,81 @@
 import { RouterLink, RouterView } from 'vue-router'
-import { computed, defineComponent } from 'vue'
-import style from './style.module.css'
+import { computed, defineComponent, ref } from 'vue'
+import styles from './style.module.css'
 import { LoadingScreen } from './components'
 import { useUserStore } from './stores/user'
+import { useTgSdkStore } from './stores/tg-sdk'
 
 export default defineComponent({
 	setup() {
 		const userStore = useUserStore()
-		const isLoading = computed(() => {
-			return userStore.isLoading
+		const tgStore = useTgSdkStore()
+
+		const isUserError = ref(false)
+
+		const isLoaderVisible = computed(() => {
+			return userStore.isLoading || isUserError.value
 		})
 
-		const onCreated = () => {
-			userStore.loadUser()
+		const onCreated = async () => {
+			// tgStore.initTgApp()
+			// if (!tgStore.user) {
+			// 	isUserError.value = true
+			// 	console.warn('Failed to get telegram user information')
+			// 	return
+			// }
+			await userStore.loadUser()
+			// if (!userStore.user) {
+			// 	isUserError.value = true
+			// 	console.warn('Failed to get broski user information')
+			// }
 		}
+
+		const coins = computed(() => Intl.NumberFormat('en-US').format(100500))
 
 		onCreated()
 
 		return () => (
 			<>
-				{isLoading.value ? (
+				{isLoaderVisible.value ? (
 					<LoadingScreen />
 				) : (
-					<div class={style.app}>
-						<header>coin count component</header>
-
-						<main class={style.pageContainer}>
-							<RouterView class={style.page} />
+					<div class={styles.app}>
+						<header>
+							<div class={styles.coins}>
+								<img class={styles.coinIcon} src="/images/bro-coin.png" />
+								{coins.value}
+							</div>
+						</header>
+						<main class={styles.pageContainer}>
+							<RouterView class={styles.page} />
 						</main>
-
-						<footer>
-							<nav class={style.navigation}>
-								<RouterLink to="/">game</RouterLink>
-								<RouterLink to="/tasks">task</RouterLink>
-								<RouterLink to="/referrals">refs</RouterLink>
+						<footer class={styles.footer}>
+							<nav class={styles.navigation}>
+								<RouterLink activeClass={styles.active} to="/">
+									<div class={styles.navBtn}>
+										<div class={[styles.letter, styles.rotateLeft]}>B</div>
+										<div class={[styles.letterShadow, styles.rotateLeft]}>B</div>
+										<span class={styles.btnText}>Game</span>
+									</div>
+								</RouterLink>
+								<RouterLink activeClass={styles.active} to="/tasks">
+									<div class={styles.navBtn}>
+										<div class={[styles.letter, styles.rotateRight]}>R</div>
+										<div class={[styles.letterShadow, styles.rotateRight]}>R</div>
+										<span class={styles.btnText}>Earn</span>
+									</div>
+								</RouterLink>
+								<RouterLink activeClass={styles.active} to="/referrals">
+									<div class={styles.navBtn}>
+										<div class={[styles.letter, styles.rotateLeft]}>O</div>
+										<div class={[styles.letterShadow, styles.rotateLeft]}>O</div>
+										<span class={styles.btnText}>My Bros</span>
+									</div>
+								</RouterLink>
+								<div class={styles.navBtn}>
+									<img class={styles.btnImg} src="/images/pickaxe.svg" />
+									<span class={styles.btnText}>Claim</span>
+								</div>
 							</nav>
 						</footer>
 					</div>
