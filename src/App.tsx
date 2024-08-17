@@ -30,7 +30,7 @@ export default defineComponent({
 			// }
 		}
 
-		const coins = computed(() => Intl.NumberFormat('en-US').format(100500))
+		const coins = computed(() => Intl.NumberFormat('en-US').format(userStore.userScore))
 
 		onCreated()
 
