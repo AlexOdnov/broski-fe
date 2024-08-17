@@ -1,0 +1,42 @@
+.button {
+	border-radius: 10px;
+	font-size: 16px;
+	line-height: 16px;
+	font-family: 'BarcadeBrawlRegular';
+	border: none;
+	background: none;
+}
+
+.sizeSm {
+	padding: 5px 15px;
+	height: 28px;
+	font-size: 18px;
+	line-height: 18px;
+	font-family: 'Roboto';
+	font-weight: 500;
+}
+
+.sizeMd {
+	padding: 7px 15px;
+	height: 30px;
+}
+
+.sizeLg {
+	padding: 15px 15px;
+	height: 46px;
+}
+
+.modPrimary {
+	color: #141517;
+	background-color: #ffb800;
+}
+
+.modSecondary {
+	color: #4e4f4f;
+	background-color: #1d1e20;
+}
+
+.modInverse {
+	color: #ffb800;
+	background-color: #1d1e20;
+}
