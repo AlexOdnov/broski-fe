@@ -1,4 +1,4 @@
-import GamePage from '@/pages/game/Game'
+import GamePage from '@/pages/game/game'
 
 import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
@@ -12,12 +12,12 @@ const router = createRouter({
 		{
 			path: '/tasks',
 			name: 'tasks',
-			component: () => import('@/pages/tasks/Tasks')
+			component: () => import('@/pages/tasks/tasks')
 		},
 		{
 			path: '/referrals',
 			name: 'referrals',
-			component: () => import('@/pages/referrals/Referrals')
+			component: () => import('@/pages/referrals/referrals')
 		},
 		{
 			path: '/:pathMatch(.*)',
