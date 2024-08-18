@@ -1,18 +1,8 @@
-import { useState } from '@/utils/useState'
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
 
 export const useTgSdkStore = defineStore('tgSdk', () => {
 	const tg = Telegram.WebApp
-
-	const [isExpanded, setIsExpanded] = useState(false)
-
-	tg.onEvent('viewportChanged', (e) => {
-		setIsExpanded(false)
-		if (e.isStateStable) {
-			setIsExpanded(tg.isExpanded as unknown as boolean)
-		}
-	})
 
 	const user = computed(() => tg.initDataUnsafe.user)
 	const username = computed(() => user.value?.username || '')
@@ -26,7 +16,6 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 		username,
 		userId,
 		startParam,
-		isExpanded,
 		initTgApp
 	}
 })

@@ -1,7 +1,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { computed, defineComponent, ref } from 'vue'
 import styles from './style.module.css'
-import { LoadingScreen, UiHeightPlaceholder } from './components'
+import { LoadingScreen } from './components'
 import { useUserStore } from './stores/user'
 import { useTgSdkStore } from './stores/tg-sdk'
 
@@ -40,11 +40,10 @@ export default defineComponent({
 					<LoadingScreen />
 				) : (
 					<div class={styles.app}>
-						<header class={[styles.coins, tgStore.isExpanded && styles.mobileScreenCoins]}>
+						<header class={styles.coins}>
 							<img class={styles.coinIcon} src="/images/bro-coin.png" />
 							{coins.value}
 						</header>
-						{tgStore.isExpanded && <UiHeightPlaceholder height={'62px'} />}
 						<main class={styles.pageContainer}>
 							<RouterView class={styles.page} />
 						</main>
