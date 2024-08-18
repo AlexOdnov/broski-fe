@@ -40,11 +40,9 @@ export default defineComponent({
 					<LoadingScreen />
 				) : (
 					<div class={styles.app}>
-						<header>
-							<div class={styles.coins}>
-								<img class={styles.coinIcon} src="/images/bro-coin.png" />
-								{coins.value}
-							</div>
+						<header class={styles.coins}>
+							<img class={styles.coinIcon} src="/images/bro-coin.png" />
+							{coins.value}
 						</header>
 						<main class={styles.pageContainer}>
 							<RouterView class={styles.page} />
