@@ -5,7 +5,7 @@
 }
 
 body {
-	min-height: 100vh;
+	height: var(--tg-viewport-stable-height);
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;

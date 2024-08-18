@@ -10,6 +10,6 @@
 	font-family: 'Roboto';
 	color: #cbcbcb;
 	max-width: 100vw;
-	height: 100vh;
+	height: var(--tg-viewport-stable-height);
 	font-weight: normal;
 }

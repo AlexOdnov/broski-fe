@@ -1,6 +1,6 @@
 .app {
 	font-family: 'Roboto';
-	height: 100vh;
+	height: var(--tg-viewport-stable-height);
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
