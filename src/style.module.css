@@ -121,7 +121,7 @@
 	line-height: 42px;
 	text-align: center;
 	position: fixed;
-	top: calc(100vh - 100dvh);
+	top: calc(var(--tg-viewport-height) - 100dvh);
 	left: 50%;
 	transform: translateX(-50%);
 }
