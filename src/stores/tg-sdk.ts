@@ -8,6 +8,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 	const username = computed(() => user.value?.username || '')
 	const userId = computed(() => user.value?.id || 0)
 	const startParam = computed(() => tg.initDataUnsafe.start_param)
+	const isExpanded = computed(() => tg.isExpanded as unknown as boolean)
 
 	const initTgApp = () => tg.ready()
 
@@ -16,6 +17,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 		username,
 		userId,
 		startParam,
+		isExpanded,
 		initTgApp
 	}
 })

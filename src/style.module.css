@@ -120,6 +120,9 @@
 	font-weight: 700;
 	line-height: 42px;
 	text-align: center;
+}
+
+.mobileScreenCoins {
 	position: fixed;
 	top: calc(100dvh - var(--tg-viewport-height));
 	left: 50%;

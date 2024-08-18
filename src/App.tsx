@@ -40,11 +40,11 @@ export default defineComponent({
 					<LoadingScreen />
 				) : (
 					<div class={styles.app}>
-						<header class={styles.coins}>
+						<header class={[styles.coins, tgStore.isExpanded && styles.mobileScreenCoins]}>
 							<img class={styles.coinIcon} src="/images/bro-coin.png" />
 							{coins.value}
 						</header>
-						<UiHeightPlaceholder height={'62px'} />
+						{tgStore.isExpanded && <UiHeightPlaceholder height={'62px'} />}
 						<main class={styles.pageContainer}>
 							<RouterView class={styles.page} />
 						</main>
