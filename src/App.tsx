@@ -1,7 +1,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { computed, defineComponent, ref } from 'vue'
 import styles from './style.module.css'
-import { LoadingScreen } from './components'
+import { LoadingScreen, UiHeightPlaceholder } from './components'
 import { useUserStore } from './stores/user'
 import { useTgSdkStore } from './stores/tg-sdk'
 
@@ -44,6 +44,7 @@ export default defineComponent({
 							<img class={styles.coinIcon} src="/images/bro-coin.png" />
 							{coins.value}
 						</header>
+						<UiHeightPlaceholder height={'62px'} />
 						<main class={styles.pageContainer}>
 							<RouterView class={styles.page} />
 						</main>

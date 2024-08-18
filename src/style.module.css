@@ -120,8 +120,10 @@
 	font-weight: 700;
 	line-height: 42px;
 	text-align: center;
-	position: sticky;
+	position: fixed;
 	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 .coinIcon {
