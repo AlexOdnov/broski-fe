@@ -8,6 +8,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 	const [isExpanded, setIsExpanded] = useState(false)
 
 	tg.onEvent('viewportChanged', (e) => {
+		setIsExpanded(false)
 		if (e.isStateStable) {
 			setIsExpanded(tg.isExpanded as unknown as boolean)
 		}
