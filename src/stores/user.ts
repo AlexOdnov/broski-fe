@@ -16,6 +16,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const userTickets = computed(() => user.value?.tickets || 0)
 	const userScore = computed(() => user.value?.score || 0)
+	const referals = computed(() => user.value?.referals || [])
 
 	const setUserProperty = <T extends keyof UserCreateResponse>(
 		key: T,
@@ -83,6 +84,7 @@ export const useUserStore = defineStore('user', () => {
 		userTickets,
 		userScore,
 		isLoading,
+		referals,
 		loadUser,
 		changeUserScore,
 		changeUserTickets,
