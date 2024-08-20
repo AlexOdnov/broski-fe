@@ -2,16 +2,16 @@ import { useApi } from '@/api/useApi'
 import { defineStore } from 'pinia'
 import { useUserStore } from './user'
 import { useState } from '@/utils/useState'
-import type { TasksCreateResponse } from '@/api/responseTypes'
+import type { TasksCreateResponseItem } from '@/api/responseTypes'
 export const useTasksStore = defineStore('tasks', () => {
 	const userStore = useUserStore()
 	const api = useApi()
 
-	const [tasks, setTasks] = useState<TasksCreateResponse[]>([
+	const [tasks, setTasks] = useState<TasksCreateResponseItem[]>([
 		{
 			complete: false,
 			description: 'Description',
-			duration: 123,
+			duration: '123',
 			id: 1,
 			links: 'https://example.com',
 			points: 100,
@@ -20,7 +20,7 @@ export const useTasksStore = defineStore('tasks', () => {
 		{
 			complete: true,
 			description: 'Description',
-			duration: 123,
+			duration: '123',
 			id: 1,
 			links: 'https://example.com',
 			points: 100,
@@ -31,8 +31,8 @@ export const useTasksStore = defineStore('tasks', () => {
 	const getTasks = async () => {
 		if (!userStore.user?.username) return
 		const response = await api.getTasks({ username: userStore.user.username })
-		if (response?.length > 0) {
-			setTasks(response)
+		if (response?.tasks?.length > 0) {
+			setTasks(response.tasks)
 		}
 	}
 

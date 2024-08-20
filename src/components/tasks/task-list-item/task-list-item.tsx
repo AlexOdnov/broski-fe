@@ -1,14 +1,15 @@
 import { defineComponent, type PropType } from 'vue'
 import styles from './task-list-item.module.css'
-import type { TasksCreateResponse } from '@/api/responseTypes'
+import type { TasksCreateResponseItem } from '@/api/responseTypes'
 export const TaskListItem = defineComponent({
 	name: 'TaskListItem',
 	props: {
-		task: { type: Object as PropType<TasksCreateResponse>, required: true }
+		task: { type: Object as PropType<TasksCreateResponseItem>, required: true },
+		whenTaskSelected: { type: Function as PropType<(taskId: number) => void>, required: true }
 	},
 	setup: (props) => {
 		return () => (
-			<div class={styles.task}>
+			<div class={styles.task} onClick={() => props.whenTaskSelected(props.task.id)}>
 				<div class={[styles.text, props.task.complete && styles.opacity]}>
 					<div class={styles.title}>{props.task.description}</div>
 					<div class={styles.revard}>
@@ -27,7 +28,11 @@ export const TaskListItem = defineComponent({
 					<div class={styles.duration}>{props.task.duration}</div>
 				</div>
 				<div class={styles.chevronRight}>
-					{props.task.complete ? <span class={styles.ok}>👌</span> : <img src="/images/chevronRight.svg" />}
+					{props.task.complete ? (
+						<span class={styles.ok}>👌</span>
+					) : (
+						<img src="/images/chevronRight.svg" />
+					)}
 				</div>
 			</div>
 		)
