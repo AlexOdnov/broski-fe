@@ -16,6 +16,8 @@ export interface TasksCreateResponse {
 	id: number
 	description: string
 	points: number
+	tickets: number
+	duration: number
 	links: string
 	complete: boolean
 }

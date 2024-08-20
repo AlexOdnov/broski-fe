@@ -4,10 +4,12 @@ import styles from './style.module.css'
 import { LoadingScreen } from './components'
 import { useUserStore } from './stores/user'
 import { useTgSdkStore } from './stores/tg-sdk'
+import { useTasksStore } from './stores/tasks'
 
 export default defineComponent({
 	setup() {
 		const userStore = useUserStore()
+		const tasksStore = useTasksStore()
 		const tgStore = useTgSdkStore()
 
 		const isUserError = ref(false)
@@ -24,6 +26,7 @@ export default defineComponent({
 			// 	return
 			// }
 			await userStore.loadUser()
+			await tasksStore.getTasks()
 			// if (!userStore.user) {
 			// 	isUserError.value = true
 			// 	console.warn('Failed to get broski user information')
