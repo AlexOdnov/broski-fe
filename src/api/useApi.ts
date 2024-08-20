@@ -1,3 +1,4 @@
+import { BACKEND_URL } from '@/utils/constants'
 import {
 	Api,
 	type UserCreatePayload,
@@ -9,7 +10,9 @@ import {
 } from './generatedApi'
 import type { UserCreateResponse, TasksCreateResponse } from './responseTypes'
 
-const apiInstance = new Api()
+const apiInstance = new Api({
+	baseURL: BACKEND_URL
+})
 
 export const useApi = () => {
 	const getUser = async (payload: UserCreatePayload): Promise<UserCreateResponse> => {
