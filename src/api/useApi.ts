@@ -40,7 +40,7 @@ export const useApi = () => {
 		return await apiInstance.done.tasksCreate(payload)
 	}
 
-	const claimRefs = async (payload: RefClaimCreatePayload) => {
+	const claimRefBonus = async (payload: RefClaimCreatePayload) => {
 		return await apiInstance.get.refClaimCreate(payload)
 	}
 
@@ -52,6 +52,6 @@ export const useApi = () => {
 		removeScore,
 		removeTickets,
 		doneTask,
-		claimRefs
+		claimRefBonus
 	}
 }

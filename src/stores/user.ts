@@ -72,6 +72,12 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const claimRefBonus = () => {
+		api.claimRefBonus({
+			username: tgStore.username
+		})
+	}
+
 	return {
 		user,
 		userTickets,
@@ -79,6 +85,7 @@ export const useUserStore = defineStore('user', () => {
 		isLoading,
 		loadUser,
 		changeUserScore,
-		changeUserTickets
+		changeUserTickets,
+		claimRefBonus
 	}
 })
