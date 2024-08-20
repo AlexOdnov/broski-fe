@@ -4,7 +4,8 @@ import {
 	type TasksCreatePayload,
 	type ScoreCreatePayload,
 	type TicketsCreatePayload,
-	type TasksCreateBody
+	type TasksCreateBody,
+	type RefClaimCreatePayload
 } from './generatedApi'
 import type { UserCreateResponse, TasksCreateResponse } from './responseTypes'
 
@@ -39,6 +40,10 @@ export const useApi = () => {
 		return await apiInstance.done.tasksCreate(payload)
 	}
 
+	const claimRefs = async (payload: RefClaimCreatePayload) => {
+		return await apiInstance.get.refClaimCreate(payload)
+	}
+
 	return {
 		getUser,
 		getTasks,
@@ -46,6 +51,7 @@ export const useApi = () => {
 		addTickets,
 		removeScore,
 		removeTickets,
-		doneTask
+		doneTask,
+		claimRefs
 	}
 }
