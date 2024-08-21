@@ -7,26 +7,7 @@ export const useTasksStore = defineStore('tasks', () => {
 	const userStore = useUserStore()
 	const api = useApi()
 
-	const [tasks, setTasks] = useState<TasksCreateResponseItem[]>([
-		{
-			complete: false,
-			description: 'Description',
-			duration: '123',
-			id: 1,
-			links: 'https://example.com',
-			points: 100,
-			tickets: 5
-		},
-		{
-			complete: true,
-			description: 'Description',
-			duration: '123',
-			id: 1,
-			links: 'https://example.com',
-			points: 100,
-			tickets: 5
-		}
-	])
+	const [tasks, setTasks] = useState<TasksCreateResponseItem[]>([])
 
 	const getTasks = async () => {
 		if (!userStore.user?.username) return

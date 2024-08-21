@@ -9,7 +9,9 @@ import {
 } from './generatedApi'
 import type { UserCreateResponse, TasksCreateResponse } from './responseTypes'
 
-const apiInstance = new Api()
+const apiInstance = new Api({
+	baseURL: (window as unknown as Window & { config: { baseUrl: string } }).config.baseUrl
+})
 
 export const useApi = () => {
 	const getUser = async (payload: UserCreatePayload): Promise<UserCreateResponse> => {
