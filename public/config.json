@@ -1,3 +1,4 @@
 {
-	"baseUrl": "https://example.com"
+	"baseUrl": "https://example.com",
+	"botLink": "https://t.me/test_brsk_bot/brsk_game"
 }

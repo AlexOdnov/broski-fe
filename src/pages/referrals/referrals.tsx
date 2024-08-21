@@ -3,7 +3,7 @@ import { computed, defineComponent, ref } from 'vue'
 import styles from './styles.module.css'
 import { UiButton, type ButtonMod, ReferralElement } from '@/components'
 import { useUserStore } from '@/stores/user'
-import { BOT_LINK } from '@/utils/constants'
+import type { MyWindow } from '@/utils/window'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
@@ -56,7 +56,7 @@ const ReferralsPage = defineComponent({
 		)
 
 		const whenCopyLink = () => {
-			navigator.clipboard.writeText(`${BOT_LINK}?startapp=${userStore.user?.ref_code}`)
+			navigator.clipboard.writeText(`${(window as unknown as MyWindow).config.botLink}?startapp=${userStore.user?.ref_code}`)
 			isLinkCopied.value = true
 			setTimeout(() => {
 				isLinkCopied.value = false
