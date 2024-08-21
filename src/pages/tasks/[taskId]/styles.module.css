@@ -1,0 +1,89 @@
+.task {
+	padding: 25px 10px 0 10px;
+	font-family: 'Roboto';
+}
+
+.title {
+	color: #f0f0f0;
+	font-size: 22px;
+	font-weight: 500;
+	line-height: 22px;
+	text-align: center;
+}
+
+.frame {
+	margin: 25px 10px;
+	background-color: #1d1e20;
+	border: 1px solid #35332e;
+	border-radius: 10px;
+	display: grid;
+	grid-template-columns: 1fr 1px 1fr;
+}
+
+.separator {
+	margin: 10px 0;
+	background-color: #35332e;
+}
+
+.coins {
+	padding: 10px 0;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	gap: 10px;
+	color: #ffb800;
+}
+
+.coins img {
+	margin: 0 auto;
+	width: 50px;
+	height: 50px;
+}
+
+.tickets {
+	padding: 10px 0;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	gap: 10px;
+}
+
+.tickets img {
+	margin: 0 auto;
+	width: 50px;
+	height: 50px;
+}
+
+.duration {
+	color: #909090;
+	font-size: 10px;
+	font-weight: 400;
+	line-height: 10px;
+	text-align: center;
+}
+
+.btnWrapper {
+	display: flex;
+	width:100%
+}
+
+.startButton {
+	padding: 15px;
+	margin: 25px;
+	flex-grow: 1;
+	background-color: #ffb800;
+	border-radius: 10px;
+	font-family: 'BarcadeBrawlRegular';
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 16px;
+	text-align: center;
+	color: #141517;
+}
+
+.noCrooks {
+	font-size: 10px;
+	font-weight: 400;
+	line-height: 12px;
+	text-align: center;
+}
