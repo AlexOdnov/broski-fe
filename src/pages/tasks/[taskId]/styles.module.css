@@ -1,6 +1,11 @@
+.taskWrapper {
+	display: flex;
+	flex-direction: column;
+}
 .task {
 	padding: 25px 10px 0 10px;
 	font-family: 'Roboto';
+	flex-grow: 1;
 }
 
 .title {
