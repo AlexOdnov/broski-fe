@@ -15,6 +15,11 @@ const router = createRouter({
 			component: () => import('@/pages/tasks/tasks')
 		},
 		{
+			path: '/tasks/:taskId',
+			name: 'task',
+			component: () => import('@/pages/tasks/[taskId]/task')
+		},
+		{
 			path: '/referrals',
 			name: 'referrals',
 			component: () => import('@/pages/referrals/referrals')
