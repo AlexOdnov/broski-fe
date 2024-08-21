@@ -9,10 +9,8 @@ import {
 } from './generatedApi'
 import type { UserCreateResponse, TasksCreateResponse } from './responseTypes'
 
-import type { MyWindow } from '@/utils/window'
-
 const apiInstance = new Api({
-	baseURL: (window as unknown as MyWindow).config.baseUrl
+	baseURL: window.appConfig.baseUrl
 })
 
 export const useApi = () => {
