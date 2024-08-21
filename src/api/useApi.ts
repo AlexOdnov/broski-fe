@@ -1,3 +1,4 @@
+import { BACKEND_URL } from '@/utils/constants'
 import {
 	Api,
 	type UserCreatePayload,
@@ -9,7 +10,9 @@ import {
 } from './generatedApi'
 import type { UserCreateResponse, TasksCreateResponse } from './responseTypes'
 
-const apiInstance = new Api()
+const apiInstance = new Api({
+	baseURL: BACKEND_URL
+})
 
 export const useApi = () => {
 	const getUser = async (payload: UserCreatePayload): Promise<UserCreateResponse> => {
@@ -40,7 +43,7 @@ export const useApi = () => {
 		return await apiInstance.done.tasksCreate(payload)
 	}
 
-	const claimRefs = async (payload: RefClaimCreatePayload) => {
+	const claimRefBonus = async (payload: RefClaimCreatePayload) => {
 		return await apiInstance.get.refClaimCreate(payload)
 	}
 
@@ -52,6 +55,6 @@ export const useApi = () => {
 		removeScore,
 		removeTickets,
 		doneTask,
-		claimRefs
+		claimRefBonus
 	}
 }

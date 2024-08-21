@@ -10,6 +10,7 @@ export const UiButton = defineComponent({
 		text: { type: String, required: true },
 		size: { type: String as PropType<ButtonSize>, default: 'md' },
 		mod: { type: String as PropType<ButtonMod>, default: 'primary' },
+		disabled: { type: Boolean, default: false },
 		whenClick: { type: Function as PropType<(e: MouseEvent) => void>, required: true }
 	},
 	setup: (props) => {
@@ -43,6 +44,7 @@ export const UiButton = defineComponent({
 			<button
 				class={[styles.button, sizeClass.value, modClass.value]}
 				type="button"
+				disabled={props.disabled}
 				onClick={props.whenClick}
 			>
 				{props.text}
