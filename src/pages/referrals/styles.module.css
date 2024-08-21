@@ -1,0 +1,89 @@
+.referralsPage {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: calc(100dvh - 94px - 96px - 20px);
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+	align-items: center;
+	padding: 8px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 14px;
+}
+
+.text {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	align-items: center;
+}
+
+.headerDark {
+	display: flex;
+	align-items: center;
+	margin: 0;
+	color: #797979;
+	gap: 4px;
+}
+
+.headerLight {
+	display: flex;
+	align-items: center;
+	margin: 0;
+	color: #cbcbcb;
+	gap: 4px;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	padding: 20px 15px 0;
+	gap: 10px;
+	flex-grow: 1;
+	width: 100%;
+	height: calc(100% - 102px - 48px);
+}
+
+.subTitle {
+	margin: 0;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 18px;
+	color: #f0f0f0;
+}
+
+.scrollContent {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	overflow-y: scroll;
+	flex-grow: 1;
+	gap: 10px;
+	max-height: 100%;
+}
+
+.claimButton {
+	display: flex;
+	padding: 10px;
+	justify-content: center;
+}
+
+.icon {
+	width: 14px;
+	height: 14px;
+}
+
+.yellow {
+	color: #ffb800;
+}
+
+@media screen and (max-width: 370px) {
+	.referralsPage {
+		height: calc(100dvh - 94px - 86px - 20px);
+	}
+}
