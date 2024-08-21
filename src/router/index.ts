@@ -12,22 +12,22 @@ const router = createRouter({
 		{
 			path: '/tasks',
 			name: 'tasks',
-			component: () => import('@/pages/tasks/tasks'),
+			component: () => import('@/pages/tasks/tasks')
 		},
 		{
 			path: '/tasks/:taskId',
 			name: 'task',
-			component: () => import('@/pages/tasks/[taskId]/task'),
+			component: () => import('@/pages/tasks/[taskId]/task')
 		},
 		{
 			path: '/referrals',
 			name: 'referrals',
-			component: () => import('@/pages/referrals/referrals'),
+			component: () => import('@/pages/referrals/referrals')
 		},
 		{
 			path: '/:pathMatch(.*)',
 			redirect: '/'
-		},
+		}
 	]
 })
 
