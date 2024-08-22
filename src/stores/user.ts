@@ -79,6 +79,10 @@ export const useUserStore = defineStore('user', () => {
 		})
 	}
 
+	const startMining = async () => {
+		await api.startMinig()
+	}
+
 	return {
 		user,
 		userTickets,
@@ -88,6 +92,7 @@ export const useUserStore = defineStore('user', () => {
 		loadUser,
 		changeUserScore,
 		changeUserTickets,
-		claimRefBonus
+		claimRefBonus,
+		startMining,
 	}
 })

@@ -45,6 +45,9 @@ export const useApi = () => {
 	const claimRefBonus = async (payload: RefClaimCreatePayload) => {
 		return await apiInstance.get.refClaimCreate(payload)
 	}
+	const startMinig = async () => {
+		return null
+	}
 
 	return {
 		getUser,
@@ -54,6 +57,7 @@ export const useApi = () => {
 		removeScore,
 		removeTickets,
 		doneTask,
-		claimRefBonus
+		claimRefBonus,
+		startMinig,
 	}
 }
