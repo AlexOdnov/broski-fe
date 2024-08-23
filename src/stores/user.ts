@@ -80,7 +80,11 @@ export const useUserStore = defineStore('user', () => {
 	}
 
 	const startMining = async () => {
-		await api.startMinig()
+		try {
+		await api.startMinig({username: tgStore.username})
+		} catch (error) {
+			console.warn(error)
+		}
 	}
 
 	return {

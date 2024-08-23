@@ -43,6 +43,7 @@ export default defineComponent({
 		const tryStartMining = async () => {
 			if (isUserCanMining.value) {
 				await userStore.startMining()
+				await userStore.loadUser()
 			}
 		}
 
