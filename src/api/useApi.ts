@@ -59,6 +59,6 @@ export const useApi = () => {
 		removeTickets,
 		doneTask,
 		claimRefBonus,
-		startMinig,
+		startMinig
 	}
 }
