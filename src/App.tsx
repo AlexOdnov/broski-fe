@@ -26,18 +26,18 @@ export default defineComponent({
 			)
 		})
 		const onCreated = async () => {
-			// tgStore.initTgApp()
-			// if (!tgStore.user) {
-			// 	isUserError.value = true
-			// 	console.warn('Failed to get telegram user information')
-			// 	return
-			// }
+			tgStore.initTgApp()
+			if (!tgStore.user) {
+				isUserError.value = true
+				console.warn('Failed to get telegram user information')
+				return
+			}
 			await userStore.loadUser()
 			await tasksStore.getTasks()
-			// if (!userStore.user) {
-			// 	isUserError.value = true
-			// 	console.warn('Failed to get broski user information')
-			// }
+			if (!userStore.user) {
+				isUserError.value = true
+				console.warn('Failed to get broski user information')
+			}
 		}
 
 		const tryStartMining = async () => {
