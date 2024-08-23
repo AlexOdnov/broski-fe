@@ -79,6 +79,14 @@ export const useUserStore = defineStore('user', () => {
 		})
 	}
 
+	const startMining = async () => {
+		try {
+			await api.startMinig({ username: tgStore.username })
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	return {
 		user,
 		userTickets,
@@ -88,6 +96,7 @@ export const useUserStore = defineStore('user', () => {
 		loadUser,
 		changeUserScore,
 		changeUserTickets,
-		claimRefBonus
+		claimRefBonus,
+		startMining
 	}
 })

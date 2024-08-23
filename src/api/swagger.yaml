@@ -192,3 +192,22 @@ paths:
           description: Successful response
           content:
             application/json: {}
+  /start/mining/:
+    post:
+      tags:
+        - default
+      summary: /start/mining/
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                username:
+                  type: string
+                  example: antonprox
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
