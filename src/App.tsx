@@ -82,6 +82,9 @@ export default defineComponent({
 								</RouterLink>
 								<RouterLink activeClass={styles.active} to="/referrals">
 									<div class={styles.navBtn}>
+										{Boolean(userStore.sumRefBonus) && (
+											<img class={styles.notice} src="/images/notice.svg" />
+										)}
 										<div class={[styles.letter, styles.rotateLeft]}>O</div>
 										<div class={[styles.letterShadow, styles.rotateLeft]}>O</div>
 										<span class={styles.btnText}>My Bros</span>

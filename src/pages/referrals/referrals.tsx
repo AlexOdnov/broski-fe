@@ -11,10 +11,6 @@ const ReferralsPage = defineComponent({
 
 		const isLinkCopied = ref(false)
 
-		const sumRefBonus = computed(() =>
-			userStore.referals.reduce((acc, el) => acc + Number(el.bonus), 0)
-		)
-
 		const copyButtonProps = computed(
 			(): {
 				mod: ButtonMod
@@ -39,10 +35,10 @@ const ReferralsPage = defineComponent({
 				disabled?: boolean
 				whenClick: () => void
 			} => {
-				return sumRefBonus.value
+				return userStore.sumRefBonus
 					? {
 							mod: 'inverse',
-							text: `Claim ${sumRefBonus.value} $BRO`,
+							text: `Claim ${userStore.sumRefBonus} $BRO`,
 							whenClick: userStore.claimRefBonus
 						}
 					: {
