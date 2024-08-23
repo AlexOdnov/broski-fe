@@ -3,17 +3,22 @@ import { useRoute } from 'vue-router'
 
 import styles from './styles.module.css'
 import { useTasksStore } from '@/stores/tasks'
+import { useTgSdkStore } from '@/stores/tg-sdk'
 
 const TaskPage = defineComponent({
 	name: 'TaskPage',
 	setup: () => {
 		const route = useRoute()
 		const tasksStore = useTasksStore()
+		const tgStore = useTgSdkStore()
+
 		const taskId = computed(() => +route.params.taskId)
 		const task = computed(() => tasksStore.tasks.find((t) => t.id === taskId.value))
+
 		const whenStartClicked = async () => {
 			await tasksStore.setTaskDone(taskId.value)
-			window.open(task.value?.links, '_blank')
+
+			tgStore.openLink(task.value?.links)
 		}
 		return () => (
 			<div class={styles.taskWrapper}>

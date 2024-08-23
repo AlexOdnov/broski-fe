@@ -10,21 +10,18 @@ const TasksPage = defineComponent({
 	setup() {
 		const router = useRouter()
 		const tasksStore = useTasksStore()
-		const uncompletedTasks = computed(() => tasksStore.tasks.filter((t) => !t.complete))
-		const completedTasks = computed(() => tasksStore.tasks.filter((t) => t.complete))
 		const taskSelected = (selectedTaskId: number) => {
-			console.log('task selected: ', selectedTaskId)
 			router.push({ name: 'task', params: { taskId: selectedTaskId } })
 		}
 		return () => (
 			<div>
 				<div class={styles.tasks}>
 					<span class={styles.listTitle}>Tasks</span>
-					{uncompletedTasks.value.map((task) => {
+					{tasksStore.uncompletedTasks.map((task) => {
 						return <TaskListItem task={task} whenTaskSelected={taskSelected} />
 					})}
 					<span class={[styles.listTitle, styles.opacity]}>Completed</span>
-					{completedTasks.value.map((task) => {
+					{tasksStore.completedTasks.map((task) => {
 						return <TaskListItem task={task} whenTaskSelected={taskSelected} />
 					})}
 				</div>

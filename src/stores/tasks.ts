@@ -3,11 +3,15 @@ import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
 import type { TasksCreateResponseItem } from '@/api/responseTypes'
 import { useTgSdkStore } from './tg-sdk'
+import { computed } from 'vue'
 export const useTasksStore = defineStore('tasks', () => {
 	const tgStore = useTgSdkStore()
 	const api = useApi()
 
 	const [tasks, setTasks] = useState<TasksCreateResponseItem[]>([])
+
+	const uncompletedTasks = computed(() => tasks.value.filter((t) => !t.complete))
+	const completedTasks = computed(() => tasks.value.filter((t) => t.complete))
 
 	const getTasks = async () => {
 		const response = await api.getTasks({ username: tgStore.username })
@@ -30,6 +34,8 @@ export const useTasksStore = defineStore('tasks', () => {
 
 	return {
 		tasks,
+		uncompletedTasks,
+		completedTasks,
 		getTasks,
 		setTaskDone
 	}

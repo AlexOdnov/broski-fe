@@ -75,6 +75,9 @@ export default defineComponent({
 								</RouterLink>
 								<RouterLink activeClass={styles.active} to="/tasks">
 									<div class={styles.navBtn}>
+										{Boolean(tasksStore.uncompletedTasks.length) && (
+											<img class={styles.notice} src="/images/notice.svg" />
+										)}
 										<div class={[styles.letter, styles.rotateRight]}>R</div>
 										<div class={[styles.letterShadow, styles.rotateRight]}>R</div>
 										<span class={styles.btnText}>Earn</span>
