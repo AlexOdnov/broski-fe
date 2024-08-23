@@ -22,8 +22,7 @@ export default defineComponent({
 		const isUserCanMining = computed(() => {
 			if (!user.value?.start_mining) return true
 			return (
-				new Date().getTime() - new Date(user.value?.start_mining).getTime() >=
-				1 * 1000 * 60 * 60 * 6 // 6 часов
+				new Date().getTime() - new Date(user.value?.start_mining).getTime() >= 1000 * 60 * 60 * 6 // 6 часов
 			)
 		})
 		const onCreated = async () => {
@@ -42,7 +41,7 @@ export default defineComponent({
 		}
 
 		const tryStartMining = async () => {
-			if(isUserCanMining.value) {
+			if (isUserCanMining.value) {
 				await userStore.startMining()
 			}
 		}
@@ -90,7 +89,9 @@ export default defineComponent({
 								<div class={styles.navBtn} onClick={tryStartMining}>
 									{isUserCanMining.value && <img class={styles.notice} src="/images/notice.svg" />}
 									<img class={styles.btnImg} src="/images/pickaxe.svg" />
-									<span class={[styles.btnText, isUserCanMining.value && styles.yellow]}>Claim</span>
+									<span class={[styles.btnText, isUserCanMining.value && styles.yellow]}>
+										Claim
+									</span>
 								</div>
 							</nav>
 						</footer>
