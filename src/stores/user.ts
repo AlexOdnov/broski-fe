@@ -16,6 +16,8 @@ export const useUserStore = defineStore('user', () => {
 
 	const userTickets = computed(() => user.value?.tickets || 0)
 	const userScore = computed(() => user.value?.score || 0)
+	const referals = computed(() => user.value?.referals || [])
+	const sumRefBonus = computed(() => referals.value.reduce((acc, el) => acc + Number(el.bonus), 0))
 
 	const setUserProperty = <T extends keyof UserCreateResponse>(
 		key: T,
@@ -83,13 +85,39 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const claimRefBonus = async () => {
+		try {
+			await api.claimRefBonus({
+				username: tgStore.username
+			})
+			setUserProperty(
+				'referals',
+				referals.value.map((el) => ({ ...el, bonus: 0 }))
+			)
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
+	const startMining = async () => {
+		try {
+			await api.startMinig({ username: tgStore.username })
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	return {
 		user,
 		userTickets,
 		userScore,
 		isLoading,
+		referals,
+		sumRefBonus,
 		loadUser,
 		changeUserScore,
-		changeUserTickets
+		changeUserTickets,
+		claimRefBonus,
+		startMining
 	}
 })

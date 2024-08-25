@@ -8,6 +8,10 @@
 	cursor: pointer;
 }
 
+.button[disabled] {
+	cursor: default;
+}
+
 .sizeSm {
 	padding: 5px 15px;
 	height: 28px;

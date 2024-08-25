@@ -4,19 +4,23 @@ import {
 	type TasksCreatePayload,
 	type ScoreCreatePayload,
 	type TicketsCreatePayload,
-	type TasksCreateBody
+	type TasksCreateBody,
+	type RefClaimCreatePayload,
+	type MiningCreatePayload
 } from './generatedApi'
 import type { UserCreateResponse, TasksCreateResponse } from './responseTypes'
 
-const apiInstance = new Api()
+const apiInstance = new Api({
+	baseURL: window.appConfig.baseUrl
+})
 
 export const useApi = () => {
 	const getUser = async (payload: UserCreatePayload): Promise<UserCreateResponse> => {
 		return (await apiInstance.get.userCreate(payload)) as unknown as UserCreateResponse
 	}
 
-	const getTasks = async (payload: TasksCreatePayload): Promise<TasksCreateResponse[]> => {
-		return (await apiInstance.get.tasksCreate(payload)) as unknown as TasksCreateResponse[]
+	const getTasks = async (payload: TasksCreatePayload): Promise<TasksCreateResponse> => {
+		return (await apiInstance.get.tasksCreate(payload)) as unknown as TasksCreateResponse
 	}
 
 	const addScore = async (payload: ScoreCreatePayload) => {
@@ -39,6 +43,13 @@ export const useApi = () => {
 		return await apiInstance.done.tasksCreate(payload)
 	}
 
+	const claimRefBonus = async (payload: RefClaimCreatePayload) => {
+		return await apiInstance.get.refClaimCreate(payload)
+	}
+	const startMinig = async (payload: MiningCreatePayload) => {
+		return await apiInstance.start.miningCreate(payload)
+	}
+
 	return {
 		getUser,
 		getTasks,
@@ -46,6 +57,8 @@ export const useApi = () => {
 		addTickets,
 		removeScore,
 		removeTickets,
-		doneTask
+		doneTask,
+		claimRefBonus,
+		startMinig
 	}
 }

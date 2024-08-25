@@ -1,0 +1,71 @@
+.task {
+	font-family: 'Roboto';
+	font-weight: 400;
+	border: 1px solid #35332e;
+	border-radius: 10px;
+	padding: 5px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.text {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.chevronRight {
+	background-color: #232323;
+	width: 25px;
+	height: 25px;
+	border-radius: 300px;
+	display: flex;
+	align-items: center;
+}
+
+.chevronRight img {
+	margin: 0 auto;
+	width: 7px;
+	height: 11px;
+}
+
+.icon {
+	width: 12px;
+	height: 12px;
+}
+
+.revard {
+	font-size: 12px;
+	line-height: 12px;
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}
+
+.yellow {
+	color: #ffb800;
+}
+
+.title {
+	font-size: 18px;
+	line-height: 18px;
+}
+
+.duration {
+	color: #909090;
+	font-size: 10px;
+	line-height: 10px;
+}
+
+.opacity {
+	opacity: 25%;
+}
+
+.ok {
+	font-size: 14px;
+	line-height: 14px;
+	text-align: center;
+	margin: 0 auto;
+}

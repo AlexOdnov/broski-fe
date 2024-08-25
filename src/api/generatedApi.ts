@@ -61,6 +61,16 @@ export interface TicketsCreateBody {
 	tickets: number
 }
 
+export interface RefClaimCreatePayload {
+	/** @example "antonprox" */
+	username: string
+}
+
+export interface MiningCreatePayload {
+	/** @example "antonprox" */
+	username: string
+}
+
 import type {
 	AxiosInstance,
 	AxiosRequestConfig,
@@ -257,6 +267,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				type: ContentType.FormData,
 				format: 'json',
 				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name RefClaimCreate
+		 * @summary /get/ref_claim/
+		 * @request POST:/get/ref_claim/
+		 */
+		refClaimCreate: (data: RefClaimCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/get/ref_claim/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.UrlEncoded,
+				format: 'json',
+				...params
 			})
 	}
 	done = {
@@ -348,6 +376,25 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				method: 'POST',
 				body: data,
 				type: ContentType.FormData,
+				format: 'json',
+				...params
+			})
+	}
+	start = {
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name MiningCreate
+		 * @summary /start/mining/
+		 * @request POST:/start/mining/
+		 */
+		miningCreate: (data: MiningCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/start/mining/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.UrlEncoded,
 				format: 'json',
 				...params
 			})
