@@ -137,8 +137,8 @@
 	width: 20px;
 	height: 20px;
 	position: absolute;
-	right: 5px;
-	top: 5px;
+	right: 2px;
+	top: 2px;
 }
 
 @media screen and (max-width: 370px) {
