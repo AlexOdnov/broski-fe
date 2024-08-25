@@ -95,7 +95,7 @@ export default defineComponent({
 								</RouterLink>
 								<div class={styles.navBtn} onClick={tryStartMining}>
 									{isUserCanMining.value && <img class={styles.notice} src="/images/notice.png" />}
-									<img class={styles.btnImg} src="/images/pickaxe.svg" />
+									<img class={styles.btnImg} src="/images/pickaxe.png" />
 									<span class={[styles.btnText, isUserCanMining.value && styles.yellow]}>
 										Claim
 									</span>
