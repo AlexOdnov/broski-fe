@@ -18,6 +18,17 @@ export const useTasksStore = defineStore('tasks', () => {
 		if (response?.tasks?.length > 0) {
 			setTasks(response.tasks)
 		}
+		setTasks([
+			{
+				id: 1,
+				description: 'asdsad sadasd sadasd asdasd asdas d',
+				points: 100,
+				tickets: 3,
+				duration: '100',
+				complete: false,
+				links: 'google.com'
+			}
+		])
 	}
 
 	const setTaskDone = async (taskId: number) => {
