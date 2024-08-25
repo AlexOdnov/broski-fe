@@ -76,7 +76,7 @@ export default defineComponent({
 								<RouterLink activeClass={styles.active} to="/tasks">
 									<div class={styles.navBtn}>
 										{Boolean(tasksStore.uncompletedTasks.length) && (
-											<img class={styles.notice} src="/images/notice.svg" />
+											<img class={styles.notice} src="/images/notice.png" />
 										)}
 										<div class={[styles.letter, styles.rotateRight]}>R</div>
 										<div class={[styles.letterShadow, styles.rotateRight]}>R</div>
@@ -86,7 +86,7 @@ export default defineComponent({
 								<RouterLink activeClass={styles.active} to="/referrals">
 									<div class={styles.navBtn}>
 										{Boolean(userStore.sumRefBonus) && (
-											<img class={styles.notice} src="/images/notice.svg" />
+											<img class={styles.notice} src="/images/notice.png" />
 										)}
 										<div class={[styles.letter, styles.rotateLeft]}>O</div>
 										<div class={[styles.letterShadow, styles.rotateLeft]}>O</div>
@@ -94,7 +94,7 @@ export default defineComponent({
 									</div>
 								</RouterLink>
 								<div class={styles.navBtn} onClick={tryStartMining}>
-									{isUserCanMining.value && <img class={styles.notice} src="/images/notice.svg" />}
+									{isUserCanMining.value && <img class={styles.notice} src="/images/notice.png" />}
 									<img class={styles.btnImg} src="/images/pickaxe.svg" />
 									<span class={[styles.btnText, isUserCanMining.value && styles.yellow]}>
 										Claim
