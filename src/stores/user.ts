@@ -70,57 +70,6 @@ export const useUserStore = defineStore('user', () => {
 		} catch (error) {
 			console.warn(error)
 		} finally {
-			setUser({
-				username: 'name',
-				score: 1000,
-				tickets: 5,
-				position: 1,
-				ref_code: 'code',
-				last_tap: '',
-				start_mining: '',
-				referals: [
-					{
-						username: 'name-1',
-						refs: 5,
-						bonus: 5000
-					},
-					{
-						username: 'name-2',
-						refs: 5,
-						bonus: 10
-					},
-					{
-						username: 'name-3',
-						refs: 5,
-						bonus: 0
-					},
-					{
-						username: 'name-4',
-						refs: 0,
-						bonus: 5000
-					},
-					{
-						username: 'name-5',
-						refs: 0,
-						bonus: 5000
-					},
-					{
-						username: 'name-6',
-						refs: 150,
-						bonus: 500000
-					},
-					{
-						username: 'name-7',
-						refs: 10,
-						bonus: 5000
-					},
-					{
-						username: 'name-8',
-						refs: 20,
-						bonus: 5000
-					}
-				]
-			})
 			setIsLoading(false)
 		}
 	}
