@@ -10,9 +10,14 @@
 			rel="stylesheet"
 		/>
 		<script>
-			fetch('/config.json').then(async (config) => {
-				window.appConfig = await config.json()
-			})
+			window.appConfig = {
+				baseUrl: 'https://bro-coin.ru',
+				botLink: 'https://t.me/itsbrocoinbot/BROSKI'
+			}
+
+			// fetch('/config.json').then(async (config) => {
+			// 	window.appConfig = await config.json()
+			// })
 		</script>
 		<script src="https://telegram.org/js/telegram-web-app.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
