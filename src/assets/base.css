@@ -11,3 +11,8 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	background-color: #141517;
 }
+
+html {
+	overscroll-behavior: none;
+	overflow: hidden;
+}
