@@ -1,7 +1,7 @@
 import { computed, defineComponent } from 'vue'
 
 import styles from './styles.module.css'
-import { GameStatus, INITIAL_ATTEMPTS_COUNT, useGameStore } from '@/stores/game'
+import { GameStatus, INITIAL_ATTEMPTS_COUNT, useGameStore, WIN_GAME_POINTS } from '@/stores/game'
 import {
 	UiButton,
 	type ButtonMod,
@@ -49,14 +49,14 @@ const GamePage = defineComponent({
 						}
 					case GameStatus.Win:
 						return {
-							text: 'CLAIM 100 $bro',
+							text: `CLAIM ${WIN_GAME_POINTS} $bro`,
 							mod: 'primary',
 							whenClick: gameStore.finishGame
 						}
 					case GameStatus.Lose:
 						return {
 							text: 'next time',
-							mod: 'secondary',
+							mod: 'inverse',
 							whenClick: gameStore.finishGame
 						}
 					case GameStatus.InProgress:
@@ -93,7 +93,7 @@ const GamePage = defineComponent({
 				) : (
 					<UiHeightPlaceholder height={'16px'} />
 				)}
-				<div class={styles.gameField}>
+				<div class={styles.gameField} onClick={gameStore.startGame}>
 					{gameStore.gameField.map((el, index) => (
 						<GameElement
 							placeholder={placeholders[index]}
