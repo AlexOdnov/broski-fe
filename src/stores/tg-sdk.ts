@@ -14,6 +14,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 
 	const initTgApp = () => {
 		tg.ready()
+		tg.expand()
 		tg.disableVerticalSwipes()
 	}
 
