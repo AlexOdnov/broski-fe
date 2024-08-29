@@ -70,6 +70,22 @@ export const useUserStore = defineStore('user', () => {
 		} catch (error) {
 			console.warn(error)
 		} finally {
+			setUser({
+				username: 'name',
+				score: 1000,
+				tickets: 2,
+				position: 1,
+				ref_code: 'code',
+				last_tap: '',
+				start_mining: '',
+				referals: [
+					{
+						username: 'name',
+						refs: 10,
+						bonus: 1000
+					}
+				]
+			})
 			setIsLoading(false)
 		}
 	}
