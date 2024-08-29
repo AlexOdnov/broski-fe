@@ -17,6 +17,7 @@ export interface UserCreateResponse {
 
 export interface TasksCreateResponseItem {
 	id: number
+	title: string
 	description: string
 	points: number
 	tickets: number

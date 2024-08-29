@@ -1,4 +1,4 @@
-import { computed, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 
 import styles from './styles.module.css'
 import { useTasksStore } from '@/stores/tasks'
@@ -20,10 +20,11 @@ const TasksPage = defineComponent({
 					{tasksStore.uncompletedTasks.map((task) => {
 						return <TaskListItem task={task} whenTaskSelected={taskSelected} />
 					})}
-					<span class={[styles.listTitle, styles.opacity]}>Completed</span>
-					{tasksStore.completedTasks.map((task) => {
-						return <TaskListItem task={task} whenTaskSelected={taskSelected} />
-					})}
+					{<span class={[styles.listTitle, styles.opacity]}>Completed</span>}
+					{tasksStore.completedTasks?.length > 0 &&
+						tasksStore.completedTasks.map((task) => {
+							return <TaskListItem task={task} whenTaskSelected={taskSelected} />
+						})}
 				</div>
 			</div>
 		)

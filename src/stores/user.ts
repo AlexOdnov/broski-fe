@@ -11,6 +11,7 @@ export const useUserStore = defineStore('user', () => {
 	const tgStore = useTgSdkStore()
 
 	const [isLoading, setIsLoading] = useState<boolean>(false)
+	const [timeBeforeMiningLeftString, setTimeDeforeMiningString] = useState<string | null>(null)
 
 	const [user, setUser] = useState<UserCreateResponse | null>(null)
 
@@ -96,6 +97,19 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const lastUserMiningTimeInMs = computed(() => new Date(user.value?.start_mining ?? 0).getTime())
+
+	const startUpdateMiningString = () => {
+		const currentTimeInMs = new Date().getTime()
+		const passedTimeInMs = currentTimeInMs - lastUserMiningTimeInMs.value
+		if( passedTimeInMs  >= 1000 * 60 * 60 * 6) {
+			setTimeDeforeMiningString(msToTime(passedTimeInMs))
+			setTimeout(startUpdateMiningString, 60000) // раз в минуту
+		} else {
+			setTimeDeforeMiningString(null)
+		}
+	}
+
 	return {
 		user,
 		userTickets,
@@ -107,6 +121,8 @@ export const useUserStore = defineStore('user', () => {
 		changeUserScore,
 		changeUserTickets,
 		claimRefBonus,
-		startMining
+		startMining,
+		timeBeforeMiningLeftString,
+		startUpdateMiningString
 	}
 })
