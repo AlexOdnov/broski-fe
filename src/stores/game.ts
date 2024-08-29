@@ -16,9 +16,11 @@ export enum GameStatus {
 	Win = 'win'
 }
 
-export const INITIAL_ATTEMPTS_COUNT = 4
+export const INITIAL_ATTEMPTS_COUNT = 6
 
 const WIN_GAME_ELEMENTS_COUNT = 3
+
+export const WIN_GAME_POINTS = 200
 
 const createEmptyGameElement = (): IGameElement => ({
 	isOpen: false,
@@ -66,7 +68,7 @@ export const useGameStore = defineStore('game', () => {
 		}
 
 		if (gameStatus.value === GameStatus.Win) {
-			userStore.changeUserScore(100)
+			userStore.changeUserScore(WIN_GAME_POINTS)
 		}
 
 		setGameStatus(GameStatus.Idle)
