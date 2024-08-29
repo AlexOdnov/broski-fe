@@ -26,7 +26,7 @@ export const useTasksStore = defineStore('tasks', () => {
 				tickets: 3,
 				duration: '100',
 				complete: false,
-				links: 'google.com'
+				links: 'https://google.com'
 			}
 		])
 	}
