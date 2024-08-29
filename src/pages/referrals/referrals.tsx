@@ -70,7 +70,7 @@ const ReferralsPage = defineComponent({
 						<p class={styles.headerLight}>
 							<img class={styles.icon} src="/images/star.png" /> Premium: additionally
 							<span class={styles.yellow}>50 $BRO</span> +
-							<img class={styles.icon} src="/images/ticket.png" /> 3 Tickets
+							<img class={styles.icon} src="/images/ticket.png" /> 3 Tickets (Soon)
 						</p>
 					</div>
 					<UiButton size={'sm'} {...copyButtonProps.value} whenClick={whenCopyLink} />

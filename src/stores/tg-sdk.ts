@@ -9,10 +9,13 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 	const userId = computed(() => user.value?.id || 0)
 	const startParam = computed(() => tg.initDataUnsafe.start_param)
 	const openLink = (url?: string) => {
-		url && tg.openLink(url)
+		url && tg.openTelegramLink(url)
 	}
 
-	const initTgApp = () => tg.ready()
+	const initTgApp = () => {
+		tg.ready()
+		tg.disableVerticalSwipes()
+	}
 
 	return {
 		user,

@@ -56,7 +56,7 @@ const GamePage = defineComponent({
 					case GameStatus.Lose:
 						return {
 							text: 'next time',
-							mod: 'secondary',
+							mod: 'inverse',
 							whenClick: gameStore.finishGame
 						}
 					case GameStatus.InProgress:
@@ -93,7 +93,7 @@ const GamePage = defineComponent({
 				) : (
 					<UiHeightPlaceholder height={'16px'} />
 				)}
-				<div class={styles.gameField}>
+				<div class={styles.gameField} onClick={gameStore.startGame}>
 					{gameStore.gameField.map((el, index) => (
 						<GameElement
 							placeholder={placeholders[index]}
