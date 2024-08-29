@@ -26,7 +26,7 @@ export const useTasksStore = defineStore('tasks', () => {
 				tickets: 3,
 				duration: '100',
 				complete: false,
-				links: 'https://google.com'
+				links: 'https://t.me/itsbrocoin'
 			}
 		])
 	}
