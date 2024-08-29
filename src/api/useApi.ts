@@ -16,11 +16,11 @@ const apiInstance = new Api({
 
 export const useApi = () => {
 	const getUser = async (payload: UserCreatePayload): Promise<UserCreateResponse> => {
-		return (await apiInstance.get.userCreate(payload)) as unknown as UserCreateResponse
+		return (await apiInstance.get.userCreate(payload)).data as unknown as UserCreateResponse
 	}
 
 	const getTasks = async (payload: TasksCreatePayload): Promise<TasksCreateResponse> => {
-		return (await apiInstance.get.tasksCreate(payload)) as unknown as TasksCreateResponse
+		return (await apiInstance.get.tasksCreate(payload)).data as unknown as TasksCreateResponse
 	}
 
 	const addScore = async (payload: ScoreCreatePayload) => {
