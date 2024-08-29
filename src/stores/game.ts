@@ -20,7 +20,7 @@ export const INITIAL_ATTEMPTS_COUNT = 6
 
 const WIN_GAME_ELEMENTS_COUNT = 3
 
-const WIN_GAME_POINTS = 200
+export const WIN_GAME_POINTS = 200
 
 const createEmptyGameElement = (): IGameElement => ({
 	isOpen: false,

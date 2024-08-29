@@ -1,7 +1,7 @@
 import { computed, defineComponent } from 'vue'
 
 import styles from './styles.module.css'
-import { GameStatus, INITIAL_ATTEMPTS_COUNT, useGameStore } from '@/stores/game'
+import { GameStatus, INITIAL_ATTEMPTS_COUNT, useGameStore, WIN_GAME_POINTS } from '@/stores/game'
 import {
 	UiButton,
 	type ButtonMod,
@@ -49,7 +49,7 @@ const GamePage = defineComponent({
 						}
 					case GameStatus.Win:
 						return {
-							text: 'CLAIM 100 $bro',
+							text: `CLAIM ${WIN_GAME_POINTS} $bro`,
 							mod: 'primary',
 							whenClick: gameStore.finishGame
 						}
