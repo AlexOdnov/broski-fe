@@ -12,7 +12,10 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 		url && tg.openTelegramLink(url)
 	}
 
-	const initTgApp = () => tg.ready()
+	const initTgApp = () => {
+		tg.ready()
+		tg.disableVerticalSwipes()
+	}
 
 	return {
 		user,
