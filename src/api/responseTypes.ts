@@ -13,7 +13,7 @@ export interface UserCreateResponse {
 	position: number
 	tickets: number
 	left_mining: string
-	mining_done: boolean
+	mining_claim: boolean
 }
 
 export interface TasksCreateResponseItem {
