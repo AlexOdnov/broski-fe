@@ -14,6 +14,7 @@ export const useUserStore = defineStore('user', () => {
 	const [timeBeforeMiningLeftString, setTimeDeforeMiningString] = useState<string | null>(null)
 
 	const [user, setUser] = useState<UserCreateResponse | null>(null)
+	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<Date | null>(null)
 
 	const userTickets = computed(() => user.value?.tickets || 0)
 	const userScore = computed(() => user.value?.score || 0)
@@ -26,6 +27,7 @@ export const useUserStore = defineStore('user', () => {
 	) => {
 		if (user.value) {
 			setUser({ ...user.value, [key]: value })
+			setTimeWhenUserUpdated(new Date())
 		}
 	}
 
@@ -123,6 +125,6 @@ export const useUserStore = defineStore('user', () => {
 		claimRefBonus,
 		startMining,
 		timeBeforeMiningLeftString,
-		startUpdateMiningString
+		startUpdateMiningString,
 	}
 })
