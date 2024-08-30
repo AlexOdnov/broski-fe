@@ -13,6 +13,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [timeBeforeMiningLeftString, setTimeDeforeMiningString] = useState<string | null>(null)
+	const [timeoutID, setTimeoutID] = useState<number | null>(null)
 
 	const [user, setUser] = useState<UserCreateResponse | null>(null)
 	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<number | null>(null)
@@ -85,6 +86,7 @@ export const useUserStore = defineStore('user', () => {
 			})
 			setUser(userResponse)
 			setTimeWhenUserUpdated(new Date().getTime())
+			startUpdateMiningString()
 		} catch (error) {
 			console.warn(error)
 		} finally {
@@ -123,6 +125,9 @@ export const useUserStore = defineStore('user', () => {
 	}
 
 	const startUpdateMiningString = () => {
+		if (timeoutID.value) {
+			clearTimeout(timeoutID.value)
+		}
 		const currentTimeInMs = new Date().getTime()
 		if (!timeWhenClaimEnable.value) {
 			setTimeDeforeMiningString(null)
@@ -134,7 +139,7 @@ export const useUserStore = defineStore('user', () => {
 			} else {
 				setTimeDeforeMiningString(msToTime(passedTimeInMs))
 			}
-			setTimeout(startUpdateMiningString, 60000) // раз в минуту
+			setTimeoutID(setTimeout(startUpdateMiningString, 60000)) // раз в минуту
 		}
 	}
 
