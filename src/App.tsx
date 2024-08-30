@@ -26,8 +26,6 @@ export default defineComponent({
 			)
 		})
 		const onCreated = async () => {
-			console.log('ci-cd test')
-
 			tgStore.initTgApp()
 			if (!tgStore.user) {
 				isUserError.value = true

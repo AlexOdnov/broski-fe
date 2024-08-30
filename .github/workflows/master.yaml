@@ -16,15 +16,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        id: cache-node-modules
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
       - name: Install dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: |
           npm ci
           git reset --hard
