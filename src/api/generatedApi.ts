@@ -14,8 +14,10 @@ export interface UserCreatePayload {
 	username: string
 	/** @example "624161982" */
 	user_id: number
-	/** @example "None" */
+	/** @example "624161982" */
 	ref_code?: string
+	/** @example true */
+	premium?: boolean
 }
 
 export interface TasksCreatePayload {
@@ -67,6 +69,11 @@ export interface RefClaimCreatePayload {
 }
 
 export interface MiningCreatePayload {
+	/** @example "antonprox" */
+	username: string
+}
+
+export interface MiningCreateBody {
 	/** @example "antonprox" */
 	username: string
 }
@@ -302,6 +309,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				method: 'POST',
 				body: data,
 				type: ContentType.FormData,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name MiningCreate
+		 * @summary /done/mining/
+		 * @request POST:/done/mining/
+		 */
+		miningCreate: (data: MiningCreateBody, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/done/mining/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.UrlEncoded,
 				format: 'json',
 				...params
 			})
