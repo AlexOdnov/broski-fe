@@ -9,7 +9,7 @@ export const TicketsCounter = defineComponent({
 
 		return () => (
 			<p class={styles.ticketsCounter}>
-				{userStore.userTickets ? (
+				{userStore.userTickets > 0 ? (
 					<>
 						You got <span class={styles.ticketsExist}>{userStore.userTickets}</span>
 						<img class={styles.ticketImg} src="/images/ticket.png" />
