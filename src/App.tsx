@@ -90,16 +90,24 @@ export default defineComponent({
 										<span class={styles.btnText}>My Bros</span>
 									</div>
 								</RouterLink>
-								<div class={[styles.navBtn, timeBeforeMiningLeft.value && styles.opacity]} onClick={tryStartMining}>
-									{(isRewardAvailable.value || (!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && <img class={styles.notice} src="/images/notice.png" />}
+								<div
+									class={[styles.navBtn, timeBeforeMiningLeft.value && styles.opacity]}
+									onClick={tryStartMining}
+								>
+									{(isRewardAvailable.value ||
+										(!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && (
+										<img class={styles.notice} src="/images/notice.png" />
+									)}
 									<img class={styles.btnImg} src="/images/pickaxe.png" />
-									{isRewardAvailable.value && <span class={[styles.btnText, styles.yellow]}>
-										Claim
-									</span>}
-									{!isRewardAvailable.value && !timeBeforeMiningLeft.value && <span class={[styles.btnText, styles.yellow]}>
-										Farm
-									</span>}
-									{!isRewardAvailable.value && timeBeforeMiningLeft.value && <span class={styles.time}>{timeBeforeMiningLeft.value}</span>}
+									{isRewardAvailable.value && (
+										<span class={[styles.btnText, styles.yellow]}>Claim</span>
+									)}
+									{!isRewardAvailable.value && !timeBeforeMiningLeft.value && (
+										<span class={[styles.btnText, styles.yellow]}>Farm</span>
+									)}
+									{!isRewardAvailable.value && timeBeforeMiningLeft.value && (
+										<span class={styles.time}>{timeBeforeMiningLeft.value}</span>
+									)}
 								</div>
 							</nav>
 						</footer>

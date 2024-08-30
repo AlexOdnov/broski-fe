@@ -21,6 +21,7 @@ export const useTasksStore = defineStore('tasks', () => {
 		setTasks([
 			{
 				id: 1,
+				title: 'qeweqw',
 				description: 'asdsad sadasd sadasd asdasd asdas d',
 				points: 100,
 				tickets: 3,

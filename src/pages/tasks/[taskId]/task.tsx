@@ -58,7 +58,11 @@ const TaskPage = defineComponent({
 						</button>
 						{!task.value?.complete && (
 							<button
-								class={[styles.button, styles.greyBtn, isCheckingDisabled.value && styles.btnDisabled]}
+								class={[
+									styles.button,
+									styles.greyBtn,
+									isCheckingDisabled.value && styles.btnDisabled
+								]}
 								onClick={whenCheckClicked}
 								disabled={isCheckingDisabled.value}
 							>

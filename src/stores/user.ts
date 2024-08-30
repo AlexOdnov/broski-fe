@@ -18,9 +18,13 @@ export const useUserStore = defineStore('user', () => {
 	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<number | null>(null)
 
 	const timeWhenClaimEnable = computed(() => {
-		if(!timeWhenUserUpdated.value || !user.value) { return null }
-		const delta = user.value.left_mining.split(':').map(x => +x)
-		if(delta.length !== 2 || !isFinite(delta[0]) || !isFinite(delta[1])) { return null }
+		if (!timeWhenUserUpdated.value || !user.value) {
+			return null
+		}
+		const delta = user.value.left_mining.split(':').map((x) => +x)
+		if (delta.length !== 2 || !isFinite(delta[0]) || !isFinite(delta[1])) {
+			return null
+		}
 		let time = addHours(timeWhenUserUpdated.value, delta[0])
 		time = addMinutes(time, delta[1])
 		return time
@@ -91,7 +95,8 @@ export const useUserStore = defineStore('user', () => {
 				position: 1,
 				ref_code: 'code',
 				last_tap: '',
-				start_mining: '',
+				left_mining: '',
+				mining_done: false,
 				referals: [
 					{
 						username: 'name',
@@ -128,10 +133,9 @@ export const useUserStore = defineStore('user', () => {
 
 	const startUpdateMiningString = () => {
 		const currentTimeInMs = new Date().getTime()
-		if(!timeWhenClaimEnable.value) {
+		if (!timeWhenClaimEnable.value) {
 			setTimeDeforeMiningString(null)
-		}
-		else {
+		} else {
 			const passedTimeInMs = timeWhenClaimEnable.value - currentTimeInMs
 			setTimeDeforeMiningString(msToTime(passedTimeInMs))
 			setTimeout(startUpdateMiningString, 60000) // раз в минуту
@@ -151,6 +155,6 @@ export const useUserStore = defineStore('user', () => {
 		claimRefBonus,
 		startMining,
 		timeBeforeMiningLeftString,
-		startUpdateMiningString,
+		startUpdateMiningString
 	}
 })
