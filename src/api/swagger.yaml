@@ -26,7 +26,10 @@ paths:
                   required: true
                 ref_code:
                   type: string
-                  example: None
+                  example: '624161982'
+                premium:
+                  type: boolean
+                  example: true
       responses:
         '200':
           description: Successful response
