@@ -25,6 +25,7 @@ export interface TasksCreateResponseItem {
 	duration: string
 	links: string
 	complete: boolean
+	image: string
 }
 
 export interface TasksCreateResponse {

@@ -1,4 +1,6 @@
 .app {
+	display: flex;
+	flex-direction: column;
 	position: relative;
 	font-family: 'Roboto';
 	height: 100dvh;
@@ -17,6 +19,7 @@
 .pageContainer {
 	flex-grow: 1;
 	width: 100%;
+	overflow-y: auto;
 }
 
 .page {
