@@ -37,9 +37,14 @@ export default defineComponent({
 			}
 		}
 
-		const tryStartMining = async () => {
-			if (!timeBeforeMiningLeft.value && !isRewardAvailable.value) {
+		const whenMiningClicked = async () => {
+			if (!isRewardAvailable.value && !timeBeforeMiningLeft.value) {
 				await userStore.startMining()
+				await userStore.loadUser()
+				return
+			}
+			if (isRewardAvailable.value) {
+				await userStore.doneMining()
 				await userStore.loadUser()
 			}
 		}
@@ -90,7 +95,7 @@ export default defineComponent({
 										<span class={styles.btnText}>My Bros</span>
 									</div>
 								</RouterLink>
-								<div class={[styles.navBtn, timeBeforeMiningLeft.value && styles.opacity]} onClick={tryStartMining}>
+								<div class={[styles.navBtn, timeBeforeMiningLeft.value && styles.opacity]} onClick={whenMiningClicked}>
 									{(isRewardAvailable.value || (!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && <img class={styles.notice} src="/images/notice.png" />}
 									<img class={styles.btnImg} src="/images/pickaxe.png" />
 									{isRewardAvailable.value && <span class={[styles.btnText, styles.yellow]}>

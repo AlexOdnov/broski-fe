@@ -10,14 +10,14 @@
  */
 
 export interface UserCreatePayload {
-	/** @example "antonprox" */
-	username: string
-	/** @example "624161982" */
-	user_id: number
-	/** @example "624161982" */
-	ref_code?: string
-	/** @example true */
-	premium?: boolean
+  /** @example "antonprox" */
+  username: string
+  /** @example "624161982" */
+  user_id: number
+  /** @example "624161982" */
+  ref_code?: string
+  /** @example true */
+  premium?: boolean
 }
 
 export interface TasksCreatePayload {
@@ -74,8 +74,8 @@ export interface MiningCreatePayload {
 }
 
 export interface MiningCreateBody {
-	/** @example "antonprox" */
-	username: string
+  /** @example "antonprox" */
+  username: string
 }
 
 import type {
@@ -276,79 +276,79 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params
       }),
 
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name RefClaimCreate
-		 * @summary /get/ref_claim/
-		 * @request POST:/get/ref_claim/
-		 */
-		refClaimCreate: (data: RefClaimCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/get/ref_claim/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.UrlEncoded,
-				format: 'json',
-				...params
-			})
-	}
-	done = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name TasksCreate
-		 * @summary /done/tasks/
-		 * @request POST:/done/tasks/
-		 */
-		tasksCreate: (data: TasksCreateBody, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/done/tasks/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			}),
+    /**
+     * No description
+     *
+     * @tags default
+     * @name RefClaimCreate
+     * @summary /get/ref_claim/
+     * @request POST:/get/ref_claim/
+     */
+    refClaimCreate: (data: RefClaimCreatePayload, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/get/ref_claim/`,
+        method: 'POST',
+        body: data,
+        type: ContentType.UrlEncoded,
+        format: 'json',
+        ...params
+      })
+  }
+  done = {
+    /**
+     * No description
+     *
+     * @tags default
+     * @name TasksCreate
+     * @summary /done/tasks/
+     * @request POST:/done/tasks/
+     */
+    tasksCreate: (data: TasksCreateBody, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/done/tasks/`,
+        method: 'POST',
+        body: data,
+        type: ContentType.FormData,
+        format: 'json',
+        ...params
+      }),
 
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name MiningCreate
-		 * @summary /done/mining/
-		 * @request POST:/done/mining/
-		 */
-		miningCreate: (data: MiningCreateBody, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/done/mining/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.UrlEncoded,
-				format: 'json',
-				...params
-			})
-	}
-	add = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name ScoreCreate
-		 * @summary /add/score/
-		 * @request POST:/add/score/
-		 */
-		scoreCreate: (data: ScoreCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/add/score/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			}),
+    /**
+     * No description
+     *
+     * @tags default
+     * @name MiningCreate
+     * @summary /done/mining/
+     * @request POST:/done/mining/
+     */
+    miningCreate: (data: MiningCreateBody, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/done/mining/`,
+        method: 'POST',
+        body: data,
+        type: ContentType.UrlEncoded,
+        format: 'json',
+        ...params
+      })
+  }
+  add = {
+    /**
+     * No description
+     *
+     * @tags default
+     * @name ScoreCreate
+     * @summary /add/score/
+     * @request POST:/add/score/
+     */
+    scoreCreate: (data: ScoreCreatePayload, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/add/score/`,
+        method: 'POST',
+        body: data,
+        type: ContentType.FormData,
+        format: 'json',
+        ...params
+      }),
 
     /**
      * No description
