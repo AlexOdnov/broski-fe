@@ -12,11 +12,13 @@ export interface UserCreateResponse {
 	ref_code: string
 	position: number
 	tickets: number
-	start_mining: string
+	left_mining: string
+	mining_done: boolean
 }
 
 export interface TasksCreateResponseItem {
 	id: number
+	title: string
 	description: string
 	points: number
 	tickets: number

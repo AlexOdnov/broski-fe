@@ -18,13 +18,9 @@ export default defineComponent({
 			return userStore.isLoading || isUserError.value
 		})
 
-		const user = computed(() => userStore.user)
-		const isUserCanMining = computed(() => {
-			if (!user.value?.start_mining) return true
-			return (
-				new Date().getTime() - new Date(user.value?.start_mining).getTime() >= 1000 * 60 * 60 * 6 // 6 часов
-			)
-		})
+		const isRewardAvailable = computed(() => userStore.user?.mining_done)
+		const timeBeforeMiningLeft = computed(() => userStore.timeBeforeMiningLeftString)
+
 		const onCreated = async () => {
 			tgStore.initTgApp()
 			if (!tgStore.user) {
@@ -34,6 +30,7 @@ export default defineComponent({
 			}
 			await userStore.loadUser()
 			await tasksStore.getTasks()
+			userStore.startUpdateMiningString()
 			if (!userStore.user) {
 				isUserError.value = true
 				console.warn('Failed to get broski user information')
@@ -41,7 +38,7 @@ export default defineComponent({
 		}
 
 		const tryStartMining = async () => {
-			if (isUserCanMining.value) {
+			if (!timeBeforeMiningLeft.value && !isRewardAvailable.value) {
 				await userStore.startMining()
 				await userStore.loadUser()
 			}
@@ -93,12 +90,16 @@ export default defineComponent({
 										<span class={styles.btnText}>My Bros</span>
 									</div>
 								</RouterLink>
-								<div class={styles.navBtn} onClick={tryStartMining}>
-									{isUserCanMining.value && <img class={styles.notice} src="/images/notice.png" />}
+								<div class={[styles.navBtn, timeBeforeMiningLeft.value && styles.opacity]} onClick={tryStartMining}>
+									{(isRewardAvailable.value || (!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && <img class={styles.notice} src="/images/notice.png" />}
 									<img class={styles.btnImg} src="/images/pickaxe.png" />
-									<span class={[styles.btnText, isUserCanMining.value && styles.yellow]}>
+									{isRewardAvailable.value && <span class={[styles.btnText, styles.yellow]}>
 										Claim
-									</span>
+									</span>}
+									{!isRewardAvailable.value && !timeBeforeMiningLeft.value && <span class={[styles.btnText, styles.yellow]}>
+										Farm
+									</span>}
+									{!isRewardAvailable.value && timeBeforeMiningLeft.value && <span class={styles.time}>{timeBeforeMiningLeft.value}</span>}
 								</div>
 							</nav>
 						</footer>
