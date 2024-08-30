@@ -5,6 +5,7 @@ import { useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
 import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/generatedApi'
 import { computed } from 'vue'
+import { addHours, addMinutes, msToTime } from '@/utils/date'
 
 export const useUserStore = defineStore('user', () => {
 	const api = useApi()
@@ -14,7 +15,16 @@ export const useUserStore = defineStore('user', () => {
 	const [timeBeforeMiningLeftString, setTimeDeforeMiningString] = useState<string | null>(null)
 
 	const [user, setUser] = useState<UserCreateResponse | null>(null)
-	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<Date | null>(null)
+	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<number | null>(null)
+
+	const timeWhenClaimEnable = computed(() => {
+		if(!timeWhenUserUpdated.value || !user.value) { return null }
+		const delta = user.value.left_mining.split(':').map(x => +x)
+		if(delta.length !== 2 || !isFinite(delta[0]) || !isFinite(delta[1])) { return null }
+		let time = addHours(timeWhenUserUpdated.value, delta[0])
+		time = addMinutes(time, delta[1])
+		return time
+	})
 
 	const userTickets = computed(() => user.value?.tickets || 0)
 	const userScore = computed(() => user.value?.score || 0)
@@ -27,7 +37,7 @@ export const useUserStore = defineStore('user', () => {
 	) => {
 		if (user.value) {
 			setUser({ ...user.value, [key]: value })
-			setTimeWhenUserUpdated(new Date())
+			setTimeWhenUserUpdated(new Date().getTime())
 		}
 	}
 
@@ -99,16 +109,15 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
-	const lastUserMiningTimeInMs = computed(() => new Date(user.value?.start_mining ?? 0).getTime())
-
 	const startUpdateMiningString = () => {
 		const currentTimeInMs = new Date().getTime()
-		const passedTimeInMs = currentTimeInMs - lastUserMiningTimeInMs.value
-		if( passedTimeInMs  >= 1000 * 60 * 60 * 6) {
+		if(!timeWhenClaimEnable.value) {
+			setTimeDeforeMiningString(null)
+		}
+		else {
+			const passedTimeInMs = timeWhenClaimEnable.value - currentTimeInMs
 			setTimeDeforeMiningString(msToTime(passedTimeInMs))
 			setTimeout(startUpdateMiningString, 60000) // раз в минуту
-		} else {
-			setTimeDeforeMiningString(null)
 		}
 	}
 
