@@ -11,6 +11,7 @@ export const UiButton = defineComponent({
 		size: { type: String as PropType<ButtonSize>, default: 'md' },
 		mod: { type: String as PropType<ButtonMod>, default: 'primary' },
 		disabled: { type: Boolean, default: false },
+		loading: { type: Boolean, default: false },
 		whenClick: { type: Function as PropType<(e: MouseEvent) => void>, required: true }
 	},
 	setup: (props) => {
@@ -47,7 +48,7 @@ export const UiButton = defineComponent({
 				disabled={props.disabled}
 				onClick={props.whenClick}
 			>
-				{props.text}
+				{props.loading ? <div class={styles.loader} /> : props.text}
 			</button>
 		)
 	}
