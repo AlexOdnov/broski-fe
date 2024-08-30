@@ -76,7 +76,7 @@ const GamePage = defineComponent({
 		)
 
 		const isButtonShown = computed(
-			() => userStore.userTickets || gameStore.gameStatus !== GameStatus.Idle
+			() => userStore.userTickets > 0 || gameStore.gameStatus !== GameStatus.Idle
 		)
 
 		return () => (

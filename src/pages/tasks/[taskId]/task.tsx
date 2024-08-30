@@ -5,6 +5,7 @@ import styles from './styles.module.css'
 import { useTasksStore } from '@/stores/tasks'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { useUserStore } from '@/stores/user'
+import { UiButton } from '@/components'
 
 const TaskPage = defineComponent({
 	name: 'TaskPage',
@@ -49,25 +50,22 @@ const TaskPage = defineComponent({
 					</div>
 					<div class={styles.duration}>{task.value?.duration}</div>
 					<div class={styles.btnWrapper}>
-						<button
-							class={[styles.button, task.value?.complete ? styles.greyBtn : styles.yellowBtn]}
-							onClick={whenStartClicked}
+						<UiButton
+							mod={'primary'}
+							size={'lg'}
 							disabled={task.value?.complete}
-						>
-							{task.value?.complete ? 'Completed' : 'Start'}
-						</button>
+							text={task.value?.complete ? 'Completed' : 'Start'}
+							whenClick={whenStartClicked}
+						/>
 						{!task.value?.complete && (
-							<button
-								class={[
-									styles.button,
-									styles.greyBtn,
-									isCheckingDisabled.value && styles.btnDisabled
-								]}
-								onClick={whenCheckClicked}
+							<UiButton
+								mod={'secondary'}
+								size={'lg'}
+								text={'Check'}
 								disabled={isCheckingDisabled.value}
-							>
-								{isChecking.value ? <div class={styles.loader} /> : 'Check'}
-							</button>
+								loading={isChecking.value}
+								whenClick={whenCheckClicked}
+							/>
 						)}
 					</div>
 				</div>

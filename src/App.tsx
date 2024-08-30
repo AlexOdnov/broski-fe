@@ -37,9 +37,14 @@ export default defineComponent({
 			}
 		}
 
-		const tryStartMining = async () => {
-			if (!timeBeforeMiningLeft.value && !isRewardAvailable.value) {
+		const whenMiningClicked = async () => {
+			if (!isRewardAvailable.value && !timeBeforeMiningLeft.value) {
 				await userStore.startMining()
+				await userStore.loadUser()
+				return
+			}
+			if (isRewardAvailable.value) {
+				await userStore.doneMining()
 				await userStore.loadUser()
 			}
 		}
@@ -92,7 +97,7 @@ export default defineComponent({
 								</RouterLink>
 								<div
 									class={[styles.navBtn, timeBeforeMiningLeft.value && styles.opacity]}
-									onClick={tryStartMining}
+									onClick={whenMiningClicked}
 								>
 									{(isRewardAvailable.value ||
 										(!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && (

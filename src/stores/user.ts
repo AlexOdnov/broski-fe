@@ -131,6 +131,14 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const doneMining = async () => {
+		try {
+			await api.doneMining({ username: tgStore.username })
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	const startUpdateMiningString = () => {
 		const currentTimeInMs = new Date().getTime()
 		if (!timeWhenClaimEnable.value) {
@@ -154,6 +162,7 @@ export const useUserStore = defineStore('user', () => {
 		changeUserTickets,
 		claimRefBonus,
 		startMining,
+		doneMining,
 		timeBeforeMiningLeftString,
 		startUpdateMiningString
 	}
