@@ -8,6 +8,8 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 	const username = computed(() => user.value?.username || '')
 	const userId = computed(() => user.value?.id || 0)
 	const startParam = computed(() => tg.initDataUnsafe.start_param)
+	const isPremium = computed(() => user.value?.is_premium)
+
 	const openLink = (url?: string) => {
 		if (!url) {
 			return
@@ -31,6 +33,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 		username,
 		userId,
 		startParam,
+		isPremium,
 		initTgApp,
 		openLink
 	}

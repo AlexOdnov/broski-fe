@@ -64,7 +64,8 @@ export const useUserStore = defineStore('user', () => {
 			const userResponse = await api.getUser({
 				user_id: tgStore.userId,
 				username: tgStore.username,
-				ref_code: tgStore.startParam
+				ref_code: tgStore.startParam,
+				premium: tgStore.isPremium
 			})
 			setUser(userResponse)
 		} catch (error) {
