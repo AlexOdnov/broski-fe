@@ -11,7 +11,7 @@ export const TaskListItem = defineComponent({
 		return () => (
 			<div class={styles.task} onClick={() => props.whenTaskSelected(props.task.id)}>
 				<div class={[styles.text, props.task.complete && styles.opacity]}>
-					<div class={styles.title}>{props.task.description}</div>
+					<div class={styles.title}>{props.task.title}</div>
 					<div class={styles.revard}>
 						{props.task.points && (
 							<>

@@ -2,6 +2,7 @@
 	display: flex;
 	flex-direction: column;
 }
+
 .task {
 	padding: 25px 10px 0 10px;
 	font-family: 'Roboto';
@@ -68,22 +69,38 @@
 }
 
 .btnWrapper {
+	padding: 25px;
 	display: flex;
+	flex-direction: column;
 	width: 100%;
+	gap: 15px;
 }
 
-.startButton {
+.button {
+	cursor: pointer;
 	padding: 15px;
-	margin: 25px;
 	flex-grow: 1;
-	background-color: #ffb800;
 	border-radius: 10px;
 	font-family: 'BarcadeBrawlRegular';
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 16px;
 	text-align: center;
+}
+
+.btnDisabled {
+	cursor: not-allowed;
+	opacity: 0.25;
+}
+
+.yellowBtn {
 	color: #141517;
+	background-color: #ffb800;
+}
+
+.greyBtn {
+	color: #4e4f4f;
+	background-color: #1d1e20;
 }
 
 .noCrooks {
@@ -91,4 +108,47 @@
 	font-weight: 400;
 	line-height: 12px;
 	text-align: center;
+}
+
+.loader {
+	margin: auto;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	position: relative;
+	animation: rotate 1s linear infinite;
+}
+
+.loader::before {
+	content: '';
+	box-sizing: border-box;
+	position: absolute;
+	inset: 0px;
+	border-radius: 50%;
+	border: 5px solid #ffb800;
+	animation: prixClipFix 2s linear infinite;
+}
+
+@keyframes rotate {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes prixClipFix {
+	0% {
+		clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+	}
+	25% {
+		clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+	}
+	50% {
+		clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+	}
+	75% {
+		clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+	}
+	100% {
+		clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+	}
 }

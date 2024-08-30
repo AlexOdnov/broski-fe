@@ -6,7 +6,8 @@ import {
 	type TicketsCreatePayload,
 	type TasksCreateBody,
 	type RefClaimCreatePayload,
-	type MiningCreatePayload
+	type MiningCreatePayload,
+	type MiningCreateBody
 } from './generatedApi'
 import type { UserCreateResponse, TasksCreateResponse } from './responseTypes'
 
@@ -49,6 +50,9 @@ export const useApi = () => {
 	const startMinig = async (payload: MiningCreatePayload) => {
 		return await apiInstance.start.miningCreate(payload)
 	}
+	const doneMining = async (payload: MiningCreateBody) => {
+		return await apiInstance.done.miningCreate(payload)
+	}
 
 	return {
 		getUser,
@@ -59,6 +63,7 @@ export const useApi = () => {
 		removeTickets,
 		doneTask,
 		claimRefBonus,
-		startMinig
+		startMinig,
+		doneMining
 	}
 }
