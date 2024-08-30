@@ -28,6 +28,10 @@ jobs:
         run: |
           npm ci
           git reset --hard
+
+      - name: Build App
+        run: npm run build-only
+
       - name: Upload files to server
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
