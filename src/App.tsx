@@ -18,7 +18,7 @@ export default defineComponent({
 			return userStore.isLoading || isUserError.value
 		})
 
-		const isRewardAvailable = computed(() => userStore.user?.mining_done)
+		const isRewardAvailable = computed(() => !timeBeforeMiningLeft.value && !userStore.user?.mining_claim)
 		const timeBeforeMiningLeft = computed(() => userStore.timeBeforeMiningLeftString)
 
 		const onCreated = async () => {
