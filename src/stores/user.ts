@@ -41,7 +41,6 @@ export const useUserStore = defineStore('user', () => {
 	) => {
 		if (user.value) {
 			setUser({ ...user.value, [key]: value })
-			setTimeWhenUserUpdated(new Date().getTime())
 		}
 	}
 
@@ -85,6 +84,7 @@ export const useUserStore = defineStore('user', () => {
 				premium: tgStore.isPremium
 			})
 			setUser(userResponse)
+			setTimeWhenUserUpdated(new Date().getTime())
 		} catch (error) {
 			console.warn(error)
 		} finally {
@@ -128,7 +128,12 @@ export const useUserStore = defineStore('user', () => {
 			setTimeDeforeMiningString(null)
 		} else {
 			const passedTimeInMs = timeWhenClaimEnable.value - currentTimeInMs
-			setTimeDeforeMiningString(msToTime(passedTimeInMs))
+			if (passedTimeInMs <= 0) {
+				setTimeDeforeMiningString(null)
+				return
+			} else {
+				setTimeDeforeMiningString(msToTime(passedTimeInMs))
+			}
 			setTimeout(startUpdateMiningString, 60000) // раз в минуту
 		}
 	}
