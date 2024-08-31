@@ -35,11 +35,11 @@ const ReferralsPage = defineComponent({
 				disabled?: boolean
 				whenClick: () => void
 			} => {
-				return userStore.sumRefBonus
+				return userStore.sumReferralsReward
 					? {
 							mod: 'inverse',
-							text: `Claim ${Intl.NumberFormat('en-US').format(Number(userStore.sumRefBonus))} $BRO`,
-							whenClick: userStore.claimRefBonus
+							text: `Claim ${Intl.NumberFormat('en-US').format(Number(userStore.sumReferralsReward))} $BRO`,
+							whenClick: userStore.claimReferralsReward
 						}
 					: {
 							mod: 'secondary',
