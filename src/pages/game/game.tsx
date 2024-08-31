@@ -38,6 +38,7 @@ const GamePage = defineComponent({
 			(): {
 				text: string
 				mod: ButtonMod
+				isLoading: boolean
 				whenClick: () => void
 			} => {
 				switch (gameStore.gameStatus) {
@@ -45,30 +46,35 @@ const GamePage = defineComponent({
 						return {
 							text: 'Start game',
 							mod: 'primary',
+							isLoading: gameStore.isGameLoading,
 							whenClick: gameStore.startGame
 						}
 					case GameStatus.Win:
 						return {
 							text: `CLAIM ${WIN_GAME_POINTS} $bro`,
 							mod: 'primary',
+							isLoading: gameStore.isGameLoading,
 							whenClick: gameStore.finishGame
 						}
 					case GameStatus.Lose:
 						return {
 							text: 'next time',
 							mod: 'inverse',
+							isLoading: gameStore.isGameLoading,
 							whenClick: gameStore.finishGame
 						}
 					case GameStatus.InProgress:
 						return {
 							text: 'in progress',
 							mod: 'secondary',
+							isLoading: gameStore.isGameLoading,
 							whenClick: () => {}
 						}
 					default:
 						return {
 							text: 'wait',
 							mod: 'secondary',
+							isLoading: gameStore.isGameLoading,
 							whenClick: () => {}
 						}
 				}
