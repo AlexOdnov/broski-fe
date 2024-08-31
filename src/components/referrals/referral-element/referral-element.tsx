@@ -15,7 +15,7 @@ export const ReferralElement = defineComponent({
 				<p class={styles.bonus}>
 					+ <img class={styles.icon} src="/images/bro-coin.png" />
 					<span class={styles.yellow}>
-						{Intl.NumberFormat('en-US').format(Number(props.referralElement.bonus))} $BRO
+						{Intl.NumberFormat('en-US').format(Number(props.referralElement.reward))} $BRO
 					</span>
 				</p>
 			</div>

@@ -1,4 +1,6 @@
 .app {
+	display: flex;
+	flex-direction: column;
 	position: relative;
 	font-family: 'Roboto';
 	height: 100dvh;
@@ -17,6 +19,7 @@
 .pageContainer {
 	flex-grow: 1;
 	width: 100%;
+	overflow-y: auto;
 }
 
 .page {
@@ -163,8 +166,21 @@
 	font-size: 14px;
 	position: absolute;
 	bottom: 10px;
+	left: 0;
+	width: 100%;
 }
 
 .opacity {
 	opacity: 0.25;
+}
+
+.claimNumber {
+	position: absolute;
+	font-family: 'BarcadeBrawlRegular';
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 16px;
+	bottom: 34px;
+	left: 0;
+	width: 100%;
 }

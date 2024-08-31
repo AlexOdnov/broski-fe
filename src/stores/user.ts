@@ -13,6 +13,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [timeBeforeMiningLeftString, setTimeDeforeMiningString] = useState<string | null>(null)
+	const [timeoutID, setTimeoutID] = useState<number | null>(null)
 
 	const [user, setUser] = useState<UserCreateResponse | null>(null)
 	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<number | null>(null)
@@ -33,7 +34,9 @@ export const useUserStore = defineStore('user', () => {
 	const userTickets = computed(() => user.value?.tickets || 0)
 	const userScore = computed(() => user.value?.score || 0)
 	const referals = computed(() => user.value?.referals || [])
-	const sumRefBonus = computed(() => referals.value.reduce((acc, el) => acc + Number(el.bonus), 0))
+	const sumReferralsReward = computed(() =>
+		referals.value.reduce((acc, el) => acc + Number(el.reward), 0)
+	)
 
 	const setUserProperty = <T extends keyof UserCreateResponse>(
 		key: T,
@@ -41,7 +44,6 @@ export const useUserStore = defineStore('user', () => {
 	) => {
 		if (user.value) {
 			setUser({ ...user.value, [key]: value })
-			setTimeWhenUserUpdated(new Date().getTime())
 		}
 	}
 
@@ -85,6 +87,8 @@ export const useUserStore = defineStore('user', () => {
 				premium: tgStore.isPremium
 			})
 			setUser(userResponse)
+			setTimeWhenUserUpdated(new Date().getTime())
+			startUpdateMiningString()
 		} catch (error) {
 			console.warn(error)
 		} finally {
@@ -109,7 +113,7 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
-	const claimRefBonus = async () => {
+	const claimReferralsReward = async () => {
 		try {
 			await api.claimRefBonus({
 				username: tgStore.username
@@ -140,13 +144,21 @@ export const useUserStore = defineStore('user', () => {
 	}
 
 	const startUpdateMiningString = () => {
+		if (timeoutID.value) {
+			clearTimeout(timeoutID.value)
+		}
 		const currentTimeInMs = new Date().getTime()
 		if (!timeWhenClaimEnable.value) {
 			setTimeDeforeMiningString(null)
 		} else {
 			const passedTimeInMs = timeWhenClaimEnable.value - currentTimeInMs
-			setTimeDeforeMiningString(msToTime(passedTimeInMs))
-			setTimeout(startUpdateMiningString, 60000) // раз в минуту
+			if (passedTimeInMs <= 0) {
+				setTimeDeforeMiningString(null)
+				return
+			} else {
+				setTimeDeforeMiningString(msToTime(passedTimeInMs))
+			}
+			setTimeoutID(setTimeout(startUpdateMiningString, 60000)) // раз в минуту
 		}
 	}
 
@@ -156,11 +168,11 @@ export const useUserStore = defineStore('user', () => {
 		userScore,
 		isLoading,
 		referals,
-		sumRefBonus,
+		sumReferralsReward,
 		loadUser,
 		changeUserScore,
 		changeUserTickets,
-		claimRefBonus,
+		claimReferralsReward,
 		startMining,
 		doneMining,
 		timeBeforeMiningLeftString,

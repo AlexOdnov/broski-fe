@@ -4,19 +4,39 @@
 }
 
 .task {
+	display: flex;
+	flex-direction: column;
 	padding: 15px 10px 0;
 	font-family: 'Roboto';
 	flex-grow: 1;
-	overflow-y: scroll;
-	max-height: 335px;
 	margin-bottom: 20px;
 }
 
+.img {
+	margin: 0 auto;
+	border-radius: 50%;
+	height: 75px;
+	width: 75px;
+	object-fit: cover;
+	border: solid 3px #ffb800;
+}
+
 .title {
+	text-align: center;
+	padding-top: 10px;
 	color: #f0f0f0;
 	font-size: 22px;
 	font-weight: 500;
 	line-height: 22px;
+	text-align: center;
+}
+
+.description {
+	text-align: center;
+	padding-top: 10px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 17.5px;
 	text-align: center;
 }
 

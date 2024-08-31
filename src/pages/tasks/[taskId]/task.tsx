@@ -35,6 +35,7 @@ const TaskPage = defineComponent({
 		return () => (
 			<div class={styles.taskWrapper}>
 				<div class={styles.task}>
+					{task.value?.image && <img class={styles.img} src={task.value?.image} alt="task image" />}
 					<div class={styles.title}>{task.value?.title}</div>
 					<div class={styles.description}>{task.value?.description}</div>
 					<div class={styles.frame}>

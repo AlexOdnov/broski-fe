@@ -2,6 +2,7 @@ export interface Referral {
 	username: string
 	refs: number
 	bonus: number | string
+	reward: number
 }
 
 export interface UserCreateResponse {
@@ -13,7 +14,7 @@ export interface UserCreateResponse {
 	position: number
 	tickets: number
 	left_mining: string
-	mining_done: boolean
+	mining_claim: boolean
 }
 
 export interface TasksCreateResponseItem {
@@ -25,6 +26,7 @@ export interface TasksCreateResponseItem {
 	duration: string
 	links: string
 	complete: boolean
+	image: string
 }
 
 export interface TasksCreateResponse {

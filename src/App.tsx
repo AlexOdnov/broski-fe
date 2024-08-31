@@ -18,7 +18,9 @@ export default defineComponent({
 			return userStore.isLoading || isUserError.value
 		})
 
-		const isRewardAvailable = computed(() => userStore.user?.mining_done)
+		const isRewardAvailable = computed(
+			() => !timeBeforeMiningLeft.value && !userStore.user?.mining_claim
+		)
 		const timeBeforeMiningLeft = computed(() => userStore.timeBeforeMiningLeftString)
 
 		const onCreated = async () => {
@@ -87,7 +89,7 @@ export default defineComponent({
 								</RouterLink>
 								<RouterLink activeClass={styles.active} to="/referrals">
 									<div class={styles.navBtn}>
-										{Boolean(userStore.sumRefBonus) && (
+										{Boolean(userStore.sumReferralsReward) && (
 											<img class={styles.notice} src="/images/notice.png" />
 										)}
 										<div class={[styles.letter, styles.rotateLeft]}>O</div>
@@ -105,7 +107,10 @@ export default defineComponent({
 									)}
 									<img class={styles.btnImg} src="/images/pickaxe.png" />
 									{isRewardAvailable.value && (
-										<span class={[styles.btnText, styles.yellow]}>Claim</span>
+										<>
+											<span class={[styles.btnText, styles.yellow]}>Claim</span>
+											<span class={[styles.claimNumber, styles.yellow]}>+72</span>
+										</>
 									)}
 									{!isRewardAvailable.value && !timeBeforeMiningLeft.value && (
 										<span class={[styles.btnText, styles.yellow]}>Farm</span>
