@@ -100,12 +100,13 @@ export const useUserStore = defineStore('user', () => {
 				ref_code: 'code',
 				last_tap: '',
 				left_mining: '',
-				mining_done: false,
+				mining_claim: false,
 				referals: [
 					{
 						username: 'name',
 						refs: 10,
-						bonus: 1000
+						bonus: 1000,
+						reward: 100
 					}
 				]
 			})
