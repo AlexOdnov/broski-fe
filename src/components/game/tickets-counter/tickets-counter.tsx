@@ -17,7 +17,7 @@ export const TicketsCounter = defineComponent({
 					</>
 				) : (
 					<>
-						Bro, you're <span class={styles.ticketsEmpty}>out of</span> tickets, bro!
+						Bro, invite friends to get more tickets
 						<img class={styles.ticketImg} src="/images/ticket.png" />
 					</>
 				)}
