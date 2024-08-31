@@ -30,7 +30,7 @@ export default defineComponent({
 				console.warn('Failed to get telegram user information')
 				return
 			}
-			await userStore.loadUser()
+			await userStore.loadUser(true)
 			await tasksStore.getTasks()
 			userStore.startUpdateMiningString()
 			if (!userStore.user) {
