@@ -2,6 +2,7 @@ export interface Referral {
 	username: string
 	refs: number
 	bonus: number | string
+	reward: number
 }
 
 export interface UserCreateResponse {
