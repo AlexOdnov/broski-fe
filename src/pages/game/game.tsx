@@ -39,6 +39,7 @@ const GamePage = defineComponent({
 				text: string
 				mod: ButtonMod
 				loading: boolean
+				minWidth?: string
 				whenClick: () => void
 			} => {
 				switch (gameStore.gameStatus) {
@@ -46,6 +47,7 @@ const GamePage = defineComponent({
 						return {
 							text: 'Start game',
 							mod: 'primary',
+							minWidth: '202px',
 							loading: gameStore.isGameLoading,
 							whenClick: gameStore.startGame
 						}
