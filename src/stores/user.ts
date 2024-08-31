@@ -77,9 +77,9 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
-	const loadUser = async () => {
+	const loadUser = async (withLoader = false) => {
 		try {
-			setIsLoading(true)
+			withLoader && setIsLoading(true)
 			const userResponse = await api.getUser({
 				user_id: tgStore.userId,
 				username: tgStore.username,
@@ -92,7 +92,7 @@ export const useUserStore = defineStore('user', () => {
 		} catch (error) {
 			console.warn(error)
 		} finally {
-			setIsLoading(false)
+			withLoader && setIsLoading(false)
 		}
 	}
 
