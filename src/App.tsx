@@ -98,9 +98,10 @@ export default defineComponent({
 								<div class={[styles.navBtn, timeBeforeMiningLeft.value && styles.opacity]} onClick={whenMiningClicked}>
 									{(isRewardAvailable.value || (!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && <img class={styles.notice} src="/images/notice.png" />}
 									<img class={styles.btnImg} src="/images/pickaxe.png" />
-									{isRewardAvailable.value && <span class={[styles.btnText, styles.yellow]}>
-										Claim
-									</span>}
+									{isRewardAvailable.value && <>
+									<span class={[styles.btnText, styles.yellow]}>Claim</span>
+									<span class={[styles.claimNumber, styles.yellow]}>+72</span>
+									</>}
 									{!isRewardAvailable.value && !timeBeforeMiningLeft.value && <span class={[styles.btnText, styles.yellow]}>
 										Farm
 									</span>}
