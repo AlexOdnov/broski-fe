@@ -101,10 +101,7 @@ export const useUserStore = defineStore('user', () => {
 			await api.claimRefBonus({
 				username: tgStore.username
 			})
-			setUserProperty(
-				'referals',
-				referals.value.map((el) => ({ ...el, bonus: 0 }))
-			)
+			await loadUser()
 		} catch (error) {
 			console.warn(error)
 		}
