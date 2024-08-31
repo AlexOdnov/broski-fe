@@ -18,7 +18,9 @@ export default defineComponent({
 			return userStore.isLoading || isUserError.value
 		})
 
-		const isRewardAvailable = computed(() => !timeBeforeMiningLeft.value && !userStore.user?.mining_claim)
+		const isRewardAvailable = computed(
+			() => !timeBeforeMiningLeft.value && !userStore.user?.mining_claim
+		)
 		const timeBeforeMiningLeft = computed(() => userStore.timeBeforeMiningLeftString)
 
 		const onCreated = async () => {
@@ -95,17 +97,27 @@ export default defineComponent({
 										<span class={styles.btnText}>My Bros</span>
 									</div>
 								</RouterLink>
-								<div class={[styles.navBtn, timeBeforeMiningLeft.value && styles.opacity]} onClick={whenMiningClicked}>
-									{(isRewardAvailable.value || (!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && <img class={styles.notice} src="/images/notice.png" />}
+								<div
+									class={[styles.navBtn, timeBeforeMiningLeft.value && styles.opacity]}
+									onClick={whenMiningClicked}
+								>
+									{(isRewardAvailable.value ||
+										(!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && (
+										<img class={styles.notice} src="/images/notice.png" />
+									)}
 									<img class={styles.btnImg} src="/images/pickaxe.png" />
-									{isRewardAvailable.value && <>
-									<span class={[styles.btnText, styles.yellow]}>Claim</span>
-									<span class={[styles.claimNumber, styles.yellow]}>+72</span>
-									</>}
-									{!isRewardAvailable.value && !timeBeforeMiningLeft.value && <span class={[styles.btnText, styles.yellow]}>
-										Farm
-									</span>}
-									{!isRewardAvailable.value && timeBeforeMiningLeft.value && <span class={styles.time}>{timeBeforeMiningLeft.value}</span>}
+									{isRewardAvailable.value && (
+										<>
+											<span class={[styles.btnText, styles.yellow]}>Claim</span>
+											<span class={[styles.claimNumber, styles.yellow]}>+72</span>
+										</>
+									)}
+									{!isRewardAvailable.value && !timeBeforeMiningLeft.value && (
+										<span class={[styles.btnText, styles.yellow]}>Farm</span>
+									)}
+									{!isRewardAvailable.value && timeBeforeMiningLeft.value && (
+										<span class={styles.time}>{timeBeforeMiningLeft.value}</span>
+									)}
 								</div>
 							</nav>
 						</footer>
