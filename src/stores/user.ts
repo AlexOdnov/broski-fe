@@ -47,30 +47,30 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
-	const changeUserScore = (value: number) => {
+	const changeUserScore = async (value: number) => {
 		if (user.value) {
-			setUserProperty('score', userScore.value + value)
 			const payload: ScoreCreatePayload = {
 				username: tgStore.username,
 				score: Math.abs(value)
 			}
 			try {
-				value > 0 ? api.addScore(payload) : api.removeScore(payload)
+				await (value > 0 ? api.addScore(payload) : api.removeScore(payload))
+				await loadUser()
 			} catch (error) {
 				console.warn(error)
 			}
 		}
 	}
 
-	const changeUserTickets = (value: number) => {
+	const changeUserTickets = async (value: number) => {
 		if (user.value) {
-			setUserProperty('tickets', userTickets.value + value)
 			const payload: TicketsCreatePayload = {
 				username: tgStore.username,
 				tickets: Math.abs(value)
 			}
 			try {
-				value > 0 ? api.addTickets(payload) : api.removeTickets(payload)
+				await (value > 0 ? api.addTickets(payload) : api.removeTickets(payload))
+				await loadUser()
 			} catch (error) {
 				console.warn(error)
 			}
