@@ -53,13 +53,16 @@ export const useGameStore = defineStore('game', () => {
 		gameField.value.filter((el) => el.isOpen && el.value)
 	)
 
-	const startGame = () => {
+	const startGame = async () => {
 		if (gameStatus.value !== GameStatus.Idle || !userStore.userTickets) {
 			return
 		}
-		setGameField(shuffle(gameField.value))
-		setGameStatus(GameStatus.InProgress)
-		userStore.changeUserTickets(-1)
+		await userStore.loadUser()
+		if (userStore.userTickets > 0) {
+			setGameField(shuffle(gameField.value))
+			setGameStatus(GameStatus.InProgress)
+			userStore.changeUserTickets(-1)
+		}
 	}
 
 	const finishGame = () => {
