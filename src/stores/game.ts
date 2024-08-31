@@ -48,6 +48,7 @@ export const useGameStore = defineStore('game', () => {
 	const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.Idle)
 	const [remainAttempts, setRemainAttempts, resetRemainAttempts] =
 		useState<number>(INITIAL_ATTEMPTS_COUNT)
+	const [isGameLoading, setIsGameLoading] = useState<boolean>(false)
 
 	const openedWinGameElements = computed(() =>
 		gameField.value.filter((el) => el.isOpen && el.value)
@@ -57,7 +58,9 @@ export const useGameStore = defineStore('game', () => {
 		if (gameStatus.value !== GameStatus.Idle || !userStore.userTickets) {
 			return
 		}
+		setIsGameLoading(true)
 		await userStore.loadUser()
+		setIsGameLoading(false)
 		if (userStore.userTickets > 0) {
 			setGameField(shuffle(gameField.value))
 			setGameStatus(GameStatus.InProgress)
@@ -107,6 +110,7 @@ export const useGameStore = defineStore('game', () => {
 		gameField,
 		gameStatus,
 		remainAttempts,
+		isGameLoading,
 		startGame,
 		finishGame,
 		selectElement
