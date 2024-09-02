@@ -1,8 +1,6 @@
 .referralsPage {
 	display: flex;
 	flex-direction: column;
-	width: 100%;
-	height: calc(100dvh - 94px - 96px - 20px);
 }
 
 .header {
@@ -80,10 +78,4 @@
 
 .yellow {
 	color: #ffb800;
-}
-
-@media screen and (max-width: 370px) {
-	.referralsPage {
-		height: calc(100dvh - 94px - 86px - 20px);
-	}
 }

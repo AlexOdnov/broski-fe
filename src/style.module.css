@@ -4,8 +4,6 @@
 	position: relative;
 	font-family: 'Roboto';
 	height: 100dvh;
-	display: flex;
-	flex-direction: column;
 	gap: 10px;
 	justify-content: space-between;
 	align-items: center;
