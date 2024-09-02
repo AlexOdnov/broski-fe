@@ -25,11 +25,11 @@ export default defineComponent({
 
 		const onCreated = async () => {
 			tgStore.initTgApp()
-			if (!tgStore.user) {
-				isUserError.value = true
-				console.warn('Failed to get telegram user information')
-				return
-			}
+			// if (!tgStore.user) {
+			// 	isUserError.value = true
+			// 	console.warn('Failed to get telegram user information')
+			// 	return
+			// }
 			await userStore.loadUser(true)
 			await tasksStore.getTasks()
 			userStore.startUpdateMiningString()
