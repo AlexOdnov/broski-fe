@@ -42,12 +42,19 @@ export const UiButton = defineComponent({
 			}
 		})
 
+		const handleClick = (e: MouseEvent) => {
+			if (props.disabled || props.loading) {
+				return
+			}
+			props.whenClick(e)
+		}
+
 		return () => (
 			<button
 				class={[styles.button, sizeClass.value, modClass.value]}
 				type="button"
 				disabled={props.disabled}
-				onClick={props.whenClick}
+				onClick={handleClick}
 				style={{ minWidth: props.minWidth }}
 			>
 				{props.loading ? <div class={styles.loader} /> : props.text}

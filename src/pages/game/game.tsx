@@ -104,6 +104,7 @@ const GamePage = defineComponent({
 				<div class={styles.gameField} onClick={gameStore.startGame}>
 					{gameStore.gameField.map((el, index) => (
 						<GameElement
+							key={index}
 							placeholder={placeholders[index]}
 							gameElement={el}
 							whenClick={() => gameStore.selectElement(index)}
