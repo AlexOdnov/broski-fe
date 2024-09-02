@@ -55,7 +55,7 @@ export const useGameStore = defineStore('game', () => {
 	)
 
 	const startGame = async () => {
-		if (gameStatus.value !== GameStatus.Idle || !userStore.userTickets) {
+		if (gameStatus.value !== GameStatus.Idle || userStore.userTickets <= 0 || isGameLoading.value) {
 			return
 		}
 		setIsGameLoading(true)
