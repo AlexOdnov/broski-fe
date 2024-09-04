@@ -33,14 +33,17 @@ jobs:
           server-dir: /public_html/
           local-dir: ./dist/
 
-  Merge-master-to-release:
+  Merge-master-into-release:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
 
-      - name: Merge master to release
+      - name: Merge master into release
         uses: devmasx/merge-branch@master
         with:
           type: now
           target_branch: release
+          message: Merge master into release
           github_token: ${{ secrets.GITHUB_TOKEN }}
