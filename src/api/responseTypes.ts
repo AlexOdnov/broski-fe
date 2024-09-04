@@ -15,6 +15,8 @@ export interface UserCreateResponse {
 	tickets: number
 	left_mining: string
 	mining_claim: boolean
+	daily_stric: number
+	daily_claim: boolean
 }
 
 export interface TasksCreateResponseItem {
