@@ -7,7 +7,7 @@ import {
 	type TasksCreateBody,
 	type RefClaimCreatePayload,
 	type MiningCreatePayload,
-	type MiningCreateBody, type DailyCreatePayload
+	type MiningCreateBody, type DailyCreatePayload, type TicketsCreateBody
 } from './generatedApi'
 import type { UserCreateResponse, TasksCreateResponse } from './responseTypes'
 
@@ -36,7 +36,7 @@ export const useApi = () => {
 		return await apiInstance.remove.scoreCreate(payload)
 	}
 
-	const removeTickets = async (payload: TicketsCreatePayload) => {
+	const removeTickets = async (payload: TicketsCreateBody) => {
 		return await apiInstance.remove.ticketsCreate(payload)
 	}
 

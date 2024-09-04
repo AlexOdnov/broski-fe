@@ -39,7 +39,7 @@ const TaskPage = defineComponent({
 					<img class={styles.img} src="/images/fist.png" alt="task image" />
 					<div class={styles.title}>{task.value?.title}</div>
 					<div class={styles.description}>{task.value?.description}</div>
-					<RewardBlock coins={task.value.points} tickets={task.value.tickets} />
+					<RewardBlock coins={task.value?.points ?? 0} tickets={task.value?.tickets ?? 0} />
 					<div class={styles.duration}>{task.value?.duration}</div>
 					<div class={styles.btnWrapper}>
 						<UiButton

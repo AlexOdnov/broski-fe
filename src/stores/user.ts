@@ -3,7 +3,7 @@ import { useState } from '@/utils/useState'
 import type { UserCreateResponse } from '@/api/responseTypes'
 import { useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
-import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/generatedApi'
+import type { ScoreCreatePayload, TicketsCreateBody } from '@/api/generatedApi'
 import { computed } from 'vue'
 import { addHours, addMinutes, msToTime } from '@/utils/date'
 
@@ -50,7 +50,7 @@ export const useUserStore = defineStore('user', () => {
 	const changeUserScore = async (value: number) => {
 		if (user.value) {
 			const payload: ScoreCreatePayload = {
-				username: tgStore.username,
+				user_id: tgStore.userId,
 				score: Math.abs(value)
 			}
 			try {
@@ -64,8 +64,8 @@ export const useUserStore = defineStore('user', () => {
 
 	const changeUserTickets = async (value: number) => {
 		if (user.value) {
-			const payload: TicketsCreatePayload = {
-				username: tgStore.username,
+			const payload: TicketsCreateBody = {
+				user_id: tgStore.userId,
 				tickets: Math.abs(value)
 			}
 			try {
