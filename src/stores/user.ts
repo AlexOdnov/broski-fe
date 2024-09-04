@@ -6,12 +6,13 @@ import { useTgSdkStore } from './tg-sdk'
 import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/generatedApi'
 import { computed } from 'vue'
 import { addHours, addMinutes, msToTime } from '@/utils/date'
+import { useCommonStore } from './common'
 
 export const useUserStore = defineStore('user', () => {
 	const api = useApi()
 	const tgStore = useTgSdkStore()
+	const commonStore = useCommonStore()
 
-	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [timeBeforeMiningLeftString, setTimeDeforeMiningString] = useState<string | null>(null)
 	const [timeoutID, setTimeoutID] = useState<number | null>(null)
 
@@ -81,7 +82,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const loadUser = async (withLoader = false) => {
 		try {
-			withLoader && setIsLoading(true)
+			withLoader && commonStore.setIsLoading(true)
 			const userResponse = await api.getUser({
 				user_id: tgStore.userId,
 				username: tgStore.username,
@@ -94,7 +95,7 @@ export const useUserStore = defineStore('user', () => {
 		} catch (error) {
 			console.warn(error)
 		} finally {
-			withLoader && setIsLoading(false)
+			withLoader && commonStore.setIsLoading(false)
 		}
 	}
 
@@ -159,7 +160,6 @@ export const useUserStore = defineStore('user', () => {
 		user,
 		userTickets,
 		userScore,
-		isLoading,
 		referrals,
 		totalReferrals,
 		sumReferralsReward,

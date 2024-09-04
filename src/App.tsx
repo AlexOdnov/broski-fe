@@ -5,17 +5,20 @@ import { LoadingScreen } from './components'
 import { useUserStore } from './stores/user'
 import { useTgSdkStore } from './stores/tg-sdk'
 import { useTasksStore } from './stores/tasks'
+import { useCommonStore } from './stores/common'
+import { LOADER_TIMEOUT } from './utils/constants'
 
 export default defineComponent({
 	setup() {
 		const userStore = useUserStore()
 		const tasksStore = useTasksStore()
 		const tgStore = useTgSdkStore()
+		const commonStore = useCommonStore()
 
 		const isUserError = ref(false)
 
 		const isLoaderVisible = computed(() => {
-			return userStore.isLoading || isUserError.value
+			return commonStore.isLoading || isUserError.value
 		})
 
 		const isRewardAvailable = computed(
@@ -30,6 +33,7 @@ export default defineComponent({
 				console.warn('Failed to get telegram user information')
 				return
 			}
+			commonStore.setIsLoadingForTimeout(LOADER_TIMEOUT)
 			await userStore.loadUser(true)
 			if (!userStore.user) {
 				isUserError.value = true
