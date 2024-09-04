@@ -1,6 +1,7 @@
 export * from './loading'
 export * from './ui/button'
 export * from './ui/height-placeholder'
+export * from './ui/progress-bar'
 export * from './game/tickets-counter'
 export * from './game/game-element'
 export * from './referrals/referral-element'
