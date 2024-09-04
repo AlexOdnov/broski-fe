@@ -33,7 +33,7 @@ jobs:
           server-dir: /public_html/
           local-dir: ./dist/
 
-  Merge master to release:
+  Merge-master-to-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
