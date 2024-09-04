@@ -99,7 +99,7 @@ export const useUserStore = defineStore('user', () => {
 	const claimReferralsReward = async () => {
 		try {
 			await api.claimRefBonus({
-				username: tgStore.username
+				user_id: tgStore.userId
 			})
 			await loadUser()
 		} catch (error) {
@@ -109,7 +109,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const startMining = async () => {
 		try {
-			await api.startMinig({ username: tgStore.username })
+			await api.startMining({ user_id: tgStore.userId })
 		} catch (error) {
 			console.warn(error)
 		}
@@ -117,7 +117,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const doneMining = async () => {
 		try {
-			await api.doneMining({ username: tgStore.username })
+			await api.doneMining({ user_id: tgStore.userId })
 		} catch (error) {
 			console.warn(error)
 		}
@@ -142,6 +142,15 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const getDailyReward = async () => {
+		try {
+			await api.getDailyReward({user_id: tgStore.userId})
+			await loadUser()
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	return {
 		user,
 		userTickets,
@@ -156,6 +165,7 @@ export const useUserStore = defineStore('user', () => {
 		startMining,
 		doneMining,
 		timeBeforeMiningLeftString,
-		startUpdateMiningString
+		startUpdateMiningString,
+		getDailyReward,
 	}
 })
