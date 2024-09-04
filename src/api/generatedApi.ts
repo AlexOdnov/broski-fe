@@ -78,6 +78,16 @@ export interface MiningCreateBody {
 	username: string
 }
 
+export interface ReferalsCreatePayload {
+	/** @example "antonprox" */
+	username: string
+}
+
+export interface DailyCreatePayload {
+	/** @example "antonprox" */
+	username: string
+}
+
 import type {
 	AxiosInstance,
 	AxiosRequestConfig,
@@ -292,6 +302,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				type: ContentType.UrlEncoded,
 				format: 'json',
 				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name ReferalsCreate
+		 * @summary /get/referals/
+		 * @request POST:/get/referals/
+		 */
+		referalsCreate: (data: ReferalsCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/get/referals/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
+				format: 'json',
+				...params
 			})
 	}
 	done = {
@@ -327,6 +355,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				method: 'POST',
 				body: data,
 				type: ContentType.UrlEncoded,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name DailyCreate
+		 * @summary /done/daily/
+		 * @request POST:/done/daily/
+		 */
+		dailyCreate: (data: DailyCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/done/daily/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
 				format: 'json',
 				...params
 			})

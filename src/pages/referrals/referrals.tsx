@@ -78,7 +78,7 @@ const ReferralsPage = defineComponent({
 				<div class={styles.content}>
 					<p class={styles.subTitle}>My Bros</p>
 					<div class={styles.scrollContent}>
-						{userStore.referals.map((el) => (
+						{userStore.referrals.map((el) => (
 							<ReferralElement referralElement={el} />
 						))}
 					</div>

@@ -31,12 +31,13 @@ export default defineComponent({
 				return
 			}
 			await userStore.loadUser(true)
-			await tasksStore.getTasks()
-			userStore.startUpdateMiningString()
 			if (!userStore.user) {
 				isUserError.value = true
 				console.warn('Failed to get broski user information')
 			}
+			tasksStore.getTasks()
+			userStore.loadReferrals()
+			userStore.startUpdateMiningString()
 		}
 
 		const whenMiningClicked = async () => {
