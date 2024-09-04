@@ -1,0 +1,115 @@
+.rewards {
+	width: 100%;
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	gap: 23px;
+	padding: 50px 20px;
+	background: #232323;
+}
+
+.day {
+	font-family: 'BarcadeBrawlRegular', sans-serif;
+	font-size: 42px;
+	line-height: 42px;
+	color: #F0F0F0;
+	text-shadow: 10px 8px #0B0C0E;
+}
+
+.dayText {
+	font-family: 'BarcadeBrawlRegular', sans-serif;
+	font-size: 16px;
+	line-height: 16px;
+}
+
+.message {
+	font-size: 14px;
+	line-height: 18px;
+	color: #CBCBCB;
+}
+
+.tip {
+	color: #797979
+}
+
+.daysBlock {
+	padding: 5px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	background-color: #0B0C0E;
+	border-radius: 15px;
+	gap: 5px;
+}
+
+.dayBlock {
+	text-align: left;
+	background-color: #141517;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.dayBlockTitle {
+	color: #F0F0F0;
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 14px;
+}
+
+.dayBlockCoins {
+	display: flex;
+	align-items: center;
+	margin-top: 20px;
+	color: #FFB800;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 12px;
+}
+
+.dayBlockCoins img {
+	width: 14px;
+	height: 14px;
+	margin-right: 5px;
+}
+
+.dayBlockTickets {
+	display: flex;
+	align-items: center;
+	color: #CBCBCB;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 12px;
+}
+
+.dayBlockTickets img {
+	width: 14px;
+	height: 14px;
+	margin-left: 5px;
+}
+
+.currentDayBlock {
+	opacity: 0.2;
+	border: 1px solid #FFB800;
+}
+
+.dayBlockWrapper {
+	position: relative;
+}
+
+.okBlock {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 7px;
+	right: 7px;
+	background-color: #232323;
+	border-radius: 50%;
+	font-weight: 400;
+	font-size: 11px;
+	line-height: 11px;
+}
