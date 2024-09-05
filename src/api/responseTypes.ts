@@ -38,4 +38,7 @@ export interface ReferalsCreateResponse {
 	username: string
 	referals: Referral[]
 	total_referals: number
+	total_pages: number
+	current_page: number
+	total_score: number
 }

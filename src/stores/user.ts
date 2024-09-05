@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
-import type { ReferalsCreateResponse, UserCreateResponse } from '@/api/responseTypes'
+import type { UserCreateResponse } from '@/api/responseTypes'
 import { useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
 import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/generatedApi'
@@ -16,7 +16,6 @@ export const useUserStore = defineStore('user', () => {
 	const [timeoutID, setTimeoutID] = useState<number | null>(null)
 
 	const [user, setUser] = useState<UserCreateResponse | null>(null)
-	const [referralsResponse, setReferralsResponse] = useState<ReferalsCreateResponse | null>(null)
 	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<number | null>(null)
 
 	const timeWhenClaimEnable = computed(() => {
@@ -34,11 +33,6 @@ export const useUserStore = defineStore('user', () => {
 
 	const userTickets = computed(() => user.value?.tickets || 0)
 	const userScore = computed(() => user.value?.score || 0)
-	const referrals = computed(() => referralsResponse.value?.referals || [])
-	const totalReferrals = computed(() => referralsResponse.value?.total_referals || 0)
-	const sumReferralsReward = computed(() =>
-		referrals.value.reduce((acc, el) => acc + Number(el.reward), 0)
-	)
 
 	const setUserProperty = <T extends keyof UserCreateResponse>(
 		key: T,
@@ -98,17 +92,6 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
-	const claimReferralsReward = async () => {
-		try {
-			await api.claimRefBonus({
-				user_id: tgStore.userId
-			})
-			await loadUser()
-		} catch (error) {
-			console.warn(error)
-		}
-	}
-
 	const startMining = async () => {
 		try {
 			await api.startMining({ user_id: tgStore.userId })
@@ -144,19 +127,6 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
-	const loadReferrals = async () => {
-		try {
-			const response = await api.getReferrals({
-				user_id: tgStore.userId,
-				page: 1,
-				limit: 20
-			})
-			setReferralsResponse(response)
-		} catch (error) {
-			console.warn(error)
-		}
-	}
-
 	const claimDailyReward = async () => {
 		try {
 			await api.claimDailyReward({ user_id: tgStore.userId })
@@ -171,18 +141,13 @@ export const useUserStore = defineStore('user', () => {
 		userTickets,
 		userScore,
 		isLoading,
-		referrals,
-		totalReferrals,
-		sumReferralsReward,
 		loadUser,
 		changeUserScore,
 		changeUserTickets,
-		claimReferralsReward,
 		startMining,
 		doneMining,
 		timeBeforeMiningLeftString,
 		startUpdateMiningString,
-		claimDailyReward,
-		loadReferrals
+		claimDailyReward
 	}
 })

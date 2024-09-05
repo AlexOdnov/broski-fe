@@ -1,15 +1,18 @@
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 
 import styles from './styles.module.css'
 import { UiButton, type ButtonMod, ReferralElement } from '@/components'
+import { useReferralsStore } from '@/stores/referrals'
 import { useUserStore } from '@/stores/user'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
 	setup() {
+		const referralsStore = useReferralsStore()
 		const userStore = useUserStore()
 
 		const isLinkCopied = ref(false)
+		const intersectionObserver = ref<null | IntersectionObserver>(null)
 
 		const copyButtonProps = computed(
 			(): {
@@ -35,11 +38,11 @@ const ReferralsPage = defineComponent({
 				disabled?: boolean
 				whenClick: () => void
 			} => {
-				return userStore.sumReferralsReward
+				return referralsStore.sumReferralsReward
 					? {
 							mod: 'inverse',
-							text: `Claim ${Intl.NumberFormat('en-US').format(Number(userStore.sumReferralsReward))} $BRO`,
-							whenClick: userStore.claimReferralsReward
+							text: `Claim ${Intl.NumberFormat('en-US').format(referralsStore.sumReferralsReward)} $BRO`,
+							whenClick: referralsStore.claimReferralsReward
 						}
 					: {
 							mod: 'secondary',
@@ -60,6 +63,25 @@ const ReferralsPage = defineComponent({
 			}, 3000)
 		}
 
+		onMounted(() => {
+			const loader = document.querySelector('#infinity-loader') as Element
+			const interObserverConfig: IntersectionObserverInit = {
+				threshold: 0.01
+			}
+			const interCallback = (entries: IntersectionObserverEntry[]) => {
+				if (entries[0].isIntersecting) {
+					referralsStore.loadReferrals()
+				}
+			}
+			intersectionObserver.value = new IntersectionObserver(interCallback, interObserverConfig)
+			intersectionObserver.value.observe(loader)
+		})
+
+		onBeforeUnmount(() => {
+			intersectionObserver.value?.disconnect()
+			referralsStore.resetStore()
+		})
+
 		return () => (
 			<div class={styles.referralsPage}>
 				<div class={styles.header}>
@@ -76,11 +98,17 @@ const ReferralsPage = defineComponent({
 					<UiButton size={'sm'} {...copyButtonProps.value} whenClick={whenCopyLink} />
 				</div>
 				<div class={styles.content}>
-					<p class={styles.subTitle}>My Bros</p>
+					<div class={styles.listHeader}>
+						<p class={styles.subTitle}>My Bros</p>
+						<p class={styles.total}>
+							Total: {Intl.NumberFormat('en-US').format(referralsStore.totalReferrals)}
+						</p>
+					</div>
 					<div class={styles.scrollContent}>
-						{userStore.referrals.map((el) => (
+						{referralsStore.referrals.map((el) => (
 							<ReferralElement referralElement={el} />
 						))}
+						<div id="infinity-loader" style={{ minHeight: '1px' }} />
 					</div>
 				</div>
 				<div class={styles.claimButton}>
