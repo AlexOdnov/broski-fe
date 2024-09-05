@@ -8,6 +8,8 @@ import {
 	type RefClaimCreatePayload,
 	type MiningCreatePayload,
 	type MiningCreateBody,
+	type DailyCreatePayload,
+	type TicketsCreateBody,
 	type ReferalsCreatePayload
 } from './generatedApi'
 import type {
@@ -41,7 +43,7 @@ export const useApi = () => {
 		return await apiInstance.remove.scoreCreate(payload)
 	}
 
-	const removeTickets = async (payload: TicketsCreatePayload) => {
+	const removeTickets = async (payload: TicketsCreateBody) => {
 		return await apiInstance.remove.ticketsCreate(payload)
 	}
 
@@ -52,15 +54,15 @@ export const useApi = () => {
 	const claimRefBonus = async (payload: RefClaimCreatePayload) => {
 		return await apiInstance.get.refClaimCreate(payload)
 	}
-
-	const startMinig = async (payload: MiningCreatePayload) => {
+	const startMining = async (payload: MiningCreatePayload) => {
 		return await apiInstance.start.miningCreate(payload)
 	}
-
 	const doneMining = async (payload: MiningCreateBody) => {
 		return await apiInstance.done.miningCreate(payload)
 	}
-
+	const claimDailyReward = async (payload: DailyCreatePayload) => {
+		return await apiInstance.done.dailyCreate(payload)
+	}
 	const getReferrals = async (payload: ReferalsCreatePayload): Promise<ReferalsCreateResponse> => {
 		return (await apiInstance.get.referalsCreate(payload)).data as unknown as ReferalsCreateResponse
 	}
@@ -74,8 +76,9 @@ export const useApi = () => {
 		removeTickets,
 		doneTask,
 		claimRefBonus,
-		startMinig,
+		startMining,
 		doneMining,
+		claimDailyReward,
 		getReferrals
 	}
 }
