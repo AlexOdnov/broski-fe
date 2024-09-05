@@ -31,12 +31,13 @@ export default defineComponent({
 				return
 			}
 			await userStore.loadUser(true)
-			await tasksStore.getTasks()
-			userStore.startUpdateMiningString()
 			if (!userStore.user) {
 				isUserError.value = true
 				console.warn('Failed to get broski user information')
 			}
+			tasksStore.getTasks()
+			userStore.loadReferrals()
+			userStore.startUpdateMiningString()
 		}
 
 		const whenMiningClicked = async () => {
@@ -63,9 +64,7 @@ export default defineComponent({
 				) : (
 					<div class={styles.app}>
 						{needRenderDaily.value ? (
-							<>
-								<DailyComponent day={userStore.user?.daily_stric ?? 1} />
-							</>
+							<DailyComponent day={userStore.user?.daily_stric ?? 1} />
 						) : (
 							<>
 								<header class={styles.coins}>

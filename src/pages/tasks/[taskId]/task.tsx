@@ -35,8 +35,7 @@ const TaskPage = defineComponent({
 		return () => (
 			<div class={styles.taskWrapper}>
 				<div class={styles.task}>
-					{/* пока не починим хостинг картинок */}
-					<img class={styles.img} src="/images/fist.png" alt="task image" />
+					<img class={styles.img} src={task.value?.image || '/images/fist.png'} alt="task image" />
 					<div class={styles.title}>{task.value?.title}</div>
 					<div class={styles.description}>{task.value?.description}</div>
 					<RewardBlock coins={task.value?.points ?? 0} tickets={task.value?.tickets ?? 0} />
