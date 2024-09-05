@@ -52,7 +52,7 @@ export const useUserStore = defineStore('user', () => {
 	const changeUserScore = async (value: number) => {
 		if (user.value) {
 			const payload: ScoreCreatePayload = {
-				username: tgStore.username,
+				user_id: tgStore.userId,
 				score: Math.abs(value)
 			}
 			try {
@@ -67,7 +67,7 @@ export const useUserStore = defineStore('user', () => {
 	const changeUserTickets = async (value: number) => {
 		if (user.value) {
 			const payload: TicketsCreatePayload = {
-				username: tgStore.username,
+				user_id: tgStore.userId,
 				tickets: Math.abs(value)
 			}
 			try {
@@ -101,7 +101,7 @@ export const useUserStore = defineStore('user', () => {
 	const claimReferralsReward = async () => {
 		try {
 			await api.claimRefBonus({
-				username: tgStore.username
+				user_id: tgStore.userId
 			})
 			await loadUser()
 		} catch (error) {
@@ -111,7 +111,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const startMining = async () => {
 		try {
-			await api.startMinig({ username: tgStore.username })
+			await api.startMining({ user_id: tgStore.userId })
 		} catch (error) {
 			console.warn(error)
 		}
@@ -119,7 +119,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const doneMining = async () => {
 		try {
-			await api.doneMining({ username: tgStore.username })
+			await api.doneMining({ user_id: tgStore.userId })
 		} catch (error) {
 			console.warn(error)
 		}
@@ -147,7 +147,9 @@ export const useUserStore = defineStore('user', () => {
 	const loadReferrals = async () => {
 		try {
 			const response = await api.getReferrals({
-				username: tgStore.username
+				user_id: tgStore.userId,
+				page: 1,
+				limit: 20
 			})
 			setReferralsResponse(response)
 		} catch (error) {

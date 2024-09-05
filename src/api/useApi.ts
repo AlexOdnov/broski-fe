@@ -8,6 +8,7 @@ import {
 	type RefClaimCreatePayload,
 	type MiningCreatePayload,
 	type MiningCreateBody,
+	type DailyCreatePayload,
 	type ReferalsCreatePayload
 } from './generatedApi'
 import type {
@@ -53,7 +54,7 @@ export const useApi = () => {
 		return await apiInstance.get.refClaimCreate(payload)
 	}
 
-	const startMinig = async (payload: MiningCreatePayload) => {
+	const startMining = async (payload: MiningCreatePayload) => {
 		return await apiInstance.start.miningCreate(payload)
 	}
 
@@ -65,6 +66,10 @@ export const useApi = () => {
 		return (await apiInstance.get.referalsCreate(payload)).data as unknown as ReferalsCreateResponse
 	}
 
+	const getDailyReward = async (payload: DailyCreatePayload) => {
+		return await apiInstance.done.dailyCreate(payload)
+	}
+
 	return {
 		getUser,
 		getTasks,
@@ -74,8 +79,9 @@ export const useApi = () => {
 		removeTickets,
 		doneTask,
 		claimRefBonus,
-		startMinig,
+		startMining,
 		doneMining,
+		getDailyReward,
 		getReferrals
 	}
 }

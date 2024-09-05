@@ -12,7 +12,7 @@
 		"lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
 		"format": "prettier --write src/",
 		"lint:all": "npm run format && npm run lint && npm run type-check",
-		"generate-api": "npx swagger-typescript-api -p ./src/api/swagger.yaml -o ./src/api -n generatedApi.ts --axios  --extract-request-params --extract-request-body --extract-enums",
+		"generate-api": "npx swagger-typescript-api -p ./src/api/swagger.yaml -o ./src/api -n generatedApi.ts --axios  --extract-request-params --extract-request-body --extract-enums && npm run format",
 		"prepare": "husky install"
 	},
 	"dependencies": {
