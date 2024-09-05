@@ -57,11 +57,12 @@ export const useApi = () => {
 	const startMining = async (payload: MiningCreatePayload) => {
 		return await apiInstance.start.miningCreate(payload)
 	}
-
 	const doneMining = async (payload: MiningCreateBody) => {
 		return await apiInstance.done.miningCreate(payload)
 	}
-
+	const claimDailyReward = async (payload: DailyCreatePayload) => {
+		return await apiInstance.done.dailyCreate(payload)
+	}
 	const getReferrals = async (payload: ReferalsCreatePayload): Promise<ReferalsCreateResponse> => {
 		return (await apiInstance.get.referalsCreate(payload)).data as unknown as ReferalsCreateResponse
 	}
@@ -81,7 +82,7 @@ export const useApi = () => {
 		claimRefBonus,
 		startMining,
 		doneMining,
-		getDailyReward,
+		claimDailyReward,
 		getReferrals
 	}
 }

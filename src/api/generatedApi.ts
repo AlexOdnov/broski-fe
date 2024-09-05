@@ -14,7 +14,7 @@ export interface UserCreatePayload {
 	username: string
 	/** @example "624161982" */
 	user_id: number
-	/** @example "624161982" */
+	/** @example "6241619823" */
 	ref_code?: string
 	/** @example true */
 	premium?: boolean

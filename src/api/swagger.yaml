@@ -26,7 +26,7 @@ paths:
                   required: true
                 ref_code:
                   type: string
-                  example: '624161982'
+                  example: '6241619823'
                 premium:
                   type: boolean
                   example: true
