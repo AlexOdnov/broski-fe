@@ -106,12 +106,7 @@ export const DailyComponent = defineComponent({
 							</div>
 						))}
 					</div>
-					<UiButton
-						mod={'primary'}
-						size={'lg'}
-						text="Claim"
-						whenClick={getDailyReward}
-					/>
+					<UiButton mod={'primary'} size={'lg'} text="Claim" whenClick={getDailyReward} />
 				</div>
 			</>
 		)

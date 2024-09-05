@@ -7,7 +7,9 @@ import {
 	type TasksCreateBody,
 	type RefClaimCreatePayload,
 	type MiningCreatePayload,
-	type MiningCreateBody, type DailyCreatePayload, type TicketsCreateBody
+	type MiningCreateBody,
+	type DailyCreatePayload,
+	type TicketsCreateBody
 } from './generatedApi'
 import type { UserCreateResponse, TasksCreateResponse } from './responseTypes'
 
@@ -68,6 +70,6 @@ export const useApi = () => {
 		claimRefBonus,
 		startMining,
 		doneMining,
-		getDailyReward,
+		getDailyReward
 	}
 }
