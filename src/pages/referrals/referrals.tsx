@@ -65,15 +65,18 @@ const ReferralsPage = defineComponent({
 
 		onMounted(() => {
 			const loader = document.querySelector('#infinity-loader') as Element
-			const interObserverConfig: IntersectionObserverInit = {
+			const intersectionObserverConfig: IntersectionObserverInit = {
 				threshold: 0.01
 			}
-			const interCallback = (entries: IntersectionObserverEntry[]) => {
+			const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
 				if (entries[0].isIntersecting) {
 					referralsStore.loadReferrals()
 				}
 			}
-			intersectionObserver.value = new IntersectionObserver(interCallback, interObserverConfig)
+			intersectionObserver.value = new IntersectionObserver(
+				intersectionCallback,
+				intersectionObserverConfig
+			)
 			intersectionObserver.value.observe(loader)
 		})
 

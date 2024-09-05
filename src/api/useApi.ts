@@ -67,10 +67,6 @@ export const useApi = () => {
 		return (await apiInstance.get.referalsCreate(payload)).data as unknown as ReferalsCreateResponse
 	}
 
-	const getDailyReward = async (payload: DailyCreatePayload) => {
-		return await apiInstance.done.dailyCreate(payload)
-	}
-
 	return {
 		getUser,
 		getTasks,
