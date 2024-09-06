@@ -21,7 +21,7 @@ export const DailyComponent = defineComponent({
 		const visibleDays = computed(() => {
 			const days: (Reward & { claimed: boolean })[] = []
 			for (let i = props.day; i < props.day + 6; i++) {
-				days.push({ ...getRewardByDay(i), claimed: false })
+				days.push({ ...getRewardByDay(i), day: i, claimed: false })
 			}
 			return days
 		})
