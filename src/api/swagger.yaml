@@ -26,7 +26,7 @@ paths:
                   required: true
                 ref_code:
                   type: string
-                  example: '624161982'
+                  example: '6241619823'
                 premium:
                   type: boolean
                   example: true
@@ -46,9 +46,9 @@ paths:
             schema:
               type: object
               properties:
-                username:
-                  type: string
-                  example: antonprox
+                user_id:
+                  type: integer
+                  example: '624161982'
                   required: true
       responses:
         '200':
@@ -66,14 +66,14 @@ paths:
             schema:
               type: object
               properties:
-                username:
-                  type: string
-                  example: antonprox
+                user_id:
+                  type: integer
+                  example: '624161982'
                   required: true
                 task_id:
                   type: integer
                   description: Id таски
-                  example: '1'
+                  example: '9'
                   required: true
       responses:
         '200':
@@ -91,9 +91,9 @@ paths:
             schema:
               type: object
               properties:
-                username:
-                  type: string
-                  example: antonprox
+                user_id:
+                  type: integer
+                  example: '624161982'
                   required: true
                 score:
                   type: integer
@@ -115,9 +115,9 @@ paths:
             schema:
               type: object
               properties:
-                username:
-                  type: string
-                  example: antonprox
+                user_id:
+                  type: integer
+                  example: '624161982'
                   required: true
                 tickets:
                   type: integer
@@ -139,9 +139,9 @@ paths:
             schema:
               type: object
               properties:
-                username:
-                  type: string
-                  example: antonprox
+                user_id:
+                  type: integer
+                  example: '624161982'
                   required: true
                 score:
                   type: integer
@@ -163,9 +163,9 @@ paths:
             schema:
               type: object
               properties:
-                username:
-                  type: string
-                  example: antonprox
+                user_id:
+                  type: integer
+                  example: '624161982'
                   required: true
                 tickets:
                   type: integer
@@ -186,9 +186,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               properties:
-                username:
-                  type: string
-                  example: antonprox
+                user_id:
+                  type: integer
+                  example: '624161982'
                   required: true
       responses:
         '200':
@@ -205,9 +205,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               properties:
-                username:
-                  type: string
-                  example: antonprox
+                user_id:
+                  type: integer
+                  example: '624161982'
                   required: true
       responses:
         '200':
@@ -224,9 +224,9 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               properties:
-                username:
-                  type: string
-                  example: antonprox
+                user_id:
+                  type: integer
+                  example: '624161982'
                   required: true
       responses:
         '200':
@@ -244,9 +244,17 @@ paths:
             schema:
               type: object
               properties:
-                username:
-                  type: string
-                  example: antonprox
+                user_id:
+                  type: integer
+                  example: '624161982'
+                  required: true
+                page:
+                  type: integer
+                  example: '3'
+                  required: true
+                limit:
+                  type: integer
+                  example: '2'
                   required: true
       responses:
         '200':
@@ -264,9 +272,29 @@ paths:
             schema:
               type: object
               properties:
-                username:
-                  type: string
-                  example: antonprox
+                user_id:
+                  type: integer
+                  example: '624161982'
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /done/first_login/:
+    post:
+      tags:
+        - default
+      summary: /done/first_login/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: '624161982'
                   required: true
       responses:
         '200':

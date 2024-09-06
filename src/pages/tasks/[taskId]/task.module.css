@@ -28,7 +28,6 @@
 	font-size: 22px;
 	font-weight: 500;
 	line-height: 22px;
-	text-align: center;
 }
 
 .description {
@@ -37,50 +36,6 @@
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 17.5px;
-	text-align: center;
-}
-
-.frame {
-	margin: 20px 10px;
-	background-color: #1d1e20;
-	border: 1px solid #35332e;
-	border-radius: 10px;
-	display: grid;
-	grid-template-columns: 1fr 1px 1fr;
-}
-
-.separator {
-	margin: 10px 0;
-	background-color: #35332e;
-}
-
-.coins {
-	padding: 10px 0;
-	display: flex;
-	flex-direction: column;
-	text-align: center;
-	gap: 10px;
-	color: #ffb800;
-}
-
-.coins img {
-	margin: 0 auto;
-	width: 50px;
-	height: 50px;
-}
-
-.tickets {
-	padding: 10px 0;
-	display: flex;
-	flex-direction: column;
-	text-align: center;
-	gap: 10px;
-}
-
-.tickets img {
-	margin: 0 auto;
-	width: 50px;
-	height: 50px;
 }
 
 .duration {

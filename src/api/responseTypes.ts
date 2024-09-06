@@ -14,6 +14,8 @@ export interface UserCreateResponse {
 	tickets: number
 	left_mining: string
 	mining_claim: boolean
+	daily_stric: number
+	daily_claim: boolean
 }
 
 export interface TasksCreateResponseItem {
@@ -36,4 +38,7 @@ export interface ReferalsCreateResponse {
 	username: string
 	referals: Referral[]
 	total_referals: number
+	total_pages: number
+	current_page: number
+	total_score: number
 }

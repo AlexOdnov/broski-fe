@@ -79,3 +79,16 @@
 .yellow {
 	color: #ffb800;
 }
+
+.listHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.total {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 14px;
+	color: #797979;
+}
