@@ -46,14 +46,14 @@ export interface TicketsCreatePayload {
 	/** @example "624161982" */
 	user_id: number
 	/** @example "1" */
-	tickets?: number
+	tickets: number
 }
 
 export interface ScoreCreateBody {
 	/** @example "624161982" */
 	user_id: number
 	/** @example "1000" */
-	score?: number
+	score: number
 }
 
 export interface TicketsCreateBody {
@@ -94,7 +94,7 @@ export interface DailyCreatePayload {
 
 export interface FirstLoginCreatePayload {
 	/** @example "624161982" */
-	user_id?: number
+	user_id: number
 }
 
 import type {

@@ -122,6 +122,7 @@ paths:
                 tickets:
                   type: integer
                   example: '1'
+                  required: true
       responses:
         '200':
           description: Successful response
@@ -145,6 +146,7 @@ paths:
                 score:
                   type: integer
                   example: '1000'
+                  required: true
       responses:
         '200':
           description: Successful response
@@ -293,6 +295,7 @@ paths:
                 user_id:
                   type: integer
                   example: '624161982'
+                  required: true
       responses:
         '200':
           description: Successful response

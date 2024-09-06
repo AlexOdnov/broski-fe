@@ -9,7 +9,6 @@ import {
 	type MiningCreatePayload,
 	type MiningCreateBody,
 	type DailyCreatePayload,
-	type TicketsCreateBody,
 	type ReferalsCreatePayload
 } from './generatedApi'
 import type {
@@ -43,7 +42,7 @@ export const useApi = () => {
 		return await apiInstance.remove.scoreCreate(payload)
 	}
 
-	const removeTickets = async (payload: TicketsCreateBody) => {
+	const removeTickets = async (payload: TicketsCreatePayload) => {
 		return await apiInstance.remove.ticketsCreate(payload)
 	}
 
@@ -54,6 +53,7 @@ export const useApi = () => {
 	const claimRefBonus = async (payload: RefClaimCreatePayload) => {
 		return await apiInstance.get.refClaimCreate(payload)
 	}
+
 	const startMining = async (payload: MiningCreatePayload) => {
 		return await apiInstance.start.miningCreate(payload)
 	}

@@ -5,12 +5,14 @@ import { DailyComponent, LoadingScreen } from './components'
 import { useUserStore } from './stores/user'
 import { useTgSdkStore } from './stores/tg-sdk'
 import { useTasksStore } from './stores/tasks'
+import { useReferralsStore } from './stores/referrals'
 
 export default defineComponent({
 	setup() {
 		const userStore = useUserStore()
 		const tasksStore = useTasksStore()
 		const tgStore = useTgSdkStore()
+		const referralsStore = useReferralsStore()
 
 		const isUserError = ref(false)
 
@@ -36,7 +38,7 @@ export default defineComponent({
 				console.warn('Failed to get broski user information')
 			}
 			tasksStore.getTasks()
-			userStore.loadReferrals()
+			referralsStore.loadReferrals()
 			userStore.startUpdateMiningString()
 		}
 
@@ -95,7 +97,7 @@ export default defineComponent({
 										</RouterLink>
 										<RouterLink activeClass={styles.active} to="/referrals">
 											<div class={styles.navBtn}>
-												{Boolean(userStore.sumReferralsReward) && (
+												{Boolean(referralsStore.sumReferralsReward) && (
 													<img class={styles.notice} src="/images/notice.png" />
 												)}
 												<div class={[styles.letter, styles.rotateLeft]}>O</div>
