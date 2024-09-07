@@ -10,6 +10,7 @@ import {
 	GameElement
 } from '@/components'
 import { useUserStore } from '@/stores/user'
+import { useAdvertisingStore } from '@/stores/advertising'
 
 const placeholders = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
 
@@ -18,6 +19,7 @@ const GamePage = defineComponent({
 	setup() {
 		const gameStore = useGameStore()
 		const userStore = useUserStore()
+		const advStore = useAdvertisingStore()
 
 		const topText = computed(() => {
 			switch (gameStore.gameStatus) {
@@ -83,9 +85,17 @@ const GamePage = defineComponent({
 			}
 		)
 
+		const whenAdvClick = async () => {
+			if (await advStore.showAdv()) {
+				// награда
+				return
+			}
+		}
+
 		const isButtonShown = computed(
 			() => userStore.userTickets > 0 || gameStore.gameStatus !== GameStatus.Idle
 		)
+		const getTicketsForAdvButtonShown = computed(() => userStore.userTickets === 0)
 
 		return () => (
 			<div class={styles.game}>
@@ -112,6 +122,13 @@ const GamePage = defineComponent({
 					))}
 				</div>
 				<div class={styles.bottomBlock}>
+					{getTicketsForAdvButtonShown.value && (
+						<UiButton
+							leftIcon={<img src="/images/ad.svg" />}
+							text="Get tickets"
+							whenClick={whenAdvClick}
+						/>
+					)}
 					{isButtonShown.value ? (
 						<UiButton {...buttonProps.value} />
 					) : (

@@ -3,4 +3,5 @@ interface Window {
 		baseUrl: string
 		botLink: string
 	}
+	initCdTma: ({id: number}) => Promise<() => Promise<void>>
 }
