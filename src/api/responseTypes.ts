@@ -9,7 +9,6 @@ export interface UserCreateResponse {
 	username: string
 	score: number
 	last_tap: string
-	referals: Referral[]
 	ref_code: string
 	position: number
 	tickets: number
@@ -31,4 +30,10 @@ export interface TasksCreateResponseItem {
 
 export interface TasksCreateResponse {
 	tasks: TasksCreateResponseItem[]
+}
+
+export interface ReferalsCreateResponse {
+	username: string
+	referals: Referral[]
+	total_referals: number
 }

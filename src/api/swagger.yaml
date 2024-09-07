@@ -233,3 +233,43 @@ paths:
           description: Successful response
           content:
             application/json: {}
+  /get/referals/:
+    post:
+      tags:
+        - default
+      summary: /get/referals/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: antonprox
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /done/daily/:
+    post:
+      tags:
+        - default
+      summary: /done/daily/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: antonprox
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

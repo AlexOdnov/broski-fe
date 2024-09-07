@@ -7,9 +7,14 @@ import {
 	type TasksCreateBody,
 	type RefClaimCreatePayload,
 	type MiningCreatePayload,
-	type MiningCreateBody
+	type MiningCreateBody,
+	type ReferalsCreatePayload
 } from './generatedApi'
-import type { UserCreateResponse, TasksCreateResponse } from './responseTypes'
+import type {
+	UserCreateResponse,
+	TasksCreateResponse,
+	ReferalsCreateResponse
+} from './responseTypes'
 
 const apiInstance = new Api({
 	baseURL: window.appConfig.baseUrl
@@ -47,11 +52,17 @@ export const useApi = () => {
 	const claimRefBonus = async (payload: RefClaimCreatePayload) => {
 		return await apiInstance.get.refClaimCreate(payload)
 	}
+
 	const startMinig = async (payload: MiningCreatePayload) => {
 		return await apiInstance.start.miningCreate(payload)
 	}
+
 	const doneMining = async (payload: MiningCreateBody) => {
 		return await apiInstance.done.miningCreate(payload)
+	}
+
+	const getReferrals = async (payload: ReferalsCreatePayload): Promise<ReferalsCreateResponse> => {
+		return (await apiInstance.get.referalsCreate(payload)).data as unknown as ReferalsCreateResponse
 	}
 
 	return {
@@ -64,6 +75,7 @@ export const useApi = () => {
 		doneTask,
 		claimRefBonus,
 		startMinig,
-		doneMining
+		doneMining,
+		getReferrals
 	}
 }
