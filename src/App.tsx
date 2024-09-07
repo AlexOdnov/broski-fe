@@ -1,6 +1,6 @@
 import { computed, defineComponent, ref } from 'vue'
 import styles from './style.module.css'
-import { DailyComponent, LoadingScreen, MainComponent } from './components'
+import { DailyComponent, LoadingScreen, MainComponent, OnboardingComponent } from './components'
 import { useUserStore } from './stores/user'
 import { useTgSdkStore } from './stores/tg-sdk'
 import { useTasksStore } from './stores/tasks'
@@ -20,10 +20,14 @@ export default defineComponent({
 		})
 
 		const needRenderDaily = computed(() => userStore.user?.daily_claim === false)
+		const needRenderOnboarding = computed(() => userStore.user?.first_login)
 
 		const getComponent = computed(() => {
 			if (isLoaderVisible.value) {
 				return <LoadingScreen />
+			}
+			if (needRenderOnboarding.value) {
+				return <OnboardingComponent />
 			}
 			if (needRenderDaily.value) {
 				return <DailyComponent day={userStore.user?.daily_stric ?? 1} />
