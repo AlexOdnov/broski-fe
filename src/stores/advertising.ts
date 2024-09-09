@@ -5,15 +5,15 @@ export const useAdvertisingStore = defineStore('advertising', () => {
 	const showAdv = async () => {
 		try {
 			const showResult = await adController.value?.show()
-			if(showResult?.done) {
+			if (showResult?.done) {
 				return true
 			}
 			console.warn(showResult?.error)
 			return false
-		// if (!_showAdv) return false
-		// try {
-		// 	await _showAdv()
-		// 	return true
+			// if (!_showAdv) return false
+			// try {
+			// 	await _showAdv()
+			// 	return true
 		} catch (e) {
 			console.warn('failed when show adv', e)
 			return false
@@ -31,8 +31,8 @@ export const useAdvertisingStore = defineStore('advertising', () => {
 		// 	console.warn('failed adv init', e)
 		// }
 		try {
-			const adControllerInit = window.Adsgram.init({blockId: '1337'})
-			if(adControllerInit) {
+			const adControllerInit = window.Adsgram.init({ blockId: '1337' })
+			if (adControllerInit) {
 				adController.value = adControllerInit
 			}
 		} catch (e) {
