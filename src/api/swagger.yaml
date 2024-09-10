@@ -5,11 +5,11 @@ info:
 servers:
   - url: http://127.0.0.1:8000
 paths:
-  /get/user/:
+  /gets/user/:
     post:
       tags:
         - default
-      summary: /get/user/
+      summary: /gets/user/
       requestBody:
         content:
           multipart/form-data:
