@@ -1,6 +1,6 @@
 import { useUserStore } from '@/stores/user'
 import styles from './onboarding.module.css'
-import { ref, computed, defineComponent } from 'vue'
+import { ref, computed, defineComponent, type VNode } from 'vue'
 import { UiButton, type ButtonMod } from '../ui'
 
 export const OnboardingComponent = defineComponent({
@@ -12,8 +12,8 @@ export const OnboardingComponent = defineComponent({
 		const currentProperties = computed(
 			(): {
 				image: string
-				title: string
-				description: string
+				title: VNode
+				description: VNode
 				buttonMod: ButtonMod
 				buttonText: string
 				handler: () => void
@@ -22,9 +22,20 @@ export const OnboardingComponent = defineComponent({
 					case 1:
 						return {
 							image: './images/onboarding-1.jpg',
-							title: 'step 1',
-							description:
-								'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et augue ut ex rhoncus fermentum eget et libero. Curabitur ac mattis nisl. Nulla lacinia sollicitudin justo, at egestas libero hendrerit vitae. ',
+							title: (
+								<>
+									<span class={styles.yellow}>yo broski</span>, welcome to brocoin! 👊
+								</>
+							),
+							description: (
+								<>
+									<p class={styles.description}>fun & earn — we’re all about that</p>
+									<p class={styles.description}>
+										find letters B, R, O under the cells and get your points — you need them to get
+										bigger airdrop
+									</p>
+								</>
+							),
 							buttonMod: 'inverse',
 							buttonText: 'next',
 							handler: () => (currentStep.value += 1)
@@ -32,9 +43,23 @@ export const OnboardingComponent = defineComponent({
 					case 2:
 						return {
 							image: './images/onboarding-2.jpg',
-							title: 'step 2',
-							description:
-								'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et augue ut ex rhoncus fermentum eget et libero. Curabitur ac mattis nisl. Nulla lacinia sollicitudin justo, at egestas libero hendrerit vitae. ',
+							title: (
+								<>
+									1 game = 1 ticket&nbsp;
+									<img class={styles.icon} src="/images/ticket.png" />
+								</>
+							),
+							description: (
+								<>
+									<p class={styles.description}>
+										if given tickets aren’t enough, hit up "Earn" for more earning opportunities
+									</p>
+									<p class={styles.description}>
+										bring ur bros along using ur ref link, vibe together, and score a cut from their
+										earnings too!
+									</p>
+								</>
+							),
 							buttonMod: 'inverse',
 							buttonText: 'next',
 							handler: () => (currentStep.value += 1)
@@ -42,9 +67,20 @@ export const OnboardingComponent = defineComponent({
 					case 3:
 						return {
 							image: './images/onboarding-3.jpg',
-							title: 'step 3',
-							description:
-								'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et augue ut ex rhoncus fermentum eget et libero. Curabitur ac mattis nisl. Nulla lacinia sollicitudin justo, at egestas libero hendrerit vitae. ',
+							title: (
+								<>
+									<span class={styles.yellow}>airdrop</span>&nbsp;with no vesting!
+								</>
+							),
+							description: (
+								<>
+									<p class={styles.description}>stay tuned ’n be active in our brotherhood </p>
+									<p class={styles.description}>
+										and don’t forget to show up every 8 hours to grab ur loot from the farm – it’s
+										free stuff, why miss out?
+									</p>
+								</>
+							),
 							buttonMod: 'primary',
 							buttonText: 'ok',
 							handler: userStore.doneFirstLogin
@@ -52,12 +88,11 @@ export const OnboardingComponent = defineComponent({
 					default:
 						return {
 							image: './images/onboarding-1.png',
-							title: 'step 1',
-							description:
-								'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et augue ut ex rhoncus fermentum eget et libero. Curabitur ac mattis nisl. Nulla lacinia sollicitudin justo, at egestas libero hendrerit vitae. ',
+							title: <></>,
+							description: <></>,
 							buttonMod: 'inverse',
-							buttonText: 'next',
-							handler: () => (currentStep.value += 1)
+							buttonText: 'wait',
+							handler: () => {}
 						}
 				}
 			}
