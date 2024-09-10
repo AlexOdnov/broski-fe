@@ -258,25 +258,26 @@ export class HttpClient<SecurityDataType = unknown> {
  * @baseUrl http://127.0.0.1:8000
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
-	get = {
+	gets = {
 		/**
 		 * No description
 		 *
 		 * @tags default
 		 * @name UserCreate
-		 * @summary /get/user/
-		 * @request POST:/get/user/
+		 * @summary /gets/user/
+		 * @request POST:/gets/user/
 		 */
 		userCreate: (data: UserCreatePayload, params: RequestParams = {}) =>
 			this.request<void, any>({
-				path: `/get/user/`,
+				path: `/gets/user/`,
 				method: 'POST',
 				body: data,
 				type: ContentType.FormData,
 				format: 'json',
 				...params
-			}),
-
+			})
+	}
+	get = {
 		/**
 		 * No description
 		 *
