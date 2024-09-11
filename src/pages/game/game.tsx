@@ -2,13 +2,7 @@ import { computed, defineComponent } from 'vue'
 
 import styles from './styles.module.css'
 import { GameStatus, INITIAL_ATTEMPTS_COUNT, useGameStore, WIN_GAME_POINTS } from '@/stores/game'
-import {
-	UiButton,
-	type ButtonMod,
-	TicketsCounter,
-	UiHeightPlaceholder,
-	GameElement
-} from '@/components'
+import { type ButtonMod, GameElement, TicketsCounter, UiButton, UiHeightPlaceholder } from '@/components'
 import { useUserStore } from '@/stores/user'
 import { useAdvertisingStore } from '@/stores/advertising'
 
@@ -95,7 +89,7 @@ const GamePage = defineComponent({
 		const isButtonShown = computed(
 			() => userStore.userTickets > 0 || gameStore.gameStatus !== GameStatus.Idle
 		)
-		const getTicketsForAdvButtonShown = computed(() => userStore.userTickets === 0)
+		const getTicketsForAdvButtonShown = computed(() => userStore.userTickets === 0 && gameStore.gameStatus !== GameStatus.InProgress)
 
 		return () => (
 			<div class={styles.game}>
