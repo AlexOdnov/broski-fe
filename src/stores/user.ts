@@ -146,6 +146,15 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const doneFirstLogin = async () => {
+		try {
+			await api.doneFirstLogin({ user_id: tgStore.userId })
+			await loadUser()
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	return {
 		user,
 		userTickets,
@@ -160,5 +169,6 @@ export const useUserStore = defineStore('user', () => {
 		startUpdateMiningString,
 		claimDailyReward,
 		claimAdvertisingReward,
+		doneFirstLogin
 	}
 })

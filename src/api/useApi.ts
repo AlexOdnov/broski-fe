@@ -10,6 +10,7 @@ import {
 	type MiningCreateBody,
 	type DailyCreatePayload,
 	type ReferalsCreatePayload,
+	type FirstLoginCreatePayload,
 	type AdvertisingSeeCreatePayload,
 } from './generatedApi'
 import type {
@@ -58,17 +59,24 @@ export const useApi = () => {
 	const startMining = async (payload: MiningCreatePayload) => {
 		return await apiInstance.start.miningCreate(payload)
 	}
+
 	const doneMining = async (payload: MiningCreateBody) => {
 		return await apiInstance.done.miningCreate(payload)
 	}
+
 	const claimDailyReward = async (payload: DailyCreatePayload) => {
 		return await apiInstance.done.dailyCreate(payload)
 	}
+
 	const getReferrals = async (payload: ReferalsCreatePayload): Promise<ReferalsCreateResponse> => {
 		return (await apiInstance.get.referalsCreate(payload)).data as unknown as ReferalsCreateResponse
 	}
 	const claimAdvertisingReward = async (payload: AdvertisingSeeCreatePayload) =>{
 		return await apiInstance.advertisingSee.advertisingSeeCreate(payload)
+	}
+
+	const doneFirstLogin = async (payload: FirstLoginCreatePayload) => {
+		return await apiInstance.done.firstLoginCreate(payload)
 	}
 
 	return {
@@ -84,6 +92,7 @@ export const useApi = () => {
 		doneMining,
 		claimDailyReward,
 		getReferrals,
+		doneFirstLogin,
 		claimAdvertisingReward,
 	}
 }
