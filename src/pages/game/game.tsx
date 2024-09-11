@@ -86,7 +86,7 @@ const GamePage = defineComponent({
 		)
 
 		const whenAdvClick = async () => {
-			if (await advStore.showAdv()) {
+			if (await advStore.showAdv() && (userStore.user?.advertising_limit ?? 10) !== 0) {
 				await userStore.claimAdvertisingReward()
 				return
 			}
@@ -139,7 +139,7 @@ const GamePage = defineComponent({
 							<UiButton
 								style={'font-weight: 400; font-size:12px;'}
 								leftIcon={<img src="/images/ad.svg" />}
-								disabled={(userStore.user?.advertising_limit ?? 0) === 0}
+								disabled={(userStore.user?.advertising_limit ?? 10) === 0}
 								text={advText.value}
 								whenClick={whenAdvClick}
 							/>
