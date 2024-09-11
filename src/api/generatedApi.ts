@@ -97,6 +97,25 @@ export interface FirstLoginCreatePayload {
 	user_id: number
 }
 
+export interface SwitchRegionCreatePayload {
+	/** @example "624161982" */
+	user_id: number
+	/** @example "ru" */
+	region: string
+}
+
+export interface AdvertisingSeeCreatePayload {
+	/** @example "624161982" */
+	user_id: number
+}
+
+export interface BoxesCreatePayload {
+	/** @example "624161982" */
+	user_id: number
+	/** @example "1" */
+	box: number
+}
+
 import type {
 	AxiosInstance,
 	AxiosRequestConfig,
@@ -329,6 +348,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				type: ContentType.FormData,
 				format: 'json',
 				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name BoxesCreate
+		 * @summary /get/boxes/
+		 * @request POST:/get/boxes/
+		 */
+		boxesCreate: (data: BoxesCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/get/boxes/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
+				format: 'json',
+				...params
 			})
 	}
 	done = {
@@ -493,6 +530,44 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				method: 'POST',
 				body: data,
 				type: ContentType.UrlEncoded,
+				format: 'json',
+				...params
+			})
+	}
+	switchRegion = {
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name SwitchRegionCreate
+		 * @summary /switch_region/
+		 * @request POST:/switch_region/
+		 */
+		switchRegionCreate: (data: SwitchRegionCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/switch_region/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
+				format: 'json',
+				...params
+			})
+	}
+	advertisingSee = {
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name AdvertisingSeeCreate
+		 * @summary /advertising_see/
+		 * @request POST:/advertising_see/
+		 */
+		advertisingSeeCreate: (data: AdvertisingSeeCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/advertising_see/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
 				format: 'json',
 				...params
 			})

@@ -152,6 +152,16 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const claimAdvertisingReward = async () => {
+		try {
+			await api.claimAdvertisingReward({user_id: tgStore.userId})
+		} catch (error) {
+			console.warn(error)
+		} finally {
+			await loadUser()
+		}
+	}
+
 	return {
 		user,
 		userTickets,
@@ -164,6 +174,7 @@ export const useUserStore = defineStore('user', () => {
 		doneMining,
 		timeBeforeMiningLeftString,
 		startUpdateMiningString,
-		claimDailyReward
+		claimDailyReward,
+		claimAdvertisingReward,
 	}
 })
