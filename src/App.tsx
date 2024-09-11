@@ -5,6 +5,7 @@ import { useUserStore } from './stores/user'
 import { useTgSdkStore } from './stores/tg-sdk'
 import { useTasksStore } from './stores/tasks'
 import { useReferralsStore } from './stores/referrals'
+import { useAdvertisingStore } from '@/stores/advertising'
 
 export default defineComponent({
 	setup() {
@@ -36,6 +37,7 @@ export default defineComponent({
 		})
 
 		const onCreated = async () => {
+			await useAdvertisingStore().init()
 			tgStore.initTgApp()
 			if (!tgStore.user) {
 				isUserError.value = true

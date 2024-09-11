@@ -97,6 +97,25 @@ export interface FirstLoginCreatePayload {
 	user_id: number
 }
 
+export interface SwitchRegionCreatePayload {
+	/** @example "624161982" */
+	user_id: number
+	/** @example "ru" */
+	region: string
+}
+
+export interface AdvertisingSeeCreatePayload {
+	/** @example "624161982" */
+	user_id: number
+}
+
+export interface BoxesCreatePayload {
+	/** @example "624161982" */
+	user_id: number
+	/** @example "1" */
+	box: number
+}
+
 import type {
 	AxiosInstance,
 	AxiosRequestConfig,
@@ -258,25 +277,26 @@ export class HttpClient<SecurityDataType = unknown> {
  * @baseUrl http://127.0.0.1:8000
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
-	get = {
+	gets = {
 		/**
 		 * No description
 		 *
 		 * @tags default
 		 * @name UserCreate
-		 * @summary /get/user/
-		 * @request POST:/get/user/
+		 * @summary /gets/user/
+		 * @request POST:/gets/user/
 		 */
 		userCreate: (data: UserCreatePayload, params: RequestParams = {}) =>
 			this.request<void, any>({
-				path: `/get/user/`,
+				path: `/gets/user/`,
 				method: 'POST',
 				body: data,
 				type: ContentType.FormData,
 				format: 'json',
 				...params
-			}),
-
+			})
+	}
+	get = {
 		/**
 		 * No description
 		 *
@@ -324,6 +344,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		referalsCreate: (data: ReferalsCreatePayload, params: RequestParams = {}) =>
 			this.request<void, any>({
 				path: `/get/referals/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name BoxesCreate
+		 * @summary /get/boxes/
+		 * @request POST:/get/boxes/
+		 */
+		boxesCreate: (data: BoxesCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/get/boxes/`,
 				method: 'POST',
 				body: data,
 				type: ContentType.FormData,
@@ -493,6 +531,44 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				method: 'POST',
 				body: data,
 				type: ContentType.UrlEncoded,
+				format: 'json',
+				...params
+			})
+	}
+	switchRegion = {
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name SwitchRegionCreate
+		 * @summary /switch_region/
+		 * @request POST:/switch_region/
+		 */
+		switchRegionCreate: (data: SwitchRegionCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/switch_region/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
+				format: 'json',
+				...params
+			})
+	}
+	advertisingSee = {
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name AdvertisingSeeCreate
+		 * @summary /advertising_see/
+		 * @request POST:/advertising_see/
+		 */
+		advertisingSeeCreate: (data: AdvertisingSeeCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/advertising_see/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
 				format: 'json',
 				...params
 			})

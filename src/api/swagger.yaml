@@ -5,11 +5,11 @@ info:
 servers:
   - url: http://127.0.0.1:8000
 paths:
-  /get/user/:
+  /gets/user/:
     post:
       tags:
         - default
-      summary: /get/user/
+      summary: /gets/user/
       requestBody:
         content:
           multipart/form-data:
@@ -295,6 +295,74 @@ paths:
                 user_id:
                   type: integer
                   example: '624161982'
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /switch_region/:
+    post:
+      tags:
+        - default
+      summary: /switch_region/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: '624161982'
+                  required: true
+                region:
+                  type: string
+                  example: ru
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /advertising_see/:
+    post:
+      tags:
+        - default
+      summary: /advertising_see/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: '624161982'
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /get/boxes/:
+    post:
+      tags:
+        - default
+      summary: /get/boxes/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: '624161982'
+                  required: true
+                box:
+                  type: integer
+                  example: '1'
                   required: true
       responses:
         '200':

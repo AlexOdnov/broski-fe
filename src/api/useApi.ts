@@ -10,7 +10,8 @@ import {
 	type MiningCreateBody,
 	type DailyCreatePayload,
 	type ReferalsCreatePayload,
-	type FirstLoginCreatePayload
+	type FirstLoginCreatePayload,
+	type AdvertisingSeeCreatePayload,
 } from './generatedApi'
 import type {
 	UserCreateResponse,
@@ -24,7 +25,7 @@ const apiInstance = new Api({
 
 export const useApi = () => {
 	const getUser = async (payload: UserCreatePayload): Promise<UserCreateResponse> => {
-		return (await apiInstance.get.userCreate(payload)).data as unknown as UserCreateResponse
+		return (await apiInstance.gets.userCreate(payload)).data as unknown as UserCreateResponse
 	}
 
 	const getTasks = async (payload: TasksCreatePayload): Promise<TasksCreateResponse> => {
@@ -70,6 +71,9 @@ export const useApi = () => {
 	const getReferrals = async (payload: ReferalsCreatePayload): Promise<ReferalsCreateResponse> => {
 		return (await apiInstance.get.referalsCreate(payload)).data as unknown as ReferalsCreateResponse
 	}
+	const claimAdvertisingReward = async (payload: AdvertisingSeeCreatePayload) =>{
+		return await apiInstance.advertisingSee.advertisingSeeCreate(payload)
+	}
 
 	const doneFirstLogin = async (payload: FirstLoginCreatePayload) => {
 		return await apiInstance.done.firstLoginCreate(payload)
@@ -88,6 +92,7 @@ export const useApi = () => {
 		doneMining,
 		claimDailyReward,
 		getReferrals,
-		doneFirstLogin
+		doneFirstLogin,
+		claimAdvertisingReward,
 	}
 }
