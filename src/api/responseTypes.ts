@@ -16,6 +16,12 @@ export interface UserCreateResponse {
 	mining_claim: boolean
 	daily_stric: number
 	daily_claim: boolean
+	first_login: boolean
+	first_game: boolean
+	advertising_limit: number
+	advertising_total: number
+	boxes: number
+	region: string
 }
 
 export interface TasksCreateResponseItem {

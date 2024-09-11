@@ -1,5 +1,5 @@
-import { computed, defineComponent, type PropType } from 'vue'
-import styles from './styles.module.css'
+import { computed, defineComponent, type PropType, type VNode } from 'vue'
+import styles from './ui-button.module.css'
 
 export type ButtonSize = 'sm' | 'md' | 'lg'
 export type ButtonMod = 'primary' | 'secondary' | 'inverse'
@@ -8,6 +8,7 @@ export const UiButton = defineComponent({
 	name: 'UiButton',
 	props: {
 		text: { type: String, required: true },
+		leftIcon: { type: Object as PropType<VNode>, required: false },
 		size: { type: String as PropType<ButtonSize>, default: 'md' },
 		mod: { type: String as PropType<ButtonMod>, default: 'primary' },
 		disabled: { type: Boolean, default: false },
@@ -57,7 +58,14 @@ export const UiButton = defineComponent({
 				onClick={handleClick}
 				style={{ minWidth: props.minWidth }}
 			>
-				{props.loading ? <div class={styles.loader} /> : props.text}
+				{props.loading ? (
+					<div class={styles.loader} />
+				) : (
+					<>
+						{<div class={styles.leftIcon}>{props.leftIcon}</div>}
+						{props.text}
+					</>
+				)}
 			</button>
 		)
 	}

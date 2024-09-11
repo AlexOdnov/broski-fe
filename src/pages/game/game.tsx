@@ -3,13 +3,14 @@ import { computed, defineComponent } from 'vue'
 import styles from './styles.module.css'
 import { GameStatus, INITIAL_ATTEMPTS_COUNT, useGameStore, WIN_GAME_POINTS } from '@/stores/game'
 import {
-	UiButton,
 	type ButtonMod,
+	GameElement,
 	TicketsCounter,
-	UiHeightPlaceholder,
-	GameElement
+	UiButton,
+	UiHeightPlaceholder
 } from '@/components'
 import { useUserStore } from '@/stores/user'
+import { useAdvertisingStore } from '@/stores/advertising'
 
 const placeholders = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
 
@@ -18,6 +19,7 @@ const GamePage = defineComponent({
 	setup() {
 		const gameStore = useGameStore()
 		const userStore = useUserStore()
+		const advStore = useAdvertisingStore()
 
 		const topText = computed(() => {
 			switch (gameStore.gameStatus) {
@@ -83,8 +85,28 @@ const GamePage = defineComponent({
 			}
 		)
 
+		const whenAdvClick = async () => {
+			if (await advStore.showAdv() && (userStore.user?.advertising_limit ?? 10) !== 0) {
+				await userStore.claimAdvertisingReward()
+				return
+			}
+		}
+		const advText = computed(() => {
+			let result = 'Get tickets'
+			if (userStore.user?.advertising_limit && userStore.user?.advertising_total) {
+				result += ` ${userStore.user?.advertising_limit}/${userStore.user?.advertising_total}`
+			}
+			return result
+		})
+
 		const isButtonShown = computed(
-			() => userStore.userTickets > 0 || gameStore.gameStatus !== GameStatus.Idle
+			() =>
+				(userStore.userTickets > 0 || gameStore.gameStatus !== GameStatus.Idle) &&
+				userStore.userTickets !== 0
+		)
+		const getTicketsForAdvButtonShown = computed(
+			() => userStore.userTickets === 0 &&
+				gameStore.gameStatus !== GameStatus.InProgress
 		)
 
 		return () => (
@@ -112,12 +134,23 @@ const GamePage = defineComponent({
 					))}
 				</div>
 				<div class={styles.bottomBlock}>
-					{isButtonShown.value ? (
-						<UiButton {...buttonProps.value} />
-					) : (
-						<UiHeightPlaceholder height={'30px'} />
+					{getTicketsForAdvButtonShown.value && (
+						<>
+							<UiButton
+								style={'font-weight: 400; font-size:12px;'}
+								leftIcon={<img src="/images/ad.svg" />}
+								disabled={(userStore.user?.advertising_limit ?? 10) === 0}
+								text={advText.value}
+								whenClick={whenAdvClick}
+							/>
+							<div class={styles.disclaimer}>
+								Bro, we are not responsible for advertising. Don't connect your main wallet
+								anywhere.
+							</div>
+						</>
 					)}
-					<TicketsCounter />
+					{isButtonShown.value && <UiButton {...buttonProps.value} />}
+					{!getTicketsForAdvButtonShown.value && <TicketsCounter />}
 				</div>
 			</div>
 		)

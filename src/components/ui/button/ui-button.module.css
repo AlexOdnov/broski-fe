@@ -1,4 +1,5 @@
 .button {
+	display: flex;
 	border-radius: 10px;
 	font-size: 16px;
 	line-height: 16px;
@@ -87,4 +88,11 @@
 	100% {
 		clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
 	}
+}
+
+.leftIcon {
+	max-height: 1em;
+	display: flex;
+	align-self: center;
+	padding-right: 5px;
 }
