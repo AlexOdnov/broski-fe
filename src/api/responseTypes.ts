@@ -19,6 +19,7 @@ export interface UserCreateResponse {
 	first_login: boolean
 	first_game: boolean
 	advertising_limit: number
+	advertising_total: number
 	boxes: number
 	region: string
 }

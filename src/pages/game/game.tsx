@@ -2,7 +2,13 @@ import { computed, defineComponent } from 'vue'
 
 import styles from './styles.module.css'
 import { GameStatus, INITIAL_ATTEMPTS_COUNT, useGameStore, WIN_GAME_POINTS } from '@/stores/game'
-import { type ButtonMod, GameElement, TicketsCounter, UiButton, UiHeightPlaceholder } from '@/components'
+import {
+	type ButtonMod,
+	GameElement,
+	TicketsCounter,
+	UiButton,
+	UiHeightPlaceholder
+} from '@/components'
 import { useUserStore } from '@/stores/user'
 import { useAdvertisingStore } from '@/stores/advertising'
 
@@ -85,11 +91,23 @@ const GamePage = defineComponent({
 				return
 			}
 		}
+		const advText = computed(() => {
+			let result = 'Get tickets'
+			if (userStore.user?.advertising_limit && userStore.user?.advertising_total) {
+				result += ` ${userStore.user?.advertising_limit}/${userStore.user?.advertising_total}`
+			}
+			return result
+		})
 
 		const isButtonShown = computed(
-			() => userStore.userTickets > 0 || gameStore.gameStatus !== GameStatus.Idle
+			() =>
+				(userStore.userTickets > 0 || gameStore.gameStatus !== GameStatus.Idle) &&
+				userStore.userTickets !== 0
 		)
-		const getTicketsForAdvButtonShown = computed(() => userStore.userTickets === 0 && gameStore.gameStatus !== GameStatus.InProgress)
+		const getTicketsForAdvButtonShown = computed(
+			() => userStore.userTickets === 0 &&
+				gameStore.gameStatus !== GameStatus.InProgress
+		)
 
 		return () => (
 			<div class={styles.game}>
@@ -117,18 +135,22 @@ const GamePage = defineComponent({
 				</div>
 				<div class={styles.bottomBlock}>
 					{getTicketsForAdvButtonShown.value && (
-						<UiButton
-							leftIcon={<img src="/images/ad.svg" />}
-							text="Get tickets"
-							whenClick={whenAdvClick}
-						/>
+						<>
+							<UiButton
+								style={'font-weight: 400; font-size:12px;'}
+								leftIcon={<img src="/images/ad.svg" />}
+								disabled={(userStore.user?.advertising_limit ?? 0) >= (userStore.user?.advertising_total ?? 0)}
+								text={advText.value}
+								whenClick={whenAdvClick}
+							/>
+							<div class={styles.disclaimer}>
+								Bro, we are not responsible for advertising. Don't connect your main wallet
+								anywhere.
+							</div>
+						</>
 					)}
-					{isButtonShown.value ? (
-						<UiButton {...buttonProps.value} />
-					) : (
-						<UiHeightPlaceholder height={'30px'} />
-					)}
-					<TicketsCounter />
+					{isButtonShown.value && <UiButton {...buttonProps.value} />}
+					{!getTicketsForAdvButtonShown.value && <TicketsCounter />}
 				</div>
 			</div>
 		)
