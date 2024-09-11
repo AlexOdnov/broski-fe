@@ -28,13 +28,13 @@ export default defineComponent({
 
 		const onCreated = async () => {
 			await useAdvertisingStore().init()
-			// tgStore.initTgApp()
-			// if (!tgStore.user) {
-			// 	isUserError.value = true
-			// 	console.warn('Failed to get telegram user information')
-			// 	return
-			// }
-			// await userStore.loadUser(true)
+			tgStore.initTgApp()
+			if (!tgStore.user) {
+				isUserError.value = true
+				console.warn('Failed to get telegram user information')
+				return
+			}
+			await userStore.loadUser(true)
 			if (!userStore.user) {
 				isUserError.value = true
 				console.warn('Failed to get broski user information')
