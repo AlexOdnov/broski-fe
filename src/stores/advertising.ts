@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 
 export const useAdvertisingStore = defineStore('advertising', () => {
 
-
 	const showAdv = async () => {
 		//Adsgram
 		// try {
