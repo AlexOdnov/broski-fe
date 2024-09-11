@@ -14,7 +14,7 @@ export default defineComponent({
 		const tgStore = useTgSdkStore()
 		const referralsStore = useReferralsStore()
 
-		const isUserError = ref(false)
+		const isUserError = ref(true)
 
 		const isLoaderVisible = computed(() => {
 			return userStore.isLoading || isUserError.value
@@ -40,15 +40,15 @@ export default defineComponent({
 			await useAdvertisingStore().init()
 			tgStore.initTgApp()
 			if (!tgStore.user) {
-				isUserError.value = true
 				console.warn('Failed to get telegram user information')
 				return
 			}
 			await userStore.loadUser(true)
 			if (!userStore.user) {
-				isUserError.value = true
 				console.warn('Failed to get broski user information')
+				return
 			}
+			isUserError.value = false
 			tasksStore.getTasks()
 			referralsStore.loadReferrals()
 			userStore.startUpdateMiningString()
