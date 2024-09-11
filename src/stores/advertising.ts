@@ -1,9 +1,8 @@
 import { defineStore } from 'pinia'
-import { useUserStore } from '@/stores/user'
 // import { ref } from 'vue'
 
 export const useAdvertisingStore = defineStore('advertising', () => {
-	const userStore = useUserStore()
+
 
 	const showAdv = async () => {
 		//Adsgram
@@ -14,6 +13,7 @@ export const useAdvertisingStore = defineStore('advertising', () => {
 		// 	}
 		// 	console.warn(showResult?.error)
 		// 	return false
+
 		//OnClicka
 		if (!_showAdv) return false
 		try {
