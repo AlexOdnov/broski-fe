@@ -87,7 +87,7 @@ const GamePage = defineComponent({
 
 		const whenAdvClick = async () => {
 			if (await advStore.showAdv()) {
-				// награда
+				userStore.changeUserTickets(+1)
 				return
 			}
 		}
