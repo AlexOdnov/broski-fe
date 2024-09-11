@@ -31,7 +31,7 @@ export const useAdvertisingStore = defineStore('advertising', () => {
 		// 	console.warn('failed adv init', e)
 		// }
 		try {
-			const adControllerInit = window.Adsgram.init({ blockId: '2897' })
+			const adControllerInit = window.Adsgram.init({ blockId: '2897', debug: true })
 			if (adControllerInit) {
 				adController.value = adControllerInit
 			}
