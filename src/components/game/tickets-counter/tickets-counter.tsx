@@ -17,7 +17,7 @@ export const TicketsCounter = defineComponent({
 					</>
 				) : (
 					<>
-						Bro, invite friends to get more tickets
+						Bro, you're out of tickets, bro!
 						<img class={styles.ticketImg} src="/images/ticket.png" />
 					</>
 				)}

@@ -15,7 +15,23 @@ export const useUserStore = defineStore('user', () => {
 	const [timeBeforeMiningLeftString, setTimeDeforeMiningString] = useState<string | null>(null)
 	const [timeoutID, setTimeoutID] = useState<number | null>(null)
 
-	const [user, setUser] = useState<UserCreateResponse | null>(null)
+	const [user, setUser] = useState<UserCreateResponse | null>({
+		username: 'rdsht',
+		score: 1972,
+		left_mining: '00:00',
+		mining_claim: false,
+		ref_code: '219611970',
+		position: 1833,
+		tickets: 0,
+		boxes: 0,
+		daily_stric: 1,
+		daily_claim: true,
+		first_login: true,
+		region: 'eng',
+		first_game: false,
+		advertising_limit: 200,
+		last_tap: ''
+	})
 	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<number | null>(null)
 
 	const timeWhenClaimEnable = computed(() => {
