@@ -90,12 +90,13 @@ const ReferralsPage = defineComponent({
 				<div class={styles.header}>
 					<div class={styles.text}>
 						<p class={styles.headerDark}>
-							10% from bro's income + <img class={styles.icon} src="/images/ticket.png" /> 3 Tickets
+							10% from bro's income + <img class={styles.icon} src="/images/ticket.webp" /> 3
+							Tickets
 						</p>
 						<p class={styles.headerLight}>
-							<img class={styles.icon} src="/images/star.png" /> Premium: additionally
+							<img class={styles.icon} src="/images/star.webp" /> Premium: additionally
 							<span class={styles.yellow}>50 $BRO</span> +
-							<img class={styles.icon} src="/images/ticket.png" /> 12 Tickets
+							<img class={styles.icon} src="/images/ticket.webp" /> 12 Tickets
 						</p>
 					</div>
 					<UiButton size={'sm'} {...copyButtonProps.value} whenClick={whenCopyLink} />

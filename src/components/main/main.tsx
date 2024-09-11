@@ -34,7 +34,7 @@ export const MainComponent = defineComponent({
 		return () => (
 			<>
 				<header class={styles.coins}>
-					<img class={styles.coinIcon} src="/images/bro-coin.png" />
+					<img class={styles.coinIcon} src="/images/bro-coin.webp" />
 					{coins.value}
 				</header>
 				<main class={styles.pageContainer}>
@@ -52,7 +52,7 @@ export const MainComponent = defineComponent({
 						<RouterLink activeClass={styles.active} to="/tasks">
 							<div class={styles.navBtn}>
 								{Boolean(tasksStore.uncompletedTasks.length) && (
-									<img class={styles.notice} src="/images/notice.png" />
+									<img class={styles.notice} src="/images/notice.webp" />
 								)}
 								<div class={[styles.letter, styles.rotateRight]}>R</div>
 								<div class={[styles.letterShadow, styles.rotateRight]}>R</div>
@@ -62,7 +62,7 @@ export const MainComponent = defineComponent({
 						<RouterLink activeClass={styles.active} to="/referrals">
 							<div class={styles.navBtn}>
 								{Boolean(referralsStore.sumReferralsReward) && (
-									<img class={styles.notice} src="/images/notice.png" />
+									<img class={styles.notice} src="/images/notice.webp" />
 								)}
 								<div class={[styles.letter, styles.rotateLeft]}>O</div>
 								<div class={[styles.letterShadow, styles.rotateLeft]}>O</div>
@@ -75,9 +75,9 @@ export const MainComponent = defineComponent({
 						>
 							{(isRewardAvailable.value ||
 								(!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && (
-								<img class={styles.notice} src="/images/notice.png" />
+								<img class={styles.notice} src="/images/notice.webp" />
 							)}
-							<img class={styles.btnImg} src="/images/pickaxe.png" />
+							<img class={styles.btnImg} src="/images/pickaxe.webp" />
 							{isRewardAvailable.value && (
 								<>
 									<span class={[styles.btnText, styles.yellow]}>Claim</span>

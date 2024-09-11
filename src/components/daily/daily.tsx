@@ -46,12 +46,12 @@ export const DailyComponent = defineComponent({
 							<div class={[styles.dayBlock, props.day === d.day && styles.currentDayBlock]}>
 								<div class={styles.dayBlockTitle}>{`Day ${d.day}`}</div>
 								<div class={styles.dayBlockCoins}>
-									<img src="/images/bro-coin.png" />
+									<img src="/images/bro-coin.webp" />
 									{`${d.coins} $BRO`}
 								</div>
 								<div class={styles.dayBlockTickets}>
 									{`${d.tickets} Tickets`}
-									<img src="/images/ticket.png" />
+									<img src="/images/ticket.webp" />
 								</div>
 							</div>
 						</div>

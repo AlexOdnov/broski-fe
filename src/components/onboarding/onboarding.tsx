@@ -21,7 +21,7 @@ export const OnboardingComponent = defineComponent({
 				switch (currentStep.value) {
 					case 1:
 						return {
-							image: './images/onboarding-1.jpg',
+							image: './images/onboarding-1.webp',
 							title: (
 								<>
 									<span class={styles.yellow}>yo broski</span>, welcome to brocoin! 👊
@@ -42,11 +42,11 @@ export const OnboardingComponent = defineComponent({
 						}
 					case 2:
 						return {
-							image: './images/onboarding-2.jpg',
+							image: './images/onboarding-2.webp',
 							title: (
 								<>
 									1 game = 1 ticket&nbsp;
-									<img class={styles.icon} src="/images/ticket.png" />
+									<img class={styles.icon} src="/images/ticket.webp" />
 								</>
 							),
 							description: (
@@ -66,7 +66,7 @@ export const OnboardingComponent = defineComponent({
 						}
 					case 3:
 						return {
-							image: './images/onboarding-3.jpg',
+							image: './images/onboarding-3.webp',
 							title: (
 								<>
 									<span class={styles.yellow}>airdrop</span>&nbsp;with no vesting!
@@ -87,7 +87,7 @@ export const OnboardingComponent = defineComponent({
 						}
 					default:
 						return {
-							image: './images/onboarding-1.png',
+							image: './images/onboarding-1.webp',
 							title: <></>,
 							description: <></>,
 							buttonMod: 'inverse',
