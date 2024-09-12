@@ -1,6 +1,6 @@
 import { defineComponent, type PropType } from 'vue'
 import styles from './styles.module.css'
-import type { IGameElement } from '@/stores/game'
+import type { IGameElement } from '@/utils/games'
 
 export const GameElement = defineComponent({
 	name: 'GameElement',

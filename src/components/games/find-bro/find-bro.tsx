@@ -1,13 +1,12 @@
 import { computed, defineComponent, type PropType } from 'vue'
-import styles from './find-bro.module.css'
-import { GameStatus, INITIAL_ATTEMPTS_COUNT, useGameStore, WIN_GAME_POINTS } from '@/stores/game'
-import { type ButtonMod, UiButton, UiHeightPlaceholder } from '@/components'
+import styles from '../shared/game-styles.module.css'
+import { INITIAL_ATTEMPTS_COUNT, useFindBroGameStore } from '@/stores/find-bro-game'
+import { type ButtonMod, UiButton } from '@/components'
 import { useUserStore } from '@/stores/user'
 import { useAdvertisingStore } from '@/stores/advertising'
 import { AdIcon } from '@/components/icons'
 import { GameElement, TicketsCounter } from '../shared'
-
-const placeholders = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
+import { GameStatus, WIN_GAME_POINTS, FIELD_PLACEHOLDERS } from '@/utils/games'
 
 export const FindBroGame = defineComponent({
 	name: 'FindBroGame',
@@ -15,14 +14,14 @@ export const FindBroGame = defineComponent({
 		whenSwitchToSuperGame: { type: Function as PropType<() => void>, required: true }
 	},
 	setup(props) {
-		const gameStore = useGameStore()
+		const gameStore = useFindBroGameStore()
 		const userStore = useUserStore()
 		const advStore = useAdvertisingStore()
 
 		const topText = computed(() => {
 			switch (gameStore.gameStatus) {
 				case GameStatus.Idle:
-					return ''
+					return 'find b,r,o'
 				case GameStatus.Win:
 					return '“BROOO”'
 				case GameStatus.Lose:
@@ -99,25 +98,23 @@ export const FindBroGame = defineComponent({
 			}
 		}
 
+		const switchToSuperGame = () => {
+			gameStore.finishGame(true)
+			props.whenSwitchToSuperGame()
+		}
+
 		return () => (
 			<div class={styles.game}>
-				{topText.value ? (
-					<p
-						class={[
-							styles.topText,
-							gameStore.gameStatus === GameStatus.Lose && styles.topTextError
-						]}
-					>
-						{topText.value}
-					</p>
-				) : (
-					<UiHeightPlaceholder height={'16px'} />
-				)}
+				<p
+					class={[styles.topText, gameStore.gameStatus === GameStatus.Lose && styles.topTextError]}
+				>
+					{topText.value}
+				</p>
 				<div class={styles.gameField} onClick={gameStore.startGame}>
 					{gameStore.gameField.map((el, index) => (
 						<GameElement
 							key={index}
-							placeholder={placeholders[index]}
+							placeholder={FIELD_PLACEHOLDERS[index]}
 							gameElement={el}
 							whenClick={() => gameStore.selectElement(index)}
 						/>
@@ -127,7 +124,7 @@ export const FindBroGame = defineComponent({
 					{isButtonShown.value ? (
 						<>
 							{gameStore.gameStatus === GameStatus.Win && (
-								<UiButton text={'Super game'} whenClick={props.whenSwitchToSuperGame} />
+								<UiButton text={'Super game'} whenClick={switchToSuperGame} />
 							)}
 							<UiButton {...buttonProps.value} />
 							<TicketsCounter />
