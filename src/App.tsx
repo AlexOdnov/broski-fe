@@ -14,10 +14,10 @@ export default defineComponent({
 		const tgStore = useTgSdkStore()
 		const referralsStore = useReferralsStore()
 
-		const isUserError = ref(true)
+		const isUserExist = ref(false)
 
 		const isLoaderVisible = computed(() => {
-			return userStore.isLoading || isUserError.value
+			return userStore.isLoading || !isUserExist.value
 		})
 
 		const needRenderDaily = computed(() => userStore.user?.daily_claim === false)
@@ -48,7 +48,7 @@ export default defineComponent({
 				console.warn('Failed to get broski user information')
 				return
 			}
-			isUserError.value = false
+			isUserExist.value = true
 			tasksStore.getTasks()
 			referralsStore.loadReferrals()
 			userStore.startUpdateMiningString()
