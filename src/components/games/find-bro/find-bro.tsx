@@ -1,5 +1,4 @@
-import { computed, defineComponent } from 'vue'
-
+import { computed, defineComponent, type PropType } from 'vue'
 import styles from './find-bro.module.css'
 import { GameStatus, INITIAL_ATTEMPTS_COUNT, useGameStore, WIN_GAME_POINTS } from '@/stores/game'
 import { type ButtonMod, UiButton, UiHeightPlaceholder } from '@/components'
@@ -12,7 +11,10 @@ const placeholders = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
 
 export const FindBroGame = defineComponent({
 	name: 'FindBroGame',
-	setup() {
+	props: {
+		whenSwitchToSuperGame: { type: Function as PropType<() => void>, required: true }
+	},
+	setup(props) {
 		const gameStore = useGameStore()
 		const userStore = useUserStore()
 		const advStore = useAdvertisingStore()
@@ -124,6 +126,9 @@ export const FindBroGame = defineComponent({
 				<div class={styles.bottomBlock}>
 					{isButtonShown.value ? (
 						<>
+							{gameStore.gameStatus === GameStatus.Win && (
+								<UiButton text={'Super game'} whenClick={props.whenSwitchToSuperGame} />
+							)}
 							<UiButton {...buttonProps.value} />
 							<TicketsCounter />
 						</>
