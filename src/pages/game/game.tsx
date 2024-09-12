@@ -11,6 +11,7 @@ import {
 } from '@/components'
 import { useUserStore } from '@/stores/user'
 import { useAdvertisingStore } from '@/stores/advertising'
+import { AdIcon } from '@/components/icons'
 
 const placeholders = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
 
@@ -85,29 +86,21 @@ const GamePage = defineComponent({
 			}
 		)
 
+		const advText = computed(
+			() =>
+				`Get tickets${userStore.user?.advertising_total ? ` ${userStore.user?.advertising_limit || 0}/${userStore.user?.advertising_total}` : ''}`
+		)
+
+		const isButtonShown = computed(
+			() => userStore.userTickets > 0 || gameStore.gameStatus !== GameStatus.Idle
+		)
+
 		const whenAdvClick = async () => {
-			if (await advStore.showAdv() && (userStore.user?.advertising_limit ?? 10) !== 0) {
+			if ((await advStore.showAdv()) && userStore.user?.advertising_limit !== 0) {
 				await userStore.claimAdvertisingReward()
 				return
 			}
 		}
-		const advText = computed(() => {
-			let result = 'Get tickets'
-			if (userStore.user?.advertising_limit && userStore.user?.advertising_total) {
-				result += ` ${userStore.user?.advertising_limit}/${userStore.user?.advertising_total}`
-			}
-			return result
-		})
-
-		const isButtonShown = computed(
-			() =>
-				(userStore.userTickets > 0 || gameStore.gameStatus !== GameStatus.Idle) &&
-				userStore.userTickets !== 0
-		)
-		const getTicketsForAdvButtonShown = computed(
-			() => userStore.userTickets === 0 &&
-				gameStore.gameStatus !== GameStatus.InProgress
-		)
 
 		return () => (
 			<div class={styles.game}>
@@ -134,12 +127,17 @@ const GamePage = defineComponent({
 					))}
 				</div>
 				<div class={styles.bottomBlock}>
-					{getTicketsForAdvButtonShown.value && (
+					{isButtonShown.value ? (
+						<>
+							<UiButton {...buttonProps.value} />
+							<TicketsCounter />
+						</>
+					) : (
 						<>
 							<UiButton
-								style={'font-weight: 400; font-size:12px;'}
-								leftIcon={<img src="/images/ad.svg" />}
-								disabled={(userStore.user?.advertising_limit ?? 10) === 0}
+								leftIcon={<AdIcon />}
+								disabled={!userStore.user?.advertising_limit}
+								mod={!userStore.user?.advertising_limit ? 'secondary' : 'primary'}
 								text={advText.value}
 								whenClick={whenAdvClick}
 							/>
@@ -149,8 +147,6 @@ const GamePage = defineComponent({
 							</div>
 						</>
 					)}
-					{isButtonShown.value && <UiButton {...buttonProps.value} />}
-					{!getTicketsForAdvButtonShown.value && <TicketsCounter />}
 				</div>
 			</div>
 		)
