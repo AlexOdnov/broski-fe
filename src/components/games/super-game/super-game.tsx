@@ -1,8 +1,9 @@
 import { computed, defineComponent, onMounted, type PropType } from 'vue'
-import styles from '../shared/game-styles.module.css'
-import { type ButtonMod, UiButton } from '@/components'
+import sharedStyles from '../shared/game-styles.module.css'
+import styles from './super-game.module.css'
+import { type ButtonMod, UiButton, UiHeightPlaceholder } from '@/components'
 import { GameElement, TicketsCounter } from '../shared'
-import { FIELD_PLACEHOLDERS, GameStatus } from '@/utils/games'
+import { FIELD_PLACEHOLDERS, GameStatus, WIN_GAME_POINTS } from '@/utils/games'
 import { useSuperGameStore, INITIAL_ATTEMPTS_COUNT } from '@/stores/super-game'
 
 export const SuperGame = defineComponent({
@@ -70,12 +71,6 @@ export const SuperGame = defineComponent({
 			}
 		)
 
-		const getPlaceholders = computed(() =>
-			Array(3)
-				.fill(null)
-				.map(() => <div />)
-		)
-
 		const finishGame = () => {
 			props.whenSwitchToFindBroGame()
 			gameStore.finishGame()
@@ -86,14 +81,25 @@ export const SuperGame = defineComponent({
 		})
 
 		return () => (
-			<div class={styles.game}>
+			<div class={[sharedStyles.game, styles.superGame]}>
 				<p
-					class={[styles.topText, gameStore.gameStatus === GameStatus.Lose && styles.topTextError]}
+					class={[
+						sharedStyles.topText,
+						gameStore.gameStatus === GameStatus.Lose && sharedStyles.topTextError
+					]}
 				>
 					{topText.value}
 				</p>
-				<div class={styles.gameField}>
-					{getPlaceholders.value}
+				{gameStore.gameStatus === GameStatus.InProgress ? (
+					<p class={sharedStyles.topText}>
+						bro or not bro?
+						<br />
+						ur turn to pick
+					</p>
+				) : (
+					<UiHeightPlaceholder height={'48px'} />
+				)}
+				<div class={styles.superGameField}>
 					{gameStore.gameField.map((el, index) => (
 						<GameElement
 							key={index}
@@ -102,9 +108,19 @@ export const SuperGame = defineComponent({
 							whenClick={() => gameStore.selectElement(index)}
 						/>
 					))}
-					{getPlaceholders.value}
 				</div>
-				<div class={styles.bottomBlock}>
+				<div class={styles.description}>
+					<div class={styles.descriptionItem}>
+						<img class={styles.descriptionIcon} src="/images/fist-small.webp" />
+						<span>+{WIN_GAME_POINTS * 5}</span>
+					</div>
+					<div class={styles.separator} />
+					<div class={styles.descriptionItem}>
+						<img class={styles.descriptionIcon} src="/images/chicken.webp" />
+						<span class={sharedStyles.topTextError}>-{WIN_GAME_POINTS}</span>
+					</div>
+				</div>
+				<div class={sharedStyles.bottomBlock}>
 					<UiButton {...buttonProps.value} />
 					<TicketsCounter />
 				</div>

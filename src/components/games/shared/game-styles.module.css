@@ -5,7 +5,7 @@
 	align-items: center;
 	flex-direction: column;
 	gap: 20px;
-	height: 430px;
+	height: 438px;
 	width: 100%;
 }
 
@@ -13,7 +13,7 @@
 	margin: 0;
 	font-family: 'BarcadeBrawlRegular';
 	font-size: 16px;
-	line-height: 16px;
+	line-height: 24px;
 }
 
 .topTextError {
