@@ -115,7 +115,7 @@ export const SuperGame = defineComponent({
 						<span>+{WIN_GAME_POINTS * 5}</span>
 					</div>
 					<div class={styles.separator} />
-					<div class={styles.descriptionItem}>
+					<div class={[styles.descriptionItem, styles.descriptionItemRight]}>
 						<img class={styles.descriptionIcon} src="/images/chicken.webp" />
 						<span class={sharedStyles.topTextError}>-{WIN_GAME_POINTS}</span>
 					</div>
