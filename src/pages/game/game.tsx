@@ -1,7 +1,7 @@
 import { computed, defineComponent, ref } from 'vue'
 
 import styles from './styles.module.css'
-import { FindBroGame } from '@/components'
+import { FindBroGame, SuperGame } from '@/components'
 
 export enum GameVariant {
 	FindBro = 'findBro',
@@ -18,7 +18,7 @@ const GamePage = defineComponent({
 				case GameVariant.FindBro:
 					return <FindBroGame whenSwitchToSuperGame={switchToSuperGame} />
 				case GameVariant.SuperGame:
-					return <div>supergame</div>
+					return <SuperGame whenSwitchToFindBroGame={switchToFindBroGame} />
 				default:
 					return <FindBroGame whenSwitchToSuperGame={switchToSuperGame} />
 			}
@@ -28,7 +28,11 @@ const GamePage = defineComponent({
 			currentGame.value = GameVariant.SuperGame
 		}
 
-		return () => <div>{currentGameComponent.value}</div>
+		const switchToFindBroGame = () => {
+			currentGame.value = GameVariant.FindBro
+		}
+
+		return () => <div class={styles.wrapper}>{currentGameComponent.value}</div>
 	}
 })
 
