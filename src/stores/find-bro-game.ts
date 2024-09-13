@@ -3,45 +3,23 @@ import { defineStore } from 'pinia'
 import { computed } from 'vue'
 import { useState } from '@/utils/useState'
 import { useUserStore } from './user'
-
-export interface IGameElement {
-	isOpen: boolean
-	value: string | null
-}
-
-export enum GameStatus {
-	Idle = 'idle',
-	InProgress = 'inProgress',
-	Lose = 'lose',
-	Win = 'win'
-}
+import {
+	createEmptyGameElements,
+	createFillGameElements,
+	GameStatus,
+	WIN_GAME_POINTS,
+	type IGameElement
+} from '@/utils/games'
 
 export const INITIAL_ATTEMPTS_COUNT = 6
 
 const WIN_GAME_ELEMENTS_COUNT = 3
 
-export const WIN_GAME_POINTS = 200
-
-const createEmptyGameElement = (): IGameElement => ({
-	isOpen: false,
-	value: null
-})
-
-const createWinGameElements = (): IGameElement[] => {
-	return ['B', 'R', 'O'].map((value) => ({
-		isOpen: false,
-		value
-	}))
-}
-
-const createEmptyGameElements = (count: number): IGameElement[] =>
-	Array(count).fill(null).map(createEmptyGameElement)
-
 const createGameField = (): IGameElement[] => {
-	return [...createWinGameElements(), ...createEmptyGameElements(6)]
+	return [...createFillGameElements(['B', 'R', 'O']), ...createEmptyGameElements(6)]
 }
 
-export const useGameStore = defineStore('game', () => {
+export const useFindBroGameStore = defineStore('findBroGame', () => {
 	const userStore = useUserStore()
 
 	const [gameField, setGameField, resetGameField] = useState<IGameElement[]>(createGameField)
@@ -68,12 +46,12 @@ export const useGameStore = defineStore('game', () => {
 		}
 	}
 
-	const finishGame = () => {
+	const finishGame = (withoutClaim = false) => {
 		if (![GameStatus.Lose, GameStatus.Win].includes(gameStatus.value)) {
 			return
 		}
 
-		if (gameStatus.value === GameStatus.Win) {
+		if (gameStatus.value === GameStatus.Win && !withoutClaim) {
 			userStore.changeUserScore(WIN_GAME_POINTS)
 		}
 
