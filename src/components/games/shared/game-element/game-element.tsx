@@ -13,7 +13,13 @@ export const GameElement = defineComponent({
 		return () => (
 			<div class={styles.wrapper} onClick={props.whenClick}>
 				{props.gameElement.isOpen ? (
-					<div class={[styles.block, styles.opened]}>{props.gameElement.value}</div>
+					<div class={[styles.block, styles.opened]}>
+						{props.gameElement.image ? (
+							<img class={styles.img} src={props.gameElement.image} />
+						) : (
+							props.gameElement.value
+						)}
+					</div>
 				) : (
 					<div class={[styles.block, styles.closed]}>{props.placeholder}</div>
 				)}
