@@ -10,19 +10,23 @@ export const TaskListItem = defineComponent({
 	setup: (props) => {
 		return () => (
 			<div class={styles.task} onClick={() => props.whenTaskSelected(props.task.id)}>
-				<img class={styles.taskImg} src={props.task.image || '/images/fist.png'} alt="task image" />
+				<img
+					class={styles.taskImg}
+					src={props.task.image || '/images/fist.webp'}
+					alt="task image"
+				/>
 				<div class={[styles.text, props.task.complete && styles.opacity]}>
 					<div class={styles.title}>{props.task.title}</div>
 					<div class={styles.revard}>
 						{props.task.points && (
 							<>
-								<img class={styles.icon} src="/images/bro-coin.png" />{' '}
+								<img class={styles.icon} src="/images/bro-coin.webp" />{' '}
 								<span class={styles.yellow}>{`${props.task.points} $BRO`}</span>
 							</>
 						)}
 						{props.task.tickets && (
 							<>
-								<img class={styles.icon} src="/images/ticket.png" /> {props.task.tickets}
+								<img class={styles.icon} src="/images/ticket.webp" /> {props.task.tickets}
 							</>
 						)}
 					</div>

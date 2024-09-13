@@ -11,12 +11,12 @@ export const RewardBlock = defineComponent({
 		return () => (
 			<div class={styles.frame}>
 				<div class={styles.coins}>
-					<img src="/images/bro-coin.png" />
+					<img src="/images/bro-coin.webp" />
 					{`${props.coins} $BRO`}
 				</div>
 				<div class={styles.separator} />
 				<div class={styles.tickets}>
-					<img src="/images/ticket.png" />
+					<img src="/images/ticket.webp" />
 					{`${props.tickets} Tickets`}
 				</div>
 			</div>

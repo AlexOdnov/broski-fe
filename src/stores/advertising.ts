@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 // import { ref } from 'vue'
 
 export const useAdvertisingStore = defineStore('advertising', () => {
-
 	const showAdv = async () => {
 		//Adsgram
 		// try {

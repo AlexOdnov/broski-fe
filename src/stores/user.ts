@@ -138,11 +138,20 @@ export const useUserStore = defineStore('user', () => {
 
 	const claimAdvertisingReward = async () => {
 		try {
-			await api.claimAdvertisingReward({user_id: tgStore.userId})
+			await api.claimAdvertisingReward({ user_id: tgStore.userId })
 		} catch (error) {
 			console.warn(error)
 		} finally {
 			await loadUser()
+		}
+	}
+
+	const doneFirstLogin = async () => {
+		try {
+			await api.doneFirstLogin({ user_id: tgStore.userId })
+			await loadUser()
+		} catch (error) {
+			console.warn(error)
 		}
 	}
 
@@ -160,5 +169,6 @@ export const useUserStore = defineStore('user', () => {
 		startUpdateMiningString,
 		claimDailyReward,
 		claimAdvertisingReward,
+		doneFirstLogin
 	}
 })

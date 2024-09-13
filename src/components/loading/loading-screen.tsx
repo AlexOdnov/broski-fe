@@ -6,8 +6,8 @@ export const LoadingScreen = defineComponent({
 		return () => (
 			<div class={styles.loadingScreenWrapper}>
 				<div class={styles.loadingScreen}>
-					<img class={styles.fist} src="/images/fist.png" alt="fist" />
-					<img class={styles.logo} src="/images/BROski.png" alt="BROski" />
+					<img class={styles.fist} src="/images/fist.webp" alt="fist" />
+					<img class={styles.logo} src="/images/broski.webp" alt="BROski" />
 				</div>
 			</div>
 		)
