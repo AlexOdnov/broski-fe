@@ -36,6 +36,10 @@ export const useSuperGameStore = defineStore('superGame', () => {
 	const [remainAttempts, setRemainAttempts, resetRemainAttempts] =
 		useState<number>(INITIAL_ATTEMPTS_COUNT)
 
+	const setPreview = () => {
+		setGameField(gameField.value.map((el) => ({ ...el, isPreview: !el.isOpen ? true : false })))
+	}
+
 	const startGame = async () => {
 		if (gameStatus.value !== GameStatus.Idle) {
 			return
@@ -95,6 +99,8 @@ export const useSuperGameStore = defineStore('superGame', () => {
 				setGameStatus(GameStatus.Nothing)
 				break
 		}
+
+		setPreview()
 	}
 
 	return {
