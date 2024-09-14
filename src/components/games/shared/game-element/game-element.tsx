@@ -12,12 +12,17 @@ export const GameElement = defineComponent({
 	setup: (props) => {
 		return () => (
 			<div class={styles.wrapper} onClick={props.whenClick}>
-				{props.gameElement.isOpen ? (
+				{props.gameElement.isOpen || props.gameElement.isPreview ? (
 					<div class={[styles.block, styles.opened]}>
 						{props.gameElement.image ? (
-							<img class={styles.img} src={props.gameElement.image} />
+							<img
+								class={[styles.img, props.gameElement.isPreview && styles.preview]}
+								src={props.gameElement.image}
+							/>
 						) : (
-							props.gameElement.value
+							<span class={props.gameElement.isPreview && styles.preview}>
+								{props.gameElement.value}
+							</span>
 						)}
 					</div>
 				) : (

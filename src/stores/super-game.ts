@@ -10,16 +10,19 @@ const createGameField = (): IGameElement[] => {
 	return [
 		{
 			isOpen: false,
+			isPreview: false,
 			value: GameStatus.Lose,
 			image: '/images/chicken.webp'
 		},
 		{
 			isOpen: false,
+			isPreview: false,
 			value: GameStatus.Win,
 			image: '/images/fist-small.webp'
 		},
 		{
 			isOpen: false,
+			isPreview: false,
 			value: ''
 		}
 	]
