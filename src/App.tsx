@@ -6,6 +6,7 @@ import { useTgSdkStore } from './stores/tg-sdk'
 import { useTasksStore } from './stores/tasks'
 import { useReferralsStore } from './stores/referrals'
 import { useAdvertisingStore } from '@/stores/advertising'
+import {useI18n} from "vue-i18n";
 
 export default defineComponent({
 	setup() {
@@ -13,6 +14,7 @@ export default defineComponent({
 		const tasksStore = useTasksStore()
 		const tgStore = useTgSdkStore()
 		const referralsStore = useReferralsStore()
+		const i18n = useI18n()
 
 		const isUserExist = ref(false)
 
@@ -42,6 +44,7 @@ export default defineComponent({
 				console.warn('Failed to get telegram user information')
 				return
 			}
+			i18n.locale.value = tgStore.languageCode
 			await useAdvertisingStore().init()
 			await userStore.loadUser(true)
 			if (!userStore.user) {
