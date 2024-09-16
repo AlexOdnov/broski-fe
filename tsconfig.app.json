@@ -10,6 +10,6 @@
 		"paths": {
 			"@/*": ["./src/*"]
 		},
-		"types": ["./node_modules/telegram-webapps"]
+		"types": ["./node_modules/telegram-webapps", "node"]
 	}
 }

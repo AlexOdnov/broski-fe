@@ -4,6 +4,7 @@ import styles from './styles.module.css'
 import { UiButton, type ButtonMod, ReferralElement } from '@/components'
 import { useReferralsStore } from '@/stores/referrals'
 import { useUserStore } from '@/stores/user'
+import { envVariables } from '@/services/env'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
@@ -54,9 +55,7 @@ const ReferralsPage = defineComponent({
 		)
 
 		const whenCopyLink = () => {
-			navigator.clipboard.writeText(
-				`${window.appConfig.botLink}?startapp=${userStore.user?.ref_code}`
-			)
+			navigator.clipboard.writeText(`${envVariables.botUrl}?startapp=${userStore.user?.ref_code}`)
 			isLinkCopied.value = true
 			setTimeout(() => {
 				isLinkCopied.value = false
