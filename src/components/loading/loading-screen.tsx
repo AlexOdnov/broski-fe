@@ -1,4 +1,4 @@
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 import styles from './styles.module.css'
 import { UiProgressBar } from '../ui/progress-bar'
 import { envVariables } from '@/services/env'
@@ -6,11 +6,17 @@ import { envVariables } from '@/services/env'
 export const LoadingScreen = defineComponent({
 	name: 'LoadingScreen',
 	setup: () => {
+		const scriptTag = ref<HTMLScriptElement | null>(null)
+
 		onMounted(() => {
-			const scriptTag = document.createElement('script')
-			scriptTag.src = 'https://js.onclckmn.com/static/onclicka.js'
-			scriptTag.dataset.admpid = '231083'
-			document.head.appendChild(scriptTag)
+			scriptTag.value = document.createElement('script')
+			scriptTag.value.src = 'https://js.onclckmn.com/static/onclicka.js'
+			scriptTag.value.dataset.admpid = '231083'
+			document.head.appendChild(scriptTag.value)
+		})
+
+		onBeforeUnmount(() => {
+			scriptTag.value?.remove()
 		})
 
 		return () => (
