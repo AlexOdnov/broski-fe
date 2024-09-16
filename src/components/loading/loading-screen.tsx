@@ -2,11 +2,13 @@ import { defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 import styles from './styles.module.css'
 import { UiProgressBar } from '../ui/progress-bar'
 import { envVariables } from '@/services/env'
+import { useI18n } from 'vue-i18n'
 
 export const LoadingScreen = defineComponent({
 	name: 'LoadingScreen',
 	setup: () => {
 		const scriptTag = ref<HTMLScriptElement | null>(null)
+		const { t } = useI18n()
 
 		onMounted(() => {
 			scriptTag.value = document.createElement('script')
@@ -29,14 +31,13 @@ export const LoadingScreen = defineComponent({
 					<div class={styles.progressBarWrapper}>
 						<img class={styles.logo} src="/images/broski.webp" alt="BROski" />
 						<UiProgressBar duration={envVariables.loaderDuration} />
-						<p class={styles.loadingText}>Loading...</p>
+						<p class={styles.loadingText}>{t('message.loading')}...</p>
 					</div>
 				</div>
 				<div class={styles.bannerWrapper}>
 					<div class={styles.banner} data-banner-id="6031971"></div>
 					<p class={[styles.loadingText, styles.bannerText]}>
-						Bro, we are not responsible for advertising. Don't connect your main wallet anywhere.
-						DYOR.
+						{t('message.noResponsibleForAd')}
 					</p>
 				</div>
 			</div>

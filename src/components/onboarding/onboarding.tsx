@@ -2,12 +2,14 @@ import { useUserStore } from '@/stores/user'
 import styles from './onboarding.module.css'
 import { ref, computed, defineComponent, type VNode } from 'vue'
 import { UiButton, type ButtonMod } from '../ui'
+import { useI18n } from 'vue-i18n'
 
 export const OnboardingComponent = defineComponent({
 	name: 'OnboardingComponent',
 	setup: () => {
 		const userStore = useUserStore()
 		const currentStep = ref(1)
+		const { t } = useI18n()
 
 		const currentProperties = computed(
 			(): {
@@ -24,20 +26,18 @@ export const OnboardingComponent = defineComponent({
 							image: './images/onboarding-1.webp',
 							title: (
 								<>
-									<span class={styles.yellow}>yo broski</span>, welcome to brocoin! 👊
+									<span class={styles.yellow}>{t('message.onboarding.yoBroski')}</span>,&nbsp;
+									{t('message.onboarding.welcome')}
 								</>
 							),
 							description: (
 								<>
-									<p class={styles.description}>fun & earn — we’re all about that</p>
-									<p class={styles.description}>
-										find letters B, R, O under the cells and get your points — you need them to get
-										bigger airdrop
-									</p>
+									<p class={styles.description}>{t('message.onboarding.funAndEarn')}</p>
+									<p class={styles.description}>{t('message.onboarding.findBRO')}</p>
 								</>
 							),
 							buttonMod: 'inverse',
-							buttonText: 'next',
+							buttonText: t('message.next'),
 							handler: () => (currentStep.value += 1)
 						}
 					case 2:
@@ -45,23 +45,18 @@ export const OnboardingComponent = defineComponent({
 							image: './images/onboarding-2.webp',
 							title: (
 								<>
-									1 game = 1 ticket&nbsp;
+									{t('message.1game1Ticket')}&nbsp;
 									<img class={styles.icon} src="/images/ticket.webp" />
 								</>
 							),
 							description: (
 								<>
-									<p class={styles.description}>
-										if given tickets aren’t enough, hit up "Earn" for more earning opportunities
-									</p>
-									<p class={styles.description}>
-										bring ur bros along using ur ref link, vibe together, and score a cut from their
-										earnings too!
-									</p>
+									<p class={styles.description}>{t('message.onboarding.inNotEnough')}</p>
+									<p class={styles.description}>{t('message.onboarding.bringUrBros')}</p>
 								</>
 							),
 							buttonMod: 'inverse',
-							buttonText: 'next',
+							buttonText: t('message.onboarding.next'),
 							handler: () => (currentStep.value += 1)
 						}
 					case 3:
@@ -69,20 +64,18 @@ export const OnboardingComponent = defineComponent({
 							image: './images/onboarding-3.webp',
 							title: (
 								<>
-									<span class={styles.yellow}>airdrop</span>&nbsp;with no vesting!
+									<span class={styles.yellow}>{t('message.airdrop')}</span>&nbsp;
+									{t('message.onboarding.withNoVesting')}
 								</>
 							),
 							description: (
 								<>
-									<p class={styles.description}>stay tuned ’n be active in our brotherhood </p>
-									<p class={styles.description}>
-										and don’t forget to show up every 8 hours to grab ur loot from the farm – it’s
-										free stuff, why miss out?
-									</p>
+									<p class={styles.description}>{t('message.stayTuned')}</p>
+									<p class={styles.description}>{t('message.dontForgetEvery8Hours')}</p>
 								</>
 							),
 							buttonMod: 'primary',
-							buttonText: 'ok',
+							buttonText: t('message.ok'),
 							handler: userStore.doneFirstLogin
 						}
 					default:

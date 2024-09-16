@@ -8,6 +8,7 @@ import { useCommonStore } from './stores/common'
 import { useReferralsStore } from './stores/referrals'
 import { useAdvertisingStore } from '@/stores/advertising'
 import { envVariables } from './services/env'
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
 	setup() {
@@ -16,6 +17,7 @@ export default defineComponent({
 		const tgStore = useTgSdkStore()
 		const commonStore = useCommonStore()
 		const referralsStore = useReferralsStore()
+		const i18n = useI18n()
 
 		const isUserExist = ref(false)
 
@@ -45,6 +47,7 @@ export default defineComponent({
 				console.warn('Failed to get telegram user information')
 				return
 			}
+			i18n.locale.value = tgStore.languageCode
 			commonStore.setIsLoadingForTimeout(envVariables.loaderDuration)
 			await useAdvertisingStore().init()
 			await userStore.loadUser(true)
