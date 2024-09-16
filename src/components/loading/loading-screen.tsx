@@ -24,7 +24,7 @@ export const LoadingScreen = defineComponent({
 				<div class={styles.loadingScreen}>
 					<div class={styles.handWrapper}>
 						<img class={styles.shadow} src="/images/shadow.webp" />
-						<img class={styles.hand} src="/images/hand.webp" alt="hand" />
+						<img class={styles.hand} src="/images/hand.gif" alt="hand" />
 					</div>
 					<div class={styles.progressBarWrapper}>
 						<img class={styles.logo} src="/images/broski.webp" alt="BROski" />
