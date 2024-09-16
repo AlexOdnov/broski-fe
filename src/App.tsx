@@ -47,7 +47,7 @@ export default defineComponent({
 				console.warn('Failed to get telegram user information')
 				return
 			}
-			i18n.locale.value = 'ru'//tgStore.languageCode
+			i18n.locale.value = tgStore.languageCode
 			commonStore.setIsLoadingForTimeout(envVariables.loaderDuration)
 			await useAdvertisingStore().init()
 			await userStore.loadUser(true)

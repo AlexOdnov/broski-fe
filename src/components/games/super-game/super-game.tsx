@@ -5,6 +5,7 @@ import { type ButtonMod, UiButton, UiHeightPlaceholder } from '@/components'
 import { GameElement, TicketsCounter } from '../shared'
 import { FIELD_PLACEHOLDERS, GameStatus, WIN_GAME_POINTS } from '@/utils/games'
 import { useSuperGameStore, INITIAL_ATTEMPTS_COUNT } from '@/stores/super-game'
+import { useI18n } from 'vue-i18n'
 
 export const SuperGame = defineComponent({
 	name: 'SuperGame',
@@ -13,15 +14,15 @@ export const SuperGame = defineComponent({
 	},
 	setup(props) {
 		const gameStore = useSuperGameStore()
-
+		const { t } = useI18n()
 		const topText = computed(() => {
 			switch (gameStore.gameStatus) {
 				case GameStatus.Win:
-					return '“suuuper brooo”'
+					return t('message.superBro')
 				case GameStatus.Nothing:
-					return 'bad luck'
+					return t('message.badLuck')
 				case GameStatus.Lose:
-					return '“b-rooster”'
+					return t('message.bRooster')
 				case GameStatus.InProgress:
 					return `${gameStore.remainAttempts}/${INITIAL_ATTEMPTS_COUNT}`
 				default:
@@ -39,31 +40,31 @@ export const SuperGame = defineComponent({
 				switch (gameStore.gameStatus) {
 					case GameStatus.Win:
 						return {
-							text: `Claim x5`,
+							text: `${t('message.claim')}} x5`,
 							mod: 'primary',
 							whenClick: finishGame
 						}
 					case GameStatus.Lose:
 						return {
-							text: 'next time',
+							text: t('message.nextTime'),
 							mod: 'inverse',
 							whenClick: finishGame
 						}
 					case GameStatus.Nothing:
 						return {
-							text: 'next time',
+							text: t('message.nextTime'),
 							mod: 'inverse',
 							whenClick: finishGame
 						}
 					case GameStatus.InProgress:
 						return {
-							text: 'Super game',
+							text: t('message.superGame'),
 							mod: 'secondary',
 							whenClick: () => {}
 						}
 					default:
 						return {
-							text: 'wait',
+							text:  t('message.wait'),
 							mod: 'secondary',
 							whenClick: () => {}
 						}
@@ -92,9 +93,9 @@ export const SuperGame = defineComponent({
 				</p>
 				{gameStore.gameStatus === GameStatus.InProgress ? (
 					<p class={sharedStyles.topText}>
-						bro or not bro?
+						{t('message.broOrNot')}
 						<br />
-						ur turn to pick
+						{t('message.urTurnToPick')}
 					</p>
 				) : (
 					<UiHeightPlaceholder height={'48px'} />

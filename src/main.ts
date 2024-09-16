@@ -9,6 +9,7 @@ import {createPinia} from 'pinia'
 import App from './App'
 import router from './router'
 import {createI18n} from 'vue-i18n';
+import { ruPluralRule } from '@/utils/ru-plural-rule'
 
 const app = createApp(App)
 const i18n = createI18n({
@@ -22,7 +23,10 @@ const i18n = createI18n({
 			message: en,
 		}
 	},
-	fallbackLocale: 'en'
+	fallbackLocale: 'en',
+	pluralRules: {
+		'ru': ruPluralRule
+	}
 })
 
 app.use(createPinia())

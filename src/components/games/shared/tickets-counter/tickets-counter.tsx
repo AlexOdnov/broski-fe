@@ -13,9 +13,8 @@ export const TicketsCounter = defineComponent({
 			<p class={styles.ticketsCounter}>
 				{userStore.userTickets > 0 ? (
 					<>
-						You got <span class={styles.ticketsExist}>{userStore.userTickets}</span>
+						You got <span class={styles.ticketsExist}>{t('message.ticket', userStore.userTickets)}</span>
 						<img class={styles.ticketImg} src="/images/ticket.webp" />
-						{userStore.userTickets > 1 ? t('message.tickets') : t('message.ticket')}
 					</>
 				) : (
 					<>

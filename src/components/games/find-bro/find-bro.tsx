@@ -7,6 +7,7 @@ import { useAdvertisingStore } from '@/stores/advertising'
 import { AdIcon } from '@/components/icons'
 import { GameElement, TicketsCounter } from '../shared'
 import { GameStatus, WIN_GAME_POINTS, FIELD_PLACEHOLDERS } from '@/utils/games'
+import { useI18n } from 'vue-i18n'
 
 export const FindBroGame = defineComponent({
 	name: 'FindBroGame',
@@ -17,15 +18,16 @@ export const FindBroGame = defineComponent({
 		const gameStore = useFindBroGameStore()
 		const userStore = useUserStore()
 		const advStore = useAdvertisingStore()
+		const { t } = useI18n()
 
 		const topText = computed(() => {
 			switch (gameStore.gameStatus) {
 				case GameStatus.Idle:
-					return 'find b,r,o'
+					return t('message.findBRO')
 				case GameStatus.Win:
-					return '“BROOO”'
+					return t('message.brooo')
 				case GameStatus.Lose:
-					return '“Fail”'
+					return t('message.fail')
 				case GameStatus.InProgress:
 					return `${gameStore.remainAttempts}/${INITIAL_ATTEMPTS_COUNT}`
 				default:
@@ -44,7 +46,7 @@ export const FindBroGame = defineComponent({
 				switch (gameStore.gameStatus) {
 					case GameStatus.Idle:
 						return {
-							text: 'Start game',
+							text: t('message.startGame'),
 							mod: 'primary',
 							minWidth: '202px',
 							loading: gameStore.isGameLoading,
@@ -52,28 +54,28 @@ export const FindBroGame = defineComponent({
 						}
 					case GameStatus.Win:
 						return {
-							text: `CLAIM ${WIN_GAME_POINTS} $bro`,
+							text: `${t('message.claim')} ${WIN_GAME_POINTS} $bro`,
 							mod: 'inverse',
 							loading: gameStore.isGameLoading,
 							whenClick: gameStore.finishGame
 						}
 					case GameStatus.Lose:
 						return {
-							text: 'next time',
+							text: t('message.nextTime'),
 							mod: 'inverse',
 							loading: gameStore.isGameLoading,
 							whenClick: gameStore.finishGame
 						}
 					case GameStatus.InProgress:
 						return {
-							text: 'in progress',
+							text: t('message.inProgress'),
 							mod: 'secondary',
 							loading: gameStore.isGameLoading,
 							whenClick: () => {}
 						}
 					default:
 						return {
-							text: 'wait',
+							text: t('message.wait'),
 							mod: 'secondary',
 							loading: gameStore.isGameLoading,
 							whenClick: () => {}
@@ -84,7 +86,7 @@ export const FindBroGame = defineComponent({
 
 		const advText = computed(
 			() =>
-				`Get tickets${userStore.user?.advertising_total ? ` ${userStore.user?.advertising_limit || 0}/${userStore.user?.advertising_total}` : ''}`
+				`${t('message.getTickets')}${userStore.user?.advertising_total ? ` ${userStore.user?.advertising_limit || 0}/${userStore.user?.advertising_total}` : ''}`
 		)
 
 		const isButtonShown = computed(
@@ -124,7 +126,7 @@ export const FindBroGame = defineComponent({
 					{isButtonShown.value ? (
 						<>
 							{gameStore.gameStatus === GameStatus.Win && (
-								<UiButton text={'Super game'} whenClick={switchToSuperGame} />
+								<UiButton text={t('message.superGame')} whenClick={switchToSuperGame} />
 							)}
 							<UiButton {...buttonProps.value} />
 							<TicketsCounter />
@@ -139,8 +141,7 @@ export const FindBroGame = defineComponent({
 								whenClick={whenAdvClick}
 							/>
 							<div class={styles.disclaimer}>
-								Bro, we are not responsible for advertising. Don't connect your main wallet
-								anywhere.
+								{t('message.noResponsibleForAd')}
 							</div>
 						</>
 					)}
