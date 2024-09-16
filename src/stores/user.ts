@@ -6,14 +6,15 @@ import { useTgSdkStore } from './tg-sdk'
 import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/generatedApi'
 import { computed } from 'vue'
 import { addHours, addMinutes, msToTime } from '@/utils/date'
+import { useCommonStore } from './common'
 
 export const useUserStore = defineStore('user', () => {
 	const api = useApi()
 	const tgStore = useTgSdkStore()
+	const commonStore = useCommonStore()
 
-	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [timeBeforeMiningLeftString, setTimeDeforeMiningString] = useState<string | null>(null)
-	const [timeoutID, setTimeoutID] = useState<number | null>(null)
+	const [timeoutID, setTimeoutID] = useState<ReturnType<typeof setTimeout> | null>(null)
 
 	const [user, setUser] = useState<UserCreateResponse | null>({
 		username: "rdsht",
@@ -92,7 +93,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const loadUser = async (withLoader = false) => {
 		try {
-			withLoader && setIsLoading(true)
+			withLoader && commonStore.setIsLoading(true)
 			const userResponse = await api.getUser({
 				user_id: tgStore.userId,
 				username: tgStore.username,
@@ -105,7 +106,7 @@ export const useUserStore = defineStore('user', () => {
 		} catch (error) {
 			console.warn(error)
 		} finally {
-			withLoader && setIsLoading(false)
+			withLoader && commonStore.setIsLoading(false)
 		}
 	}
 
@@ -172,11 +173,19 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const claimBox = async (boxCount: number) => {
+		try {
+			await api.claimBox({ user_id: tgStore.userId, box: boxCount })
+			await loadUser()
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	return {
 		user,
 		userTickets,
 		userScore,
-		isLoading,
 		loadUser,
 		changeUserScore,
 		changeUserTickets,
@@ -186,6 +195,7 @@ export const useUserStore = defineStore('user', () => {
 		startUpdateMiningString,
 		claimDailyReward,
 		claimAdvertisingReward,
-		doneFirstLogin
+		doneFirstLogin,
+		claimBox
 	}
 })
