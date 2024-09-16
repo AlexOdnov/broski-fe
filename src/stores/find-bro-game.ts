@@ -32,6 +32,12 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 		gameField.value.filter((el) => el.isOpen && el.value)
 	)
 
+	const setPreview = () => {
+		setGameField(
+			gameField.value.map((el) => ({ ...el, isPreview: el.value && !el.isOpen ? true : false }))
+		)
+	}
+
 	const startGame = async () => {
 		if (gameStatus.value !== GameStatus.Idle || userStore.userTickets <= 0 || isGameLoading.value) {
 			return
@@ -81,6 +87,7 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 
 		if (!remainAttempts.value) {
 			setGameStatus(GameStatus.Lose)
+			setPreview()
 		}
 	}
 

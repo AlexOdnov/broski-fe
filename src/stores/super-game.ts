@@ -10,16 +10,19 @@ const createGameField = (): IGameElement[] => {
 	return [
 		{
 			isOpen: false,
+			isPreview: false,
 			value: GameStatus.Lose,
 			image: '/images/chicken.webp'
 		},
 		{
 			isOpen: false,
+			isPreview: false,
 			value: GameStatus.Win,
 			image: '/images/fist-small.webp'
 		},
 		{
 			isOpen: false,
+			isPreview: false,
 			value: ''
 		}
 	]
@@ -32,6 +35,10 @@ export const useSuperGameStore = defineStore('superGame', () => {
 	const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.Idle)
 	const [remainAttempts, setRemainAttempts, resetRemainAttempts] =
 		useState<number>(INITIAL_ATTEMPTS_COUNT)
+
+	const setPreview = () => {
+		setGameField(gameField.value.map((el) => ({ ...el, isPreview: !el.isOpen ? true : false })))
+	}
 
 	const startGame = async () => {
 		if (gameStatus.value !== GameStatus.Idle) {
@@ -92,6 +99,8 @@ export const useSuperGameStore = defineStore('superGame', () => {
 				setGameStatus(GameStatus.Nothing)
 				break
 		}
+
+		setPreview()
 	}
 
 	return {
