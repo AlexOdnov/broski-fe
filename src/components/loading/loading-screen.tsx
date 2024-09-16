@@ -1,16 +1,23 @@
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import styles from './styles.module.css'
 import { UiProgressBar } from '../ui/progress-bar'
 import { LOADER_TIMEOUT } from '@/utils/constants'
 export const LoadingScreen = defineComponent({
 	name: 'LoadingScreen',
 	setup: () => {
+		onMounted(() => {
+			const scriptTag = document.createElement('script')
+			scriptTag.src = 'https://js.onclckmn.com/static/onclicka.js'
+			scriptTag.dataset.admpid = '231083'
+			document.head.appendChild(scriptTag)
+		})
+
 		return () => (
 			<div class={styles.loadingScreenWrapper}>
 				<div class={styles.loadingScreen}>
 					<div class={styles.handWrapper}>
-						<img class={styles.shadow} src="/images/shadow.png" />
-						<img class={styles.hand} src="/images/hand.gif" alt="hand" />
+						<img class={styles.shadow} src="/images/shadow.webp" />
+						<img class={styles.hand} src="/images/hand.avif" alt="hand" />
 					</div>
 					<div class={styles.progressBarWrapper}>
 						<img class={styles.logo} src="/images/broski.webp" alt="BROski" />
@@ -19,7 +26,7 @@ export const LoadingScreen = defineComponent({
 					</div>
 				</div>
 				<div class={styles.bannerWrapper}>
-					<div class={styles.banner}>banner</div>
+					<div class={styles.banner} data-banner-id="6031971"></div>
 					<p class={[styles.loadingText, styles.bannerText]}>
 						Bro, we are not responsible for advertising. Don't connect your main wallet anywhere.
 						DYOR.
