@@ -9,7 +9,7 @@ export const UiProgressBar = defineComponent({
 	setup: (props) => {
 		const items = ref(Array(20).fill(null))
 		const currentProgress = ref(0)
-		const interval = ref<number | null>(null)
+		const interval = ref<ReturnType<typeof setInterval> | null>(null)
 
 		onMounted(() => {
 			interval.value = setInterval(
