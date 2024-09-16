@@ -31,13 +31,13 @@ export const LoadingScreen = defineComponent({
 					<div class={styles.progressBarWrapper}>
 						<img class={styles.logo} src="/images/broski.webp" alt="BROski" />
 						<UiProgressBar duration={envVariables.loaderDuration} />
-						<p class={styles.loadingText}>{t('message.loading')}...</p>
+						<p class={styles.loadingText}>{t('loading')}...</p>
 					</div>
 				</div>
 				<div class={styles.bannerWrapper}>
 					<div class={styles.banner} data-banner-id="6031971"></div>
 					<p class={[styles.loadingText, styles.bannerText]}>
-						{t('message.noResponsibleForAd')}
+						{t('noResponsibleForAd')}
 					</p>
 				</div>
 			</div>

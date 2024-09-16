@@ -1,5 +1,6 @@
 import { defineComponent } from 'vue'
 import styles from './reward-block.module.css'
+import { useI18n } from 'vue-i18n'
 
 export const RewardBlock = defineComponent({
 	name: 'RewardBlock',
@@ -8,6 +9,7 @@ export const RewardBlock = defineComponent({
 		tickets: { type: Number, required: true }
 	},
 	setup: (props) => {
+		const { t } = useI18n()
 		return () => (
 			<div class={styles.frame}>
 				<div class={styles.coins}>
@@ -17,7 +19,7 @@ export const RewardBlock = defineComponent({
 				<div class={styles.separator} />
 				<div class={styles.tickets}>
 					<img src="/images/ticket.webp" />
-					{`${props.tickets} Tickets`}
+					{t('ticket', props.tickets)}
 				</div>
 			</div>
 		)

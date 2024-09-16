@@ -47,14 +47,14 @@ const TaskPage = defineComponent({
 							mod={'primary'}
 							size={'lg'}
 							disabled={task.value?.complete}
-							text={task.value?.complete ? t('message.task.completed') : t('message.task.start')}
+							text={task.value?.complete ? t('task.completed') : t('task.start')}
 							whenClick={whenStartClicked}
 						/>
 						{!task.value?.complete && (
 							<UiButton
 								mod={'secondary'}
 								size={'lg'}
-								text={t('message.task.check')}
+								text={t('task.check')}
 								disabled={isCheckingDisabled.value}
 								loading={isChecking.value}
 								whenClick={whenCheckClicked}
@@ -63,10 +63,9 @@ const TaskPage = defineComponent({
 					</div>
 				</div>
 				<div class={styles.noCrooks}>
-					No crooks allowed!
-					{t('message.task.noCrooksAllowed')}
+					{t('task.noCrooksAllowed')}
 					<br />
-					{t('message.task.cheatersWillBePunished')}
+					{t('task.cheatersWillBePunished')}
 				</div>
 			</div>
 		)

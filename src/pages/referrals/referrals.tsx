@@ -25,11 +25,11 @@ const ReferralsPage = defineComponent({
 				return isLinkCopied.value
 					? {
 							mod: 'inverse',
-							text: t('message.linkCopied')
+							text: t('linkCopied')
 						}
 					: {
 							mod: 'primary',
-							text: t('message.inviteBro')
+							text: t('inviteBro')
 						}
 			}
 		)
@@ -44,12 +44,12 @@ const ReferralsPage = defineComponent({
 				return referralsStore.sumReferralsReward
 					? {
 							mod: 'inverse',
-							text: `${t('message.claim')} ${Intl.NumberFormat('en-US').format(referralsStore.sumReferralsReward)} $BRO`,
+							text: `${t('claim')} ${Intl.NumberFormat('en-US').format(referralsStore.sumReferralsReward)} $BRO`,
 							whenClick: referralsStore.claimReferralsReward
 						}
 					: {
 							mod: 'secondary',
-							text: t('message.comeBackLater'),
+							text: t('comeBackLater'),
 							disabled: true,
 							whenClick: () => {}
 						}
@@ -91,22 +91,22 @@ const ReferralsPage = defineComponent({
 				<div class={styles.header}>
 					<div class={styles.text}>
 						<p class={styles.headerDark}>
-							10% {t('message.fromBrosIncome')} + <img class={styles.icon} src="/images/ticket.webp" /> {t('message.ticket', 3)}
+							10% {t('fromBrosIncome')} + <img class={styles.icon} src="/images/ticket.webp" /> {t('ticket', 3)}
 						</p>
 						<p class={styles.headerLight}>
 							<img class={styles.icon} src="/images/star.webp" />
-							{t('message.premiumAdditionally')}
+							{t('premiumAdditionally')}
 							<span class={styles.yellow}>50 $BRO</span> +
-							<img class={styles.icon} src="/images/ticket.webp" /> {t('message.ticket', 12, )}
+							<img class={styles.icon} src="/images/ticket.webp" /> {t('ticket', 12, )}
 						</p>
 					</div>
 					<UiButton size={'sm'} {...copyButtonProps.value} whenClick={whenCopyLink} />
 				</div>
 				<div class={styles.content}>
 					<div class={styles.listHeader}>
-						<p class={styles.subTitle}>{t('message.myBros')}</p>
+						<p class={styles.subTitle}>{t('myBros')}</p>
 						<p class={styles.total}>
-							{t('message.total')}: {Intl.NumberFormat('en-US').format(referralsStore.totalReferrals)}
+							{t('total')}: {Intl.NumberFormat('en-US').format(referralsStore.totalReferrals)}
 						</p>
 					</div>
 					<div class={styles.scrollContent}>

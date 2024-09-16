@@ -18,13 +18,13 @@ const TasksPage = defineComponent({
 		return () => (
 			<div>
 				<div class={styles.tasks}>
-					<span class={styles.listTitle}>{t('message.task.tasks')}</span>
+					<span class={styles.listTitle}>{t('task.tasks')}</span>
 					{tasksStore.uncompletedTasks.map((task, index) => {
 						return (
 							<TaskListItem task={task} whenTaskSelected={taskSelected} key={`task-${index}`} />
 						)
 					})}
-					{<span class={[styles.listTitle, styles.opacity]}>{t('message.task.completed')}</span>}
+					{<span class={[styles.listTitle, styles.opacity]}>{t('task.completed')}</span>}
 					{tasksStore.completedTasks?.length > 0 &&
 						tasksStore.completedTasks.map((task, index) => {
 							return (

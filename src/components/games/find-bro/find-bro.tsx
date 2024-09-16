@@ -23,11 +23,11 @@ export const FindBroGame = defineComponent({
 		const topText = computed(() => {
 			switch (gameStore.gameStatus) {
 				case GameStatus.Idle:
-					return t('message.findBRO')
+					return t('findBRO')
 				case GameStatus.Win:
-					return t('message.brooo')
+					return t('brooo')
 				case GameStatus.Lose:
-					return t('message.fail')
+					return t('fail')
 				case GameStatus.InProgress:
 					return `${gameStore.remainAttempts}/${INITIAL_ATTEMPTS_COUNT}`
 				default:
@@ -46,7 +46,7 @@ export const FindBroGame = defineComponent({
 				switch (gameStore.gameStatus) {
 					case GameStatus.Idle:
 						return {
-							text: t('message.startGame'),
+							text: t('startGame'),
 							mod: 'primary',
 							minWidth: '202px',
 							loading: gameStore.isGameLoading,
@@ -54,28 +54,28 @@ export const FindBroGame = defineComponent({
 						}
 					case GameStatus.Win:
 						return {
-							text: `${t('message.claim')} ${WIN_GAME_POINTS} $bro`,
+							text: `${t('claim')} ${WIN_GAME_POINTS} $bro`,
 							mod: 'inverse',
 							loading: gameStore.isGameLoading,
 							whenClick: gameStore.finishGame
 						}
 					case GameStatus.Lose:
 						return {
-							text: t('message.nextTime'),
+							text: t('nextTime'),
 							mod: 'inverse',
 							loading: gameStore.isGameLoading,
 							whenClick: gameStore.finishGame
 						}
 					case GameStatus.InProgress:
 						return {
-							text: t('message.inProgress'),
+							text: t('inProgress'),
 							mod: 'secondary',
 							loading: gameStore.isGameLoading,
 							whenClick: () => {}
 						}
 					default:
 						return {
-							text: t('message.wait'),
+							text: t('wait'),
 							mod: 'secondary',
 							loading: gameStore.isGameLoading,
 							whenClick: () => {}
@@ -86,7 +86,7 @@ export const FindBroGame = defineComponent({
 
 		const advText = computed(
 			() =>
-				`${t('message.getTickets')}${userStore.user?.advertising_total ? ` ${userStore.user?.advertising_limit || 0}/${userStore.user?.advertising_total}` : ''}`
+				`${t('getTickets')}${userStore.user?.advertising_total ? ` ${userStore.user?.advertising_limit || 0}/${userStore.user?.advertising_total}` : ''}`
 		)
 
 		const isButtonShown = computed(
@@ -126,7 +126,7 @@ export const FindBroGame = defineComponent({
 					{isButtonShown.value ? (
 						<>
 							{gameStore.gameStatus === GameStatus.Win && (
-								<UiButton text={t('message.superGame')} whenClick={switchToSuperGame} />
+								<UiButton text={t('superGame')} whenClick={switchToSuperGame} />
 							)}
 							<UiButton {...buttonProps.value} />
 							<TicketsCounter />
@@ -141,7 +141,7 @@ export const FindBroGame = defineComponent({
 								whenClick={whenAdvClick}
 							/>
 							<div class={styles.disclaimer}>
-								{t('message.noResponsibleForAd')}
+								{t('noResponsibleForAd')}
 							</div>
 						</>
 					)}

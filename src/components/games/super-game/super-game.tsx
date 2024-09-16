@@ -18,11 +18,11 @@ export const SuperGame = defineComponent({
 		const topText = computed(() => {
 			switch (gameStore.gameStatus) {
 				case GameStatus.Win:
-					return t('message.superBro')
+					return t('superBro')
 				case GameStatus.Nothing:
-					return t('message.badLuck')
+					return t('badLuck')
 				case GameStatus.Lose:
-					return t('message.bRooster')
+					return t('bRooster')
 				case GameStatus.InProgress:
 					return `${gameStore.remainAttempts}/${INITIAL_ATTEMPTS_COUNT}`
 				default:
@@ -40,31 +40,31 @@ export const SuperGame = defineComponent({
 				switch (gameStore.gameStatus) {
 					case GameStatus.Win:
 						return {
-							text: `${t('message.claim')}} x5`,
+							text: `${t('claim')} x5`,
 							mod: 'primary',
 							whenClick: finishGame
 						}
 					case GameStatus.Lose:
 						return {
-							text: t('message.nextTime'),
+							text: t('nextTime'),
 							mod: 'inverse',
 							whenClick: finishGame
 						}
 					case GameStatus.Nothing:
 						return {
-							text: t('message.nextTime'),
+							text: t('nextTime'),
 							mod: 'inverse',
 							whenClick: finishGame
 						}
 					case GameStatus.InProgress:
 						return {
-							text: t('message.superGame'),
+							text: t('superGame'),
 							mod: 'secondary',
 							whenClick: () => {}
 						}
 					default:
 						return {
-							text:  t('message.wait'),
+							text:  t('wait'),
 							mod: 'secondary',
 							whenClick: () => {}
 						}
@@ -93,9 +93,9 @@ export const SuperGame = defineComponent({
 				</p>
 				{gameStore.gameStatus === GameStatus.InProgress ? (
 					<p class={sharedStyles.topText}>
-						{t('message.broOrNot')}
+						{t('broOrNot')}
 						<br />
-						{t('message.urTurnToPick')}
+						{t('urTurnToPick')}
 					</p>
 				) : (
 					<UiHeightPlaceholder height={'48px'} />

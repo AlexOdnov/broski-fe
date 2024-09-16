@@ -26,18 +26,18 @@ export const OnboardingComponent = defineComponent({
 							image: './images/onboarding-1.webp',
 							title: (
 								<>
-									<span class={styles.yellow}>{t('message.onboarding.yoBroski')}</span>,&nbsp;
-									{t('message.onboarding.welcome')}
+									<span class={styles.yellow}>{t('onboarding.yoBroski')}</span>,&nbsp;
+									{t('onboarding.welcome')}
 								</>
 							),
 							description: (
 								<>
-									<p class={styles.description}>{t('message.onboarding.funAndEarn')}</p>
-									<p class={styles.description}>{t('message.onboarding.findBRO')}</p>
+									<p class={styles.description}>{t('onboarding.funAndEarn')}</p>
+									<p class={styles.description}>{t('onboarding.findBRO')}</p>
 								</>
 							),
 							buttonMod: 'inverse',
-							buttonText: t('message.next'),
+							buttonText: t('next'),
 							handler: () => (currentStep.value += 1)
 						}
 					case 2:
@@ -45,18 +45,18 @@ export const OnboardingComponent = defineComponent({
 							image: './images/onboarding-2.webp',
 							title: (
 								<>
-									{t('message.1game1Ticket')}&nbsp;
+									{t('1game1Ticket')}&nbsp;
 									<img class={styles.icon} src="/images/ticket.webp" />
 								</>
 							),
 							description: (
 								<>
-									<p class={styles.description}>{t('message.onboarding.inNotEnough')}</p>
-									<p class={styles.description}>{t('message.onboarding.bringUrBros')}</p>
+									<p class={styles.description}>{t('onboarding.inNotEnough')}</p>
+									<p class={styles.description}>{t('onboarding.bringUrBros')}</p>
 								</>
 							),
 							buttonMod: 'inverse',
-							buttonText: t('message.onboarding.next'),
+							buttonText: t('onboarding.next'),
 							handler: () => (currentStep.value += 1)
 						}
 					case 3:
@@ -64,18 +64,18 @@ export const OnboardingComponent = defineComponent({
 							image: './images/onboarding-3.webp',
 							title: (
 								<>
-									<span class={styles.yellow}>{t('message.airdrop')}</span>&nbsp;
-									{t('message.onboarding.withNoVesting')}
+									<span class={styles.yellow}>{t('airdrop')}</span>&nbsp;
+									{t('onboarding.withNoVesting')}
 								</>
 							),
 							description: (
 								<>
-									<p class={styles.description}>{t('message.stayTuned')}</p>
-									<p class={styles.description}>{t('message.dontForgetEvery8Hours')}</p>
+									<p class={styles.description}>{t('stayTuned')}</p>
+									<p class={styles.description}>{t('dontForgetEvery8Hours')}</p>
 								</>
 							),
 							buttonMod: 'primary',
-							buttonText: t('message.ok'),
+							buttonText: t('ok'),
 							handler: userStore.doneFirstLogin
 						}
 					default:

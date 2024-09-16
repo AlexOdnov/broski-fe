@@ -16,12 +16,8 @@ const i18n = createI18n({
 	legacy: false,
 	locale: 'en',
 	messages: {
-		ru: {
-			message: ru,
-		},
-		en: {
-			message: en,
-		}
+		ru: { ...ru },
+		en: { ...en }
 	},
 	fallbackLocale: 'en',
 	pluralRules: {

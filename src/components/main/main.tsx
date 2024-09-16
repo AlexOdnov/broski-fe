@@ -49,7 +49,7 @@ export const MainComponent = defineComponent({
 							<div class={styles.navBtn}>
 								<div class={[styles.letter, styles.rotateLeft]}>B</div>
 								<div class={[styles.letterShadow, styles.rotateLeft]}>B</div>
-								<span class={styles.btnText}>{t('message.game')}</span>
+								<span class={styles.btnText}>{t('game')}</span>
 							</div>
 						</RouterLink>
 						<RouterLink activeClass={styles.active} to="/tasks">
@@ -59,7 +59,7 @@ export const MainComponent = defineComponent({
 								)}
 								<div class={[styles.letter, styles.rotateRight]}>R</div>
 								<div class={[styles.letterShadow, styles.rotateRight]}>R</div>
-								<span class={styles.btnText}>{t('message.earn')}</span>
+								<span class={styles.btnText}>{t('earn')}</span>
 							</div>
 						</RouterLink>
 						<RouterLink activeClass={styles.active} to="/referrals">
@@ -69,7 +69,7 @@ export const MainComponent = defineComponent({
 								)}
 								<div class={[styles.letter, styles.rotateLeft]}>O</div>
 								<div class={[styles.letterShadow, styles.rotateLeft]}>O</div>
-								<span class={styles.btnText}>{t('message.myBros')}</span>
+								<span class={styles.btnText}>{t('myBros')}</span>
 							</div>
 						</RouterLink>
 						<div
@@ -83,12 +83,12 @@ export const MainComponent = defineComponent({
 							<img class={styles.btnImg} src="/images/pickaxe.webp" />
 							{isRewardAvailable.value && (
 								<>
-									<span class={[styles.btnText, styles.yellow]}>{t('message.claim')}</span>
+									<span class={[styles.btnText, styles.yellow]}>{t('claim')}</span>
 									<span class={[styles.claimNumber, styles.yellow]}>+72</span>
 								</>
 							)}
 							{!isRewardAvailable.value && !timeBeforeMiningLeft.value && (
-								<span class={[styles.btnText, styles.yellow]}>{t('message.farm')}</span>
+								<span class={[styles.btnText, styles.yellow]}>{t('farm')}</span>
 							)}
 							{!isRewardAvailable.value && timeBeforeMiningLeft.value && (
 								<span class={styles.time}>{timeBeforeMiningLeft.value}</span>
