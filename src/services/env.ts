@@ -5,7 +5,7 @@ export interface Env {
 }
 
 export const envVariables: Env = {
-	backendUrl: process.env.BACKEND_URL || '',
-	botUrl: process.env.BOT_URL || '',
-	lootboxChance: Number(process.env.LOOTBOX_CHANCE)
+	backendUrl: import.meta.env.BACKEND_URL || '',
+	botUrl: import.meta.env.BOT_URL || '',
+	lootboxChance: Number(import.meta.env.LOOTBOX_CHANCE)
 }
