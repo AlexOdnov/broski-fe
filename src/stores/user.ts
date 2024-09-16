@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [timeBeforeMiningLeftString, setTimeDeforeMiningString] = useState<string | null>(null)
-	const [timeoutID, setTimeoutID] = useState<number | null>(null)
+	const [timeoutID, setTimeoutID] = useState<ReturnType<typeof setTimeout> | null>(null)
 
 	const [user, setUser] = useState<UserCreateResponse | null>(null)
 	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<number | null>(null)
