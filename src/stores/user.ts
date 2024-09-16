@@ -14,7 +14,7 @@ export const useUserStore = defineStore('user', () => {
 	const commonStore = useCommonStore()
 
 	const [timeBeforeMiningLeftString, setTimeDeforeMiningString] = useState<string | null>(null)
-	const [timeoutID, setTimeoutID] = useState<number | null>(null)
+	const [timeoutID, setTimeoutID] = useState<ReturnType<typeof setTimeout> | null>(null)
 
 	const [user, setUser] = useState<UserCreateResponse | null>(null)
 	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<number | null>(null)
@@ -156,6 +156,15 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const claimBox = async (boxCount: number) => {
+		try {
+			await api.claimBox({ user_id: tgStore.userId, box: boxCount })
+			await loadUser()
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	return {
 		user,
 		userTickets,
@@ -169,6 +178,7 @@ export const useUserStore = defineStore('user', () => {
 		startUpdateMiningString,
 		claimDailyReward,
 		claimAdvertisingReward,
-		doneFirstLogin
+		doneFirstLogin,
+		claimBox
 	}
 })

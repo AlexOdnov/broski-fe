@@ -1,6 +1,7 @@
 export interface IGameElement {
 	isOpen: boolean
 	value: string | null
+	isPreview: boolean
 	image?: string
 }
 
@@ -18,12 +19,14 @@ export const FIELD_PLACEHOLDERS = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
 
 const createEmptyGameElement = (): IGameElement => ({
 	isOpen: false,
+	isPreview: false,
 	value: null
 })
 
 export const createFillGameElements = (elements: string[]): IGameElement[] => {
 	return elements.map((value) => ({
 		isOpen: false,
+		isPreview: false,
 		value
 	}))
 }

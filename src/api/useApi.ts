@@ -1,3 +1,4 @@
+import { envVariables } from '@/services/env'
 import {
 	Api,
 	type UserCreatePayload,
@@ -11,7 +12,8 @@ import {
 	type DailyCreatePayload,
 	type ReferalsCreatePayload,
 	type FirstLoginCreatePayload,
-	type AdvertisingSeeCreatePayload
+	type AdvertisingSeeCreatePayload,
+	type BoxesCreatePayload
 } from './generatedApi'
 import type {
 	UserCreateResponse,
@@ -20,7 +22,7 @@ import type {
 } from './responseTypes'
 
 const apiInstance = new Api({
-	baseURL: window.appConfig.baseUrl
+	baseURL: envVariables.backendUrl
 })
 
 export const useApi = () => {
@@ -80,6 +82,10 @@ export const useApi = () => {
 		return await apiInstance.done.firstLoginCreate(payload)
 	}
 
+	const claimBox = async (payload: BoxesCreatePayload) => {
+		return await apiInstance.get.boxesCreate(payload)
+	}
+
 	return {
 		getUser,
 		getTasks,
@@ -94,6 +100,7 @@ export const useApi = () => {
 		claimDailyReward,
 		getReferrals,
 		doneFirstLogin,
-		claimAdvertisingReward
+		claimAdvertisingReward,
+		claimBox
 	}
 }
