@@ -1,3 +1,4 @@
+import { envVariables } from '@/services/env'
 import {
 	Api,
 	type UserCreatePayload,
@@ -21,7 +22,7 @@ import type {
 } from './responseTypes'
 
 const apiInstance = new Api({
-	baseURL: window.appConfig.baseUrl
+	baseURL: envVariables.backendUrl
 })
 
 export const useApi = () => {
