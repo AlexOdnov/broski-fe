@@ -1,11 +1,13 @@
 import { defineComponent } from 'vue'
 import styles from './styles.module.css'
 import { useUserStore } from '@/stores/user'
+import { useI18n } from 'vue-i18n'
 
 export const TicketsCounter = defineComponent({
 	name: 'TicketsCounter',
 	setup: () => {
 		const userStore = useUserStore()
+		const { t } = useI18n()
 
 		return () => (
 			<p class={styles.ticketsCounter}>
@@ -13,11 +15,11 @@ export const TicketsCounter = defineComponent({
 					<>
 						You got <span class={styles.ticketsExist}>{userStore.userTickets}</span>
 						<img class={styles.ticketImg} src="/images/ticket.webp" />
-						{userStore.userTickets > 1 ? 'Tickets' : 'Ticket'}
+						{userStore.userTickets > 1 ? t('message.tickets') : t('message.ticket')}
 					</>
 				) : (
 					<>
-						Bro, you're out of tickets, bro!
+						{t('message.broOutOfTickets')}
 						<img class={styles.ticketImg} src="/images/ticket.webp" />
 					</>
 				)}

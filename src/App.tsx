@@ -39,12 +39,12 @@ export default defineComponent({
 		})
 
 		const onCreated = async () => {
-			tgStore.initTgApp()
-			if (!tgStore.user) {
-				console.warn('Failed to get telegram user information')
-				return
-			}
-			i18n.locale.value = tgStore.languageCode
+			// tgStore.initTgApp()
+			// if (!tgStore.user) {
+			// 	console.warn('Failed to get telegram user information')
+			// 	return
+			// }
+			i18n.locale.value = 'ru'//tgStore.languageCode
 			await useAdvertisingStore().init()
 			await userStore.loadUser(true)
 			if (!userStore.user) {
