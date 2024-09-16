@@ -155,6 +155,15 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const claimBox = async (boxCount: number) => {
+		try {
+			await api.claimBox({ user_id: tgStore.userId, box: boxCount })
+			await loadUser()
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	return {
 		user,
 		userTickets,
@@ -169,6 +178,7 @@ export const useUserStore = defineStore('user', () => {
 		startUpdateMiningString,
 		claimDailyReward,
 		claimAdvertisingReward,
-		doneFirstLogin
+		doneFirstLogin,
+		claimBox
 	}
 })

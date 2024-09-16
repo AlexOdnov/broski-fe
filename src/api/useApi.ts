@@ -11,7 +11,8 @@ import {
 	type DailyCreatePayload,
 	type ReferalsCreatePayload,
 	type FirstLoginCreatePayload,
-	type AdvertisingSeeCreatePayload
+	type AdvertisingSeeCreatePayload,
+	type BoxesCreatePayload
 } from './generatedApi'
 import type {
 	UserCreateResponse,
@@ -80,6 +81,10 @@ export const useApi = () => {
 		return await apiInstance.done.firstLoginCreate(payload)
 	}
 
+	const claimBox = async (payload: BoxesCreatePayload) => {
+		return await apiInstance.get.boxesCreate(payload)
+	}
+
 	return {
 		getUser,
 		getTasks,
@@ -94,6 +99,7 @@ export const useApi = () => {
 		claimDailyReward,
 		getReferrals,
 		doneFirstLogin,
-		claimAdvertisingReward
+		claimAdvertisingReward,
+		claimBox
 	}
 }

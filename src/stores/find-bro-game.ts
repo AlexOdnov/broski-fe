@@ -10,13 +10,29 @@ import {
 	WIN_GAME_POINTS,
 	type IGameElement
 } from '@/utils/games'
+import { randomValueByChance } from '@/utils/random'
 
 export const INITIAL_ATTEMPTS_COUNT = 6
 
-const WIN_GAME_ELEMENTS_COUNT = 3
+const BOX_VALUE = 'box'
+
+const WIN_GAME_ELEMENTS = ['B', 'R', 'O']
+
+const WIN_GAME_ELEMENTS_COUNT = WIN_GAME_ELEMENTS.length
 
 const createGameField = (): IGameElement[] => {
-	return [...createFillGameElements(['B', 'R', 'O']), ...createEmptyGameElements(6)]
+	return randomValueByChance(1)
+		? [
+				...createFillGameElements(WIN_GAME_ELEMENTS),
+				...createEmptyGameElements(5),
+				{
+					isOpen: false,
+					isPreview: false,
+					value: BOX_VALUE,
+					image: '/images/box.webp'
+				}
+			]
+		: [...createFillGameElements(WIN_GAME_ELEMENTS), ...createEmptyGameElements(6)]
 }
 
 export const useFindBroGameStore = defineStore('findBroGame', () => {
@@ -29,7 +45,7 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 	const [isGameLoading, setIsGameLoading] = useState<boolean>(false)
 
 	const openedWinGameElements = computed(() =>
-		gameField.value.filter((el) => el.isOpen && el.value)
+		gameField.value.filter((el) => el.isOpen && el.value && WIN_GAME_ELEMENTS.includes(el.value))
 	)
 
 	const setPreview = () => {
@@ -80,13 +96,23 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 		element.isOpen = true
 		setRemainAttempts(remainAttempts.value - 1)
 
-		if (openedWinGameElements.value.length === WIN_GAME_ELEMENTS_COUNT) {
+		if (element.value === BOX_VALUE) {
+			userStore.claimBox(1)
+		}
+
+		if (
+			openedWinGameElements.value.length === WIN_GAME_ELEMENTS_COUNT &&
+			(!gameField.value.some((el) => el.value === BOX_VALUE) ||
+				gameField.value.find((el) => el.value === BOX_VALUE)?.isOpen)
+		) {
 			setGameStatus(GameStatus.Win)
 			return
 		}
 
 		if (!remainAttempts.value) {
-			setGameStatus(GameStatus.Lose)
+			openedWinGameElements.value.length === WIN_GAME_ELEMENTS_COUNT
+				? setGameStatus(GameStatus.Win)
+				: setGameStatus(GameStatus.Lose)
 			setPreview()
 		}
 	}
