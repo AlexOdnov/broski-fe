@@ -13,7 +13,7 @@ export const LoadingScreen = defineComponent({
 						<img class={styles.hand} src="/images/hand.gif" alt="hand" />
 					</div>
 					<div class={styles.progressBarWrapper}>
-						<img class={styles.logo} src="/images/BROski.png" alt="BROski" />
+						<img class={styles.logo} src="/images/broski.webp" alt="BROski" />
 						<UiProgressBar duration={LOADER_TIMEOUT} />
 						<p class={styles.loadingText}>Loading...</p>
 					</div>

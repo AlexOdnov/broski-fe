@@ -1,4 +1,7 @@
 .button {
+	display: flex;
+	justify-content: center;
+	gap: 6px;
 	border-radius: 10px;
 	font-size: 16px;
 	line-height: 16px;
@@ -44,6 +47,13 @@
 .modInverse {
 	color: #ffb800;
 	background-color: #1d1e20;
+}
+
+.leftIcon {
+	max-height: 1em;
+	display: flex;
+	align-self: center;
+	fill: currentColor;
 }
 
 .loader {

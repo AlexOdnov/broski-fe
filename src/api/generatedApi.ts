@@ -14,78 +14,106 @@ export interface UserCreatePayload {
 	username: string
 	/** @example "624161982" */
 	user_id: number
-	/** @example "624161982" */
+	/** @example "6241619823" */
 	ref_code?: string
 	/** @example true */
 	premium?: boolean
 }
 
 export interface TasksCreatePayload {
-	/** @example "antonprox" */
-	username: string
+	/** @example "624161982" */
+	user_id: number
 }
 
 export interface TasksCreateBody {
-	/** @example "antonprox" */
-	username: string
+	/** @example "624161982" */
+	user_id: number
 	/**
 	 * Id таски
-	 * @example "1"
+	 * @example "9"
 	 */
 	task_id: number
 }
 
 export interface ScoreCreatePayload {
-	/** @example "antonprox" */
-	username: string
+	/** @example "624161982" */
+	user_id: number
 	/** @example "1000" */
 	score: number
 }
 
 export interface TicketsCreatePayload {
-	/** @example "antonprox" */
-	username: string
+	/** @example "624161982" */
+	user_id: number
 	/** @example "1" */
 	tickets: number
 }
 
 export interface ScoreCreateBody {
-	/** @example "antonprox" */
-	username: string
+	/** @example "624161982" */
+	user_id: number
 	/** @example "1000" */
 	score: number
 }
 
 export interface TicketsCreateBody {
-	/** @example "antonprox" */
-	username: string
+	/** @example "624161982" */
+	user_id: number
 	/** @example "1" */
 	tickets: number
 }
 
 export interface RefClaimCreatePayload {
-	/** @example "antonprox" */
-	username: string
+	/** @example "624161982" */
+	user_id: number
 }
 
 export interface MiningCreatePayload {
-	/** @example "antonprox" */
-	username: string
+	/** @example "624161982" */
+	user_id: number
 }
 
 export interface MiningCreateBody {
-	/** @example "antonprox" */
-	username: string
+	/** @example "624161982" */
+	user_id: number
 }
 
 export interface ReferalsCreatePayload {
-	/** @example "antonprox" */
-	username: string
+	/** @example "624161982" */
+	user_id: number
+	/** @example "3" */
+	page: number
+	/** @example "2" */
+	limit: number
 }
 
 export interface DailyCreatePayload {
-	/** @example "antonprox" */
-	username: string
+	/** @example "624161982" */
+	user_id: number
+}
+
+export interface FirstLoginCreatePayload {
+	/** @example "624161982" */
+	user_id: number
+}
+
+export interface SwitchRegionCreatePayload {
+	/** @example "624161982" */
+	user_id: number
+	/** @example "ru" */
+	region: string
+}
+
+export interface AdvertisingSeeCreatePayload {
+	/** @example "624161982" */
+	user_id: number
+}
+
+export interface BoxesCreatePayload {
+	/** @example "624161982" */
+	user_id: number
+	/** @example "1" */
+	box: number
 }
 
 import type {
@@ -249,25 +277,26 @@ export class HttpClient<SecurityDataType = unknown> {
  * @baseUrl http://127.0.0.1:8000
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
-	get = {
+	gets = {
 		/**
 		 * No description
 		 *
 		 * @tags default
 		 * @name UserCreate
-		 * @summary /get/user/
-		 * @request POST:/get/user/
+		 * @summary /gets/user/
+		 * @request POST:/gets/user/
 		 */
 		userCreate: (data: UserCreatePayload, params: RequestParams = {}) =>
 			this.request<void, any>({
-				path: `/get/user/`,
+				path: `/gets/user/`,
 				method: 'POST',
 				body: data,
 				type: ContentType.FormData,
 				format: 'json',
 				...params
-			}),
-
+			})
+	}
+	get = {
 		/**
 		 * No description
 		 *
@@ -315,6 +344,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		referalsCreate: (data: ReferalsCreatePayload, params: RequestParams = {}) =>
 			this.request<void, any>({
 				path: `/get/referals/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name BoxesCreate
+		 * @summary /get/boxes/
+		 * @request POST:/get/boxes/
+		 */
+		boxesCreate: (data: BoxesCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/get/boxes/`,
 				method: 'POST',
 				body: data,
 				type: ContentType.FormData,
@@ -370,6 +417,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		dailyCreate: (data: DailyCreatePayload, params: RequestParams = {}) =>
 			this.request<void, any>({
 				path: `/done/daily/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name FirstLoginCreate
+		 * @summary /done/first_login/
+		 * @request POST:/done/first_login/
+		 */
+		firstLoginCreate: (data: FirstLoginCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/done/first_login/`,
 				method: 'POST',
 				body: data,
 				type: ContentType.FormData,
@@ -466,6 +531,44 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				method: 'POST',
 				body: data,
 				type: ContentType.UrlEncoded,
+				format: 'json',
+				...params
+			})
+	}
+	switchRegion = {
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name SwitchRegionCreate
+		 * @summary /switch_region/
+		 * @request POST:/switch_region/
+		 */
+		switchRegionCreate: (data: SwitchRegionCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/switch_region/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
+				format: 'json',
+				...params
+			})
+	}
+	advertisingSee = {
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name AdvertisingSeeCreate
+		 * @summary /advertising_see/
+		 * @request POST:/advertising_see/
+		 */
+		advertisingSeeCreate: (data: AdvertisingSeeCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/advertising_see/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
 				format: 'json',
 				...params
 			})

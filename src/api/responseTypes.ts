@@ -14,6 +14,14 @@ export interface UserCreateResponse {
 	tickets: number
 	left_mining: string
 	mining_claim: boolean
+	daily_stric: number
+	daily_claim: boolean
+	first_login: boolean
+	first_game: boolean
+	advertising_limit: number
+	advertising_total: number
+	boxes: number
+	region: string
 }
 
 export interface TasksCreateResponseItem {
@@ -36,4 +44,7 @@ export interface ReferalsCreateResponse {
 	username: string
 	referals: Referral[]
 	total_referals: number
+	total_pages: number
+	current_page: number
+	total_score: number
 }
