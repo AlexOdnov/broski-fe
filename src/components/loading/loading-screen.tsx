@@ -1,7 +1,8 @@
 import { defineComponent, onMounted } from 'vue'
 import styles from './styles.module.css'
 import { UiProgressBar } from '../ui/progress-bar'
-import { LOADER_TIMEOUT } from '@/utils/constants'
+import { envVariables } from '@/services/env'
+
 export const LoadingScreen = defineComponent({
 	name: 'LoadingScreen',
 	setup: () => {
@@ -21,7 +22,7 @@ export const LoadingScreen = defineComponent({
 					</div>
 					<div class={styles.progressBarWrapper}>
 						<img class={styles.logo} src="/images/broski.webp" alt="BROski" />
-						<UiProgressBar duration={LOADER_TIMEOUT} />
+						<UiProgressBar duration={envVariables.loaderDuration} />
 						<p class={styles.loadingText}>Loading...</p>
 					</div>
 				</div>

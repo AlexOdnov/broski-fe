@@ -5,9 +5,9 @@ import { useUserStore } from './stores/user'
 import { useTgSdkStore } from './stores/tg-sdk'
 import { useTasksStore } from './stores/tasks'
 import { useCommonStore } from './stores/common'
-import { LOADER_TIMEOUT } from './utils/constants'
 import { useReferralsStore } from './stores/referrals'
 import { useAdvertisingStore } from '@/stores/advertising'
+import { envVariables } from './services/env'
 
 export default defineComponent({
 	setup() {
@@ -45,7 +45,7 @@ export default defineComponent({
 				console.warn('Failed to get telegram user information')
 				return
 			}
-			commonStore.setIsLoadingForTimeout(LOADER_TIMEOUT)
+			commonStore.setIsLoadingForTimeout(envVariables.loaderDuration)
 			await useAdvertisingStore().init()
 			await userStore.loadUser(true)
 			if (!userStore.user) {
