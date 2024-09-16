@@ -54,7 +54,7 @@ const TaskPage = defineComponent({
 							<UiButton
 								mod={'secondary'}
 								size={'lg'}
-								text={t('message.task.completed')}
+								text={t('message.task.check')}
 								disabled={isCheckingDisabled.value}
 								loading={isChecking.value}
 								whenClick={whenCheckClicked}

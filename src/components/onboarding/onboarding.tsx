@@ -26,7 +26,7 @@ export const OnboardingComponent = defineComponent({
 							image: './images/onboarding-1.webp',
 							title: (
 								<>
-									<span class={styles.yellow}>{t('message.onboarding.yoBroski')}</span>,{' '}
+									<span class={styles.yellow}>{t('message.onboarding.yoBroski')}</span>,&nbsp;
 									{t('message.onboarding.welcome')}
 								</>
 							),
@@ -45,7 +45,7 @@ export const OnboardingComponent = defineComponent({
 							image: './images/onboarding-2.webp',
 							title: (
 								<>
-									{t('message.1game1Ticket')}
+									{t('message.1game1Ticket')}&nbsp;
 									<img class={styles.icon} src="/images/ticket.webp" />
 								</>
 							),

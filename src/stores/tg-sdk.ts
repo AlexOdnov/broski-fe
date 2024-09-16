@@ -9,7 +9,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 	const userId = computed(() => user.value?.id || 0)
 	const startParam = computed(() => tg.initDataUnsafe.start_param)
 	const isPremium = computed(() => user.value?.is_premium)
-	const languageCode = computed(() => user.value?.language_code || '')
+	const languageCode = computed(() => user.value?.language_code || 'en')
 
 	const openLink = (url?: string) => {
 		if (!url) {
