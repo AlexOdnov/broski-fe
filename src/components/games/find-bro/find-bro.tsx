@@ -57,14 +57,14 @@ export const FindBroGame = defineComponent({
 							text: `${t('claim')} ${WIN_GAME_POINTS} $bro`,
 							mod: 'inverse',
 							loading: gameStore.isGameLoading,
-							whenClick: gameStore.finishGame
+							whenClick: () => gameStore.finishGame()
 						}
 					case GameStatus.Lose:
 						return {
 							text: t('nextTime'),
 							mod: 'inverse',
 							loading: gameStore.isGameLoading,
-							whenClick: gameStore.finishGame
+							whenClick: () => gameStore.finishGame()
 						}
 					case GameStatus.InProgress:
 						return {
@@ -140,9 +140,7 @@ export const FindBroGame = defineComponent({
 								text={advText.value}
 								whenClick={whenAdvClick}
 							/>
-							<div class={styles.disclaimer}>
-								{t('noResponsibleForAd')}
-							</div>
+							<div class={styles.disclaimer}>{t('noResponsibleForAd')}</div>
 						</>
 					)}
 				</div>
