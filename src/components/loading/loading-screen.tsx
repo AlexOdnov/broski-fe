@@ -29,16 +29,14 @@ export const LoadingScreen = defineComponent({
 						<img class={styles.hand} src="/images/hand.gif" alt="hand" />
 					</div>
 					<div class={styles.progressBarWrapper}>
-						<img class={styles.logo} src="/images/broski.webp" alt="BROski" />
+						<img class={styles.logo} src="/images/broski-straight.webp" alt="BROski" />
 						<UiProgressBar duration={envVariables.loaderDuration} />
 						<p class={styles.loadingText}>{t('loading')}...</p>
 					</div>
 				</div>
 				<div class={styles.bannerWrapper}>
 					<div class={styles.banner} data-banner-id="6031971"></div>
-					<p class={[styles.loadingText, styles.bannerText]}>
-						{t('noResponsibleForAd')}
-					</p>
+					<p class={[styles.loadingText, styles.bannerText]}>{t('noResponsibleForAd')}</p>
 				</div>
 			</div>
 		)
