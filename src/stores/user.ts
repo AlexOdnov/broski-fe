@@ -34,6 +34,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const userTickets = computed(() => user.value?.tickets || 0)
 	const userScore = computed(() => user.value?.score || 0)
+	const userBoxes = computed(() => user.value?.boxes || 0)
 
 	const setUserProperty = <T extends keyof UserCreateResponse>(
 		key: T,
@@ -169,6 +170,7 @@ export const useUserStore = defineStore('user', () => {
 		user,
 		userTickets,
 		userScore,
+		userBoxes,
 		loadUser,
 		changeUserScore,
 		changeUserTickets,

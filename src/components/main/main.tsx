@@ -43,7 +43,7 @@ export const MainComponent = defineComponent({
 					</div>
 					<div class={styles.boxes}>
 						<img class={styles.boxIcon} src="/images/box.webp" />
-						{coins.value}
+						{userStore.userBoxes}
 					</div>
 				</header>
 				<main class={styles.pageContainer}>
