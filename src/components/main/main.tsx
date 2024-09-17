@@ -36,9 +36,15 @@ export const MainComponent = defineComponent({
 
 		return () => (
 			<>
-				<header class={styles.coins}>
-					<img class={styles.coinIcon} src="/images/bro-coin.webp" />
-					{coins.value}
+				<header class={styles.header}>
+					<div class={styles.coins}>
+						<img class={styles.coinIcon} src="/images/bro-coin.webp" />
+						{coins.value}
+					</div>
+					<div class={styles.boxes}>
+						<img class={styles.boxIcon} src="/images/box.webp" />
+						{coins.value}
+					</div>
 				</header>
 				<main class={styles.pageContainer}>
 					<RouterView class={styles.page} />
