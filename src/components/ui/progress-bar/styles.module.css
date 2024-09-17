@@ -1,0 +1,16 @@
+.progressBar {
+	overflow: hidden;
+	border: 1px solid #35332e;
+	border-radius: 15px;
+	height: 30px;
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(20, 1fr);
+	gap: 2px;
+}
+
+.item {
+	background-color: #ffb800;
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out;
+}

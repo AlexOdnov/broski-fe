@@ -4,6 +4,8 @@ import styles from './styles.module.css'
 import { UiButton, type ButtonMod, ReferralElement } from '@/components'
 import { useReferralsStore } from '@/stores/referrals'
 import { useUserStore } from '@/stores/user'
+import { envVariables } from '@/services/env'
+import { useI18n } from 'vue-i18n'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
@@ -13,6 +15,7 @@ const ReferralsPage = defineComponent({
 
 		const isLinkCopied = ref(false)
 		const intersectionObserver = ref<null | IntersectionObserver>(null)
+		const { t } = useI18n()
 
 		const copyButtonProps = computed(
 			(): {
@@ -22,11 +25,11 @@ const ReferralsPage = defineComponent({
 				return isLinkCopied.value
 					? {
 							mod: 'inverse',
-							text: 'Link Copied'
+							text: t('linkCopied')
 						}
 					: {
 							mod: 'primary',
-							text: 'Invite Bro'
+							text: t('inviteBro')
 						}
 			}
 		)
@@ -41,12 +44,12 @@ const ReferralsPage = defineComponent({
 				return referralsStore.sumReferralsReward
 					? {
 							mod: 'inverse',
-							text: `Claim ${Intl.NumberFormat('en-US').format(referralsStore.sumReferralsReward)} $BRO`,
+							text: `${t('claim')} ${Intl.NumberFormat('en-US').format(referralsStore.sumReferralsReward)} $BRO`,
 							whenClick: referralsStore.claimReferralsReward
 						}
 					: {
 							mod: 'secondary',
-							text: `Come back later, bro!`,
+							text: t('comeBackLater'),
 							disabled: true,
 							whenClick: () => {}
 						}
@@ -54,9 +57,7 @@ const ReferralsPage = defineComponent({
 		)
 
 		const whenCopyLink = () => {
-			navigator.clipboard.writeText(
-				`${window.appConfig.botLink}?startapp=${userStore.user?.ref_code}`
-			)
+			navigator.clipboard.writeText(`${envVariables.botUrl}?startapp=${userStore.user?.ref_code}`)
 			isLinkCopied.value = true
 			setTimeout(() => {
 				isLinkCopied.value = false
@@ -90,22 +91,22 @@ const ReferralsPage = defineComponent({
 				<div class={styles.header}>
 					<div class={styles.text}>
 						<p class={styles.headerDark}>
-							10% from bro's income + <img class={styles.icon} src="/images/ticket.webp" /> 3
-							Tickets
+							10% {t('fromBrosIncome')} + <img class={styles.icon} src="/images/ticket.webp" /> {t('ticket', 3)}
 						</p>
 						<p class={styles.headerLight}>
-							<img class={styles.icon} src="/images/star.webp" /> Premium: additionally
+							<img class={styles.icon} src="/images/star.webp" />
+							{t('premiumAdditionally')}
 							<span class={styles.yellow}>50 $BRO</span> +
-							<img class={styles.icon} src="/images/ticket.webp" /> 12 Tickets
+							<img class={styles.icon} src="/images/ticket.webp" /> {t('ticket', 12, )}
 						</p>
 					</div>
 					<UiButton size={'sm'} {...copyButtonProps.value} whenClick={whenCopyLink} />
 				</div>
 				<div class={styles.content}>
 					<div class={styles.listHeader}>
-						<p class={styles.subTitle}>My Bros</p>
+						<p class={styles.subTitle}>{t('myBros')}</p>
 						<p class={styles.total}>
-							Total: {Intl.NumberFormat('en-US').format(referralsStore.totalReferrals)}
+							{t('total')}: {Intl.NumberFormat('en-US').format(referralsStore.totalReferrals)}
 						</p>
 					</div>
 					<div class={styles.scrollContent}>

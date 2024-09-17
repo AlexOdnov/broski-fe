@@ -6,6 +6,7 @@ import { useTasksStore } from '@/stores/tasks'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { useUserStore } from '@/stores/user'
 import { UiButton, RewardBlock } from '@/components'
+import { useI18n } from 'vue-i18n'
 
 const TaskPage = defineComponent({
 	name: 'TaskPage',
@@ -14,6 +15,7 @@ const TaskPage = defineComponent({
 		const tasksStore = useTasksStore()
 		const tgStore = useTgSdkStore()
 		const userStore = useUserStore()
+		const { t } = useI18n()
 
 		const taskId = computed(() => +route.params.taskId)
 		const task = computed(() => tasksStore.tasks.find((t) => t.id === taskId.value))
@@ -45,14 +47,14 @@ const TaskPage = defineComponent({
 							mod={'primary'}
 							size={'lg'}
 							disabled={task.value?.complete}
-							text={task.value?.complete ? 'Completed' : 'Start'}
+							text={task.value?.complete ? t('task.completed') : t('task.start')}
 							whenClick={whenStartClicked}
 						/>
 						{!task.value?.complete && (
 							<UiButton
 								mod={'secondary'}
 								size={'lg'}
-								text={'Check'}
+								text={t('task.check')}
 								disabled={isCheckingDisabled.value}
 								loading={isChecking.value}
 								whenClick={whenCheckClicked}
@@ -61,9 +63,9 @@ const TaskPage = defineComponent({
 					</div>
 				</div>
 				<div class={styles.noCrooks}>
-					No crooks allowed!
+					{t('task.noCrooksAllowed')}
 					<br />
-					Cheaters will be punished 🪑
+					{t('task.cheatersWillBePunished')}
 				</div>
 			</div>
 		)

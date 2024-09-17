@@ -4,6 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { useTasksStore } from '@/stores/tasks'
 import { useReferralsStore } from '@/stores/referrals'
+import { useI18n } from 'vue-i18n'
 
 export const MainComponent = defineComponent({
 	name: 'MainComponent',
@@ -31,11 +32,19 @@ export const MainComponent = defineComponent({
 
 		const coins = computed(() => Intl.NumberFormat('en-US').format(userStore.userScore))
 
+		const { t } = useI18n()
+
 		return () => (
 			<>
-				<header class={styles.coins}>
-					<img class={styles.coinIcon} src="/images/bro-coin.webp" />
-					{coins.value}
+				<header class={styles.header}>
+					<div class={styles.coins}>
+						<img class={styles.coinIcon} src="/images/bro-coin.webp" />
+						{coins.value}
+					</div>
+					<div class={styles.boxes}>
+						<img class={styles.boxIcon} src="/images/box.webp" />
+						{userStore.userBoxes}
+					</div>
 				</header>
 				<main class={styles.pageContainer}>
 					<RouterView class={styles.page} />
@@ -46,7 +55,7 @@ export const MainComponent = defineComponent({
 							<div class={styles.navBtn}>
 								<div class={[styles.letter, styles.rotateLeft]}>B</div>
 								<div class={[styles.letterShadow, styles.rotateLeft]}>B</div>
-								<span class={styles.btnText}>Game</span>
+								<span class={styles.btnText}>{t('game')}</span>
 							</div>
 						</RouterLink>
 						<RouterLink activeClass={styles.active} to="/tasks">
@@ -56,7 +65,7 @@ export const MainComponent = defineComponent({
 								)}
 								<div class={[styles.letter, styles.rotateRight]}>R</div>
 								<div class={[styles.letterShadow, styles.rotateRight]}>R</div>
-								<span class={styles.btnText}>Earn</span>
+								<span class={styles.btnText}>{t('earn')}</span>
 							</div>
 						</RouterLink>
 						<RouterLink activeClass={styles.active} to="/referrals">
@@ -66,7 +75,7 @@ export const MainComponent = defineComponent({
 								)}
 								<div class={[styles.letter, styles.rotateLeft]}>O</div>
 								<div class={[styles.letterShadow, styles.rotateLeft]}>O</div>
-								<span class={styles.btnText}>My Bros</span>
+								<span class={styles.btnText}>{t('myBros')}</span>
 							</div>
 						</RouterLink>
 						<div
@@ -80,12 +89,12 @@ export const MainComponent = defineComponent({
 							<img class={styles.btnImg} src="/images/pickaxe.webp" />
 							{isRewardAvailable.value && (
 								<>
-									<span class={[styles.btnText, styles.yellow]}>Claim</span>
+									<span class={[styles.btnText, styles.yellow]}>{t('claim')}</span>
 									<span class={[styles.claimNumber, styles.yellow]}>+72</span>
 								</>
 							)}
 							{!isRewardAvailable.value && !timeBeforeMiningLeft.value && (
-								<span class={[styles.btnText, styles.yellow]}>Farm</span>
+								<span class={[styles.btnText, styles.yellow]}>{t('farm')}</span>
 							)}
 							{!isRewardAvailable.value && timeBeforeMiningLeft.value && (
 								<span class={styles.time}>{timeBeforeMiningLeft.value}</span>

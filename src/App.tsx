@@ -4,20 +4,25 @@ import { DailyComponent, LoadingScreen, MainComponent, OnboardingComponent } fro
 import { useUserStore } from './stores/user'
 import { useTgSdkStore } from './stores/tg-sdk'
 import { useTasksStore } from './stores/tasks'
+import { useCommonStore } from './stores/common'
 import { useReferralsStore } from './stores/referrals'
 import { useAdvertisingStore } from '@/stores/advertising'
+import { envVariables } from './services/env'
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
 	setup() {
 		const userStore = useUserStore()
 		const tasksStore = useTasksStore()
 		const tgStore = useTgSdkStore()
+		const commonStore = useCommonStore()
 		const referralsStore = useReferralsStore()
+		const i18n = useI18n()
 
 		const isUserExist = ref(false)
 
 		const isLoaderVisible = computed(() => {
-			return userStore.isLoading || !isUserExist.value
+			return commonStore.isLoading || !isUserExist.value
 		})
 
 		const needRenderDaily = computed(() => userStore.user?.daily_claim === false)
@@ -42,6 +47,8 @@ export default defineComponent({
 				console.warn('Failed to get telegram user information')
 				return
 			}
+			i18n.locale.value = tgStore.languageCode
+			commonStore.setIsLoadingForTimeout(envVariables.loaderDuration)
 			await useAdvertisingStore().init()
 			await userStore.loadUser(true)
 			if (!userStore.user) {
