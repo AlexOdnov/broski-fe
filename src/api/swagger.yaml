@@ -369,3 +369,59 @@ paths:
           description: Successful response
           content:
             application/json: {}
+  /check/task/:
+    post:
+      tags:
+        - default
+      summary: /check/task/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: antonprox
+                  required: true
+                user_id:
+                  type: integer
+                  example: '624161982'
+                  required: true
+                ref_code:
+                  type: string
+                  example: '6241619823'
+                  required: true
+                premium:
+                  type: boolean
+                  example: true
+                  required: true
+                task_id:
+                  type: integer
+                  example: '1'
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /push_see/:
+    post:
+      tags:
+        - default
+      summary: /push_see/
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: '624161982'
+                  required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

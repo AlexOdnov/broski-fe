@@ -51,10 +51,10 @@
 	"dailyRewards": "daily rewards",
 	"comeBackTomorrow": "Come back tomorrow for check-in day",
 	"tipSkipping": "Tip: Skipping a day resets your check-in",
-	"day" : "Day",
-	"ticket" : "{n} ticket | {n} tickets",
+	"day": "Day",
+	"ticket": "{n} ticket | {n} tickets",
 	"inProgress": "in progress",
-	"broOutOfTickets" : "Bro, you're out of tickets, bro!",
+	"broOutOfTickets": "Bro, you're out of tickets, bro!",
 	"wait": "wait",
 	"badLuck": "bad luck",
 	"bRooster": "“b-rooster”",
@@ -65,5 +65,7 @@
 		"check": "Check",
 		"noCrooksAllowed": "No crooks allowed!",
 		"cheatersWillBePunished": "Cheaters will be punished 🪑"
-	}
+	},
+	"whatsNew": "what’s new?",
+	"update": "update"
 }

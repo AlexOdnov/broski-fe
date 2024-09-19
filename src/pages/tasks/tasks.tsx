@@ -14,7 +14,7 @@ const TasksPage = defineComponent({
 		const taskSelected = (selectedTaskId: number) => {
 			router.push({ name: 'task', params: { taskId: selectedTaskId } })
 		}
-		const {t} = useI18n()
+		const { t } = useI18n()
 		return () => (
 			<div>
 				<div class={styles.tasks}>
