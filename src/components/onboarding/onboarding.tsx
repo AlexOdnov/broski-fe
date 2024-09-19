@@ -45,7 +45,7 @@ export const OnboardingComponent = defineComponent({
 							image: './images/onboarding-2.webp',
 							title: (
 								<>
-									{t('1game1Ticket')}&nbsp;
+									{t('onboarding.1game1Ticket')}&nbsp;
 									<img class={styles.icon} src="/images/ticket.webp" />
 								</>
 							),
@@ -70,8 +70,8 @@ export const OnboardingComponent = defineComponent({
 							),
 							description: (
 								<>
-									<p class={styles.description}>{t('stayTuned')}</p>
-									<p class={styles.description}>{t('dontForgetEvery8Hours')}</p>
+									<p class={styles.description}>{t('onboarding.stayTuned')}</p>
+									<p class={styles.description}>{t('onboarding.dontForgetEvery8Hours')}</p>
 								</>
 							),
 							buttonMod: 'primary',
