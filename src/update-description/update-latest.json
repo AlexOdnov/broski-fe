@@ -1,0 +1,7 @@
+{
+	"version": "v1.1.0",
+	"changes": {
+		"ru": ["раз", "два 2", "три 3"],
+		"en": ["change1", "change 2", "change 3"]
+	}
+}

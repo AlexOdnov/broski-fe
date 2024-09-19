@@ -13,7 +13,8 @@ import {
 	type ReferalsCreatePayload,
 	type FirstLoginCreatePayload,
 	type AdvertisingSeeCreatePayload,
-	type BoxesCreatePayload
+	type BoxesCreatePayload,
+	type PushSeeCreatePayload
 } from './generatedApi'
 import type {
 	UserCreateResponse,
@@ -86,6 +87,10 @@ export const useApi = () => {
 		return await apiInstance.get.boxesCreate(payload)
 	}
 
+	const doneUpdateNotification = async (payload: PushSeeCreatePayload) => {
+		return await apiInstance.pushSee.pushSeeCreate(payload)
+	}
+
 	return {
 		getUser,
 		getTasks,
@@ -101,6 +106,7 @@ export const useApi = () => {
 		getReferrals,
 		doneFirstLogin,
 		claimAdvertisingReward,
-		claimBox
+		claimBox,
+		doneUpdateNotification
 	}
 }
