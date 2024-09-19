@@ -22,7 +22,7 @@
 .closed {
 	background-color: #1d1e20;
 	color: #343637;
-	font-family: 'Roboto';
+	font-family: 'Roboto', Arial, sans-serif;
 	font-weight: 700;
 	font-size: 42px;
 	line-height: 42px;
