@@ -30,12 +30,11 @@ export const useAdvertisingStore = defineStore('advertising', () => {
 	}
 
 	const showAdv = async () => {
-		const lastAdsgramShowTime = Number.parseInt(
-			window.localStorage.getItem(LAST_ADSGRAM_SHOW_TIME) ?? ''
-		)
+		const lastAdsgramShowTime = window.localStorage.getItem(LAST_ADSGRAM_SHOW_TIME) != null ? Number.parseInt(
+			window.localStorage.getItem(LAST_ADSGRAM_SHOW_TIME) ?? '') : null
 		const currentTime = new Date().getTime()
 
-		if (_adController.value && !Number.isNaN(NaN) && (currentTime - lastAdsgramShowTime > 1000 * 60 * 3)) {
+		if (_adController.value && (lastAdsgramShowTime === null || (!Number.isNaN(lastAdsgramShowTime) && (currentTime - lastAdsgramShowTime > 1000 * 60 * 3)))) {
 			// прошло 3 минуты, показываем Adsgram
 			try {
 				const showResult = await _adController.value?.show()
