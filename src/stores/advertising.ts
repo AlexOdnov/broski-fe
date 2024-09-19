@@ -14,7 +14,6 @@ export const useAdvertisingStore = defineStore('advertising', () => {
 		//OnClicka
 		try {
 			_showAdvOnClicka = await window.initCdTma({ id: '6029415' })
-			console.log(_showAdvOnClicka)
 		} catch (e) {
 			console.warn('failed adv init', e)
 		}
