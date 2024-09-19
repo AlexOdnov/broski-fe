@@ -4,7 +4,7 @@
 	flex-grow: 1;
 	flex-direction: column;
 	text-align: center;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto', Arial, sans-serif;
 	font-weight: 400;
 	gap: 23px;
 	padding: 50px 20px;
