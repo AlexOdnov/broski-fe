@@ -46,7 +46,6 @@ export const useAdvertisingStore = defineStore('advertising', () => {
 				return false
 			} catch (e) {
 				console.warn('error when show adsgram adv', e)
-				return false
 			}
 		}
 
