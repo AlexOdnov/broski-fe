@@ -60,3 +60,12 @@
 	line-height: 12px;
 	text-align: center;
 }
+
+.back {
+	margin-left: 15px;
+	text-decoration: none;
+}
+
+.back button {
+	border: solid 1px #35332E;
+}
