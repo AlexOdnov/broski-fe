@@ -6,12 +6,14 @@ import { useReferralsStore } from '@/stores/referrals'
 import { useUserStore } from '@/stores/user'
 import { envVariables } from '@/services/env'
 import { useI18n } from 'vue-i18n'
+import { useTgSdkStore } from '@/stores/tg-sdk'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
 	setup() {
 		const referralsStore = useReferralsStore()
 		const userStore = useUserStore()
+		const tgSdk = useTgSdkStore()
 
 		const isLinkCopied = ref(false)
 		const intersectionObserver = ref<null | IntersectionObserver>(null)
@@ -57,7 +59,7 @@ const ReferralsPage = defineComponent({
 		)
 
 		const whenCopyLink = () => {
-			navigator.clipboard.writeText(`${envVariables.botUrl}?startapp=${userStore.user?.ref_code}`)
+			tgSdk.openLink(`https://t.me/share/url?url=${envVariables.botUrl}?startapp=${userStore.user?.ref_code}&text=${t('inviteText')}`)
 			isLinkCopied.value = true
 			setTimeout(() => {
 				isLinkCopied.value = false
