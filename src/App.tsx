@@ -69,6 +69,7 @@ export default defineComponent({
 			tasksStore.getTasks()
 			referralsStore.loadReferrals()
 			userStore.startUpdateMiningString()
+			userStore.switchRegion()
 		}
 
 		onCreated()

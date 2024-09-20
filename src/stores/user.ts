@@ -175,6 +175,17 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const switchRegion = async () => {
+		try {
+			await api.switchRegion({
+				user_id: tgStore.userId,
+				region: tgStore.languageCode
+			})
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	return {
 		user,
 		userTickets,
@@ -191,6 +202,7 @@ export const useUserStore = defineStore('user', () => {
 		claimAdvertisingReward,
 		doneFirstLogin,
 		claimBox,
-		doneUpdateNotification
+		doneUpdateNotification,
+		switchRegion
 	}
 })
