@@ -7,7 +7,7 @@ import { useTgSdkStore } from '@/stores/tg-sdk'
 import { useUserStore } from '@/stores/user'
 import { UiButton, RewardBlock } from '@/components'
 import { useI18n } from 'vue-i18n'
-import { BackArrowIcon } from '@/components/icons/back-arrow-icon'
+import { BackArrowIcon } from '@/components/icons'
 
 const TaskPage = defineComponent({
 	name: 'TaskPage',
@@ -38,9 +38,16 @@ const TaskPage = defineComponent({
 		}
 		return () => (
 			<div class={styles.taskWrapper}>
-				<UiButton mod='secondary' leftIcon={<BackArrowIcon/>} text={t('back')} whenClick={()=>{}}>
-					<RouterLink to="/tasks" />
-				</UiButton>
+				<RouterLink class={styles.back} to="/tasks">
+					<UiButton
+						mod="inverse"
+						size='lg'
+						leftIcon={<BackArrowIcon />}
+						text={t('back')}
+						font='Roboto'
+						whenClick={() => {}}
+					/>
+				</RouterLink>
 				<div class={styles.task}>
 					<img class={styles.img} src={task.value?.image || '/images/fist.webp'} alt="task image" />
 					<div class={styles.title}>{task.value?.title}</div>
