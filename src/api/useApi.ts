@@ -14,7 +14,8 @@ import {
 	type FirstLoginCreatePayload,
 	type AdvertisingSeeCreatePayload,
 	type BoxesCreatePayload,
-	type PushSeeCreatePayload
+	type PushSeeCreatePayload,
+	type SwitchRegionCreatePayload
 } from './generatedApi'
 import type {
 	UserCreateResponse,
@@ -91,6 +92,10 @@ export const useApi = () => {
 		return await apiInstance.pushSee.pushSeeCreate(payload)
 	}
 
+	const switchRegion = async (payload: SwitchRegionCreatePayload) => {
+		return await apiInstance.switchRegion.switchRegionCreate(payload)
+	}
+
 	return {
 		getUser,
 		getTasks,
@@ -107,6 +112,7 @@ export const useApi = () => {
 		doneFirstLogin,
 		claimAdvertisingReward,
 		claimBox,
-		doneUpdateNotification
+		doneUpdateNotification,
+		switchRegion
 	}
 }
