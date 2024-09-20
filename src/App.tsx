@@ -1,6 +1,12 @@
 import { computed, defineComponent, ref } from 'vue'
 import styles from './style.module.css'
-import { DailyComponent, LoadingScreen, MainComponent, OnboardingComponent } from './components'
+import {
+	DailyComponent,
+	LoadingScreen,
+	MainComponent,
+	OnboardingComponent,
+	UpdateNotificationComponent
+} from './components'
 import { useUserStore } from './stores/user'
 import { useTgSdkStore } from './stores/tg-sdk'
 import { useTasksStore } from './stores/tasks'
@@ -8,7 +14,7 @@ import { useCommonStore } from './stores/common'
 import { useReferralsStore } from './stores/referrals'
 import { useAdvertisingStore } from '@/stores/advertising'
 import { envVariables } from './services/env'
-import { useI18n } from "vue-i18n";
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
 	setup() {
@@ -27,6 +33,7 @@ export default defineComponent({
 
 		const needRenderDaily = computed(() => userStore.user?.daily_claim === false)
 		const needRenderOnboarding = computed(() => userStore.user?.first_login)
+		const needRenderUpdateNotification = computed(() => userStore.user?.push_see === false)
 
 		const getComponent = computed(() => {
 			if (isLoaderVisible.value) {
@@ -34,6 +41,9 @@ export default defineComponent({
 			}
 			if (needRenderOnboarding.value) {
 				return <OnboardingComponent />
+			}
+			if (needRenderUpdateNotification.value) {
+				return <UpdateNotificationComponent />
 			}
 			if (needRenderDaily.value) {
 				return <DailyComponent day={userStore.user?.daily_stric ?? 1} />
@@ -59,6 +69,7 @@ export default defineComponent({
 			tasksStore.getTasks()
 			referralsStore.loadReferrals()
 			userStore.startUpdateMiningString()
+			userStore.switchRegion()
 		}
 
 		onCreated()

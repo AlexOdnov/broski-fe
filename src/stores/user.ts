@@ -166,6 +166,26 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const doneUpdateNotification = async () => {
+		try {
+			await api.doneUpdateNotification({ user_id: tgStore.userId })
+			await loadUser()
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
+	const switchRegion = async () => {
+		try {
+			await api.switchRegion({
+				user_id: tgStore.userId,
+				region: tgStore.languageCode
+			})
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	return {
 		user,
 		userTickets,
@@ -181,6 +201,8 @@ export const useUserStore = defineStore('user', () => {
 		claimDailyReward,
 		claimAdvertisingReward,
 		doneFirstLogin,
-		claimBox
+		claimBox,
+		doneUpdateNotification,
+		switchRegion
 	}
 })
