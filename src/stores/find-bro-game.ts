@@ -7,11 +7,12 @@ import {
 	createEmptyGameElements,
 	createFillGameElements,
 	GameStatus,
-	WIN_GAME_POINTS,
 	type IGameElement
 } from '@/utils/games'
 import { randomValueByChance } from '@/utils/random'
 import { envVariables } from '@/services/env'
+import { useApi } from '@/api/useApi'
+import { useTgSdkStore } from './tg-sdk'
 
 export const INITIAL_ATTEMPTS_COUNT = 6
 
@@ -38,6 +39,8 @@ const createGameField = (): IGameElement[] => {
 
 export const useFindBroGameStore = defineStore('findBroGame', () => {
 	const userStore = useUserStore()
+	const tgStore = useTgSdkStore()
+	const api = useApi()
 
 	const [gameField, setGameField, resetGameField] = useState<IGameElement[]>(createGameField)
 	const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.Idle)
@@ -65,17 +68,24 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 		if (userStore.userTickets > 0) {
 			setGameField(shuffle(gameField.value))
 			setGameStatus(GameStatus.InProgress)
-			userStore.changeUserTickets(-1)
+			await api.startGame({
+				user_id: tgStore.userId
+			})
+			userStore.loadUser()
 		}
 	}
 
-	const finishGame = (withoutClaim = false) => {
+	const finishGame = async (withoutClaim = false) => {
 		if (![GameStatus.Lose, GameStatus.Win].includes(gameStatus.value)) {
 			return
 		}
 
-		if (gameStatus.value === GameStatus.Win && !withoutClaim) {
-			userStore.changeUserScore(WIN_GAME_POINTS)
+		if (gameStatus.value === GameStatus.Win) {
+			await api.finishGame({
+				user_id: tgStore.userId,
+				claim: !withoutClaim
+			})
+			userStore.loadUser()
 		}
 
 		setGameStatus(GameStatus.Idle)

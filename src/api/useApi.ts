@@ -20,7 +20,9 @@ import {
 import type {
 	UserCreateResponse,
 	TasksCreateResponse,
-	ReferalsCreateResponse
+	ReferalsCreateResponse,
+	UserCreateV2Response,
+	UserStatsCreateResponse
 } from './responseTypes'
 
 const apiInstance = new Api({
@@ -30,6 +32,14 @@ const apiInstance = new Api({
 export const useApi = () => {
 	const getUser = async (payload: UserCreatePayload): Promise<UserCreateResponse> => {
 		return (await apiInstance.gets.userCreate(payload)).data as unknown as UserCreateResponse
+	}
+
+	const getUserV2 = async (payload: UserCreatePayload): Promise<UserCreateV2Response> => {
+		return (await apiInstance.gets.userCreate(payload)).data as unknown as UserCreateV2Response
+	}
+
+	const getUserStats = async (payload: UserCreatePayload): Promise<UserStatsCreateResponse> => {
+		return (await apiInstance.gets.userCreate(payload)).data as unknown as UserStatsCreateResponse
 	}
 
 	const getTasks = async (payload: TasksCreatePayload): Promise<TasksCreateResponse> => {
@@ -96,8 +106,25 @@ export const useApi = () => {
 		return await apiInstance.switchRegion.switchRegionCreate(payload)
 	}
 
+	const startGame = async (payload: { user_id: number }) => {
+		// return await apiInstance.switchRegion.switchRegionCreate(payload)
+	}
+
+	const finishGame = async (payload: { user_id: number; claim: boolean }) => {
+		// return await apiInstance.switchRegion.switchRegionCreate(payload)
+	}
+
+	const finishSuperGame = async (payload: {
+		user_id: number
+		result: 'win' | 'nothing' | 'lose'
+	}) => {
+		// return await apiInstance.switchRegion.switchRegionCreate(payload)
+	}
+
 	return {
 		getUser,
+		getUserV2,
+		getUserStats,
 		getTasks,
 		addScore,
 		addTickets,
@@ -113,6 +140,9 @@ export const useApi = () => {
 		claimAdvertisingReward,
 		claimBox,
 		doneUpdateNotification,
-		switchRegion
+		switchRegion,
+		startGame,
+		finishGame,
+		finishSuperGame
 	}
 }

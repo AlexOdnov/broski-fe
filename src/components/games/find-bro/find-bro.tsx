@@ -86,7 +86,7 @@ export const FindBroGame = defineComponent({
 
 		const advText = computed(
 			() =>
-				`${t('getTickets')}${userStore.user?.advertising_total ? ` ${userStore.user?.advertising_limit || 0}/${userStore.user?.advertising_total}` : ''}`
+				`${t('getTickets')}${userStore.user?.advertising.total ? ` ${userStore.user?.advertising.limit || 0}/${userStore.user?.advertising.total}` : ''}`
 		)
 
 		const isButtonShown = computed(
@@ -94,7 +94,7 @@ export const FindBroGame = defineComponent({
 		)
 
 		const whenAdvClick = async () => {
-			if ((await advStore.showAdv()) && userStore.user?.advertising_limit !== 0) {
+			if ((await advStore.showAdv()) && userStore.user?.advertising.limit !== 0) {
 				await userStore.claimAdvertisingReward()
 				return
 			}
@@ -135,8 +135,8 @@ export const FindBroGame = defineComponent({
 						<>
 							<UiButton
 								leftIcon={<AdIcon />}
-								disabled={!userStore.user?.advertising_limit}
-								mod={!userStore.user?.advertising_limit ? 'secondary' : 'primary'}
+								disabled={!userStore.user?.advertising.limit}
+								mod={!userStore.user?.advertising.limit ? 'secondary' : 'primary'}
 								text={advText.value}
 								whenClick={whenAdvClick}
 							/>

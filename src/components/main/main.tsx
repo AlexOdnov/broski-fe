@@ -14,7 +14,7 @@ export const MainComponent = defineComponent({
 		const referralsStore = useReferralsStore()
 
 		const isRewardAvailable = computed(
-			() => !timeBeforeMiningLeft.value && !userStore.user?.mining_claim
+			() => !timeBeforeMiningLeft.value && !userStore.user?.mining.claim
 		)
 		const timeBeforeMiningLeft = computed(() => userStore.timeBeforeMiningLeftString)
 
