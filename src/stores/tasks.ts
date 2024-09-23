@@ -10,8 +10,12 @@ export const useTasksStore = defineStore('tasks', () => {
 
 	const [tasks, setTasks] = useState<TasksCreateResponseItem[]>([])
 
-	const uncompletedTasks = computed(() => tasks.value.filter((t) => !t.complete))
-	const completedTasks = computed(() => tasks.value.filter((t) => t.complete))
+	const uncompletedTasks = computed(() =>
+		tasks.value.sort((a, b) => b.priority - a.priority).filter((t) => !t.complete)
+	)
+	const completedTasks = computed(() =>
+		tasks.value.sort((a, b) => b.priority - a.priority).filter((t) => t.complete)
+	)
 
 	const getTasks = async () => {
 		const response = await api.getTasks({ user_id: tgStore.userId })

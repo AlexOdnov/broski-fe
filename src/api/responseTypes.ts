@@ -36,6 +36,7 @@ export interface TasksCreateResponseItem {
 	links: string
 	complete: boolean
 	image: string
+	priority: number
 }
 
 export interface TasksCreateResponse {
