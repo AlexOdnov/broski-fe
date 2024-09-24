@@ -1,6 +1,6 @@
 import styles from './update-notification.module.css'
 import { defineComponent } from 'vue'
-import { UiButton } from '../ui'
+import { UiPopup } from '../ui'
 import { useI18n } from 'vue-i18n'
 import { useUserStore } from '@/stores/user'
 import { useUpdateDescription } from '@/services/update-description'
@@ -13,9 +13,8 @@ export const UpdateNotificationComponent = defineComponent({
 		const updateDescription = useUpdateDescription()
 
 		return () => (
-			<div class={styles.update}>
-				<div class={styles.contentWrapper}>
-					<img class={styles.image} src="./images/update.webp" alt="example" />
+			<UiPopup
+				header={
 					<div class={styles.header}>
 						<p class={styles.subTitle}>{t('whatsNew')}</p>
 						<p class={styles.title}>
@@ -24,20 +23,17 @@ export const UpdateNotificationComponent = defineComponent({
 							<span>{t('update')}</span>
 						</p>
 					</div>
+				}
+				body={
 					<ul class={styles.changes}>
 						{updateDescription.changes.map((el) => (
 							<li>{el}</li>
 						))}
 					</ul>
-				</div>
-				<UiButton
-					text={'ok'}
-					mod={'primary'}
-					size={'lg'}
-					minWidth={'306px'}
-					whenClick={userStore.doneUpdateNotification}
-				/>
-			</div>
+				}
+				image="./images/update.webp"
+				whenClick={userStore.doneUpdateNotification}
+			/>
 		)
 	}
 })
