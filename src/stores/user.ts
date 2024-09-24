@@ -7,6 +7,7 @@ import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/generatedAp
 import { computed } from 'vue'
 import { addHours, addMinutes, msToTime } from '@/utils/date'
 import { useCommonStore } from './common'
+import { LuckyButtons } from '../utils/lucky-buttons'
 
 export const useUserStore = defineStore('user', () => {
 	const api = useApi()
@@ -35,6 +36,7 @@ export const useUserStore = defineStore('user', () => {
 	const userTickets = computed(() => user.value?.tickets || 0)
 	const userScore = computed(() => user.value?.score || 0)
 	const userBoxes = computed(() => user.value?.boxes || 0)
+	const currentLuckyButton = computed(() => LuckyButtons.GameStart)
 
 	const setUserProperty = <T extends keyof UserCreateResponse>(
 		key: T,
@@ -186,6 +188,15 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const clickLuckyButton = (key: LuckyButtons) => {
+		console.log(key)
+
+		if (currentLuckyButton.value === key) {
+			// api.claimLuckyButton
+			console.log('claim')
+		}
+	}
+
 	return {
 		user,
 		userTickets,
@@ -203,6 +214,7 @@ export const useUserStore = defineStore('user', () => {
 		doneFirstLogin,
 		claimBox,
 		doneUpdateNotification,
-		switchRegion
+		switchRegion,
+		clickLuckyButton
 	}
 })

@@ -4,6 +4,7 @@ import { RewardBlock, UiButton } from '@/components'
 import { useUserStore } from '@/stores/user'
 import { getRewardByDay, type Reward } from '@/utils/get-daily-rewards'
 import { useI18n } from 'vue-i18n'
+import { LuckyButtons } from '@/utils/lucky-buttons'
 
 export const DailyComponent = defineComponent({
 	name: 'DailyComponent',
@@ -29,6 +30,7 @@ export const DailyComponent = defineComponent({
 		const { t } = useI18n()
 
 		const claimDailyReward = async () => {
+			userStore.clickLuckyButton(LuckyButtons.DailyClaim)
 			await userStore.claimDailyReward()
 		}
 		return () => (

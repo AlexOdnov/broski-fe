@@ -1,5 +1,5 @@
 import { computed, defineComponent, ref } from 'vue'
-import { RouterLink, useRoute, useRouter } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 
 import styles from './task.module.css'
 import { useTasksStore } from '@/stores/tasks'
@@ -8,12 +8,12 @@ import { useUserStore } from '@/stores/user'
 import { UiButton, RewardBlock } from '@/components'
 import { useI18n } from 'vue-i18n'
 import { BackArrowIcon } from '@/components/icons'
+import { LuckyButtons } from '@/utils/lucky-buttons'
 
 const TaskPage = defineComponent({
 	name: 'TaskPage',
 	setup: () => {
 		const route = useRoute()
-		const router = useRouter()
 		const tasksStore = useTasksStore()
 		const tgStore = useTgSdkStore()
 		const userStore = useUserStore()
@@ -26,26 +26,29 @@ const TaskPage = defineComponent({
 		const isCheckingDisabled = ref(true)
 
 		const whenStartClicked = async () => {
+			userStore.clickLuckyButton(LuckyButtons.TaskStart)
 			tgStore.openLink(task.value?.links)
 			isCheckingDisabled.value = false
 		}
 
 		const whenCheckClicked = async () => {
 			isChecking.value = true
+			userStore.clickLuckyButton(LuckyButtons.TaskCheck)
 			await tasksStore.setTaskDone(taskId.value)
 			await userStore.loadUser()
 			isChecking.value = false
 		}
+
 		return () => (
 			<div class={styles.taskWrapper}>
 				<RouterLink class={styles.back} to="/tasks">
 					<UiButton
 						mod="inverse"
-						size='lg'
+						size="lg"
 						leftIcon={<BackArrowIcon />}
 						text={t('back')}
-						font='Roboto'
-						whenClick={() => {}}
+						font="Roboto"
+						whenClick={() => userStore.clickLuckyButton(LuckyButtons.TaskBack)}
 					/>
 				</RouterLink>
 				<div class={styles.task}>

@@ -5,6 +5,7 @@ import { useUserStore } from '@/stores/user'
 import { useTasksStore } from '@/stores/tasks'
 import { useReferralsStore } from '@/stores/referrals'
 import { useI18n } from 'vue-i18n'
+import { LuckyButtons } from '@/utils/lucky-buttons'
 
 export const MainComponent = defineComponent({
 	name: 'MainComponent',
@@ -20,11 +21,13 @@ export const MainComponent = defineComponent({
 
 		const whenMiningClicked = async () => {
 			if (!isRewardAvailable.value && !timeBeforeMiningLeft.value) {
+				userStore.clickLuckyButton(LuckyButtons.MiningStart)
 				await userStore.startMining()
 				await userStore.loadUser()
 				return
 			}
 			if (isRewardAvailable.value) {
+				userStore.clickLuckyButton(LuckyButtons.MiningClaim)
 				await userStore.doneMining()
 				await userStore.loadUser()
 			}
@@ -52,14 +55,20 @@ export const MainComponent = defineComponent({
 				<footer class={styles.footer}>
 					<nav class={styles.navigation}>
 						<RouterLink activeClass={styles.active} to="/">
-							<div class={styles.navBtn}>
+							<div
+								class={styles.navBtn}
+								onClick={() => userStore.clickLuckyButton(LuckyButtons.PageGame)}
+							>
 								<div class={[styles.letter, styles.rotateLeft]}>B</div>
 								<div class={[styles.letterShadow, styles.rotateLeft]}>B</div>
 								<span class={styles.btnText}>{t('game')}</span>
 							</div>
 						</RouterLink>
 						<RouterLink activeClass={styles.active} to="/tasks">
-							<div class={styles.navBtn}>
+							<div
+								class={styles.navBtn}
+								onClick={() => userStore.clickLuckyButton(LuckyButtons.PageTasks)}
+							>
 								{Boolean(tasksStore.uncompletedTasks.length) && (
 									<img class={styles.notice} src="/images/notice.webp" />
 								)}
@@ -69,7 +78,10 @@ export const MainComponent = defineComponent({
 							</div>
 						</RouterLink>
 						<RouterLink activeClass={styles.active} to="/referrals">
-							<div class={styles.navBtn}>
+							<div
+								class={styles.navBtn}
+								onClick={() => userStore.clickLuckyButton(LuckyButtons.PageRefs)}
+							>
 								{Boolean(referralsStore.sumReferralsReward) && (
 									<img class={styles.notice} src="/images/notice.webp" />
 								)}

@@ -5,16 +5,22 @@ import { useTasksStore } from '@/stores/tasks'
 import { TaskListItem } from '@/components/tasks/task-list-item'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { useUserStore } from '@/stores/user'
+import { LuckyButtons } from '@/utils/lucky-buttons'
 
 const TasksPage = defineComponent({
 	name: 'TasksPage',
 	setup() {
 		const router = useRouter()
 		const tasksStore = useTasksStore()
+		const userStore = useUserStore()
+		const { t } = useI18n()
+
 		const taskSelected = (selectedTaskId: number) => {
+			userStore.clickLuckyButton(LuckyButtons.TaskInfo)
 			router.push({ name: 'task', params: { taskId: selectedTaskId } })
 		}
-		const { t } = useI18n()
+
 		return () => (
 			<div>
 				<div class={styles.tasks}>

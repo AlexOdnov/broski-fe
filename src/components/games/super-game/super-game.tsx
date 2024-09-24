@@ -6,6 +6,8 @@ import { GameElement, TicketsCounter } from '../shared'
 import { FIELD_PLACEHOLDERS, GameStatus, WIN_GAME_POINTS } from '@/utils/games'
 import { useSuperGameStore, INITIAL_ATTEMPTS_COUNT } from '@/stores/super-game'
 import { useI18n } from 'vue-i18n'
+import { useUserStore } from '@/stores/user'
+import { LuckyButtons } from '@/utils/lucky-buttons'
 
 export const SuperGame = defineComponent({
 	name: 'SuperGame',
@@ -14,7 +16,9 @@ export const SuperGame = defineComponent({
 	},
 	setup(props) {
 		const gameStore = useSuperGameStore()
+		const userStore = useUserStore()
 		const { t } = useI18n()
+
 		const topText = computed(() => {
 			switch (gameStore.gameStatus) {
 				case GameStatus.Win:
@@ -73,6 +77,7 @@ export const SuperGame = defineComponent({
 		)
 
 		const finishGame = () => {
+			userStore.clickLuckyButton(LuckyButtons.SuperGameClaim)
 			props.whenSwitchToFindBroGame()
 			gameStore.finishGame()
 		}

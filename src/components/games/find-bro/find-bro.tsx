@@ -8,6 +8,7 @@ import { AdIcon } from '@/components/icons'
 import { GameElement, TicketsCounter } from '../shared'
 import { GameStatus, WIN_GAME_POINTS, FIELD_PLACEHOLDERS } from '@/utils/games'
 import { useI18n } from 'vue-i18n'
+import { LuckyButtons } from '@/utils/lucky-buttons'
 
 export const FindBroGame = defineComponent({
 	name: 'FindBroGame',
@@ -50,21 +51,30 @@ export const FindBroGame = defineComponent({
 							mod: 'primary',
 							minWidth: '202px',
 							loading: gameStore.isGameLoading,
-							whenClick: gameStore.startGame
+							whenClick: () => {
+								userStore.clickLuckyButton(LuckyButtons.GameStart)
+								gameStore.startGame()
+							}
 						}
 					case GameStatus.Win:
 						return {
 							text: `${t('claim')} ${WIN_GAME_POINTS} $bro`,
 							mod: 'inverse',
 							loading: gameStore.isGameLoading,
-							whenClick: () => gameStore.finishGame()
+							whenClick: () => {
+								userStore.clickLuckyButton(LuckyButtons.GameClaim)
+								gameStore.finishGame()
+							}
 						}
 					case GameStatus.Lose:
 						return {
 							text: t('nextTime'),
 							mod: 'inverse',
 							loading: gameStore.isGameLoading,
-							whenClick: () => gameStore.finishGame()
+							whenClick: () => {
+								userStore.clickLuckyButton(LuckyButtons.GameLose)
+								gameStore.finishGame()
+							}
 						}
 					case GameStatus.InProgress:
 						return {
@@ -94,6 +104,7 @@ export const FindBroGame = defineComponent({
 		)
 
 		const whenAdvClick = async () => {
+			userStore.clickLuckyButton(LuckyButtons.AdWatch)
 			if ((await advStore.showAdv()) && userStore.user?.advertising_limit !== 0) {
 				await userStore.claimAdvertisingReward()
 				return
@@ -101,6 +112,7 @@ export const FindBroGame = defineComponent({
 		}
 
 		const switchToSuperGame = () => {
+			userStore.clickLuckyButton(LuckyButtons.SuperGameStart)
 			gameStore.finishGame(true)
 			props.whenSwitchToSuperGame()
 		}

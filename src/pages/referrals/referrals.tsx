@@ -7,6 +7,7 @@ import { useUserStore } from '@/stores/user'
 import { envVariables } from '@/services/env'
 import { useI18n } from 'vue-i18n'
 import { useTgSdkStore } from '@/stores/tg-sdk'
+import { LuckyButtons } from '@/utils/lucky-buttons'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
@@ -47,7 +48,10 @@ const ReferralsPage = defineComponent({
 					? {
 							mod: 'inverse',
 							text: `${t('claim')} ${Intl.NumberFormat('en-US').format(referralsStore.sumReferralsReward)} $BRO`,
-							whenClick: referralsStore.claimReferralsReward
+							whenClick: () => {
+								userStore.clickLuckyButton(LuckyButtons.RefClaim)
+								referralsStore.claimReferralsReward()
+							}
 						}
 					: {
 							mod: 'secondary',
@@ -59,7 +63,10 @@ const ReferralsPage = defineComponent({
 		)
 
 		const whenCopyLink = () => {
-			tgSdk.openLink(`https://t.me/share/url?url=${envVariables.botUrl}?startapp=${userStore.user?.ref_code}&text=${t('inviteText')}`)
+			userStore.clickLuckyButton(LuckyButtons.RefInvite)
+			tgSdk.openLink(
+				`https://t.me/share/url?url=${envVariables.botUrl}?startapp=${userStore.user?.ref_code}&text=${t('inviteText')}`
+			)
 			isLinkCopied.value = true
 			setTimeout(() => {
 				isLinkCopied.value = false
