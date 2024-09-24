@@ -33,7 +33,7 @@ export default defineComponent({
 
 		const needRenderDaily = computed(() => userStore.user?.daily_claim === false)
 		const needRenderOnboarding = computed(() => userStore.user?.first_login)
-		const needRenderUpdateNotification = computed(() => userStore.user?.push_see === false)
+		// const needRenderUpdateNotification = computed(() => userStore.user?.push_see === false)
 
 		const getComponent = computed(() => {
 			if (isLoaderVisible.value) {
@@ -42,9 +42,10 @@ export default defineComponent({
 			if (needRenderOnboarding.value) {
 				return <OnboardingComponent />
 			}
-			if (needRenderUpdateNotification.value) {
-				return <UpdateNotificationComponent />
-			}
+			// недоступно до релиза с профилем
+			// if (needRenderUpdateNotification.value) {
+			// 	return <UpdateNotificationComponent />
+			// }
 			if (needRenderDaily.value) {
 				return <DailyComponent day={userStore.user?.daily_stric ?? 1} />
 			}
