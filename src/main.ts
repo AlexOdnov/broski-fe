@@ -3,12 +3,12 @@ import 'normalize.css'
 import ru from '@/localization/ru.json'
 import en from '@/localization/en.json'
 
-import {createApp} from 'vue'
-import {createPinia} from 'pinia'
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
 import App from './App'
 import router from './router'
-import {createI18n} from 'vue-i18n';
+import { createI18n } from 'vue-i18n'
 import { ruPluralRule } from '@/utils/ru-plural-rule'
 
 const app = createApp(App)
@@ -21,7 +21,7 @@ const i18n = createI18n({
 	},
 	fallbackLocale: 'en',
 	pluralRules: {
-		'ru': ruPluralRule
+		ru: ruPluralRule
 	}
 })
 

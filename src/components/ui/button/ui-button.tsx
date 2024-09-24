@@ -3,6 +3,7 @@ import styles from './ui-button.module.css'
 
 export type ButtonSize = 'sm' | 'md' | 'lg'
 export type ButtonMod = 'primary' | 'secondary' | 'inverse'
+export type FontVariant = 'Roboto' | 'BarcadeBrawlRegular'
 
 export const UiButton = defineComponent({
 	name: 'UiButton',
@@ -11,6 +12,7 @@ export const UiButton = defineComponent({
 		leftIcon: { type: Object as PropType<VNode>, required: false },
 		size: { type: String as PropType<ButtonSize>, default: 'md' },
 		mod: { type: String as PropType<ButtonMod>, default: 'primary' },
+		font: { type: String as PropType<FontVariant>, default: 'BarcadeBrawlRegular' },
 		disabled: { type: Boolean, default: false },
 		loading: { type: Boolean, default: false },
 		minWidth: { type: String, default: 'auto' },
@@ -43,6 +45,17 @@ export const UiButton = defineComponent({
 			}
 		})
 
+		const fontVariantClass = computed(() => {
+			switch (props.font) {
+				case 'Roboto':
+					return styles.fontRoboto
+				case 'BarcadeBrawlRegular':
+					return styles.fontBarcadeBrawlRegular
+				default:
+					return styles.fontBarcadeBrawlRegular
+			}
+		})
+
 		const handleClick = (e: MouseEvent) => {
 			if (props.disabled || props.loading) {
 				return
@@ -52,7 +65,7 @@ export const UiButton = defineComponent({
 
 		return () => (
 			<button
-				class={[styles.button, sizeClass.value, modClass.value]}
+				class={[styles.button, sizeClass.value, modClass.value, fontVariantClass.value]}
 				type="button"
 				disabled={props.disabled}
 				onClick={handleClick}

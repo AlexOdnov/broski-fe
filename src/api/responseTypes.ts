@@ -22,6 +22,8 @@ export interface UserCreateResponse {
 	advertising_total: number
 	boxes: number
 	region: string
+	ton_balanse: number
+	push_see: boolean
 }
 
 export interface TasksCreateResponseItem {
@@ -34,6 +36,7 @@ export interface TasksCreateResponseItem {
 	links: string
 	complete: boolean
 	image: string
+	priority: number
 }
 
 export interface TasksCreateResponse {

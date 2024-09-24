@@ -1,5 +1,5 @@
 import { computed, defineComponent, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 
 import styles from './task.module.css'
 import { useTasksStore } from '@/stores/tasks'
@@ -7,11 +7,13 @@ import { useTgSdkStore } from '@/stores/tg-sdk'
 import { useUserStore } from '@/stores/user'
 import { UiButton, RewardBlock } from '@/components'
 import { useI18n } from 'vue-i18n'
+import { BackArrowIcon } from '@/components/icons'
 
 const TaskPage = defineComponent({
 	name: 'TaskPage',
 	setup: () => {
 		const route = useRoute()
+		const router = useRouter()
 		const tasksStore = useTasksStore()
 		const tgStore = useTgSdkStore()
 		const userStore = useUserStore()
@@ -36,6 +38,16 @@ const TaskPage = defineComponent({
 		}
 		return () => (
 			<div class={styles.taskWrapper}>
+				<RouterLink class={styles.back} to="/tasks">
+					<UiButton
+						mod="inverse"
+						size='lg'
+						leftIcon={<BackArrowIcon />}
+						text={t('back')}
+						font='Roboto'
+						whenClick={() => {}}
+					/>
+				</RouterLink>
 				<div class={styles.task}>
 					<img class={styles.img} src={task.value?.image || '/images/fist.webp'} alt="task image" />
 					<div class={styles.title}>{task.value?.title}</div>

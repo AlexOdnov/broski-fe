@@ -5,7 +5,6 @@
 	border-radius: 10px;
 	font-size: 16px;
 	line-height: 16px;
-	font-family: 'BarcadeBrawlRegular';
 	border: none;
 	background: none;
 	cursor: pointer;
@@ -13,6 +12,14 @@
 
 .button[disabled] {
 	cursor: default;
+}
+
+.fontBarcadeBrawlRegular {
+	font-family: 'BarcadeBrawlRegular', sans-serif;
+}
+
+.fontRoboto {
+	font-family: 'Roboto', Arial, sans-serif;
 }
 
 .sizeSm {

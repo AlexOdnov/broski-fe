@@ -64,7 +64,7 @@ export const SuperGame = defineComponent({
 						}
 					default:
 						return {
-							text:  t('wait'),
+							text: t('wait'),
 							mod: 'secondary',
 							whenClick: () => {}
 						}

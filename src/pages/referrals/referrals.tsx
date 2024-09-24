@@ -6,12 +6,14 @@ import { useReferralsStore } from '@/stores/referrals'
 import { useUserStore } from '@/stores/user'
 import { envVariables } from '@/services/env'
 import { useI18n } from 'vue-i18n'
+import { useTgSdkStore } from '@/stores/tg-sdk'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
 	setup() {
 		const referralsStore = useReferralsStore()
 		const userStore = useUserStore()
+		const tgSdk = useTgSdkStore()
 
 		const isLinkCopied = ref(false)
 		const intersectionObserver = ref<null | IntersectionObserver>(null)
@@ -57,7 +59,7 @@ const ReferralsPage = defineComponent({
 		)
 
 		const whenCopyLink = () => {
-			navigator.clipboard.writeText(`${envVariables.botUrl}?startapp=${userStore.user?.ref_code}`)
+			tgSdk.openLink(`https://t.me/share/url?url=${envVariables.botUrl}?startapp=${userStore.user?.ref_code}&text=${t('inviteText')}`)
 			isLinkCopied.value = true
 			setTimeout(() => {
 				isLinkCopied.value = false
@@ -91,13 +93,15 @@ const ReferralsPage = defineComponent({
 				<div class={styles.header}>
 					<div class={styles.text}>
 						<p class={styles.headerDark}>
-							10% {t('fromBrosIncome')} + <img class={styles.icon} src="/images/ticket.webp" /> {t('ticket', 3)}
+							10% {t('fromBrosIncome')} + <img class={styles.icon} src="/images/ticket.webp" />
+							&nbsp;
+							{t('ticket', 3)}
 						</p>
 						<p class={styles.headerLight}>
 							<img class={styles.icon} src="/images/star.webp" />
 							{t('premiumAdditionally')}
 							<span class={styles.yellow}>50 $BRO</span> +
-							<img class={styles.icon} src="/images/ticket.webp" /> {t('ticket', 12, )}
+							<img class={styles.icon} src="/images/ticket.webp" /> {t('ticket', 12)}
 						</p>
 					</div>
 					<UiButton size={'sm'} {...copyButtonProps.value} whenClick={whenCopyLink} />

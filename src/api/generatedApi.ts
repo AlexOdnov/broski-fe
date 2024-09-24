@@ -116,6 +116,24 @@ export interface BoxesCreatePayload {
 	box: number
 }
 
+export interface TaskCreatePayload {
+	/** @example "antonprox" */
+	username: string
+	/** @example "624161982" */
+	user_id: number
+	/** @example "6241619823" */
+	ref_code: string
+	/** @example true */
+	premium: boolean
+	/** @example "1" */
+	task_id: number
+}
+
+export interface PushSeeCreatePayload {
+	/** @example "624161982" */
+	user_id: number
+}
+
 import type {
 	AxiosInstance,
 	AxiosRequestConfig,
@@ -566,6 +584,44 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		advertisingSeeCreate: (data: AdvertisingSeeCreatePayload, params: RequestParams = {}) =>
 			this.request<void, any>({
 				path: `/advertising_see/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
+				format: 'json',
+				...params
+			})
+	}
+	check = {
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name TaskCreate
+		 * @summary /check/task/
+		 * @request POST:/check/task/
+		 */
+		taskCreate: (data: TaskCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/check/task/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
+				format: 'json',
+				...params
+			})
+	}
+	pushSee = {
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name PushSeeCreate
+		 * @summary /push_see/
+		 * @request POST:/push_see/
+		 */
+		pushSeeCreate: (data: PushSeeCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/push_see/`,
 				method: 'POST',
 				body: data,
 				type: ContentType.FormData,
