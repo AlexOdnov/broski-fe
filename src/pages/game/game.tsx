@@ -2,6 +2,7 @@ import { computed, defineComponent, ref } from 'vue'
 
 import styles from './styles.module.css'
 import { FindBroGame, SuperGame } from '@/components'
+import { UserBalance } from '@/components/ui/user-balance'
 
 export enum GameVariant {
 	FindBro = 'findBro',
@@ -32,7 +33,12 @@ const GamePage = defineComponent({
 			currentGame.value = GameVariant.FindBro
 		}
 
-		return () => <div class={styles.wrapper}>{currentGameComponent.value}</div>
+		return () => (
+			<>
+				<UserBalance />
+				<div class={styles.wrapper}>{currentGameComponent.value}</div>
+			</>
+		)
 	}
 })
 

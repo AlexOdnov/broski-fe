@@ -25,6 +25,11 @@ const router = createRouter({
 			component: () => import('@/pages/referrals/referrals')
 		},
 		{
+			path: '/profile',
+			name: 'profile',
+			component: () => import('@/pages/profile/profile')
+		},
+		{
 			path: '/:pathMatch(.*)',
 			redirect: '/'
 		}

@@ -30,22 +30,10 @@ export const MainComponent = defineComponent({
 			}
 		}
 
-		const coins = computed(() => Intl.NumberFormat('en-US').format(userStore.userScore))
-
 		const { t } = useI18n()
 
 		return () => (
 			<>
-				<header class={styles.header}>
-					<div class={styles.coins}>
-						<img class={styles.coinIcon} src="/images/bro-coin.webp" />
-						{coins.value}
-					</div>
-					<div class={styles.boxes}>
-						<img class={styles.boxIcon} src="/images/box.webp" />
-						{userStore.userBoxes}
-					</div>
-				</header>
 				<main class={styles.pageContainer}>
 					<RouterView class={styles.page} />
 				</main>

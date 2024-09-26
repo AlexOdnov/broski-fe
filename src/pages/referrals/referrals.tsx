@@ -7,6 +7,7 @@ import { useUserStore } from '@/stores/user'
 import { envVariables } from '@/services/env'
 import { useI18n } from 'vue-i18n'
 import { useTgSdkStore } from '@/stores/tg-sdk'
+import { UserBalance } from '@/components/ui/user-balance'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
@@ -92,6 +93,7 @@ const ReferralsPage = defineComponent({
 
 		return () => (
 			<div class={styles.referralsPage}>
+				<UserBalance/>
 				<div class={styles.header}>
 					<div class={styles.text}>
 						<p class={styles.headerDark}>

@@ -1,0 +1,32 @@
+.arc {
+	stroke: #FFB801;
+	fill: none;
+}
+
+.arcBackground {
+	stroke: #232323;
+	fill: none;
+}
+
+.arcBackgroundBorder {
+	stroke: #35332E;
+	fill: none;
+}
+
+.position {
+	position: relative;
+}
+
+.svgPosition {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.valueWrapper {
+	position: absolute;
+	bottom: 13%;
+	width: 100%;
+	font-family: 'BarcadeBrawlRegular', sans-serif;
+	color: #FFFFFF;
+}
