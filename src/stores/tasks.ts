@@ -11,10 +11,10 @@ export const useTasksStore = defineStore('tasks', () => {
 	const [tasks, setTasks] = useState<TasksCreateResponseItem[]>([])
 
 	const uncompletedTasks = computed(() =>
-		tasks.value.sort((a, b) => b.priority - a.priority).filter((t) => !t.complete)
+		tasks.value.sort((a, b) => a.priority - b.priority).filter((t) => !t.complete)
 	)
 	const completedTasks = computed(() =>
-		tasks.value.sort((a, b) => b.priority - a.priority).filter((t) => t.complete)
+		tasks.value.sort((a, b) => a.priority - b.priority).filter((t) => t.complete)
 	)
 
 	const getTasks = async () => {
