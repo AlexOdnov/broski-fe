@@ -1,16 +1,30 @@
 .progressBar {
+	position: relative;
 	overflow: hidden;
 	border: 1px solid #35332e;
-	border-radius: 15px;
-	height: 30px;
+	border-radius: 9999px;
 	width: 100%;
 	display: grid;
-	grid-template-columns: repeat(20, 1fr);
-	gap: 2px;
 }
 
-.item {
-	background-color: #ffb800;
+.segment {
 	opacity: 0;
 	transition: opacity 0.2s ease-in-out;
+}
+
+.roundSegment {
+	border-radius: 9999px;
+}
+
+.filler {
+	transition: width 0.2s ease-in-out;
+	border-radius: 9999px;
+}
+
+.counter {
+	position: absolute;
+	font-family: 'Roboto', Arial, sans-serif;
+	font-weight: 700;
+	top: 50%;
+	transform: translateY(-50%);
 }
