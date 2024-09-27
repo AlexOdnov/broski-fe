@@ -40,8 +40,8 @@ export const useApi = () => {
 	}
 
 	const getUserStats = async (payload: UserCreatePayload): Promise<UserStatsCreateResponse> => {
-		return (await legacyApiInstance.gets.userCreate(payload))
-			.data as unknown as UserStatsCreateResponse
+		return null as unknown as UserStatsCreateResponse
+		// return (await legacyApiInstance.gets.userCreate(payload)).data as unknown as UserStatsCreateResponse
 	}
 
 	const getUserV2 = async (payload: { userId: string }) => {
