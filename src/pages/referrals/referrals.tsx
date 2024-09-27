@@ -7,6 +7,7 @@ import { useUserStore } from '@/stores/user'
 import { envVariables } from '@/services/env'
 import { useI18n } from 'vue-i18n'
 import { useTgSdkStore } from '@/stores/tg-sdk'
+import { UserBalance } from '@/components/ui/user-balance'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
@@ -59,7 +60,9 @@ const ReferralsPage = defineComponent({
 		)
 
 		const whenCopyLink = () => {
-			tgSdk.openLink(`https://t.me/share/url?url=${envVariables.botUrl}?startapp=${userStore.user?.ref_code}&text=${t('inviteText')}`)
+			tgSdk.openLink(
+				`https://t.me/share/url?url=${envVariables.botUrl}?startapp=${userStore.userStats?.ref_code}&text=${t('inviteText')}`
+			)
 			isLinkCopied.value = true
 			setTimeout(() => {
 				isLinkCopied.value = false
@@ -90,6 +93,7 @@ const ReferralsPage = defineComponent({
 
 		return () => (
 			<div class={styles.referralsPage}>
+				<UserBalance />
 				<div class={styles.header}>
 					<div class={styles.text}>
 						<p class={styles.headerDark}>

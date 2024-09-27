@@ -41,10 +41,10 @@ const TaskPage = defineComponent({
 				<RouterLink class={styles.back} to="/tasks">
 					<UiButton
 						mod="inverse"
-						size='lg'
+						size="lg"
 						leftIcon={<BackArrowIcon />}
 						text={t('back')}
-						font='Roboto'
+						font="Roboto"
 						whenClick={() => {}}
 					/>
 				</RouterLink>
