@@ -21,15 +21,11 @@ export const UserBalance = defineComponent({
 					{coins.value}
 				</div>
 				<div class={styles.secondRow}>
-					{!!tonBalance.value && (
-						<>
-							<div class={styles.tons}>
-								<TonIcon class={styles.tonIcon} />
-								{tonBalance.value}
-							</div>
-							<div class={styles.delimiter} />
-						</>
-					)}
+					<div class={styles.tons}>
+						<TonIcon class={styles.tonIcon} />
+						{tonBalance.value}
+					</div>
+					<div class={styles.delimiter} />
 					<div class={styles.boxes}>
 						<img class={styles.boxIcon} src="/images/box.webp" />
 						{boxes.value}
