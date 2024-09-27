@@ -11,6 +11,9 @@ export const LoadingScreen = defineComponent({
 		const { t } = useI18n()
 
 		onMounted(() => {
+			if (!envVariables.enableLoaderBanner) {
+				return
+			}
 			scriptTag.value = document.createElement('script')
 			scriptTag.value.src = 'https://js.onclckmn.com/static/onclicka.js'
 			scriptTag.value.dataset.admpid = '231083'
@@ -18,6 +21,9 @@ export const LoadingScreen = defineComponent({
 		})
 
 		onBeforeUnmount(() => {
+			if (!envVariables.enableLoaderBanner) {
+				return
+			}
 			scriptTag.value?.remove()
 		})
 
@@ -34,10 +40,12 @@ export const LoadingScreen = defineComponent({
 						<p class={styles.loadingText}>{t('loading')}...</p>
 					</div>
 				</div>
-				<div class={styles.bannerWrapper}>
-					<div class={styles.banner} data-banner-id="6031971"></div>
-					<p class={[styles.loadingText, styles.bannerText]}>{t('noResponsibleForAd')}</p>
-				</div>
+				{envVariables.enableLoaderBanner && (
+					<div class={styles.bannerWrapper}>
+						<div class={styles.banner} data-banner-id="6031971"></div>
+						<p class={[styles.loadingText, styles.bannerText]}>{t('noResponsibleForAd')}</p>
+					</div>
+				)}
 			</div>
 		)
 	}
