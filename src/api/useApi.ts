@@ -1,6 +1,6 @@
 import { envVariables } from '@/services/env'
 import {
-	Api,
+	Api as LegacyApi,
 	type UserCreatePayload,
 	type TasksCreatePayload,
 	type ScoreCreatePayload,
@@ -17,13 +17,18 @@ import {
 	type PushSeeCreatePayload,
 	type SwitchRegionCreatePayload
 } from './generatedApi'
+
+import { Api, type CreateUser } from './newGeneratedApi'
 import type {
 	UserCreateResponse,
 	TasksCreateResponse,
 	ReferalsCreateResponse,
-	UserCreateV2Response,
 	UserStatsCreateResponse
 } from './responseTypes'
+
+const legacyApiInstance = new LegacyApi({
+	baseURL: envVariables.backendUrl
+})
 
 const apiInstance = new Api({
 	baseURL: envVariables.backendUrl
@@ -31,99 +36,106 @@ const apiInstance = new Api({
 
 export const useApi = () => {
 	const getUser = async (payload: UserCreatePayload): Promise<UserCreateResponse> => {
-		return (await apiInstance.gets.userCreate(payload)).data as unknown as UserCreateResponse
-	}
-
-	const getUserV2 = async (payload: UserCreatePayload): Promise<UserCreateV2Response> => {
-		return (await apiInstance.gets.userCreate(payload)).data as unknown as UserCreateV2Response
+		return (await legacyApiInstance.gets.userCreate(payload)).data as unknown as UserCreateResponse
 	}
 
 	const getUserStats = async (payload: UserCreatePayload): Promise<UserStatsCreateResponse> => {
-		return (await apiInstance.gets.userCreate(payload)).data as unknown as UserStatsCreateResponse
+		return (await legacyApiInstance.gets.userCreate(payload))
+			.data as unknown as UserStatsCreateResponse
+	}
+
+	const getUserV2 = async (payload: { userId: string }) => {
+		return (await apiInstance.api.getUserApiV1UsersUserIdGet(payload.userId)).data
+	}
+
+	const postUser = async (payload: CreateUser) => {
+		return (await apiInstance.api.postUserApiV1UsersPost(payload)).data
 	}
 
 	const getTasks = async (payload: TasksCreatePayload): Promise<TasksCreateResponse> => {
-		return (await apiInstance.get.tasksCreate(payload)).data as unknown as TasksCreateResponse
+		return (await legacyApiInstance.get.tasksCreate(payload)).data as unknown as TasksCreateResponse
 	}
 
 	const addScore = async (payload: ScoreCreatePayload) => {
-		return await apiInstance.add.scoreCreate(payload)
+		return await legacyApiInstance.add.scoreCreate(payload)
 	}
 
 	const addTickets = async (payload: TicketsCreatePayload) => {
-		return await apiInstance.add.ticketsCreate(payload)
+		return await legacyApiInstance.add.ticketsCreate(payload)
 	}
 
 	const removeScore = async (payload: ScoreCreatePayload) => {
-		return await apiInstance.remove.scoreCreate(payload)
+		return await legacyApiInstance.remove.scoreCreate(payload)
 	}
 
 	const removeTickets = async (payload: TicketsCreatePayload) => {
-		return await apiInstance.remove.ticketsCreate(payload)
+		return await legacyApiInstance.remove.ticketsCreate(payload)
 	}
 
 	const doneTask = async (payload: TasksCreateBody) => {
-		return await apiInstance.done.tasksCreate(payload)
+		return await legacyApiInstance.done.tasksCreate(payload)
 	}
 
 	const claimRefBonus = async (payload: RefClaimCreatePayload) => {
-		return await apiInstance.get.refClaimCreate(payload)
+		return await legacyApiInstance.get.refClaimCreate(payload)
 	}
 
 	const startMining = async (payload: MiningCreatePayload) => {
-		return await apiInstance.start.miningCreate(payload)
+		return await legacyApiInstance.start.miningCreate(payload)
 	}
 
 	const doneMining = async (payload: MiningCreateBody) => {
-		return await apiInstance.done.miningCreate(payload)
+		return await legacyApiInstance.done.miningCreate(payload)
 	}
 
 	const claimDailyReward = async (payload: DailyCreatePayload) => {
-		return await apiInstance.done.dailyCreate(payload)
+		return await legacyApiInstance.done.dailyCreate(payload)
 	}
 
 	const getReferrals = async (payload: ReferalsCreatePayload): Promise<ReferalsCreateResponse> => {
-		return (await apiInstance.get.referalsCreate(payload)).data as unknown as ReferalsCreateResponse
+		return (await legacyApiInstance.get.referalsCreate(payload))
+			.data as unknown as ReferalsCreateResponse
 	}
 
 	const claimAdvertisingReward = async (payload: AdvertisingSeeCreatePayload) => {
-		return await apiInstance.advertisingSee.advertisingSeeCreate(payload)
+		return await legacyApiInstance.advertisingSee.advertisingSeeCreate(payload)
 	}
 
 	const doneFirstLogin = async (payload: FirstLoginCreatePayload) => {
-		return await apiInstance.done.firstLoginCreate(payload)
+		return await legacyApiInstance.done.firstLoginCreate(payload)
 	}
 
 	const claimBox = async (payload: BoxesCreatePayload) => {
-		return await apiInstance.get.boxesCreate(payload)
+		return await legacyApiInstance.get.boxesCreate(payload)
 	}
 
 	const doneUpdateNotification = async (payload: PushSeeCreatePayload) => {
-		return await apiInstance.pushSee.pushSeeCreate(payload)
+		return await legacyApiInstance.pushSee.pushSeeCreate(payload)
 	}
 
 	const switchRegion = async (payload: SwitchRegionCreatePayload) => {
-		return await apiInstance.switchRegion.switchRegionCreate(payload)
+		return await legacyApiInstance.switchRegion.switchRegionCreate(payload)
 	}
 
-	const startGame = async (payload: { user_id: number }) => {
-		// return await apiInstance.switchRegion.switchRegionCreate(payload)
-	}
+	// const startGame = async (payload: { user_id: number }) => {
+	// 	// return await apiInstance.switchRegion.switchRegionCreate(payload)
+	// }
 
-	const finishGame = async (payload: { user_id: number; claim: boolean }) => {
-		// return await apiInstance.switchRegion.switchRegionCreate(payload)
-	}
+	// const finishGame = async (payload: { user_id: number; claim: boolean }) => {
+	// 	// return await apiInstance.switchRegion.switchRegionCreate(payload)
+	// }
 
-	const finishSuperGame = async (payload: {
-		user_id: number
-		result: 'win' | 'nothing' | 'lose'
-	}) => {
-		// return await apiInstance.switchRegion.switchRegionCreate(payload)
-	}
+	// const finishSuperGame = async (payload: {
+	// 	user_id: number
+	// 	result: 'win' | 'nothing' | 'lose'
+	// }) => {
+	// 	// return await apiInstance.switchRegion.switchRegionCreate(payload)
+	// }
 
 	return {
 		getUser,
 		getUserV2,
+		postUser,
 		getUserStats,
 		getTasks,
 		addScore,
@@ -140,9 +152,9 @@ export const useApi = () => {
 		claimAdvertisingReward,
 		claimBox,
 		doneUpdateNotification,
-		switchRegion,
-		startGame,
-		finishGame,
-		finishSuperGame
+		switchRegion
+		// startGame,
+		// finishGame,
+		// finishSuperGame
 	}
 }

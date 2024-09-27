@@ -76,11 +76,11 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
-	const loadUser = async (withLoader = false) => {
+	const initUser = async () => {
 		try {
-			withLoader && commonStore.setIsLoading(true)
-			const userResponse = await api.getUserV2({
-				user_id: tgStore.userId,
+			commonStore.setIsLoading(true)
+			const userResponse = await api.postUser({
+				user_id: `${tgStore.userId}`,
 				username: tgStore.username,
 				ref_code: tgStore.startParam,
 				premium: tgStore.isPremium
@@ -91,7 +91,20 @@ export const useUserStore = defineStore('user', () => {
 		} catch (error) {
 			console.warn(error)
 		} finally {
-			withLoader && commonStore.setIsLoading(false)
+			commonStore.setIsLoading(false)
+		}
+	}
+
+	const loadUser = async () => {
+		try {
+			const userResponse = await api.getUserV2({
+				userId: `${tgStore.userId}`
+			})
+			setUser(userResponse)
+			setTimeWhenUserUpdated(new Date().getTime())
+			startUpdateMiningString()
+		} catch (error) {
+			console.warn(error)
 		}
 	}
 
@@ -207,6 +220,7 @@ export const useUserStore = defineStore('user', () => {
 		userTickets,
 		userScore,
 		userBoxes,
+		initUser,
 		loadUser,
 		loadUserStats,
 		changeUserScore,

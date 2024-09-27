@@ -61,7 +61,7 @@ export default defineComponent({
 			i18n.locale.value = tgStore.languageCode
 			commonStore.setIsLoadingForTimeout(envVariables.loaderDuration)
 			await useAdvertisingStore().init()
-			await Promise.all([userStore.loadUser(true), userStore.loadUserStats()])
+			await Promise.all([userStore.initUser(), userStore.loadUserStats()])
 			if (!userStore.user) {
 				console.warn('Failed to get broski user information')
 				return

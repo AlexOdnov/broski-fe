@@ -2,9 +2,7 @@ import { shuffle } from '@/utils/shuffle'
 import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
 import { useUserStore } from './user'
-import { GameStatus, type IGameElement } from '@/utils/games'
-import { useTgSdkStore } from './tg-sdk'
-import { useApi } from '@/api/useApi'
+import { GameStatus, WIN_GAME_POINTS, type IGameElement } from '@/utils/games'
 
 export const INITIAL_ATTEMPTS_COUNT = 1
 
@@ -32,8 +30,6 @@ const createGameField = (): IGameElement[] => {
 
 export const useSuperGameStore = defineStore('superGame', () => {
 	const userStore = useUserStore()
-	const tgStore = useTgSdkStore()
-	const api = useApi()
 
 	const [gameField, setGameField, resetGameField] = useState<IGameElement[]>(createGameField)
 	const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.Idle)
@@ -52,16 +48,26 @@ export const useSuperGameStore = defineStore('superGame', () => {
 		setGameStatus(GameStatus.InProgress)
 	}
 
-	const finishGame = async () => {
+	const finishGame = () => {
 		if (![GameStatus.Lose, GameStatus.Win, GameStatus.Nothing].includes(gameStatus.value)) {
 			return
 		}
 
-		await api.finishSuperGame({
-			user_id: tgStore.userId,
-			result: gameStatus.value as 'win' | 'nothing' | 'lose'
-		})
-		userStore.loadUser()
+		switch (gameStatus.value) {
+			case GameStatus.Lose:
+				userStore.changeUserScore(-WIN_GAME_POINTS)
+				break
+
+			case GameStatus.Nothing:
+				userStore.changeUserScore(WIN_GAME_POINTS)
+				break
+
+			case GameStatus.Win:
+				userStore.changeUserScore(WIN_GAME_POINTS * 5)
+				break
+			default:
+				break
+		}
 
 		setGameStatus(GameStatus.Idle)
 		resetRemainAttempts()
