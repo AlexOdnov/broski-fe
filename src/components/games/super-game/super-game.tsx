@@ -6,6 +6,7 @@ import { GameElement } from '../shared'
 import { FIELD_PLACEHOLDERS, GameStatus, WIN_GAME_POINTS } from '@/utils/games'
 import { useSuperGameStore, INITIAL_ATTEMPTS_COUNT } from '@/stores/super-game'
 import { useI18n } from 'vue-i18n'
+import { FistIcon, ChickenIcon } from '@/components/icons'
 
 export const SuperGame = defineComponent({
 	name: 'SuperGame',
@@ -112,12 +113,12 @@ export const SuperGame = defineComponent({
 				</div>
 				<div class={styles.description}>
 					<div class={styles.descriptionItem}>
-						<img class={styles.descriptionIcon} src="/images/fist-small.webp" />
+						<FistIcon height={14} />
 						<span>+{WIN_GAME_POINTS * 5}</span>
 					</div>
 					<div class={styles.separator} />
 					<div class={[styles.descriptionItem, styles.descriptionItemRight]}>
-						<img class={styles.descriptionIcon} src="/images/chicken.webp" />
+						<ChickenIcon height={14} />
 						<span class={sharedStyles.topTextError}>-{WIN_GAME_POINTS}</span>
 					</div>
 				</div>
