@@ -31,9 +31,9 @@ export default defineComponent({
 			return commonStore.isLoading || !isUserExist.value
 		})
 
-		const needRenderDaily = computed(() => userStore.user?.daily_claim === false)
-		const needRenderOnboarding = computed(() => userStore.user?.first_login)
-		// const needRenderUpdateNotification = computed(() => userStore.user?.push_see === false)
+		const needRenderDaily = computed(() => userStore.userStats?.daily.claim === false)
+		const needRenderOnboarding = computed(() => userStore.userStats?.first_login)
+		// const needRenderUpdateNotification = computed(() => userStore.userStats?.push_view === false)
 
 		const getComponent = computed(() => {
 			if (isLoaderVisible.value) {

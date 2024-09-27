@@ -1,5 +1,5 @@
 .arc {
-	stroke: #FFB801;
+	stroke: #ffb801;
 	fill: none;
 }
 
@@ -9,7 +9,7 @@
 }
 
 .arcBackgroundBorder {
-	stroke: #35332E;
+	stroke: #35332e;
 	fill: none;
 }
 
@@ -28,5 +28,5 @@
 	bottom: 13%;
 	width: 100%;
 	font-family: 'BarcadeBrawlRegular', sans-serif;
-	color: #FFFFFF;
+	color: #ffffff;
 }

@@ -49,7 +49,7 @@ export const HalfCircleDiagramm = defineComponent({
 					/>
 				</svg>
 				<div class={styles.valueWrapper}>
-					<div style={{ textAlign: 'center', fontSize: `${props.width/6}px`}}>{props.value}</div>
+					<div style={{ textAlign: 'center', fontSize: `${props.width / 6}px` }}>{props.value}</div>
 				</div>
 			</div>
 		)

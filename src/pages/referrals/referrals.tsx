@@ -93,7 +93,7 @@ const ReferralsPage = defineComponent({
 
 		return () => (
 			<div class={styles.referralsPage}>
-				<UserBalance/>
+				<UserBalance />
 				<div class={styles.header}>
 					<div class={styles.text}>
 						<p class={styles.headerDark}>

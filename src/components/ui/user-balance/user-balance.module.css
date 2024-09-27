@@ -1,4 +1,3 @@
-
 .coins {
 	display: flex;
 	align-items: center;
@@ -44,7 +43,7 @@
 }
 
 .delimiter {
-	border-right: solid 1px #35332E;
+	border-right: solid 1px #35332e;
 }
 
 .secondRow {
@@ -58,5 +57,5 @@
 }
 
 .profileBtn button {
-	border: solid 1px #35332E;
+	border: solid 1px #35332e;
 }

@@ -18,7 +18,7 @@ const TasksPage = defineComponent({
 		const { t } = useI18n()
 		return () => (
 			<div>
-				<UserBalance/>
+				<UserBalance />
 				<div class={styles.tasks}>
 					<span class={styles.listTitle}>{t('task.tasks')}</span>
 					{tasksStore.uncompletedTasks.map((task, index) => {

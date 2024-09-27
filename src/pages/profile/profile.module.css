@@ -24,29 +24,29 @@
 }
 
 .yellow {
-	color: #FFB800
+	color: #ffb800;
 }
 
 .red {
-	color: #FF5449
+	color: #ff5449;
 }
 
 .white {
-	color: #FF5449
+	color: #ff5449;
 }
 
 .whiteText {
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 14px;
-	color: #F0F0F0
+	color: #f0f0f0;
 }
 
 .card {
 	display: flex;
 	background-color: #232323;
 	border-radius: 10px;
-	border: 1px solid #35332E;
+	border: 1px solid #35332e;
 	justify-content: center;
 }
 
@@ -57,7 +57,7 @@
 .delimiter {
 	height: 100%;
 	min-width: 1px;
-	background-color: #35332E;
+	background-color: #35332e;
 }
 
 .textTitle {
