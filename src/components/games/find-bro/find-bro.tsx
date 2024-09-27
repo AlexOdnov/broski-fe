@@ -135,7 +135,6 @@ export const FindBroGame = defineComponent({
 							<UiButton
 								leftIcon={<AdIcon />}
 								disabled={!userStore.user?.advertising.limit}
-								mod={!userStore.user?.advertising.limit ? 'secondary' : 'primary'}
 								text={advText.value}
 								whenClick={whenAdvClick}
 							/>
