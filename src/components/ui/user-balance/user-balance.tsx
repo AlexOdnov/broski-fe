@@ -21,7 +21,7 @@ export const UserBalance = defineComponent({
 					{coins.value}
 				</div>
 				<div class={styles.secondRow}>
-					{tonBalance.value && (
+					{!!tonBalance.value && (
 						<>
 							<div class={styles.tons}>
 								<TonIcon class={styles.tonIcon} />
