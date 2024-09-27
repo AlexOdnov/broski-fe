@@ -26,21 +26,6 @@ export interface UserCreateResponse {
 	push_see: boolean
 }
 
-export interface UserCreateV2Response {
-	score: number
-	tickets: number
-	boxes: number
-	ton_balance: number
-	mining: {
-		left: string
-		claim: boolean
-	}
-	advertising: {
-		limit: number
-		total: number
-	}
-}
-
 export interface UserStatsCreateResponse {
 	ref_code: string
 	first_login: boolean

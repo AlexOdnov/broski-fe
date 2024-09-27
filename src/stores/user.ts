@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
-import type { UserCreateV2Response, UserStatsCreateResponse } from '@/api/responseTypes'
+import type { UserStatsCreateResponse } from '@/api/responseTypes'
 import { useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
 import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/generatedApi'
 import { computed } from 'vue'
 import { addHours, addMinutes, msToTime } from '@/utils/date'
 import { useCommonStore } from './common'
+import type { User } from '@/api/newGeneratedApi'
 
 export const useUserStore = defineStore('user', () => {
 	const api = useApi()
@@ -16,7 +17,7 @@ export const useUserStore = defineStore('user', () => {
 	const [timeBeforeMiningLeftString, setTimeDeforeMiningString] = useState<string | null>(null)
 	const [timeoutID, setTimeoutID] = useState<ReturnType<typeof setTimeout> | null>(null)
 
-	const [user, setUser] = useState<UserCreateV2Response | null>(null)
+	const [user, setUser] = useState<User | null>(null)
 	const [userStats, setUserStats] = useState<UserStatsCreateResponse | null>(null)
 	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<number | null>(null)
 
@@ -37,10 +38,7 @@ export const useUserStore = defineStore('user', () => {
 	const userScore = computed(() => user.value?.score || 0)
 	const userBoxes = computed(() => user.value?.boxes || 0)
 
-	const setUserProperty = <T extends keyof UserCreateV2Response>(
-		key: T,
-		value: UserCreateV2Response[T]
-	) => {
+	const setUserProperty = <T extends keyof User>(key: T, value: User[T]) => {
 		if (user.value) {
 			setUser({ ...user.value, [key]: value })
 		}
