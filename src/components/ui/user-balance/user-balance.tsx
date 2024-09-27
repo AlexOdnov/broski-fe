@@ -1,46 +1,37 @@
 import { computed, defineComponent } from 'vue'
 import styles from './user-balance.module.css'
 import { useUserStore } from '@/stores/user'
-import { ProfileIcon, TonIcon } from '@/components/icons'
-import { UiButton } from '@/components'
-import { useI18n } from 'vue-i18n'
-import { RouterLink } from 'vue-router'
+import { BoxIcon, CoinIcon, TicketIcon, TonIcon } from '@/components/icons'
 
 export const UserBalance = defineComponent({
 	name: 'UserBalance',
 	setup: () => {
-		const { t } = useI18n()
 		const userStore = useUserStore()
 		const coins = computed(() => Intl.NumberFormat('en-US').format(userStore.userScore))
 		const tonBalance = computed(() => userStore.user?.ton_balance ?? 0)
 		const boxes = computed(() => userStore.user?.boxes ?? 0)
+
 		return () => (
 			<div>
 				<div class={styles.coins}>
-					<img class={styles.coinIcon} src="/images/bro-coin.webp" />
+					<CoinIcon class={styles.coinIcon} />
 					{coins.value}
 				</div>
 				<div class={styles.secondRow}>
-					<div class={styles.tons}>
-						<TonIcon class={styles.tonIcon} />
+					<div class={styles.itemBlock}>
+						<TonIcon class={styles.smallIcon} />
 						{tonBalance.value}
 					</div>
 					<div class={styles.delimiter} />
-					<div class={styles.boxes}>
-						<img class={styles.boxIcon} src="/images/box.webp" />
+					<div class={styles.itemBlock}>
+						<BoxIcon height={18} class={styles.smallIcon} />
 						{boxes.value}
 					</div>
 					<div class={styles.delimiter} />
-					<RouterLink class={styles.profileBtn} to="/profile">
-						<UiButton
-							size="sm"
-							font="Roboto"
-							mod="secondary"
-							text={t('profile')}
-							leftIcon={<ProfileIcon />}
-							whenClick={() => {}}
-						/>
-					</RouterLink>
+					<div class={styles.itemBlock}>
+						<TicketIcon height={18} class={styles.smallIcon} />
+						{userStore.userTickets}
+					</div>
 				</div>
 			</div>
 		)

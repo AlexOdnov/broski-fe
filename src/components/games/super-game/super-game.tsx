@@ -2,7 +2,7 @@ import { computed, defineComponent, onMounted, type PropType } from 'vue'
 import sharedStyles from '../shared/game-styles.module.css'
 import styles from './super-game.module.css'
 import { type ButtonMod, UiButton, UiHeightPlaceholder } from '@/components'
-import { GameElement, TicketsCounter } from '../shared'
+import { GameElement } from '../shared'
 import { FIELD_PLACEHOLDERS, GameStatus, WIN_GAME_POINTS } from '@/utils/games'
 import { useSuperGameStore, INITIAL_ATTEMPTS_COUNT } from '@/stores/super-game'
 import { useI18n } from 'vue-i18n'
@@ -123,7 +123,6 @@ export const SuperGame = defineComponent({
 				</div>
 				<div class={sharedStyles.bottomBlock}>
 					<UiButton {...buttonProps.value} />
-					<TicketsCounter />
 				</div>
 			</div>
 		)

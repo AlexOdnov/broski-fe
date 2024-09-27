@@ -5,7 +5,7 @@ import { type ButtonMod, UiButton } from '@/components'
 import { useUserStore } from '@/stores/user'
 import { useAdvertisingStore } from '@/stores/advertising'
 import { AdIcon } from '@/components/icons'
-import { GameElement, TicketsCounter } from '../shared'
+import { GameElement } from '../shared'
 import { GameStatus, WIN_GAME_POINTS, FIELD_PLACEHOLDERS } from '@/utils/games'
 import { useI18n } from 'vue-i18n'
 
@@ -129,7 +129,6 @@ export const FindBroGame = defineComponent({
 								<UiButton text={t('superGame')} whenClick={switchToSuperGame} />
 							)}
 							<UiButton {...buttonProps.value} />
-							<TicketsCounter />
 						</>
 					) : (
 						<>

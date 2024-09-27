@@ -10,16 +10,7 @@
 	margin: 15px 0;
 }
 
-.boxes {
-	display: flex;
-	align-items: center;
-	font-size: 18px;
-	font-weight: 600;
-	line-height: 18px;
-	gap: 5px;
-}
-
-.tons {
+.itemBlock {
 	display: flex;
 	align-items: center;
 	font-size: 18px;
@@ -33,13 +24,9 @@
 	height: 40px;
 }
 
-.boxIcon {
+.smallIcon {
 	width: 18px;
 	height: 18px;
-}
-
-.tonIcon {
-	height: 1em;
 }
 
 .delimiter {
