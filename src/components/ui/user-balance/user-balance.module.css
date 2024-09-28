@@ -1,3 +1,12 @@
+.balance {
+	position: fixed;
+	left: 50%;
+	top: 0;
+	transform: translateX(-50%);
+	background-color: #141517;
+	z-index: 2;
+}
+
 .coins {
 	display: flex;
 	align-items: center;
@@ -7,7 +16,7 @@
 	line-height: 32px;
 	text-align: center;
 	gap: 10px;
-	margin: 15px 0;
+	padding: 15px 0;
 }
 
 .itemBlock {
