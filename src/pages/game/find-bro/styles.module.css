@@ -4,9 +4,5 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	flex-grow: 1;
-}
-
-.navigation {
-	padding: 10px 15px;
+	justify-content: center;
 }

@@ -1,37 +1,67 @@
 import GamePage from '@/pages/game/game'
 
 import { createRouter, createWebHistory } from 'vue-router'
+
+export enum RouteName {
+	Game = 'game',
+	GamePvp = 'game-pvp',
+	GamePvpProfile = 'game-pvp-profile',
+	GameFindBro = 'game-find-bro',
+	Tasks = 'tasks',
+	Task = 'task',
+	Referrals = 'referrals',
+	Profile = 'profile'
+}
+
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
 		{
-			path: '/',
-			name: 'game',
-			component: GamePage
+			path: '/game',
+			name: RouteName.Game,
+			component: GamePage,
+			redirect: { name: RouteName.GamePvp },
+			children: [
+				{
+					path: 'pvp',
+					name: RouteName.GamePvp,
+					component: () => import('@/pages/game/pvp/pvp')
+				},
+				{
+					path: 'profile',
+					name: RouteName.GamePvpProfile,
+					component: () => import('@/pages/game/pvp-profile/pvp-profile')
+				},
+				{
+					path: 'find-bro',
+					name: RouteName.GameFindBro,
+					component: () => import('@/pages/game/find-bro/find-bro')
+				}
+			]
 		},
 		{
 			path: '/tasks',
-			name: 'tasks',
+			name: RouteName.Tasks,
 			component: () => import('@/pages/tasks/tasks')
 		},
 		{
 			path: '/tasks/:taskId',
-			name: 'task',
+			name: RouteName.Task,
 			component: () => import('@/pages/tasks/[taskId]/task')
 		},
 		{
 			path: '/referrals',
-			name: 'referrals',
+			name: RouteName.Referrals,
 			component: () => import('@/pages/referrals/referrals')
 		},
 		{
 			path: '/profile',
-			name: 'profile',
+			name: RouteName.Profile,
 			component: () => import('@/pages/profile/profile')
 		},
 		{
 			path: '/:pathMatch(.*)',
-			redirect: '/'
+			redirect: { name: RouteName.GamePvp }
 		}
 	]
 })

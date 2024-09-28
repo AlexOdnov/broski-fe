@@ -46,6 +46,11 @@
 	background-color: #ffb800;
 }
 
+.modPrimary[disabled] {
+	color: #141517;
+	background-color: #4e4f4f;
+}
+
 .modSecondary {
 	color: #4e4f4f;
 	background-color: #1d1e20;

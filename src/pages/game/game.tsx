@@ -1,42 +1,47 @@
-import { computed, defineComponent, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 import styles from './styles.module.css'
-import { FindBroGame, SuperGame } from '@/components'
 import { UserBalance } from '@/components/ui/user-balance'
-
-export enum GameVariant {
-	FindBro = 'findBro',
-	SuperGame = 'superGame'
-}
+import { RouterView, useRouter } from 'vue-router'
+import { UiTabs } from '@/components'
+import { RouteName } from '@/router'
 
 const GamePage = defineComponent({
 	name: 'GamePage',
 	setup() {
-		const currentGame = ref(GameVariant.FindBro)
+		const router = useRouter()
 
-		const currentGameComponent = computed(() => {
-			switch (currentGame.value) {
-				case GameVariant.FindBro:
-					return <FindBroGame whenSwitchToSuperGame={switchToSuperGame} />
-				case GameVariant.SuperGame:
-					return <SuperGame whenSwitchToFindBroGame={switchToFindBroGame} />
-				default:
-					return <FindBroGame whenSwitchToSuperGame={switchToSuperGame} />
+		const activeTab = ref(router.currentRoute.value.name as string)
+
+		const tabOptions = [
+			{
+				label: 'Fight',
+				value: RouteName.GamePvp
+			},
+			{
+				label: 'Profile',
+				value: RouteName.GamePvpProfile
+			},
+			{
+				label: '3x3',
+				value: RouteName.GameFindBro
 			}
-		})
+		]
 
-		const switchToSuperGame = () => {
-			currentGame.value = GameVariant.SuperGame
-		}
-
-		const switchToFindBroGame = () => {
-			currentGame.value = GameVariant.FindBro
+		const changeTab = (newTab: string) => {
+			router.push({ name: newTab })
+			activeTab.value = newTab
 		}
 
 		return () => (
 			<>
 				<UserBalance />
-				<div class={styles.wrapper}>{currentGameComponent.value}</div>
+				<div class={styles.navigation}>
+					<UiTabs selected={activeTab.value} options={tabOptions} whenChange={changeTab} />
+				</div>
+				<div class={styles.wrapper}>
+					<RouterView />
+				</div>
 			</>
 		)
 	}

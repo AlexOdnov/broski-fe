@@ -5,6 +5,7 @@ import { useUserStore } from '@/stores/user'
 import { useTasksStore } from '@/stores/tasks'
 import { useReferralsStore } from '@/stores/referrals'
 import { useI18n } from 'vue-i18n'
+import { RouteName } from '@/router'
 
 export const MainComponent = defineComponent({
 	name: 'MainComponent',
@@ -39,14 +40,14 @@ export const MainComponent = defineComponent({
 				</main>
 				<footer class={styles.footer}>
 					<nav class={styles.navigation}>
-						<RouterLink activeClass={styles.active} to="/">
+						<RouterLink activeClass={styles.active} to={{ name: RouteName.Game }}>
 							<div class={styles.navBtn}>
 								<div class={[styles.letter, styles.rotateLeft]}>B</div>
 								<div class={[styles.letterShadow, styles.rotateLeft]}>B</div>
 								<span class={styles.btnText}>{t('game')}</span>
 							</div>
 						</RouterLink>
-						<RouterLink activeClass={styles.active} to="/tasks">
+						<RouterLink activeClass={styles.active} to={{ name: RouteName.Tasks }}>
 							<div class={styles.navBtn}>
 								{Boolean(tasksStore.uncompletedTasks.length) && (
 									<img class={styles.notice} src="/images/notice.webp" />
@@ -56,7 +57,7 @@ export const MainComponent = defineComponent({
 								<span class={styles.btnText}>{t('earn')}</span>
 							</div>
 						</RouterLink>
-						<RouterLink activeClass={styles.active} to="/referrals">
+						<RouterLink activeClass={styles.active} to={{ name: RouteName.Referrals }}>
 							<div class={styles.navBtn}>
 								{Boolean(referralsStore.sumReferralsReward) && (
 									<img class={styles.notice} src="/images/notice.webp" />

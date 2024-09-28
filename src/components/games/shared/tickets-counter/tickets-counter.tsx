@@ -3,6 +3,7 @@ import styles from './styles.module.css'
 import { useUserStore } from '@/stores/user'
 import { useI18n } from 'vue-i18n'
 
+/** @deprecated */
 export const TicketsCounter = defineComponent({
 	name: 'TicketsCounter',
 	setup: () => {

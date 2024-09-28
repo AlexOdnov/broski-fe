@@ -1,7 +1,7 @@
 import { useUserStore } from '@/stores/user'
 import styles from './onboarding.module.css'
 import { ref, computed, defineComponent, type VNode } from 'vue'
-import { UiPopup, type ButtonMod } from '../ui'
+import { UiPopup, UiText, type ButtonMod } from '../ui'
 import { useI18n } from 'vue-i18n'
 
 export const OnboardingComponent = defineComponent({
@@ -26,7 +26,7 @@ export const OnboardingComponent = defineComponent({
 							image: './images/onboarding-1.webp',
 							title: (
 								<div class={styles.title}>
-									<span class={styles.yellow}>{t('onboarding.yoBroski')}</span>,&nbsp;
+									<UiText isAccent>{t('onboarding.yoBroski')}</UiText>,&nbsp;
 									{t('onboarding.welcome')}
 								</div>
 							),
@@ -66,7 +66,7 @@ export const OnboardingComponent = defineComponent({
 							image: './images/onboarding-3.webp',
 							title: (
 								<div class={styles.title}>
-									<span class={styles.yellow}>{t('airdrop')}</span>&nbsp;
+									<UiText isAccent>{t('airdrop')}</UiText>&nbsp;
 									{t('onboarding.withNoVesting')}
 								</div>
 							),
