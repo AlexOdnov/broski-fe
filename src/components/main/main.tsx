@@ -6,13 +6,17 @@ import { useTasksStore } from '@/stores/tasks'
 import { useReferralsStore } from '@/stores/referrals'
 import { useI18n } from 'vue-i18n'
 import { RouteName } from '@/router'
+import { useCommonStore } from '@/stores/common'
 
 export const MainComponent = defineComponent({
 	name: 'MainComponent',
 	setup: () => {
+		const { t } = useI18n()
+
 		const userStore = useUserStore()
 		const tasksStore = useTasksStore()
 		const referralsStore = useReferralsStore()
+		const commonStore = useCommonStore()
 
 		const isRewardAvailable = computed(
 			() => !timeBeforeMiningLeft.value && !userStore.user?.mining.claim
@@ -31,15 +35,18 @@ export const MainComponent = defineComponent({
 			}
 		}
 
-		const { t } = useI18n()
-
 		return () => (
 			<>
 				<main class={styles.pageContainer}>
 					<RouterView class={styles.page} />
 				</main>
 				<footer class={styles.footer}>
-					<nav class={styles.navigation}>
+					<nav
+						class={[
+							styles.navigation,
+							commonStore.isNavigationDisabled && styles.navigationDisabled
+						]}
+					>
 						<RouterLink activeClass={styles.active} to={{ name: RouteName.Game }}>
 							<div class={styles.navBtn}>
 								<div class={[styles.letter, styles.rotateLeft]}>B</div>

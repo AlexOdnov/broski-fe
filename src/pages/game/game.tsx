@@ -5,11 +5,14 @@ import { UserBalance } from '@/components/ui/user-balance'
 import { RouterView, useRouter } from 'vue-router'
 import { UiTabs } from '@/components'
 import { RouteName } from '@/router'
+import { useCommonStore } from '@/stores/common'
 
 const GamePage = defineComponent({
 	name: 'GamePage',
 	setup() {
 		const router = useRouter()
+
+		const commonStore = useCommonStore()
 
 		const activeTab = ref(router.currentRoute.value.name as string)
 
@@ -37,7 +40,12 @@ const GamePage = defineComponent({
 			<>
 				<UserBalance />
 				<div class={styles.navigation}>
-					<UiTabs selected={activeTab.value} options={tabOptions} whenChange={changeTab} />
+					<UiTabs
+						disabled={commonStore.isNavigationDisabled}
+						selected={activeTab.value}
+						options={tabOptions}
+						whenChange={changeTab}
+					/>
 				</div>
 				<div class={styles.wrapper}>
 					<RouterView />
