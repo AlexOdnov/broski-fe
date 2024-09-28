@@ -19,10 +19,14 @@ export const UiProgressBar = defineComponent({
 	setup: (props) => {
 		const items = ref(Array(props.totalItems).fill(null))
 
+		const progressBarBorderStyle = computed(() => ({
+			padding: props.mod === 'segmented' ? '0' : `${props.padding + 1}px`
+		}))
+
 		const progressBarStyle = computed(() => ({
 			gridTemplateColumns: props.mod === 'filled' ? 'auto' : `repeat(${props.totalItems}, 1fr)`,
-			padding: props.mod === 'segmented' ? '0' : `${props.padding}px`,
-			height: `${props.height}px`,
+			height: `${props.height - 2 - props.padding * 2}px`,
+			border: props.mod === 'segmented' ? '1px solid #35332e' : 'none',
 			gap: `${props.padding}px`
 		}))
 
@@ -42,29 +46,31 @@ export const UiProgressBar = defineComponent({
 		})
 
 		return () => (
-			<div class={styles.progressBar} style={progressBarStyle.value}>
-				{props.mod === 'filled' ? (
-					<div class={styles.filler} style={fillerStyle.value} />
-				) : (
-					items.value.map((el, index) => (
-						<div
-							key={index}
-							class={[styles.segment, props.mod === 'round-segmented' && styles.roundSegment]}
-							style={getSegmentStyle(index)}
-						/>
-					))
-				)}
-				{props.withCounter && props.mod === 'filled' && (
-					<UiText
-						fontWeight={700}
-						color={props.color}
-						fontSize={`${props.height / 2}px`}
-						class={styles.counter}
-						style={counterStyle.value}
-					>
-						{((props.filledItems / props.totalItems) * 100).toFixed()}
-					</UiText>
-				)}
+			<div class={styles.progressBarBorder} style={progressBarBorderStyle.value}>
+				<div class={styles.progressBar} style={progressBarStyle.value}>
+					{props.mod === 'filled' ? (
+						<div class={styles.filler} style={fillerStyle.value} />
+					) : (
+						items.value.map((el, index) => (
+							<div
+								key={index}
+								class={[styles.segment, props.mod === 'round-segmented' && styles.roundSegment]}
+								style={getSegmentStyle(index)}
+							/>
+						))
+					)}
+					{props.withCounter && props.mod === 'filled' && (
+						<UiText
+							fontWeight={700}
+							color={props.color}
+							fontSize={`${props.height / 2}px`}
+							class={styles.counter}
+							style={counterStyle.value}
+						>
+							{props.filledItems}
+						</UiText>
+					)}
+				</div>
 			</div>
 		)
 	}
