@@ -1,5 +1,5 @@
 import { computed, defineComponent, ref, type PropType } from 'vue'
-import styles from './styles.module.css'
+import styles from './ui-progress-bar.module.css'
 import { UiText } from '../ui-text'
 
 export type ProgressBarMod = 'filled' | 'segmented' | 'round-segmented'
