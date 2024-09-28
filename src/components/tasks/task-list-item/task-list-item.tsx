@@ -1,6 +1,7 @@
 import { defineComponent, type PropType } from 'vue'
 import styles from './task-list-item.module.css'
 import type { TasksCreateResponseItem } from '@/api/responseTypes'
+import { UiText } from '@/components/ui'
 export const TaskListItem = defineComponent({
 	name: 'TaskListItem',
 	props: {
@@ -21,7 +22,7 @@ export const TaskListItem = defineComponent({
 						{props.task.points && (
 							<>
 								<img class={styles.icon} src="/images/bro-coin.webp" />{' '}
-								<span class={styles.yellow}>{`${props.task.points} $BRO`}</span>
+								<UiText isAccent>{`${props.task.points} $BRO`}</UiText>
 							</>
 						)}
 						{props.task.tickets && (

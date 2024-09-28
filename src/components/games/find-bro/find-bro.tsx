@@ -8,6 +8,7 @@ import { AdIcon } from '@/components/icons'
 import { GameElement } from '../shared'
 import { GameStatus, WIN_GAME_POINTS, FIELD_PLACEHOLDERS } from '@/utils/games'
 import { useI18n } from 'vue-i18n'
+import { UiText } from '@/components/ui/ui-text'
 
 export const FindBroGame = defineComponent({
 	name: 'FindBroGame',
@@ -138,7 +139,9 @@ export const FindBroGame = defineComponent({
 								text={advText.value}
 								whenClick={whenAdvClick}
 							/>
-							<div class={styles.disclaimer}>{t('noResponsibleForAd')}</div>
+							<UiText color={'#797979'} fontSize={'12px'} alignCenter>
+								{t('noResponsibleForAd')}
+							</UiText>
 						</>
 					)}
 				</div>

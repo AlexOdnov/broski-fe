@@ -3,6 +3,7 @@ import styles from './styles.module.css'
 import { envVariables } from '@/services/env'
 import { useI18n } from 'vue-i18n'
 import { UiProgressBar } from '@/components/ui'
+import { UiText } from '../ui/ui-text'
 
 export const LoadingScreen = defineComponent({
 	name: 'LoadingScreen',
@@ -56,13 +57,17 @@ export const LoadingScreen = defineComponent({
 							padding={2}
 							withCounter
 						/>
-						<p class={styles.loadingText}>{t('loading')}...</p>
+						<UiText class={styles.loadingText} fontSize={'14px'}>
+							{t('loading')}...
+						</UiText>
 					</div>
 				</div>
 				{envVariables.enableLoaderBanner && (
 					<div class={styles.bannerWrapper}>
 						<div class={styles.banner} data-banner-id="6031971"></div>
-						<p class={[styles.loadingText, styles.bannerText]}>{t('noResponsibleForAd')}</p>
+						<UiText class={styles.loadingText} fontSize={'14px'}>
+							{t('noResponsibleForAd')}
+						</UiText>
 					</div>
 				)}
 			</div>

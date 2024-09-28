@@ -1,13 +1,14 @@
 import { computed, defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 
 import styles from './styles.module.css'
-import { UiButton, type ButtonMod, ReferralElement } from '@/components'
+import { UiButton, type ButtonMod, ReferralElement, UiText } from '@/components'
 import { useReferralsStore } from '@/stores/referrals'
 import { useUserStore } from '@/stores/user'
 import { envVariables } from '@/services/env'
 import { useI18n } from 'vue-i18n'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { UserBalance } from '@/components/ui/user-balance'
+import { StarIcon, TicketIcon } from '@/components/icons'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
@@ -97,25 +98,27 @@ const ReferralsPage = defineComponent({
 				<div class={styles.header}>
 					<div class={styles.text}>
 						<p class={styles.headerDark}>
-							10% {t('fromBrosIncome')} + <img class={styles.icon} src="/images/ticket.webp" />
+							10% {t('fromBrosIncome')} + <TicketIcon height={14} />
 							&nbsp;
 							{t('ticket', 3)}
 						</p>
 						<p class={styles.headerLight}>
-							<img class={styles.icon} src="/images/star.webp" />
+							<StarIcon height={14} />
 							{t('premiumAdditionally')}
-							<span class={styles.yellow}>50 $BRO</span> +
-							<img class={styles.icon} src="/images/ticket.webp" /> {t('ticket', 12)}
+							<UiText isAccent>50 $BRO</UiText> +
+							<TicketIcon height={14} /> {t('ticket', 12)}
 						</p>
 					</div>
 					<UiButton size={'sm'} {...copyButtonProps.value} whenClick={whenCopyLink} />
 				</div>
 				<div class={styles.content}>
 					<div class={styles.listHeader}>
-						<p class={styles.subTitle}>{t('myBros')}</p>
-						<p class={styles.total}>
+						<UiText fontSize={'18px'} color={'#f0f0f0'} fontWeight={500} class={styles.subTitle}>
+							{t('myBros')}
+						</UiText>
+						<UiText fontWeight={400} fontSize={'14px'} color={'#797979'}>
 							{t('total')}: {Intl.NumberFormat('en-US').format(referralsStore.totalReferrals)}
-						</p>
+						</UiText>
 					</div>
 					<div class={styles.scrollContent}>
 						{referralsStore.referrals.map((el) => (

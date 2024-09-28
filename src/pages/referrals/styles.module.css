@@ -47,14 +47,6 @@
 	height: calc(100% - 102px - 48px);
 }
 
-.subTitle {
-	margin: 0;
-	font-weight: 500;
-	font-size: 18px;
-	line-height: 18px;
-	color: #f0f0f0;
-}
-
 .scrollContent {
 	display: flex;
 	flex-direction: column;
@@ -71,24 +63,8 @@
 	justify-content: center;
 }
 
-.icon {
-	width: 14px;
-	height: 14px;
-}
-
-.yellow {
-	color: #ffb800;
-}
-
 .listHeader {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-}
-
-.total {
-	font-weight: 400;
-	font-size: 14px;
-	line-height: 14px;
-	color: #797979;
 }

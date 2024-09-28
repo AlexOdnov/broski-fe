@@ -1,5 +1,6 @@
 import { computed, defineComponent, ref, type PropType } from 'vue'
 import styles from './styles.module.css'
+import { UiText } from '../ui-text'
 
 export type ProgressBarMod = 'filled' | 'segmented' | 'round-segmented'
 
@@ -31,9 +32,7 @@ export const UiProgressBar = defineComponent({
 		}))
 
 		const counterStyle = computed(() => ({
-			fontSize: `${props.height / 2}px`,
-			left: `${props.height / 2}px`,
-			color: props.counterColor
+			left: `${props.height / 2}px`
 		}))
 
 		const getSegmentStyle = (index: number) => ({
@@ -56,9 +55,15 @@ export const UiProgressBar = defineComponent({
 					))
 				)}
 				{props.withCounter && props.mod === 'filled' && (
-					<span class={styles.counter} style={counterStyle.value}>
+					<UiText
+						fontWeight={700}
+						color={props.color}
+						fontSize={`${props.height / 2}px`}
+						class={styles.counter}
+						style={counterStyle.value}
+					>
 						{((props.filledItems / props.totalItems) * 100).toFixed()}
-					</span>
+					</UiText>
 				)}
 			</div>
 		)

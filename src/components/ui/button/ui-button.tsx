@@ -75,7 +75,7 @@ export const UiButton = defineComponent({
 					<div class={styles.loader} />
 				) : (
 					<>
-						{<div class={styles.leftIcon}>{props.leftIcon}</div>}
+						{props.leftIcon && <div class={styles.leftIcon}>{props.leftIcon}</div>}
 						{props.text}
 					</>
 				)}
