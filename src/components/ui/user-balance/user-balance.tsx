@@ -36,7 +36,7 @@ export const UserBalance = defineComponent({
 						</div>
 					</div>
 				</div>
-				<UiHeightPlaceholder height={'84px'} />
+				<UiHeightPlaceholder height={'86px'} />
 			</>
 		)
 	}
