@@ -44,7 +44,7 @@
 	gap: 10px;
 	flex-grow: 1;
 	width: 100%;
-	height: calc(100% - 102px - 48px - 84px);
+	height: calc(100% - 102px - 48px - 86px);
 }
 
 .scrollContent {
