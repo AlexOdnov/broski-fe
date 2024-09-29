@@ -107,8 +107,9 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
-	const loadUserStats = async () => {
+	const loadUserStats = async (withLoader = false) => {
 		try {
+			withLoader && commonStore.setIsLoading(true)
 			const userResponse = await api.getUserStats({
 				user_id: tgStore.userId,
 				username: tgStore.username,
@@ -118,11 +119,14 @@ export const useUserStore = defineStore('user', () => {
 			setUserStats(userResponse)
 		} catch (error) {
 			console.warn(error)
+		} finally {
+			withLoader && commonStore.setIsLoading(false)
 		}
 	}
 
-	const loadUserLegacy = async () => {
+	const loadUserLegacy = async (withLoader = false) => {
 		try {
+			withLoader && commonStore.setIsLoading(true)
 			const userResponse = await api.getUser({
 				user_id: tgStore.userId,
 				username: tgStore.username,
@@ -132,6 +136,8 @@ export const useUserStore = defineStore('user', () => {
 			setUserLegacy(userResponse)
 		} catch (error) {
 			console.warn(error)
+		} finally {
+			withLoader && commonStore.setIsLoading(false)
 		}
 	}
 

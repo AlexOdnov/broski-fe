@@ -9,6 +9,59 @@
  * ---------------------------------------------------------------
  */
 
+/** AbilityScores */
+export interface AbilityScores {
+	/** Strength */
+	strength: number
+	/** Defence */
+	defence: number
+	/** Speed */
+	speed: number
+	/** Weight */
+	weight: number
+	/** Combinations */
+	combinations: number
+}
+
+/** AbilityScoresDelta */
+export interface AbilityScoresDelta {
+	/** Strength */
+	strength: number | null
+	/** Defence */
+	defence: number | null
+	/** Speed */
+	speed: number | null
+	/** Weight */
+	weight: number | null
+	/** Combinations */
+	combinations: number | null
+}
+
+/** CharacterEnergy */
+export interface CharacterEnergy {
+	/** Remaining */
+	remaining: number
+	/** Maximum */
+	maximum: number
+	/**
+	 * Time To Restore
+	 * @format duration
+	 */
+	time_to_restore: string
+}
+
+/** CharacterProfile */
+export interface CharacterProfile {
+	abilities: AbilityScores
+	energy: CharacterEnergy
+	/** Level */
+	level: number
+	/** Experience */
+	experience: number
+	/** Power */
+	power: number
+}
+
 /** CreateUser */
 export interface CreateUser {
 	/** Username */
@@ -25,6 +78,60 @@ export interface CreateUser {
 export interface HTTPValidationError {
 	/** Detail */
 	detail?: ValidationError[]
+}
+
+/** LevelupRequest */
+export interface LevelupRequest {
+	abilities_delta: AbilityScoresDelta
+}
+
+/** MatchCompetitioner */
+export interface MatchCompetitioner {
+	/** User Id */
+	user_id: string
+	/** Username */
+	username: string
+	/** Level */
+	level: number
+	/** Power */
+	power: number
+	abilities: AbilityScores
+}
+
+/** MatchLoot */
+export interface MatchLoot {
+	/** Experience */
+	experience: number
+	/** Coins */
+	coins: number
+}
+
+/** MatchResult */
+export enum MatchResult {
+	Win = 'win',
+	Lose = 'lose'
+}
+
+/** PVPMatch */
+export interface PVPMatch {
+	/**
+	 * Match Id
+	 * @format uuid
+	 */
+	match_id: string
+	player: MatchCompetitioner
+	opponent: MatchCompetitioner
+}
+
+/** PVPMatchResult */
+export interface PVPMatchResult {
+	/**
+	 * Match Id
+	 * @format uuid
+	 */
+	match_id: string
+	result: MatchResult
+	loot: MatchLoot | null
 }
 
 /** User */
@@ -225,6 +332,76 @@ export class HttpClient<SecurityDataType = unknown> {
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
 	api = {
+		/**
+		 * No description
+		 *
+		 * @tags pvp
+		 * @name GetCharacterApiV1UsersUserIdCharacterGet
+		 * @summary Get Character
+		 * @request GET:/api/v1/users/{user_id}/character
+		 */
+		getCharacterApiV1UsersUserIdCharacterGet: (userId: string, params: RequestParams = {}) =>
+			this.request<CharacterProfile, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/character`,
+				method: 'GET',
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags pvp
+		 * @name LevelUpApiV1UsersUserIdLevelupPost
+		 * @summary Level Up
+		 * @request POST:/api/v1/users/{user_id}/levelup
+		 */
+		levelUpApiV1UsersUserIdLevelupPost: (
+			userId: string,
+			data: LevelupRequest,
+			params: RequestParams = {}
+		) =>
+			this.request<AbilityScores, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/levelup`,
+				method: 'POST',
+				body: data,
+				type: ContentType.Json,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags pvp
+		 * @name SearchMatchApiV1UsersUserIdPvpPost
+		 * @summary Search Match
+		 * @request POST:/api/v1/users/{user_id}/pvp
+		 */
+		searchMatchApiV1UsersUserIdPvpPost: (userId: string, params: RequestParams = {}) =>
+			this.request<PVPMatch, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/pvp`,
+				method: 'POST',
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags pvp
+		 * @name StartMatchApiV1PvpMatchIdStartPost
+		 * @summary Start Match
+		 * @request POST:/api/v1/pvp/{match_id}/start
+		 */
+		startMatchApiV1PvpMatchIdStartPost: (matchId: string, params: RequestParams = {}) =>
+			this.request<PVPMatchResult, HTTPValidationError>({
+				path: `/api/v1/pvp/${matchId}/start`,
+				method: 'POST',
+				format: 'json',
+				...params
+			}),
+
 		/**
 		 * No description
 		 *

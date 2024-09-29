@@ -18,13 +18,26 @@ import {
 	type SwitchRegionCreatePayload
 } from './generatedApi'
 
-import { Api, type CreateUser } from './newGeneratedApi'
+import {
+	Api,
+	type AbilityScoresDelta,
+	type CreateUser,
+	type LevelupRequest
+} from './newGeneratedApi'
 import type {
 	UserCreateResponse,
 	TasksCreateResponse,
 	ReferalsCreateResponse,
 	UserStatsCreateResponse
 } from './responseTypes'
+
+export type IUpgradeAbilityRequest = {
+	userId: string
+} & Partial<AbilityScoresDelta>
+
+export interface IUserIdRequest {
+	userId: string
+}
 
 const legacyApiInstance = new LegacyApi({
 	baseURL: envVariables.backendUrl
@@ -132,6 +145,31 @@ export const useApi = () => {
 	// 	// return await apiInstance.switchRegion.switchRegionCreate(payload)
 	// }
 
+	const loadPvpCharacter = async (payload: IUserIdRequest) => {
+		return (await apiInstance.api.getCharacterApiV1UsersUserIdCharacterGet(payload.userId)).data
+	}
+
+	const upgradePvpCharacterAbility = async (payload: IUpgradeAbilityRequest) => {
+		const data: LevelupRequest = {
+			abilities_delta: {
+				combinations: payload.combinations ?? null,
+				defence: payload.defence ?? null,
+				speed: payload.speed ?? null,
+				strength: payload.strength ?? null,
+				weight: payload.weight ?? null
+			}
+		}
+		return (await apiInstance.api.levelUpApiV1UsersUserIdLevelupPost(payload.userId, data)).data
+	}
+
+	const searchPvpMatch = async (payload: IUserIdRequest) => {
+		return (await apiInstance.api.searchMatchApiV1UsersUserIdPvpPost(payload.userId)).data
+	}
+
+	const startPvpMatch = async (payload: { matchId: string }) => {
+		return (await apiInstance.api.startMatchApiV1PvpMatchIdStartPost(payload.matchId)).data
+	}
+
 	return {
 		getUser,
 		getUserV2,
@@ -152,9 +190,13 @@ export const useApi = () => {
 		claimAdvertisingReward,
 		claimBox,
 		doneUpdateNotification,
-		switchRegion
+		switchRegion,
 		// startGame,
 		// finishGame,
 		// finishSuperGame
+		loadPvpCharacter,
+		upgradePvpCharacterAbility,
+		searchPvpMatch,
+		startPvpMatch
 	}
 }
