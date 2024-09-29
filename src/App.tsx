@@ -31,8 +31,8 @@ export default defineComponent({
 			return commonStore.isLoading || !isUserExist.value
 		})
 
-		const needRenderDaily = computed(() => userStore.userStats?.daily?.claim === false)
-		const needRenderOnboarding = computed(() => userStore.userStats?.first_login)
+		const needRenderDaily = computed(() => userStore.userLegacy?.daily_claim === false)
+		const needRenderOnboarding = computed(() => userStore.userLegacy?.first_login)
 		// const needRenderUpdateNotification = computed(() => userStore.userStats?.push_view === false)
 
 		const getComponent = computed(() => {
@@ -47,7 +47,7 @@ export default defineComponent({
 			// 	return <UpdateNotificationComponent />
 			// }
 			if (needRenderDaily.value) {
-				return <DailyComponent day={userStore.userStats?.daily.streak ?? 1} />
+				return <DailyComponent day={userStore.userLegacy?.daily_stric ?? 1} />
 			}
 			return <MainComponent />
 		})
@@ -61,7 +61,7 @@ export default defineComponent({
 			i18n.locale.value = tgStore.languageCode
 			commonStore.setIsLoadingForTimeout(envVariables.loaderDuration)
 			await useAdvertisingStore().init()
-			await Promise.all([userStore.initUser(), userStore.loadUserStats()])
+			await Promise.all([userStore.initUser(), userStore.loadUserLegacy()])
 			if (!userStore.user) {
 				console.warn('Failed to get broski user information')
 				return

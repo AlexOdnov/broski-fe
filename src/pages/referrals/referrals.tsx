@@ -62,7 +62,7 @@ const ReferralsPage = defineComponent({
 
 		const whenCopyLink = () => {
 			tgSdk.openLink(
-				`https://t.me/share/url?url=${envVariables.botUrl}?startapp=${userStore.userStats?.ref_code}&text=${t('inviteText')}`
+				`https://t.me/share/url?url=${envVariables.botUrl}?startapp=${userStore.userLegacy?.ref_code}&text=${t('inviteText')}`
 			)
 			isLinkCopied.value = true
 			setTimeout(() => {

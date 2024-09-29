@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
-import type { UserStatsCreateResponse } from '@/api/responseTypes'
+import type { UserCreateResponse, UserStatsCreateResponse } from '@/api/responseTypes'
 import { useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
 import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/generatedApi'
@@ -18,6 +18,7 @@ export const useUserStore = defineStore('user', () => {
 	const [timeoutID, setTimeoutID] = useState<ReturnType<typeof setTimeout> | null>(null)
 
 	const [user, setUser] = useState<User | null>(null)
+	const [userLegacy, setUserLegacy] = useState<UserCreateResponse | null>(null)
 	const [userStats, setUserStats] = useState<UserStatsCreateResponse | null>(null)
 	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<number | null>(null)
 
@@ -120,6 +121,20 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const loadUserLegacy = async () => {
+		try {
+			const userResponse = await api.getUser({
+				user_id: tgStore.userId,
+				username: tgStore.username,
+				ref_code: tgStore.startParam,
+				premium: tgStore.isPremium
+			})
+			setUserLegacy(userResponse)
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	const startMining = async () => {
 		try {
 			await api.startMining({ user_id: tgStore.userId })
@@ -158,7 +173,7 @@ export const useUserStore = defineStore('user', () => {
 	const claimDailyReward = async () => {
 		try {
 			await api.claimDailyReward({ user_id: tgStore.userId })
-			await loadUserStats()
+			await loadUserLegacy()
 		} catch (error) {
 			console.warn(error)
 		}
@@ -177,7 +192,7 @@ export const useUserStore = defineStore('user', () => {
 	const doneFirstLogin = async () => {
 		try {
 			await api.doneFirstLogin({ user_id: tgStore.userId })
-			await loadUserStats()
+			await loadUserLegacy()
 		} catch (error) {
 			console.warn(error)
 		}
@@ -195,7 +210,7 @@ export const useUserStore = defineStore('user', () => {
 	const doneUpdateNotification = async () => {
 		try {
 			await api.doneUpdateNotification({ user_id: tgStore.userId })
-			await loadUserStats()
+			await loadUserLegacy()
 		} catch (error) {
 			console.warn(error)
 		}
@@ -214,12 +229,14 @@ export const useUserStore = defineStore('user', () => {
 
 	return {
 		user,
+		userLegacy,
 		userStats,
 		userTickets,
 		userScore,
 		userBoxes,
 		initUser,
 		loadUser,
+		loadUserLegacy,
 		loadUserStats,
 		changeUserScore,
 		changeUserTickets,
