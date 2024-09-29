@@ -1,4 +1,20 @@
 .pvpProfile {
-	padding: 0 15px;
+	padding: 10px 15px;
 	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.separator {
+	background-color: #35332e;
+	width: 1px;
+	height: 100%;
+}
+
+.parameters {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1px 1fr;
+	gap: 10px;
 }
