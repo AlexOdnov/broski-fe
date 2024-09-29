@@ -18,6 +18,7 @@ export const PlayerAbility = defineComponent({
 		currentValue: { type: Number, required: true },
 		maximumValue: { type: Number, required: true },
 		upgradeCost: { type: Number, required: true },
+		loading: { type: Boolean, default: false },
 		whenUpgrade: { type: Function as PropType<() => void>, required: true }
 	},
 	setup: (props) => {
@@ -41,7 +42,7 @@ export const PlayerAbility = defineComponent({
 		return () => (
 			<div class={styles.playerAbility}>
 				<div class={styles.barWrapper}>
-					<iconComponent.value height={14} />
+					<iconComponent.value height={16} />
 					<UiProgressBar
 						totalItems={props.currentValue}
 						filledItems={props.maximumValue}
@@ -54,6 +55,7 @@ export const PlayerAbility = defineComponent({
 					mod={'inverse'}
 					font={'Roboto'}
 					leftIcon={<UiText fontSize={'24px'}>+</UiText>}
+					loading={props.loading}
 					bordered
 					icon
 					whenClick={props.whenUpgrade}

@@ -8,18 +8,29 @@ import {
 	PowerCounter,
 	PlayerAbilities
 } from '@/components/pvp'
+import { usePvpStore } from '@/stores/pvp'
 
 const PvpProfilePage = defineComponent({
 	name: 'PvpProfilePage',
 	setup() {
+		const pvpStore = usePvpStore()
+
 		return () => (
 			<div class={styles.pvpProfile}>
-				<LevelCounter level={1} expirience={1} expirienceLimit={1} levelName={'Newbie'} />
+				<LevelCounter
+					level={pvpStore.pvpCharacter?.level ?? 1}
+					expirience={1}
+					expirienceLimit={1}
+					levelName={'Newbie'}
+				/>
 				<PlayerInventory />
 				<div class={styles.parameters}>
-					<PowerCounter power={322} />
+					<PowerCounter power={pvpStore.pvpCharacter?.power ?? 0} />
 					<div class={styles.separator} />
-					<EnergyCounter currentEnergy={1} totalEnergy={2} />
+					<EnergyCounter
+						currentEnergy={pvpStore.pvpCharacter?.energy.remaining ?? 0}
+						totalEnergy={pvpStore.pvpCharacter?.energy.maximum ?? 0}
+					/>
 				</div>
 				<PlayerAbilities />
 			</div>

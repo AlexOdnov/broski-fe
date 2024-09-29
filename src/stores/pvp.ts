@@ -31,6 +31,14 @@ export const usePvpStore = defineStore('pvp', () => {
 
 	const isLoading = computed(() => loadingState.value > 0)
 
+	const pvpCharacterAbilities = computed<AbilityScores>(() => ({
+		combinations: pvpCharacter.value?.abilities.combinations ?? 1,
+		defence: pvpCharacter.value?.abilities.defence ?? 1,
+		speed: pvpCharacter.value?.abilities.speed ?? 1,
+		strength: pvpCharacter.value?.abilities.strength ?? 1,
+		weight: pvpCharacter.value?.abilities.weight ?? 1
+	}))
+
 	const setPvpCharacterAbilities = (abilities: AbilityScores) => {
 		if (pvpCharacter.value) {
 			setPvpCharacter({
@@ -100,6 +108,7 @@ export const usePvpStore = defineStore('pvp', () => {
 	return {
 		isLoading,
 		pvpCharacter,
+		pvpCharacterAbilities,
 		pvpMatch,
 		pvpMatchResult,
 		loadPvpCharacter,
