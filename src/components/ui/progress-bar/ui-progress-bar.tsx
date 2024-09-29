@@ -62,7 +62,7 @@ export const UiProgressBar = defineComponent({
 					{props.withCounter && props.mod === 'filled' && (
 						<UiText
 							fontWeight={700}
-							color={props.color}
+							color={props.counterColor}
 							fontSize={`${props.height / 2}px`}
 							class={styles.counter}
 							style={counterStyle.value}

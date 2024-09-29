@@ -27,7 +27,6 @@ export const LevelCounter = defineComponent({
 				<UiProgressBar
 					totalItems={props.expirience}
 					filledItems={props.expirienceLimit}
-					mod={'filled'}
 					height={10}
 				/>
 			</div>

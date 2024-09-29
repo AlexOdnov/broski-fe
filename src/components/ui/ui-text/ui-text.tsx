@@ -32,7 +32,7 @@ export const UiText = defineComponent({
 				class={[
 					fontFamilyClass.value,
 					props.isAccent && styles.accent,
-					props.alignCenter && styles.alignCentr
+					props.alignCenter && styles.alignCenter
 				]}
 				style={textStyle.value}
 			>

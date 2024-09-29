@@ -23,7 +23,6 @@ export const PowerCounter = defineComponent({
 				<UiProgressBar
 					totalItems={props.power}
 					filledItems={props.power}
-					mod={'filled'}
 					height={10}
 					color={'#A955DD'}
 				/>
