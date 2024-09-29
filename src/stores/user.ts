@@ -3,11 +3,11 @@ import { useState } from '@/utils/useState'
 import type { UserCreateResponse, UserStatsCreateResponse } from '@/api/responseTypes'
 import { useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
-import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/generatedApi'
+import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/legacyGeneratedApi'
 import { computed } from 'vue'
 import { addHours, addMinutes, msToTime } from '@/utils/date'
 import { useCommonStore } from './common'
-import type { User } from '@/api/newGeneratedApi'
+import type { User } from '@/api/generatedApi'
 
 export const useUserStore = defineStore('user', () => {
 	const api = useApi()

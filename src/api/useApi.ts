@@ -16,14 +16,9 @@ import {
 	type BoxesCreatePayload,
 	type PushSeeCreatePayload,
 	type SwitchRegionCreatePayload
-} from './generatedApi'
+} from './legacyGeneratedApi'
 
-import {
-	Api,
-	type AbilityScoresDelta,
-	type CreateUser,
-	type LevelupRequest
-} from './newGeneratedApi'
+import { Api, type AbilityScoresDelta, type CreateUser, type LevelupRequest } from './generatedApi'
 import type {
 	UserCreateResponse,
 	TasksCreateResponse,

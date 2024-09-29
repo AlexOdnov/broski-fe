@@ -12,8 +12,8 @@
 		"lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
 		"format": "prettier --write src/",
 		"lint:all": "npm run format && npm run lint && npm run type-check",
-		"generate-api-local": "npx swagger-typescript-api -p ./src/api/swagger.yaml -o ./src/api -n generatedApi.ts --axios  --extract-request-params --extract-request-body --extract-enums && npm run format",
-		"generate-api": "npx swagger-typescript-api -p https://brocoin.site/openapi.json -o ./src/api -n newGeneratedApi.ts --axios  --extract-request-params --extract-request-body --extract-enums && npm run format",
+		"generate-api-legacy": "npx swagger-typescript-api -p ./src/api/swagger.yaml -o ./src/api -n legacyGeneratedApi.ts --axios  --extract-request-params --extract-request-body --extract-enums && npm run format",
+		"generate-api": "npx swagger-typescript-api -p https://brocoin.site/openapi.json -o ./src/api -n generatedApi.ts --axios  --extract-request-params --extract-request-body --extract-enums && npm run format",
 		"prepare": "husky install"
 	},
 	"dependencies": {

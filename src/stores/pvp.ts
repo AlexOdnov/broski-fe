@@ -9,7 +9,7 @@ import type {
 	CharacterProfile,
 	PVPMatch,
 	PVPMatchResult
-} from '@/api/newGeneratedApi'
+} from '@/api/generatedApi'
 import { useCommonStore } from './common'
 import { useUserStore } from './user'
 
