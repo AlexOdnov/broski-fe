@@ -132,6 +132,15 @@ export const useApi = () => {
 	// 	// return await apiInstance.switchRegion.switchRegionCreate(payload)
 	// }
 
+	const loadCharacter = async (userId: string) => {
+		return (await apiInstance.api.getCharacterApiV1UsersUserIdCharacterGet(userId)).data
+	}
+	const findPvpMatch = async (userId: string) => {
+		return (await apiInstance.api.searchMatchApiV1UsersUserIdPvpPost(userId)).data
+	}
+	const startPvpMatch = async (matchId: string) => {
+		return (await apiInstance.api.startMatchApiV1PvpMatchIdStartPost(matchId)).data
+	}
 	return {
 		getUser,
 		getUserV2,
@@ -152,9 +161,12 @@ export const useApi = () => {
 		claimAdvertisingReward,
 		claimBox,
 		doneUpdateNotification,
-		switchRegion
+		switchRegion,
 		// startGame,
 		// finishGame,
 		// finishSuperGame
+		loadCharacter,
+		findPvpMatch,
+		startPvpMatch,
 	}
 }

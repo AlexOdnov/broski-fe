@@ -1,0 +1,17 @@
+.pvp {
+	display: grid;
+	gap: 10px;
+	grid-template-columns: 1fr 1fr;
+}
+
+.card {
+	display: flex;
+	background-color: #232323;
+	border-radius: 10px;
+	border: 1px solid #35332e;
+	justify-content: center;
+}
+
+.fullWIdth {
+	grid-row: span 2;
+}
