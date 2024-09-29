@@ -1,7 +1,13 @@
 import { defineComponent } from 'vue'
 
 import styles from './styles.module.css'
-import { LevelCounter, EnergyCounter, PlayerInventory, PowerCounter } from '@/components/pvp'
+import {
+	LevelCounter,
+	EnergyCounter,
+	PlayerInventory,
+	PowerCounter,
+	PlayerAbilities
+} from '@/components/pvp'
 
 const PvpProfilePage = defineComponent({
 	name: 'PvpProfilePage',
@@ -15,6 +21,7 @@ const PvpProfilePage = defineComponent({
 					<div class={styles.separator} />
 					<EnergyCounter currentEnergy={1} totalEnergy={2} />
 				</div>
+				<PlayerAbilities />
 			</div>
 		)
 	}
