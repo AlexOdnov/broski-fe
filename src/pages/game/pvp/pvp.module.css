@@ -1,17 +1,58 @@
 .pvp {
-	display: grid;
-	gap: 10px;
-	grid-template-columns: 1fr 1fr;
+    display: grid;
+    width: 100%;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
 }
 
 .card {
-	display: flex;
-	background-color: #232323;
-	border-radius: 10px;
-	border: 1px solid #35332e;
-	justify-content: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #232323;
+    border-radius: 10px;
+    border: 1px solid #35332e;
+    justify-content: center;
 }
 
-.fullWIdth {
-	grid-row: span 2;
+.profileIconWrapper {
+    border: solid 1px rgb(78, 79, 79);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flexRow {
+    display: flex;
+    gap: 5px;
+}
+
+.fullWidth {
+    grid-column: span 2;
+}
+
+.profile {
+    background-position: 50% 10%;
+    background-size: 200%;
+    background-repeat: no-repeat;
+    height: 12vh;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 6px;
+}
+
+.you {
+    background-image: url(/images/green-t-shirt-guy.webp);
+}
+
+.enemy {
+    background-image: url(/images/purple-t-shirt-guy.webp);
+}
+
+.yellowBorder {
+    border-color: #FFB800;
 }
