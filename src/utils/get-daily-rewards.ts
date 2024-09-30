@@ -9,37 +9,37 @@ export const getRewardByDay = (day: number) => {
 		{
 			day: 1,
 			coins: 30,
-			tickets: 3
+			tickets: 1
 		},
 		{
 			day: 2,
 			coins: 50,
-			tickets: 6
+			tickets: 2
 		},
 		{
 			day: 3,
 			coins: 75,
-			tickets: 9
+			tickets: 3
 		},
 		{
 			day: 4,
 			coins: 100,
-			tickets: 9
+			tickets: 4
 		},
 		{
 			day: 5,
 			coins: 150,
-			tickets: 12
+			tickets: 5
 		},
 		{
 			day: 6,
 			coins: 250,
-			tickets: 15
+			tickets: 6
 		},
 		{
 			day: 7,
 			coins: 500,
-			tickets: 15
+			tickets: 6
 		}
 	]
 	if (day >= 7) return rewards[6]
