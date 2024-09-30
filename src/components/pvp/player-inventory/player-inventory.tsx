@@ -1,11 +1,13 @@
 import { defineComponent } from 'vue'
 import styles from './player-inventory.module.css'
 import { UiText } from '@/components/ui'
+import { useI18n } from 'vue-i18n'
 
 export const PlayerInventory = defineComponent({
 	name: 'PlayerInventory',
 	setup: () => {
-		const items = new Array(8).fill('soon')
+		const { t } = useI18n()
+		const items = new Array(8).fill(t('soon'))
 
 		return () => (
 			<div class={styles.playerInventory}>

@@ -4,11 +4,13 @@ import { UiText } from '@/components/ui'
 import { PlayerAbility } from './player-ability'
 import { usePvpStore } from '@/stores/pvp'
 import type { AbilityScores, AbilityScoresDelta } from '@/api/generatedApi'
+import { useI18n } from 'vue-i18n'
 
 export const PlayerAbilities = defineComponent({
 	name: 'PlayerAbilities',
 	setup: () => {
 		const pvpStore = usePvpStore()
+		const { t } = useI18n()
 
 		const maximumAbilityValue = computed(() => {
 			return Math.max(...Object.values(pvpStore.pvpCharacterAbilities)) ?? 1
@@ -33,7 +35,7 @@ export const PlayerAbilities = defineComponent({
 		return () => (
 			<div class={styles.playerAbilities}>
 				<UiText color={'#797979'} fontSize={'18px'} fontWeight={500} alignCenter>
-					Upgrades
+					{t('pvp.upgrades')}
 				</UiText>
 				<PlayerAbility
 					abilityType={'strength'}

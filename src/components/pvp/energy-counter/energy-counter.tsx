@@ -2,6 +2,7 @@ import { defineComponent } from 'vue'
 import styles from './energy-counter.module.css'
 import { UiProgressBar, UiText } from '@/components/ui'
 import { EnergyIcon } from '@/components/icons'
+import { useI18n } from 'vue-i18n'
 
 export const EnergyCounter = defineComponent({
 	name: 'EnergyCounter',
@@ -11,12 +12,14 @@ export const EnergyCounter = defineComponent({
 		timeToRestore: { type: String, required: true }
 	},
 	setup: (props) => {
+		const { t } = useI18n()
+
 		return () => (
 			<div>
 				<div class={styles.energyWrapper}>
 					<UiText class={styles.energy} fontSize={'14px'} color={'#797979'}>
 						<EnergyIcon height={14} />
-						&nbsp;Energy:
+						&nbsp;{t('pvp.energy')}:
 					</UiText>
 					<div class={styles.counter}>
 						<UiText fontSize={'14px'} color={'#797979'}>
