@@ -5,7 +5,6 @@
 	border-radius: 10px;
 	overflow: hidden;
 	display: grid;
-	/* grid-template-columns: 32% 1px auto; */
 	grid-template-columns: repeat(2, 1fr) 1px repeat(4, 1fr);
 	grid-template-rows: repeat(2, 1fr);
 	gap: 10px;
