@@ -1,0 +1,51 @@
+.playerInventory {
+	padding: 10px;
+	background-color: #232323;
+	border: 1px solid #35332e;
+	border-radius: 10px;
+	overflow: hidden;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr) 1px repeat(4, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	gap: 10px;
+	aspect-ratio: 2.9;
+	width: 100%;
+}
+
+.playerAvatar {
+	aspect-ratio: 1/1;
+	border-radius: 6px;
+	border: 1px solid #ffb800;
+	object-fit: cover;
+	object-position: center;
+	width: 100%;
+	grid-column: span 2;
+	grid-row: span 2;
+	overflow: hidden;
+}
+
+.separator {
+	width: 1px;
+	height: 100%;
+	background-color: #35332e;
+	grid-row: span 2;
+}
+
+.items {
+	display: grid;
+	gap: 10px;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	grid-column: span 4;
+	grid-row: span 2;
+}
+
+.item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #141517;
+	border: 1px solid #35332e;
+	border-radius: 4px;
+	color: #232323;
+}

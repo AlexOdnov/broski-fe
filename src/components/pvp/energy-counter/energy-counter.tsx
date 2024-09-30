@@ -2,24 +2,34 @@ import { defineComponent } from 'vue'
 import styles from './energy-counter.module.css'
 import { UiProgressBar, UiText } from '@/components/ui'
 import { EnergyIcon } from '@/components/icons'
+import { useI18n } from 'vue-i18n'
 
 export const EnergyCounter = defineComponent({
 	name: 'EnergyCounter',
 	props: {
 		totalEnergy: { type: Number, required: true },
-		currentEnergy: { type: Number, required: true }
+		currentEnergy: { type: Number, required: true },
+		timeToRestore: { type: String, required: true }
 	},
 	setup: (props) => {
+		const { t } = useI18n()
+
 		return () => (
 			<div>
 				<div class={styles.energyWrapper}>
 					<UiText class={styles.energy} fontSize={'14px'} color={'#797979'}>
 						<EnergyIcon height={14} />
-						&nbsp;Energy:
+						&nbsp;{t('pvp.energy')}:
 					</UiText>
-					<UiText fontSize={'14px'} color={'#F0F0F0'}>
-						{props.currentEnergy}/{props.totalEnergy}
-					</UiText>
+					<div class={styles.counter}>
+						<UiText fontSize={'14px'} color={'#797979'}>
+							{props.currentEnergy}/{props.totalEnergy}
+						</UiText>
+						<div class={styles.separator} />
+						<UiText fontSize={'14px'} color={'#F0F0F0'}>
+							{props.timeToRestore}
+						</UiText>
+					</div>
 				</div>
 				<UiProgressBar
 					totalItems={props.totalEnergy}
