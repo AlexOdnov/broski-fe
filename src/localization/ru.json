@@ -81,5 +81,13 @@
 	"totalEarned": "Всего Собрано",
 	"bros": "Бро",
 	"tasks": "Задачи",
-	"farming": "Фарм"
+	"farming": "Фарм",
+	"fight": "Бой",
+	"findBroGame": "3x3",
+	"pvp": {
+		"newbie": "Новичок",
+		"battlePower": "Боевая мощь",
+		"energy": "Энергия",
+		"upgrades": "Улучшения"
+	}
 }

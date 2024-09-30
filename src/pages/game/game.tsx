@@ -6,11 +6,13 @@ import { RouterView, useRouter } from 'vue-router'
 import { UiTabs } from '@/components'
 import { RouteName } from '@/router'
 import { useCommonStore } from '@/stores/common'
+import { useI18n } from 'vue-i18n'
 
 const GamePage = defineComponent({
 	name: 'GamePage',
 	setup() {
 		const router = useRouter()
+		const { t } = useI18n()
 
 		const commonStore = useCommonStore()
 
@@ -18,15 +20,15 @@ const GamePage = defineComponent({
 
 		const tabOptions = [
 			{
-				label: 'Fight',
+				label: t('fight'),
 				value: RouteName.GamePvp
 			},
 			{
-				label: 'Profile',
+				label: t('profile'),
 				value: RouteName.GamePvpProfile
 			},
 			{
-				label: '3x3',
+				label: t('findBroGame'),
 				value: RouteName.GameFindBro
 			}
 		]

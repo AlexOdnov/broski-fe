@@ -20,6 +20,7 @@
 		"axios": "^1.7.4",
 		"normalize.css": "^8.0.1",
 		"pinia": "^2.1.7",
+		"temporal-polyfill": "^0.2.5",
 		"vue": "^3.4.29",
 		"vue-i18n": "^10.0.1",
 		"vue-router": "^4.3.3"

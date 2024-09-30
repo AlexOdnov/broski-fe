@@ -82,5 +82,13 @@
 	"totalEarned": "Total Earned",
 	"bros": "Bros",
 	"tasks": "Tasks",
-	"farming": "Farming"
+	"farming": "Farming",
+	"fight": "Fight",
+	"findBroGame": "3x3",
+	"pvp": {
+		"newbie": "Newbie",
+		"battlePower": "Battle Power",
+		"energy": "Energy",
+		"upgrades": "Upgrades"
+	}
 }
