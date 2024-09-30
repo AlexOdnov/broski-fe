@@ -2,52 +2,111 @@ import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
 import { useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
-import {
-	type CharacterProfile,
-	type PVPMatch,
-	type PVPMatchResult
-} from '@/api/newGeneratedApi'
+import { computed, ref } from 'vue'
+import type {
+	AbilityScores,
+	AbilityScoresDelta,
+	CharacterProfile,
+	PVPMatch,
+	PVPMatchResult
+} from '@/api/generatedApi'
+import { useCommonStore } from './common'
+import { useUserStore } from './user'
 
 export const usePvpStore = defineStore('pvp', () => {
 	const api = useApi()
 	const tgStore = useTgSdkStore()
+	const commonStore = useCommonStore()
+	const userStore = useUserStore()
 
-	const [character, setCharacter] = useState<CharacterProfile | null>(null)
-	const [pvpMatch, setPvpMatch] = useState<PVPMatch | null>(null)
-	const [matchResult, setMatchResult] = useState<PVPMatchResult | null>(null)
-	const loadCharacter = async () => {
-		try {
-			const char = await api.loadCharacter(tgStore.userId.toString())
-			setCharacter(char)
-		} catch (error) {
-			console.error(error)
+	const loadingState = ref(0)
+	const [pvpCharacter, setPvpCharacter] = useState<CharacterProfile | null>(null)
+	const [pvpMatch, setPvpMatch, resetPvpMatch] = useState<PVPMatch | null>(null)
+	const [pvpMatchResult, setPvpMatchResult, resetPvpMatchResult] = useState<PVPMatchResult | null>(
+		null
+	)
+
+	const setIsLoading = (isLoading: boolean) =>
+		isLoading ? (loadingState.value += 1) : (loadingState.value -= 1)
+
+	const isLoading = computed(() => loadingState.value > 0)
+
+	const setPvpCharacterAbilities = (abilities: AbilityScores) => {
+		if (pvpCharacter.value) {
+			setPvpCharacter({
+				...pvpCharacter.value,
+				abilities
+			})
 		}
 	}
-	const findMath = async () => {
+
+	const loadPvpCharacter = async (withLoader = false) => {
 		try {
-			const match = await api.findPvpMatch(tgStore.userId.toString())
-			setPvpMatch(match)
+			withLoader && commonStore.setIsLoading(true)
+			setIsLoading(true)
+			const response = await api.loadPvpCharacter({ userId: `${tgStore.userId}` })
+			setPvpCharacter(response)
 		} catch (error) {
-			console.error(error)
+			console.warn(error)
+		} finally {
+			withLoader && commonStore.setIsLoading(false)
+			setIsLoading(false)
 		}
 	}
+
+	const upgradePvpCharacterAbility = async (ability: Partial<AbilityScoresDelta>) => {
+		try {
+			setIsLoading(true)
+			const response = await api.upgradePvpCharacterAbility({
+				userId: `${tgStore.userId}`,
+				...ability
+			})
+			setPvpCharacterAbilities(response)
+		} catch (error) {
+			console.warn(error)
+		} finally {
+			setIsLoading(false)
+		}
+	}
+
+	const searchPvpOpponent = async () => {
+		try {
+			setIsLoading(true)
+			const response = await api.searchPvpMatch({ userId: `${tgStore.userId}` })
+			setPvpMatch(response)
+			userStore.loadUser()
+		} catch (error) {
+			console.warn(error)
+		} finally {
+			setIsLoading(false)
+		}
+	}
+
 	const startPvpMatch = async () => {
-		try {
-			if (!pvpMatch.value) {
-				throw new Error('first need find match')
+		if (pvpMatch.value) {
+			try {
+				setIsLoading(true)
+				const response = await api.startPvpMatch({ matchId: pvpMatch.value?.match_id })
+				setPvpMatchResult(response)
+				userStore.loadUser()
+			} catch (error) {
+				console.warn(error)
+			} finally {
+				setIsLoading(false)
 			}
-			const result = await api.startPvpMatch(pvpMatch.value.match_id)
-			setMatchResult(result)
-		} catch (error) {
-			console.error(error)
 		}
 	}
+
 	return {
-		character,
-		loadCharacter,
+		isLoading,
+		pvpCharacter,
 		pvpMatch,
-		findMath,
-		startPvpMatch,
-		matchResult,
+		pvpMatchResult,
+		loadPvpCharacter,
+		upgradePvpCharacterAbility,
+		searchPvpOpponent,
+		resetPvpMatch,
+		resetPvpMatchResult,
+		startPvpMatch
 	}
 })

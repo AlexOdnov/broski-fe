@@ -16,15 +16,23 @@ import {
 	type BoxesCreatePayload,
 	type PushSeeCreatePayload,
 	type SwitchRegionCreatePayload
-} from './generatedApi'
+} from './legacyGeneratedApi'
 
-import { Api, type CreateUser } from './newGeneratedApi'
+import { Api, type AbilityScoresDelta, type CreateUser, type LevelupRequest } from './generatedApi'
 import type {
 	UserCreateResponse,
 	TasksCreateResponse,
 	ReferalsCreateResponse,
 	UserStatsCreateResponse
 } from './responseTypes'
+
+export type IUpgradeAbilityRequest = {
+	userId: string
+} & Partial<AbilityScoresDelta>
+
+export interface IUserIdRequest {
+	userId: string
+}
 
 const legacyApiInstance = new LegacyApi({
 	baseURL: envVariables.backendUrl
@@ -132,15 +140,31 @@ export const useApi = () => {
 	// 	// return await apiInstance.switchRegion.switchRegionCreate(payload)
 	// }
 
-	const loadCharacter = async (userId: string) => {
-		return (await apiInstance.api.getCharacterApiV1UsersUserIdCharacterGet(userId)).data
+	const loadPvpCharacter = async (payload: IUserIdRequest) => {
+		return (await apiInstance.api.getCharacterApiV1UsersUserIdCharacterGet(payload.userId)).data
 	}
-	const findPvpMatch = async (userId: string) => {
-		return (await apiInstance.api.searchMatchApiV1UsersUserIdPvpPost(userId)).data
+
+	const upgradePvpCharacterAbility = async (payload: IUpgradeAbilityRequest) => {
+		const data: LevelupRequest = {
+			abilities_delta: {
+				combinations: payload.combinations ?? null,
+				defence: payload.defence ?? null,
+				speed: payload.speed ?? null,
+				strength: payload.strength ?? null,
+				weight: payload.weight ?? null
+			}
+		}
+		return (await apiInstance.api.levelUpApiV1UsersUserIdLevelupPost(payload.userId, data)).data
 	}
-	const startPvpMatch = async (matchId: string) => {
-		return (await apiInstance.api.startMatchApiV1PvpMatchIdStartPost(matchId)).data
+
+	const searchPvpMatch = async (payload: IUserIdRequest) => {
+		return (await apiInstance.api.searchMatchApiV1UsersUserIdPvpPost(payload.userId)).data
 	}
+
+	const startPvpMatch = async (payload: { matchId: string }) => {
+		return (await apiInstance.api.startMatchApiV1PvpMatchIdStartPost(payload.matchId)).data
+	}
+
 	return {
 		getUser,
 		getUserV2,
@@ -165,8 +189,9 @@ export const useApi = () => {
 		// startGame,
 		// finishGame,
 		// finishSuperGame
-		loadCharacter,
-		findPvpMatch,
-		startPvpMatch,
+		loadPvpCharacter,
+		upgradePvpCharacterAbility,
+		searchPvpMatch,
+		startPvpMatch
 	}
 }
