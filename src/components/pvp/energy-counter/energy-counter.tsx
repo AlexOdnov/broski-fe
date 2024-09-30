@@ -7,7 +7,8 @@ export const EnergyCounter = defineComponent({
 	name: 'EnergyCounter',
 	props: {
 		totalEnergy: { type: Number, required: true },
-		currentEnergy: { type: Number, required: true }
+		currentEnergy: { type: Number, required: true },
+		timeToRestore: { type: String, required: true }
 	},
 	setup: (props) => {
 		return () => (
@@ -17,9 +18,15 @@ export const EnergyCounter = defineComponent({
 						<EnergyIcon height={14} />
 						&nbsp;Energy:
 					</UiText>
-					<UiText fontSize={'14px'} color={'#F0F0F0'}>
-						{props.currentEnergy}/{props.totalEnergy}
-					</UiText>
+					<div class={styles.counter}>
+						<UiText fontSize={'14px'} color={'#797979'}>
+							{props.currentEnergy}/{props.totalEnergy}
+						</UiText>
+						<div class={styles.separator} />
+						<UiText fontSize={'14px'} color={'#F0F0F0'}>
+							{props.timeToRestore}
+						</UiText>
+					</div>
 				</div>
 				<UiProgressBar
 					totalItems={props.totalEnergy}

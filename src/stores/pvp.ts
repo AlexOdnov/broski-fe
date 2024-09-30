@@ -12,6 +12,7 @@ import type {
 } from '@/api/generatedApi'
 import { useCommonStore } from './common'
 import { useUserStore } from './user'
+import { Temporal } from 'temporal-polyfill'
 
 export const usePvpStore = defineStore('pvp', () => {
 	const api = useApi()
@@ -25,6 +26,8 @@ export const usePvpStore = defineStore('pvp', () => {
 	const [pvpMatchResult, setPvpMatchResult, resetPvpMatchResult] = useState<PVPMatchResult | null>(
 		null
 	)
+	const energyTimerInterval = ref<ReturnType<typeof setInterval> | null>(null)
+	const [energyTimer, setEnergyTimerValue] = useState<Temporal.Duration | null>(null)
 
 	const setIsLoading = (isLoading: boolean) =>
 		isLoading ? (loadingState.value += 1) : (loadingState.value -= 1)
@@ -48,12 +51,31 @@ export const usePvpStore = defineStore('pvp', () => {
 		}
 	}
 
+	const setEnergyTimer = (value: string) => {
+		energyTimerInterval.value && clearInterval(energyTimerInterval.value)
+		setEnergyTimerValue(Temporal.Duration.from(value))
+
+		energyTimerInterval.value = setInterval(() => {
+			if (energyTimer.value) {
+				setEnergyTimerValue(energyTimer.value.add({ minutes: -1 }))
+				if (energyTimer.value.minutes === 0) {
+					loadPvpCharacter()
+				}
+			}
+		}, 1000 * 60)
+	}
+
+	const timeToRestoreEnergy = computed(() =>
+		energyTimer.value?.minutes ? `${energyTimer.value.minutes}m` : '0m'
+	)
+
 	const loadPvpCharacter = async (withLoader = false) => {
 		try {
 			withLoader && commonStore.setIsLoading(true)
 			setIsLoading(true)
 			const response = await api.loadPvpCharacter({ userId: `${tgStore.userId}` })
 			setPvpCharacter(response)
+			setEnergyTimer(response.energy.time_to_restore)
 		} catch (error) {
 			console.warn(error)
 		} finally {
@@ -111,6 +133,7 @@ export const usePvpStore = defineStore('pvp', () => {
 		pvpCharacterAbilities,
 		pvpMatch,
 		pvpMatchResult,
+		timeToRestoreEnergy,
 		loadPvpCharacter,
 		upgradePvpCharacterAbility,
 		searchPvpOpponent,

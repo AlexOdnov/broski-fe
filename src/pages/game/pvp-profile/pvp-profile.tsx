@@ -30,6 +30,7 @@ const PvpProfilePage = defineComponent({
 					<EnergyCounter
 						currentEnergy={pvpStore.pvpCharacter?.energy.remaining ?? 0}
 						totalEnergy={pvpStore.pvpCharacter?.energy.maximum ?? 0}
+						timeToRestore={pvpStore.timeToRestoreEnergy}
 					/>
 				</div>
 				<PlayerAbilities />
