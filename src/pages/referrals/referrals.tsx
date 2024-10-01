@@ -95,13 +95,13 @@ const ReferralsPage = defineComponent({
 						<p class={styles.headerDark}>
 							10% {t('fromBrosIncome')} + <img class={styles.icon} src="/images/ticket.webp" />
 							&nbsp;
-							{t('ticket', 3)}
+							{t('ticket', 1)}
 						</p>
 						<p class={styles.headerLight}>
 							<img class={styles.icon} src="/images/star.webp" />
 							{t('premiumAdditionally')}
 							<span class={styles.yellow}>50 $BRO</span> +
-							<img class={styles.icon} src="/images/ticket.webp" /> {t('ticket', 12)}
+							<img class={styles.icon} src="/images/ticket.webp" /> {t('ticket', 3)}
 						</p>
 					</div>
 					<UiButton size={'sm'} {...copyButtonProps.value} whenClick={whenCopyLink} />
