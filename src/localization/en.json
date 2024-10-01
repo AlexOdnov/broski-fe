@@ -86,9 +86,23 @@
 	"fight": "Fight",
 	"findBroGame": "3x3",
 	"pvp": {
-		"newbie": "Newbie",
-		"battlePower": "Battle Power",
+		"back": "Back",
+		"profile": "Profile",
 		"energy": "Energy",
-		"upgrades": "Upgrades"
+		"battlePower": "Battle Power",
+		"findEnemy": "Find Enemy",
+		"lookingForEnemy": "Looking for enemy",
+		"skip": "Skip",
+		"fight": "Fight",
+		"skipOpponent": "Skip opponent",
+		"youWon": "You won",
+		"YouLost": "You lost",
+		"exit": "Exit",
+		"youWas": "You was",
+		"knockedOut": "KNOCKED OUT",
+		"getEnergy": "Get energy",
+		"newbie": "Newbie",
+		"upgrades": "Upgrades",
+		"stats": "Stats"
 	}
 }

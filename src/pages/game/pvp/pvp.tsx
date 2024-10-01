@@ -10,12 +10,14 @@ import {
 	ProfileIcon,
 	SpeedIcon,
 	StrengthIcon,
+	TicketIcon,
 	WeightIcon
 } from '@/components/icons'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { PowerCounter } from '@/components/pvp'
-import type { AbilityScores } from '@/api/generatedApi'
-import { UiButton, UiText } from '@/components'
+import { type AbilityScores, MatchResult } from '@/api/generatedApi'
+import { UiButton, UiText, type UiTextFontWeight } from '@/components'
+import { useI18n } from 'vue-i18n'
 
 const PvpPage = defineComponent({
 	name: 'PvpPage',
@@ -23,6 +25,8 @@ const PvpPage = defineComponent({
 		const pvpStore = usePvpStore()
 		const loading = ref(true)
 		const tgStore = useTgSdkStore()
+
+		const { t } = useI18n()
 
 		const renderAbilities = (abilities: AbilityScores | undefined) => {
 			return (
@@ -58,13 +62,13 @@ const PvpPage = defineComponent({
 		const playerAbils = computed(() => renderAbilities(pvpStore.pvpCharacter?.abilities))
 		const enemyAbils = computed(() => renderAbilities(pvpStore.pvpMatch?.opponent.abilities))
 
-		const renderButns = computed(() => {
+		const renderButtons = computed(() => {
 			if (!pvpStore.pvpMatch) {
 				return (
 					<UiButton
 						class={styles.fullWidth}
 						font="BarcadeBrawlRegular"
-						text="FIND ENEMY"
+						text={t('pvp.findEnemy')}
 						loading={pvpStore.isLoading}
 						mod="primary"
 						whenClick={async () => {
@@ -78,7 +82,7 @@ const PvpPage = defineComponent({
 					<>
 						<UiButton
 							font="BarcadeBrawlRegular"
-							text="FIGHT"
+							text={t('pvp.fight')}
 							loading={pvpStore.isLoading}
 							mod="primary"
 							whenClick={async () => {
@@ -87,7 +91,7 @@ const PvpPage = defineComponent({
 						/>
 						<UiButton
 							font="BarcadeBrawlRegular"
-							text="SKIP"
+							text={t('pvp.skip')}
 							loading={pvpStore.isLoading}
 							mod="secondary"
 							whenClick={async () => {
@@ -100,13 +104,51 @@ const PvpPage = defineComponent({
 			return (
 				<UiButton
 					font="BarcadeBrawlRegular"
-					text="CLAIM"
+					text={t('claim')}
 					loading={pvpStore.isLoading}
 					mod="secondary"
 					whenClick={async () => {
 						// тут что?
 					}}
 				/>
+			)
+		})
+
+		const textInFront = computed(() => {
+			if (pvpStore.pvpMatchResult) {
+				return `${pvpStore.pvpMatchResult?.result === MatchResult.Win ? t('pvp.youWon') : t('pvp.YouLost')} ${pvpStore.pvpMatchResult?.loot?.coins} $BRO`
+			}
+			if (pvpStore.pvpMatch) {
+				return 'VS'
+			}
+			return null
+		})
+
+		const renderBottomText = computed(() => {
+			const textProps = {
+				color: '#797979',
+				fontSize: '14px',
+				lineHeight: '14px',
+				fontWeight: 400 as UiTextFontWeight
+			}
+			return (
+				<div class={[styles.fullWidth, styles.bottomText]}>
+					{!pvpStore.pvpMatchResult && pvpStore.pvpMatch?.match_id && (
+						<>
+							<UiText {...textProps}> {t('pvp.skipOpponent')}:</UiText>&nbsp;
+							<UiText {...textProps} color={'#FFB800'}>
+								1
+							</UiText>&nbsp;
+							<TicketIcon height={14} />
+						</>
+					)}
+					{pvpStore.pvpMatchResult?.result === MatchResult.Lose && (
+						<>
+							<UiText {...textProps}> {t('pvp.youWas')}</UiText>&nbsp;
+							<UiText {...textProps} color={'#FF5449'}>{t('pvp.knockedOut')}</UiText>
+						</>
+					)}
+				</div>
 			)
 		})
 
@@ -123,8 +165,22 @@ const PvpPage = defineComponent({
 						totalEnergy={pvpStore.pvpCharacter?.energy.maximum ?? 0}
 					/>
 				)}
+				{textInFront.value && (
+					<div style={{ height: 0 }} class={[styles.textInFrontWrapper, styles.fullWidth]}>
+						<UiText
+							fontFamily="barcadeBrawl"
+							class={styles.textInFront}
+							fontSize="24px"
+							fontWeight={400}
+							lineHeight="40px"
+							color={pvpStore.pvpMatchResult?.result === MatchResult.Win ? '#FFFFFF' : '#FF5449'}
+						>
+							{textInFront.value}
+						</UiText>
+					</div>
+				)}
 				<div class={styles.card}>
-					<div class={styles.flexRow}>
+					<div class={styles.userName}>
 						<div class={styles.profileIconWrapper}>
 							<ProfileIcon size={10} />
 						</div>
@@ -135,6 +191,7 @@ const PvpPage = defineComponent({
 					{playerAbils.value}
 					<div class={styles.lvl}>
 						<LevelIcon height={12} />
+						&nbsp;
 						<UiText
 							color="#4E4F4F"
 							fontSize="12"
@@ -143,12 +200,12 @@ const PvpPage = defineComponent({
 					</div>
 				</div>
 				<div class={styles.card}>
-					<div class={styles.flexRow}>
+					<div class={styles.userName}>
 						<div class={styles.profileIconWrapper}>
 							<ProfileIcon size={10} />
 						</div>
 						<UiText color="#797979">
-							{pvpStore.pvpMatch?.opponent.username ?? 'looking for enemy'}
+							{pvpStore.pvpMatch?.opponent.username ?? t('pvp.lookingForEnemy')}
 						</UiText>
 					</div>
 					<div
@@ -161,14 +218,16 @@ const PvpPage = defineComponent({
 					{enemyAbils.value}
 					<div class={styles.lvl}>
 						<LevelIcon height={12} />
+						&nbsp;
 						<UiText
 							color="#4E4F4F"
-							fontSize="12"
+							fontSize="12px"
 							fontWeight={400}
 						>{`lvl ${pvpStore.pvpMatch?.opponent?.level ?? '??'}`}</UiText>
 					</div>
 				</div>
-				{renderButns.value}
+				{renderButtons.value}
+				{renderBottomText.value}
 			</div>
 		)
 	}
