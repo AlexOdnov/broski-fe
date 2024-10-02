@@ -18,7 +18,12 @@ import {
 	type SwitchRegionCreatePayload
 } from './legacyGeneratedApi'
 
-import { Api, type AbilityScoresDelta, type CreateUser, type LevelupRequest } from './generatedApi'
+import {
+	Api,
+	type AbilityScoresDelta,
+	type CreateUser,
+	type LevelUpApiV1UsersUserIdLevelupPostPayload
+} from './generatedApi'
 import type {
 	UserCreateResponse,
 	TasksCreateResponse,
@@ -27,11 +32,11 @@ import type {
 } from './responseTypes'
 
 export type IUpgradeAbilityRequest = {
-	userId: string
+	userId: number
 } & Partial<AbilityScoresDelta>
 
 export interface IUserIdRequest {
-	userId: string
+	userId: number
 }
 
 const legacyApiInstance = new LegacyApi({
@@ -145,14 +150,12 @@ export const useApi = () => {
 	}
 
 	const upgradePvpCharacterAbility = async (payload: IUpgradeAbilityRequest) => {
-		const data: LevelupRequest = {
-			abilities_delta: {
-				combinations: payload.combinations ?? null,
-				defence: payload.defence ?? null,
-				speed: payload.speed ?? null,
-				strength: payload.strength ?? null,
-				weight: payload.weight ?? null
-			}
+		const data: LevelUpApiV1UsersUserIdLevelupPostPayload = {
+			combinations: payload.combinations,
+			defence: payload.defence,
+			speed: payload.speed,
+			strength: payload.strength,
+			weight: payload.weight
 		}
 		return (await apiInstance.api.levelUpApiV1UsersUserIdLevelupPost(payload.userId, data)).data
 	}

@@ -26,15 +26,15 @@ export interface AbilityScores {
 /** AbilityScoresDelta */
 export interface AbilityScoresDelta {
 	/** Strength */
-	strength: number | null
+	strength?: number | null
 	/** Defence */
-	defence: number | null
+	defence?: number | null
 	/** Speed */
-	speed: number | null
+	speed?: number | null
 	/** Weight */
-	weight: number | null
+	weight?: number | null
 	/** Combinations */
-	combinations: number | null
+	combinations?: number | null
 }
 
 /** CharacterEnergy */
@@ -80,15 +80,17 @@ export interface HTTPValidationError {
 	detail?: ValidationError[]
 }
 
-/** LevelupRequest */
-export interface LevelupRequest {
-	abilities_delta: AbilityScoresDelta
+/** LevelupResponse */
+export interface LevelupResponse {
+	abilities: AbilityScores
+	/** Power */
+	power: number
 }
 
 /** MatchCompetitioner */
 export interface MatchCompetitioner {
 	/** User Id */
-	user_id: string
+	user_id: number
 	/** Username */
 	username: string
 	/** Level */
@@ -100,8 +102,6 @@ export interface MatchCompetitioner {
 
 /** MatchLoot */
 export interface MatchLoot {
-	/** Experience */
-	experience: number
 	/** Coins */
 	coins: number
 }
@@ -125,11 +125,6 @@ export interface PVPMatch {
 
 /** PVPMatchResult */
 export interface PVPMatchResult {
-	/**
-	 * Match Id
-	 * @format uuid
-	 */
-	match_id: string
 	result: MatchResult
 	loot: MatchLoot | null
 }
@@ -173,6 +168,9 @@ export interface ValidationError {
 	/** Error Type */
 	type: string
 }
+
+/** Delta */
+export type LevelUpApiV1UsersUserIdLevelupPostPayload = AbilityScoresDelta | null
 
 import type {
 	AxiosInstance,
@@ -340,7 +338,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * @summary Get Character
 		 * @request GET:/api/v1/users/{user_id}/character
 		 */
-		getCharacterApiV1UsersUserIdCharacterGet: (userId: string, params: RequestParams = {}) =>
+		getCharacterApiV1UsersUserIdCharacterGet: (userId: number, params: RequestParams = {}) =>
 			this.request<CharacterProfile, HTTPValidationError>({
 				path: `/api/v1/users/${userId}/character`,
 				method: 'GET',
@@ -357,11 +355,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * @request POST:/api/v1/users/{user_id}/levelup
 		 */
 		levelUpApiV1UsersUserIdLevelupPost: (
-			userId: string,
-			data: LevelupRequest,
+			userId: number,
+			data: LevelUpApiV1UsersUserIdLevelupPostPayload,
 			params: RequestParams = {}
 		) =>
-			this.request<AbilityScores, HTTPValidationError>({
+			this.request<LevelupResponse, HTTPValidationError>({
 				path: `/api/v1/users/${userId}/levelup`,
 				method: 'POST',
 				body: data,
@@ -378,9 +376,25 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * @summary Search Match
 		 * @request POST:/api/v1/users/{user_id}/pvp
 		 */
-		searchMatchApiV1UsersUserIdPvpPost: (userId: string, params: RequestParams = {}) =>
+		searchMatchApiV1UsersUserIdPvpPost: (userId: number, params: RequestParams = {}) =>
 			this.request<PVPMatch, HTTPValidationError>({
 				path: `/api/v1/users/${userId}/pvp`,
+				method: 'POST',
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags pvp
+		 * @name SkipMatchApiV1PvpMatchIdSkipPost
+		 * @summary Skip Match
+		 * @request POST:/api/v1/pvp/{match_id}/skip
+		 */
+		skipMatchApiV1PvpMatchIdSkipPost: (matchId: string, params: RequestParams = {}) =>
+			this.request<MatchCompetitioner, HTTPValidationError>({
+				path: `/api/v1/pvp/${matchId}/skip`,
 				method: 'POST',
 				format: 'json',
 				...params

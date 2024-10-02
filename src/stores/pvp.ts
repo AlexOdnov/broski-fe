@@ -51,6 +51,15 @@ export const usePvpStore = defineStore('pvp', () => {
 		}
 	}
 
+	const setPvpCharacterPower = (power: number) => {
+		if (pvpCharacter.value) {
+			setPvpCharacter({
+				...pvpCharacter.value,
+				power
+			})
+		}
+	}
+
 	const setEnergyTimer = (value: string) => {
 		energyTimerInterval.value && clearInterval(energyTimerInterval.value)
 		setEnergyTimerValue(Temporal.Duration.from(value))
@@ -73,7 +82,7 @@ export const usePvpStore = defineStore('pvp', () => {
 		try {
 			withLoader && commonStore.setIsLoading(true)
 			setIsLoading(true)
-			const response = await api.loadPvpCharacter({ userId: `${tgStore.userId}` })
+			const response = await api.loadPvpCharacter({ userId: tgStore.userId })
 			setPvpCharacter(response)
 			setEnergyTimer(response.energy.time_to_restore)
 		} catch (error) {
@@ -88,10 +97,11 @@ export const usePvpStore = defineStore('pvp', () => {
 		try {
 			setIsLoading(true)
 			const response = await api.upgradePvpCharacterAbility({
-				userId: `${tgStore.userId}`,
+				userId: tgStore.userId,
 				...ability
 			})
-			setPvpCharacterAbilities(response)
+			setPvpCharacterAbilities(response.abilities)
+			setPvpCharacterPower(response.power)
 		} catch (error) {
 			console.warn(error)
 		} finally {
@@ -102,7 +112,7 @@ export const usePvpStore = defineStore('pvp', () => {
 	const searchPvpOpponent = async () => {
 		try {
 			setIsLoading(true)
-			const response = await api.searchPvpMatch({ userId: `${tgStore.userId}` })
+			const response = await api.searchPvpMatch({ userId: tgStore.userId })
 			setPvpMatch(response)
 			userStore.loadUser()
 		} catch (error) {
