@@ -1,0 +1,117 @@
+.pvp {
+    display: grid;
+    width: 100%;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 15px;
+}
+
+.card {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #232323;
+    border-radius: 10px;
+    border: 1px solid #35332e;
+    justify-content: center;
+}
+
+.profileIconWrapper {
+    border: solid 1px rgb(78, 79, 79);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flexRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.fullWidth {
+    grid-column: span 2;
+}
+
+.profile {
+    background-position: 50% 10%;
+    background-size: 200%;
+    background-repeat: no-repeat;
+    height: 12vh;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 6px;
+    border-color: #35332E;
+}
+
+.you {
+    background-image: url(/images/green-t-shirt-guy.webp);
+}
+
+.enemy {
+    background-image: url(/images/purple-t-shirt-guy.webp);
+}
+
+.enemyUnknown {
+    background-image: url(/images/enemy-unknown.webp);
+    background-position: center;
+    background-size: cover;
+}
+
+.yellowBorder {
+    border-color: #FFB800;
+}
+
+.delimiter {
+    border-right: 1px solid #35332E;
+}
+
+.iconWithNumber {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: #CBCBCB;
+}
+
+.lvl {
+    margin-left: auto;
+}
+
+.textInFrontWrapper {
+    height: 0;
+    position: relative;
+    top: calc(40px + 6vh);
+    left: calc(50vw - 50% - 20px + 5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.textInFront {
+    transform: rotate(-7deg);
+}
+
+.userName {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 20px minmax(20px, calc(100% - 20px));
+}
+
+.userName span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bottomText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

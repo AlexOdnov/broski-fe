@@ -85,9 +85,23 @@
 	"fight": "Бой",
 	"findBroGame": "3x3",
 	"pvp": {
-		"newbie": "Новичок",
-		"battlePower": "Боевая мощь",
+		"back": "Назад",
+		"profile": "Профиль",
 		"energy": "Энергия",
-		"upgrades": "Улучшения"
+		"battlePower": "Боевая мощь",
+		"findEnemy": "Найти бой",
+		"lookingForEnemy": "Ищем соперника",
+		"skip": "След.",
+		"fight": "Бой",
+		"skipOpponent": "Найти другого соперника",
+		"youWon": "Ты выиграл",
+		"YouLost": "Ты потерял",
+		"exit": "Выйти",
+		"youWas": "Ты был",
+		"knockedOut": "ВЫБИТ!",
+		"getEnergy": "Получить энергии",
+		"newbie": "Новичок",
+		"upgrades": "Улучшения",
+		"stats": "Стата"
 	}
 }

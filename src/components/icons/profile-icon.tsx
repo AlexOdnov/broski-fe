@@ -2,11 +2,14 @@ import { defineComponent } from 'vue'
 
 export const ProfileIcon = defineComponent({
 	name: 'ProfileIcon',
-	setup: () => {
+	props: {
+		size: { type: Number, default: 13}
+	},
+	setup: (props) => {
 		return () => (
 			<svg
-				width="13"
-				height="13"
+				width={props.size}
+				height={props.size}
 				viewBox="0 0 13 13"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
