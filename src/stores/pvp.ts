@@ -104,6 +104,7 @@ export const usePvpStore = defineStore('pvp', () => {
 			})
 			setPvpCharacterAbilities(response.abilities)
 			setPvpCharacterPower(response.power)
+			userStore.loadUser()
 		} catch (error) {
 			console.warn(error)
 		} finally {
