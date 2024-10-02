@@ -138,14 +138,17 @@ const PvpPage = defineComponent({
 							<UiText {...textProps}> {t('pvp.skipOpponent')}:</UiText>&nbsp;
 							<UiText {...textProps} color={'#FFB800'}>
 								1
-							</UiText>&nbsp;
+							</UiText>
+							&nbsp;
 							<TicketIcon height={14} />
 						</>
 					)}
 					{pvpStore.pvpMatchResult?.result === MatchResult.Lose && (
 						<>
 							<UiText {...textProps}> {t('pvp.youWas')}</UiText>&nbsp;
-							<UiText {...textProps} color={'#FF5449'}>{t('pvp.knockedOut')}</UiText>
+							<UiText {...textProps} color={'#FF5449'}>
+								{t('pvp.knockedOut')}
+							</UiText>
 						</>
 					)}
 				</div>

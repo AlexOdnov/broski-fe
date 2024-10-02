@@ -3,7 +3,7 @@ import { defineComponent } from 'vue'
 export const ProfileIcon = defineComponent({
 	name: 'ProfileIcon',
 	props: {
-		size: { type: Number, default: 13}
+		size: { type: Number, default: 13 }
 	},
 	setup: (props) => {
 		return () => (
