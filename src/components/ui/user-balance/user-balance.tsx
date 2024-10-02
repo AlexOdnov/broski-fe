@@ -2,7 +2,7 @@ import { computed, defineComponent } from 'vue'
 import styles from './user-balance.module.css'
 import { useUserStore } from '@/stores/user'
 import { BoxIcon, CoinIcon, TicketIcon, TonIcon } from '@/components/icons'
-import { UiHeightPlaceholder } from '../height-placeholder'
+import { UiHeightPlaceholder } from '@/components'
 
 export const UserBalance = defineComponent({
 	name: 'UserBalance',
@@ -22,7 +22,7 @@ export const UserBalance = defineComponent({
 					<div class={styles.secondRow}>
 						<div class={styles.itemBlock}>
 							<TonIcon class={styles.smallIcon} />
-							{tonBalance.value}
+							{tonBalance.value.toPrecision(4)}
 						</div>
 						<div class={styles.delimiter} />
 						<div class={styles.itemBlock}>

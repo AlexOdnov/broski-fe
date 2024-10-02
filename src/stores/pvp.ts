@@ -140,6 +140,26 @@ export const usePvpStore = defineStore('pvp', () => {
 		}
 	}
 
+	const skipPvpMatch = async () => {
+		if (pvpMatch.value) {
+			try {
+				setIsLoading(true)
+				const response = await api.skipPvpMatch({ matchId: pvpMatch.value?.match_id })
+				setPvpMatch({ ...pvpMatch.value, opponent: response })
+				userStore.loadUser()
+			} catch (error) {
+				console.warn(error)
+			} finally {
+				setIsLoading(false)
+			}
+		}
+	}
+
+	const clearPvp = () => {
+		resetPvpMatch()
+		resetPvpMatchResult()
+	}
+
 	return {
 		isLoading,
 		pvpCharacter,
@@ -152,6 +172,8 @@ export const usePvpStore = defineStore('pvp', () => {
 		searchPvpOpponent,
 		resetPvpMatch,
 		resetPvpMatchResult,
-		startPvpMatch
+		startPvpMatch,
+		skipPvpMatch,
+		clearPvp,
 	}
 })

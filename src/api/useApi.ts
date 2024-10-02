@@ -168,6 +168,10 @@ export const useApi = () => {
 		return (await apiInstance.api.startMatchApiV1PvpMatchIdStartPost(payload.matchId)).data
 	}
 
+	const skipPvpMatch = async (payload: { matchId: string }) => {
+		return (await apiInstance.api.skipMatchApiV1PvpMatchIdSkipPost(payload.matchId)).data
+	}
+
 	return {
 		getUser,
 		getUserV2,
@@ -195,6 +199,7 @@ export const useApi = () => {
 		loadPvpCharacter,
 		upgradePvpCharacterAbility,
 		searchPvpMatch,
-		startPvpMatch
+		startPvpMatch,
+		skipPvpMatch,
 	}
 }

@@ -1,5 +1,6 @@
 /* eslint-disable */
 /* tslint:disable */
+
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -72,6 +73,18 @@ export interface CreateUser {
 	ref_code?: string | null
 	/** Premium */
 	premium?: boolean | null
+}
+
+/** GetEnergy */
+export interface GetEnergy {
+	/** Energy */
+	energy: number
+}
+
+/** GetEnergyResponse */
+export interface GetEnergyResponse {
+	/** Link */
+	link: string
 }
 
 /** HTTPValidationError */
@@ -443,6 +456,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		postUserApiV1UsersPost: (data: CreateUser, params: RequestParams = {}) =>
 			this.request<User, HTTPValidationError>({
 				path: `/api/v1/users`,
+				method: 'POST',
+				body: data,
+				type: ContentType.Json,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags users
+		 * @name GetStarsLinkApiV1StarsPost
+		 * @summary Get Stars Link
+		 * @request POST:/api/v1/stars
+		 */
+		getStarsLinkApiV1StarsPost: (data: GetEnergy, params: RequestParams = {}) =>
+			this.request<GetEnergyResponse, HTTPValidationError>({
+				path: `/api/v1/stars`,
 				method: 'POST',
 				body: data,
 				type: ContentType.Json,
