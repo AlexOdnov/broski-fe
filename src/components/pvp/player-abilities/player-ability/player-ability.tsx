@@ -44,8 +44,8 @@ export const PlayerAbility = defineComponent({
 				<div class={styles.barWrapper}>
 					<iconComponent.value height={16} />
 					<UiProgressBar
-						totalItems={props.currentValue}
-						filledItems={props.maximumValue}
+						totalItems={props.maximumValue}
+						filledItems={props.currentValue}
 						height={20}
 						withCounter
 					/>

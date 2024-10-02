@@ -20,7 +20,7 @@ export const PowerCounter = defineComponent({
 						&nbsp;{t('pvp.battlePower')}:
 					</UiText>
 					<UiText fontSize={'14px'} fontWeight={700} isAccent>
-						{props.power}
+						{Math.round(props.power)}
 					</UiText>
 				</div>
 				<UiProgressBar
