@@ -31,29 +31,15 @@
 	justify-content: center;
 }
 
-.enemy {
-	background-image: url(/images/purple-t-shirt-guy.webp);
-}
-
-.enemyUnknown {
-	background-image: url(/images/enemy-unknown.webp);
-	background-position: center !important;
-	background-size: cover !important;
-}
-
-.you {
-	background-image: url(/images/green-t-shirt-guy.webp);
-}
-
-.profile {
-	background-position: 50% 10%;
-	background-size: 200%;
-	background-repeat: no-repeat;
+.avatar {
 	height: 12vh;
 	border-width: 1px;
 	border-style: solid;
 	border-radius: 6px;
 	border-color: #35332e;
+	object-position: center top;
+	object-fit: cover;
+	width: 100%;
 }
 
 .flexRow {
