@@ -123,6 +123,7 @@ const PvpPage = defineComponent({
 					class={styles.fullWidth}
 					currentEnergy={pvpStore.pvpCharacter?.energy.remaining ?? 0}
 					totalEnergy={pvpStore.pvpCharacter?.energy.maximum ?? 0}
+					timeToRestore={pvpStore.timeToRestoreEnergy}
 				/>
 				<div class={[styles.textInFrontWrapper, styles.fullWidth]}>
 					{textInFront.value && (

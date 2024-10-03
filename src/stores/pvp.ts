@@ -64,11 +64,11 @@ export const usePvpStore = defineStore('pvp', () => {
 		energyTimerInterval.value && clearInterval(energyTimerInterval.value)
 		setEnergyTimerValue(Temporal.Duration.from(value))
 
-		if (energyTimer.value?.minutes && energyTimer.value.minutes > 0) {
+		if (energyTimer.value && energyTimer.value.total({ unit: 'minutes' })) {
 			energyTimerInterval.value = setInterval(() => {
 				if (energyTimer.value) {
 					setEnergyTimerValue(energyTimer.value.add({ minutes: -1 }))
-					if (energyTimer.value.minutes === 0) {
+					if (energyTimer.value.total({ unit: 'minutes' }) === 0) {
 						loadPvpCharacter()
 					}
 				}
@@ -77,7 +77,9 @@ export const usePvpStore = defineStore('pvp', () => {
 	}
 
 	const timeToRestoreEnergy = computed(() =>
-		energyTimer.value?.minutes ? `${energyTimer.value.minutes}m` : ''
+		energyTimer.value?.total({ unit: 'minutes' })
+			? `${energyTimer.value.hours ? `${energyTimer.value.hours}h\u00A0` : ''}${energyTimer.value.minutes}m`
+			: ''
 	)
 
 	const loadPvpCharacter = async (withLoader = false) => {
