@@ -57,7 +57,7 @@ const PvpPage = defineComponent({
 				<UiButton
 					class={styles.fullWidth}
 					font="BarcadeBrawlRegular"
-					text={t(pvpStore.pvpMatchResult.result === MatchResult.Win ? 'pvp.claim' : 'pvp.exit')}
+					text={t(pvpStore.pvpMatchResult.result === MatchResult.Win ? 'claim' : 'pvp.exit')}
 					loading={pvpStore.isLoading}
 					mod="inverse"
 					whenClick={async () => {
@@ -69,12 +69,15 @@ const PvpPage = defineComponent({
 
 		const textInFront = computed(() => {
 			if (pvpStore.pvpMatchResult) {
-				return <>{ pvpStore.pvpMatchResult?.result === MatchResult.Win
-					? t('pvp.youWon')
-					: t('pvp.YouLost')}
-					<br/>
-					{pvpStore.pvpMatchResult?.loot?.coins ?? 0}&nbsp;$BRO
-				</>
+				return (
+					<>
+						{pvpStore.pvpMatchResult?.result === MatchResult.Win
+							? t('pvp.youWon')
+							: t('pvp.YouLost')}
+						<br />
+						{pvpStore.pvpMatchResult?.loot?.coins ?? 0}&nbsp;$BRO
+					</>
+				)
 			}
 			if (pvpStore.pvpMatch) {
 				return 'VS'
