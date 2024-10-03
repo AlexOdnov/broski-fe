@@ -22,6 +22,7 @@ const PvpPage = defineComponent({
 						font="BarcadeBrawlRegular"
 						text={t('pvp.findEnemy')}
 						loading={pvpStore.isLoading}
+						disabled={!pvpStore.pvpCharacter?.energy.remaining}
 						mod="primary"
 						whenClick={async () => {
 							await pvpStore.searchPvpOpponent()
