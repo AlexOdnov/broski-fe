@@ -98,15 +98,15 @@ const ReferralsPage = defineComponent({
 				<div class={styles.header}>
 					<div class={styles.text}>
 						<p class={styles.headerDark}>
-							10% {t('fromBrosIncome')} + <TicketIcon height={14} />
+							5% {t('fromBrosIncome')} + <TicketIcon height={14} />
 							&nbsp;
-							{t('ticket', 3)}
+							{t('ticket', 1)}
 						</p>
 						<p class={styles.headerLight}>
 							<StarIcon height={14} />
 							{t('premiumAdditionally')}
 							<UiText isAccent>50 $BRO</UiText> +
-							<TicketIcon height={14} /> {t('ticket', 12)}
+							<TicketIcon height={14} /> {t('ticket', 3)}
 						</p>
 					</div>
 					<UiButton size={'sm'} {...copyButtonProps.value} whenClick={whenCopyLink} />
