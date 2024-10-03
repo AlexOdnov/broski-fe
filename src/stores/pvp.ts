@@ -177,6 +177,6 @@ export const usePvpStore = defineStore('pvp', () => {
 		resetPvpMatchResult,
 		startPvpMatch,
 		skipPvpMatch,
-		clearPvp,
+		clearPvp
 	}
 })
