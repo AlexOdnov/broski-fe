@@ -13,3 +13,7 @@
 .alignCenter {
 	text-align: center;
 }
+
+.shadow {
+	text-shadow: 6px 3px 0 #0B0C0E;
+}
