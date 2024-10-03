@@ -121,6 +121,7 @@ export const usePvpStore = defineStore('pvp', () => {
 			userStore.loadUser()
 		} catch (error) {
 			console.warn(error)
+			commonStore.setDisableNavigation(false)
 		} finally {
 			setIsLoading(false)
 		}
