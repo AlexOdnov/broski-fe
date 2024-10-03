@@ -133,6 +133,7 @@ export const usePvpStore = defineStore('pvp', () => {
 				setIsLoading(true)
 				const response = await api.startPvpMatch({ matchId: pvpMatch.value?.match_id })
 				setPvpMatchResult(response)
+				loadPvpCharacter()
 			} catch (error) {
 				console.warn(error)
 			} finally {
