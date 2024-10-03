@@ -11,6 +11,7 @@
 }
 
 .textInFrontWrapper {
+	z-index: 2;
 	height: 0;
 	position: relative;
 	top: calc(40px + 6vh);
@@ -29,4 +30,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.lose {
+	opacity: 0.5;
 }

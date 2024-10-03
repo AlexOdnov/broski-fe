@@ -115,6 +115,7 @@ export const usePvpStore = defineStore('pvp', () => {
 	const searchPvpOpponent = async () => {
 		try {
 			setIsLoading(true)
+			commonStore.setDisableNavigation(true)
 			const response = await api.searchPvpMatch({ userId: tgStore.userId })
 			setPvpMatch(response)
 			userStore.loadUser()
@@ -131,7 +132,6 @@ export const usePvpStore = defineStore('pvp', () => {
 				setIsLoading(true)
 				const response = await api.startPvpMatch({ matchId: pvpMatch.value?.match_id })
 				setPvpMatchResult(response)
-				userStore.loadUser()
 			} catch (error) {
 				console.warn(error)
 			} finally {
@@ -156,8 +156,10 @@ export const usePvpStore = defineStore('pvp', () => {
 	}
 
 	const clearPvp = () => {
+		userStore.loadUser()
 		resetPvpMatch()
 		resetPvpMatchResult()
+		commonStore.setDisableNavigation(false)
 	}
 
 	return {

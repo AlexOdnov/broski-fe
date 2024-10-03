@@ -7,7 +7,8 @@ import { useI18n } from 'vue-i18n'
 export const PowerCounter = defineComponent({
 	name: 'PowerCounter',
 	props: {
-		power: { type: Number, required: true }
+		power: { type: Number, required: true },
+		totalPower: { type: Number, required: false },
 	},
 	setup: (props) => {
 		const { t } = useI18n()
@@ -24,7 +25,7 @@ export const PowerCounter = defineComponent({
 					</UiText>
 				</div>
 				<UiProgressBar
-					totalItems={props.power}
+					totalItems={props.totalPower ? props.totalPower : props.power}
 					filledItems={props.power}
 					height={10}
 					color={'#A955DD'}

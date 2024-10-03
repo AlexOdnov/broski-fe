@@ -11,7 +11,7 @@ export const PlayerInventory = defineComponent({
 
 		return () => (
 			<div class={styles.playerInventory}>
-				<img src="/images/pvp-avatar.webp" class={styles.playerAvatar} />
+				<img src="/images/user.webp" class={styles.playerAvatar} />
 				<div class={styles.separator} />
 				<div class={styles.items}>
 					{items.map((el) => (

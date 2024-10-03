@@ -9,7 +9,7 @@ export const UserBalance = defineComponent({
 	setup: () => {
 		const userStore = useUserStore()
 		const coins = computed(() => Intl.NumberFormat('en-US').format(userStore.userScore))
-		const tonBalance = computed(() => userStore.user?.ton_balance ?? 0)
+		const tonBalance = computed(() => new Intl.NumberFormat('en-us', {minimumFractionDigits: 2}).format(userStore.user?.ton_balance ?? 0))
 		const boxes = computed(() => userStore.user?.boxes ?? 0)
 
 		return () => (
@@ -22,7 +22,7 @@ export const UserBalance = defineComponent({
 					<div class={styles.secondRow}>
 						<div class={styles.itemBlock}>
 							<TonIcon class={styles.smallIcon} />
-							{tonBalance.value.toPrecision(4)}
+							{tonBalance.value}
 						</div>
 						<div class={styles.delimiter} />
 						<div class={styles.itemBlock}>

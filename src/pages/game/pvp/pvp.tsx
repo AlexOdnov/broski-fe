@@ -1,10 +1,9 @@
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent } from 'vue'
 
 import styles from './pvp.module.css'
 import { EnergyCounter } from '@/components/pvp/energy-counter'
 import { usePvpStore } from '@/stores/pvp'
 import { TicketIcon } from '@/components/icons'
-import { useTgSdkStore } from '@/stores/tg-sdk'
 import { MatchCharacterCard } from '@/components/pvp'
 import { MatchResult } from '@/api/generatedApi'
 import { UiButton, UiText, type UiTextFontWeight } from '@/components'
@@ -14,10 +13,7 @@ const PvpPage = defineComponent({
 	name: 'PvpPage',
 	setup() {
 		const pvpStore = usePvpStore()
-		const tgStore = useTgSdkStore()
-
 		const { t } = useI18n()
-
 		const renderButtons = computed(() => {
 			if (!pvpStore.pvpMatch) {
 				return (
@@ -119,8 +115,8 @@ const PvpPage = defineComponent({
 					currentEnergy={pvpStore.pvpCharacter?.energy.remaining ?? 0}
 					totalEnergy={pvpStore.pvpCharacter?.energy.maximum ?? 0}
 				/>
-				{textInFront.value && (
-					<div style={{ height: 0 }} class={[styles.textInFrontWrapper, styles.fullWidth]}>
+				<div class={[styles.textInFrontWrapper, styles.fullWidth]}>
+					{textInFront.value && (
 						<UiText
 							fontFamily="barcadeBrawl"
 							class={styles.textInFront}
@@ -131,16 +127,14 @@ const PvpPage = defineComponent({
 						>
 							{textInFront.value}
 						</UiText>
-					</div>
-				)}
+					)}
+				</div>
 				<MatchCharacterCard
-					userName={tgStore.user?.username ?? 'user'}
-					character={pvpStore.pvpCharacter ?? null}
+					class={pvpStore.pvpMatchResult?.result === MatchResult.Lose && styles.lose}
 				/>
 				<MatchCharacterCard
+					class={pvpStore.pvpMatchResult?.result === MatchResult.Win && styles.lose}
 					isEnemy
-					userName={pvpStore.pvpMatch?.opponent.username ?? t('pvp.lookingForEnemy')}
-					character={pvpStore.pvpMatch?.opponent ?? null}
 				/>
 				{renderButtons.value}
 				{renderBottomText.value}
