@@ -13,7 +13,8 @@ export const UiText = defineComponent({
 		lineHeight: { type: String, required: false },
 		fontFamily: { type: String as PropType<UiTextFontFamily>, default: 'roboto' },
 		isAccent: { type: Boolean, default: false },
-		alignCenter: { type: Boolean, default: false }
+		alignCenter: { type: Boolean, default: false },
+		shadow: {type: Boolean, default: false},
 	},
 	setup: (props, { slots }) => {
 		const fontFamilyClass = computed(() =>
@@ -32,7 +33,8 @@ export const UiText = defineComponent({
 				class={[
 					fontFamilyClass.value,
 					props.isAccent && styles.accent,
-					props.alignCenter && styles.alignCenter
+					props.alignCenter && styles.alignCenter,
+					props.shadow && styles.shadow,
 				]}
 				style={textStyle.value}
 			>
