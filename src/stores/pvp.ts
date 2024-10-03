@@ -123,7 +123,6 @@ export const usePvpStore = defineStore('pvp', () => {
 			console.warn(error)
 		} finally {
 			setIsLoading(false)
-			commonStore.setDisableNavigation(false)
 		}
 	}
 
@@ -160,6 +159,7 @@ export const usePvpStore = defineStore('pvp', () => {
 		userStore.loadUser()
 		resetPvpMatch()
 		resetPvpMatchResult()
+		commonStore.setDisableNavigation(false)
 	}
 
 	return {
