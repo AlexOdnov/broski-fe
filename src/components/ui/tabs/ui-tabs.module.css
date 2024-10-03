@@ -1,0 +1,12 @@
+.tabs {
+	background-color: #1d1e20;
+	border: 1px solid #35332e;
+	border-radius: 10px;
+	overflow: hidden;
+	padding: 2px;
+	display: flex;
+}
+
+.tabsDisabled {
+	opacity: 45%;
+}

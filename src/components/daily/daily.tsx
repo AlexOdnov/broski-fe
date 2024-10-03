@@ -4,6 +4,7 @@ import { RewardBlock, UiButton } from '@/components'
 import { useUserStore } from '@/stores/user'
 import { getRewardByDay, type Reward } from '@/utils/get-daily-rewards'
 import { useI18n } from 'vue-i18n'
+import { UiText } from '../ui/ui-text'
 
 export const DailyComponent = defineComponent({
 	name: 'DailyComponent',
@@ -33,8 +34,17 @@ export const DailyComponent = defineComponent({
 		}
 		return () => (
 			<div class={styles.rewards}>
-				<span class={styles.day}>{day.value}</span>
-				<span class={styles.dayText}>{t('dailyRewards')}</span>
+				<UiText
+					class={styles.day}
+					fontSize={'42px'}
+					lineHeight={'42px'}
+					fontFamily={'barcadeBrawl'}
+				>
+					{day.value}
+				</UiText>
+				<UiText fontFamily={'barcadeBrawl'} fontSize={'16px'} lineHeight={'16px'}>
+					{t('dailyRewards')}
+				</UiText>
 				<RewardBlock coins={currentReward.value.coins} tickets={currentReward.value.tickets} />
 				<div class={styles.message}>
 					<span>{`${t('comeBackTomorrow')} ${props.day + 1}`}</span>
@@ -46,15 +56,28 @@ export const DailyComponent = defineComponent({
 						<div class={styles.dayBlockWrapper}>
 							{props.day === d.day && <div class={styles.okBlock}>👌</div>}
 							<div class={[styles.dayBlock, props.day === d.day && styles.currentDayBlock]}>
-								<div class={styles.dayBlockTitle}>{`${t('day')} ${d.day}`}</div>
-								<div class={styles.dayBlockCoins}>
+								<UiText color={'#f0f0f0'} fontWeight={600} fontSize={'14px'} lineHeight={'14px'}>
+									{`${t('day')} ${d.day}`}
+								</UiText>
+								<UiText
+									class={styles.dayBlockCoins}
+									isAccent
+									fontWeight={400}
+									fontSize={'12px'}
+									lineHeight={'12px'}
+								>
 									<img src="/images/bro-coin.webp" />
 									{`${d.coins} $BRO`}
-								</div>
-								<div class={styles.dayBlockTickets}>
+								</UiText>
+								<UiText
+									class={styles.dayBlockTickets}
+									fontWeight={400}
+									fontSize={'12px'}
+									lineHeight={'12px'}
+								>
 									{t('ticket', d.tickets)}
 									<img src="/images/ticket.webp" />
-								</div>
+								</UiText>
 							</div>
 						</div>
 					))}

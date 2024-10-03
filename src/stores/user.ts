@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
-import type { UserCreateResponse } from '@/api/responseTypes'
+import type { UserCreateResponse, UserStatsCreateResponse } from '@/api/responseTypes'
 import { useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
-import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/generatedApi'
+import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/legacyGeneratedApi'
 import { computed } from 'vue'
 import { addHours, addMinutes, msToTime } from '@/utils/date'
 import { useCommonStore } from './common'
+import type { User } from '@/api/generatedApi'
 
 export const useUserStore = defineStore('user', () => {
 	const api = useApi()
@@ -16,14 +17,16 @@ export const useUserStore = defineStore('user', () => {
 	const [timeBeforeMiningLeftString, setTimeDeforeMiningString] = useState<string | null>(null)
 	const [timeoutID, setTimeoutID] = useState<ReturnType<typeof setTimeout> | null>(null)
 
-	const [user, setUser] = useState<UserCreateResponse | null>(null)
+	const [user, setUser] = useState<User | null>(null)
+	const [userLegacy, setUserLegacy] = useState<UserCreateResponse | null>(null)
+	const [userStats, setUserStats] = useState<UserStatsCreateResponse | null>(null)
 	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<number | null>(null)
 
 	const timeWhenClaimEnable = computed(() => {
 		if (!timeWhenUserUpdated.value || !user.value) {
 			return null
 		}
-		const delta = user.value.left_mining.split(':').map((x) => +x)
+		const delta = user.value.mining.left.split(':').map((x) => +x)
 		if (delta.length !== 2 || !isFinite(delta[0]) || !isFinite(delta[1])) {
 			return null
 		}
@@ -36,10 +39,7 @@ export const useUserStore = defineStore('user', () => {
 	const userScore = computed(() => user.value?.score || 0)
 	const userBoxes = computed(() => user.value?.boxes || 0)
 
-	const setUserProperty = <T extends keyof UserCreateResponse>(
-		key: T,
-		value: UserCreateResponse[T]
-	) => {
+	const setUserProperty = <T extends keyof User>(key: T, value: User[T]) => {
 		if (user.value) {
 			setUser({ ...user.value, [key]: value })
 		}
@@ -75,7 +75,56 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
-	const loadUser = async (withLoader = false) => {
+	const initUser = async () => {
+		try {
+			commonStore.setIsLoading(true)
+			const userResponse = await api.postUser({
+				user_id: `${tgStore.userId}`,
+				username: tgStore.username,
+				ref_code: tgStore.startParam,
+				premium: tgStore.isPremium
+			})
+			setUser(userResponse)
+			setTimeWhenUserUpdated(new Date().getTime())
+			startUpdateMiningString()
+		} catch (error) {
+			console.warn(error)
+		} finally {
+			commonStore.setIsLoading(false)
+		}
+	}
+
+	const loadUser = async () => {
+		try {
+			const userResponse = await api.getUserV2({
+				userId: `${tgStore.userId}`
+			})
+			setUser(userResponse)
+			setTimeWhenUserUpdated(new Date().getTime())
+			startUpdateMiningString()
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
+	const loadUserStats = async (withLoader = false) => {
+		try {
+			withLoader && commonStore.setIsLoading(true)
+			const userResponse = await api.getUserStats({
+				user_id: tgStore.userId,
+				username: tgStore.username,
+				ref_code: tgStore.startParam,
+				premium: tgStore.isPremium
+			})
+			setUserStats(userResponse)
+		} catch (error) {
+			console.warn(error)
+		} finally {
+			withLoader && commonStore.setIsLoading(false)
+		}
+	}
+
+	const loadUserLegacy = async (withLoader = false) => {
 		try {
 			withLoader && commonStore.setIsLoading(true)
 			const userResponse = await api.getUser({
@@ -84,9 +133,7 @@ export const useUserStore = defineStore('user', () => {
 				ref_code: tgStore.startParam,
 				premium: tgStore.isPremium
 			})
-			setUser(userResponse)
-			setTimeWhenUserUpdated(new Date().getTime())
-			startUpdateMiningString()
+			setUserLegacy(userResponse)
 		} catch (error) {
 			console.warn(error)
 		} finally {
@@ -132,7 +179,7 @@ export const useUserStore = defineStore('user', () => {
 	const claimDailyReward = async () => {
 		try {
 			await api.claimDailyReward({ user_id: tgStore.userId })
-			await loadUser()
+			await loadUserLegacy()
 		} catch (error) {
 			console.warn(error)
 		}
@@ -151,7 +198,7 @@ export const useUserStore = defineStore('user', () => {
 	const doneFirstLogin = async () => {
 		try {
 			await api.doneFirstLogin({ user_id: tgStore.userId })
-			await loadUser()
+			await loadUserLegacy()
 		} catch (error) {
 			console.warn(error)
 		}
@@ -169,7 +216,7 @@ export const useUserStore = defineStore('user', () => {
 	const doneUpdateNotification = async () => {
 		try {
 			await api.doneUpdateNotification({ user_id: tgStore.userId })
-			await loadUser()
+			await loadUserLegacy()
 		} catch (error) {
 			console.warn(error)
 		}
@@ -188,10 +235,15 @@ export const useUserStore = defineStore('user', () => {
 
 	return {
 		user,
+		userLegacy,
+		userStats,
 		userTickets,
 		userScore,
 		userBoxes,
+		initUser,
 		loadUser,
+		loadUserLegacy,
+		loadUserStats,
 		changeUserScore,
 		changeUserTickets,
 		startMining,

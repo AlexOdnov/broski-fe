@@ -6,6 +6,8 @@
 	flex-grow: 1;
 	width: 100%;
 	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
 }
 
 .page {
@@ -20,6 +22,11 @@
 	margin: 0 auto;
 	padding: 10px;
 	padding-bottom: 20px;
+}
+
+.navigationDisabled {
+	opacity: 45%;
+	pointer-events: none;
 }
 
 .navigation a {
@@ -106,45 +113,6 @@
 .yellow {
 	color: #ffb800;
 }
-
-.header {
-	padding: 10px;
-	padding-top: 30px;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	gap: 14px;
-}
-
-.coins {
-	display: flex;
-	align-items: center;
-	font-size: 42px;
-	font-weight: 700;
-	line-height: 42px;
-	text-align: center;
-	gap: 10px;
-}
-
-.boxes {
-	display: flex;
-	align-items: center;
-	font-size: 18px;
-	font-weight: 600;
-	line-height: 18px;
-	gap: 4px;
-}
-
-.coinIcon {
-	width: 40px;
-	height: 40px;
-}
-
-.boxIcon {
-	width: 18px;
-	height: 18px;
-}
-
 .notice {
 	width: 20px;
 	height: 20px;

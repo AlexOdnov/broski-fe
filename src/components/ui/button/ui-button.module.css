@@ -1,11 +1,12 @@
 .button {
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	gap: 6px;
 	border-radius: 10px;
 	font-size: 16px;
 	line-height: 16px;
-	border: none;
+	border: 1px solid transparent;
 	background: none;
 	cursor: pointer;
 }
@@ -46,6 +47,11 @@
 	background-color: #ffb800;
 }
 
+.modPrimary[disabled] {
+	color: #141517;
+	background-color: #4e4f4f;
+}
+
 .modSecondary {
 	color: #4e4f4f;
 	background-color: #1d1e20;
@@ -61,6 +67,15 @@
 	display: flex;
 	align-self: center;
 	fill: currentColor;
+}
+
+.bordered {
+	border-color: #35332e;
+}
+
+.onlyIcon {
+	aspect-ratio: 1/1;
+	padding: 4px;
 }
 
 .loader {

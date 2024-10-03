@@ -15,6 +15,7 @@ import { useReferralsStore } from './stores/referrals'
 import { useAdvertisingStore } from '@/stores/advertising'
 import { envVariables } from './services/env'
 import { useI18n } from 'vue-i18n'
+import { usePvpStore } from './stores/pvp'
 
 export default defineComponent({
 	setup() {
@@ -23,6 +24,7 @@ export default defineComponent({
 		const tgStore = useTgSdkStore()
 		const commonStore = useCommonStore()
 		const referralsStore = useReferralsStore()
+		const pvpStore = usePvpStore()
 		const i18n = useI18n()
 
 		const isUserExist = ref(false)
@@ -31,9 +33,9 @@ export default defineComponent({
 			return commonStore.isLoading || !isUserExist.value
 		})
 
-		const needRenderDaily = computed(() => userStore.user?.daily_claim === false)
-		const needRenderOnboarding = computed(() => userStore.user?.first_login)
-		// const needRenderUpdateNotification = computed(() => userStore.user?.push_see === false)
+		const needRenderDaily = computed(() => userStore.userLegacy?.daily_claim === false)
+		const needRenderOnboarding = computed(() => userStore.userLegacy?.first_login)
+		// const needRenderUpdateNotification = computed(() => userStore.userStats?.push_view === false)
 
 		const getComponent = computed(() => {
 			if (isLoaderVisible.value) {
@@ -47,7 +49,7 @@ export default defineComponent({
 			// 	return <UpdateNotificationComponent />
 			// }
 			if (needRenderDaily.value) {
-				return <DailyComponent day={userStore.user?.daily_stric ?? 1} />
+				return <DailyComponent day={userStore.userLegacy?.daily_stric ?? 1} />
 			}
 			return <MainComponent />
 		})
@@ -61,8 +63,12 @@ export default defineComponent({
 			i18n.locale.value = tgStore.languageCode
 			commonStore.setIsLoadingForTimeout(envVariables.loaderDuration)
 			await useAdvertisingStore().init()
-			await userStore.loadUser(true)
-			if (!userStore.user) {
+			await Promise.all([
+				userStore.initUser(),
+				userStore.loadUserLegacy(true),
+				pvpStore.loadPvpCharacter(true)
+			])
+			if (!userStore.user || !userStore.userLegacy || !pvpStore.pvpCharacter) {
 				console.warn('Failed to get broski user information')
 				return
 			}

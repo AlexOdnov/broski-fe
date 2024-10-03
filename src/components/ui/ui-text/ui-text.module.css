@@ -1,0 +1,19 @@
+.fontBarcadeBrawlRegular {
+	font-family: 'BarcadeBrawlRegular', sans-serif;
+}
+
+.fontRoboto {
+	font-family: 'Roboto', Arial, sans-serif;
+}
+
+.accent {
+	color: #ffb800;
+}
+
+.alignCenter {
+	text-align: center;
+}
+
+.shadow {
+	text-shadow: 6px 3px 0 #0B0C0E;
+}

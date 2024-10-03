@@ -5,9 +5,10 @@ import { type ButtonMod, UiButton } from '@/components'
 import { useUserStore } from '@/stores/user'
 import { useAdvertisingStore } from '@/stores/advertising'
 import { AdIcon } from '@/components/icons'
-import { GameElement, TicketsCounter } from '../shared'
+import { GameElement } from '../shared'
 import { GameStatus, WIN_GAME_POINTS, FIELD_PLACEHOLDERS } from '@/utils/games'
 import { useI18n } from 'vue-i18n'
+import { UiText } from '@/components/ui/ui-text'
 
 export const FindBroGame = defineComponent({
 	name: 'FindBroGame',
@@ -86,7 +87,7 @@ export const FindBroGame = defineComponent({
 
 		const advText = computed(
 			() =>
-				`${t('getTickets')}${userStore.user?.advertising_total ? ` ${userStore.user?.advertising_limit || 0}/${userStore.user?.advertising_total}` : ''}`
+				`${t('getTickets')}${userStore.user?.advertising.total ? ` ${userStore.user?.advertising.limit || 0}/${userStore.user?.advertising.total}` : ''}`
 		)
 
 		const isButtonShown = computed(
@@ -94,7 +95,7 @@ export const FindBroGame = defineComponent({
 		)
 
 		const whenAdvClick = async () => {
-			if ((await advStore.showAdv()) && userStore.user?.advertising_limit !== 0) {
+			if ((await advStore.showAdv()) && userStore.user?.advertising.limit !== 0) {
 				await userStore.claimAdvertisingReward()
 				return
 			}
@@ -129,18 +130,18 @@ export const FindBroGame = defineComponent({
 								<UiButton text={t('superGame')} whenClick={switchToSuperGame} />
 							)}
 							<UiButton {...buttonProps.value} />
-							<TicketsCounter />
 						</>
 					) : (
 						<>
 							<UiButton
 								leftIcon={<AdIcon />}
-								disabled={!userStore.user?.advertising_limit}
-								mod={!userStore.user?.advertising_limit ? 'secondary' : 'primary'}
+								disabled={!userStore.user?.advertising.limit}
 								text={advText.value}
 								whenClick={whenAdvClick}
 							/>
-							<div class={styles.disclaimer}>{t('noResponsibleForAd')}</div>
+							<UiText color={'#797979'} fontSize={'12px'} alignCenter>
+								{t('noResponsibleForAd')}
+							</UiText>
 						</>
 					)}
 				</div>

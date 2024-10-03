@@ -1,5 +1,6 @@
 /* eslint-disable */
 /* tslint:disable */
+
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -9,130 +10,180 @@
  * ---------------------------------------------------------------
  */
 
-export interface UserCreatePayload {
-	/** @example "antonprox" */
-	username: string
-	/** @example "624161982" */
-	user_id: number
-	/** @example "6241619823" */
-	ref_code?: string
-	/** @example true */
-	premium?: boolean
+/** AbilityScores */
+export interface AbilityScores {
+	/** Strength */
+	strength: number
+	/** Defence */
+	defence: number
+	/** Speed */
+	speed: number
+	/** Weight */
+	weight: number
+	/** Combinations */
+	combinations: number
 }
 
-export interface TasksCreatePayload {
-	/** @example "624161982" */
-	user_id: number
+/** AbilityScoresDelta */
+export interface AbilityScoresDelta {
+	/** Strength */
+	strength?: number | null
+	/** Defence */
+	defence?: number | null
+	/** Speed */
+	speed?: number | null
+	/** Weight */
+	weight?: number | null
+	/** Combinations */
+	combinations?: number | null
 }
 
-export interface TasksCreateBody {
-	/** @example "624161982" */
-	user_id: number
+/** CharacterEnergy */
+export interface CharacterEnergy {
+	/** Remaining */
+	remaining: number
+	/** Maximum */
+	maximum: number
 	/**
-	 * Id таски
-	 * @example "9"
+	 * Time To Restore
+	 * @format duration
 	 */
-	task_id: number
+	time_to_restore: string
 }
 
-export interface ScoreCreatePayload {
-	/** @example "624161982" */
-	user_id: number
-	/** @example "1000" */
-	score: number
+/** CharacterProfile */
+export interface CharacterProfile {
+	abilities: AbilityScores
+	energy: CharacterEnergy
+	/** Level */
+	level: number
+	/** Experience */
+	experience: number
+	/** Power */
+	power: number
 }
 
-export interface TicketsCreatePayload {
-	/** @example "624161982" */
-	user_id: number
-	/** @example "1" */
-	tickets: number
-}
-
-export interface ScoreCreateBody {
-	/** @example "624161982" */
-	user_id: number
-	/** @example "1000" */
-	score: number
-}
-
-export interface TicketsCreateBody {
-	/** @example "624161982" */
-	user_id: number
-	/** @example "1" */
-	tickets: number
-}
-
-export interface RefClaimCreatePayload {
-	/** @example "624161982" */
-	user_id: number
-}
-
-export interface MiningCreatePayload {
-	/** @example "624161982" */
-	user_id: number
-}
-
-export interface MiningCreateBody {
-	/** @example "624161982" */
-	user_id: number
-}
-
-export interface ReferalsCreatePayload {
-	/** @example "624161982" */
-	user_id: number
-	/** @example "3" */
-	page: number
-	/** @example "2" */
-	limit: number
-}
-
-export interface DailyCreatePayload {
-	/** @example "624161982" */
-	user_id: number
-}
-
-export interface FirstLoginCreatePayload {
-	/** @example "624161982" */
-	user_id: number
-}
-
-export interface SwitchRegionCreatePayload {
-	/** @example "624161982" */
-	user_id: number
-	/** @example "ru" */
-	region: string
-}
-
-export interface AdvertisingSeeCreatePayload {
-	/** @example "624161982" */
-	user_id: number
-}
-
-export interface BoxesCreatePayload {
-	/** @example "624161982" */
-	user_id: number
-	/** @example "1" */
-	box: number
-}
-
-export interface TaskCreatePayload {
-	/** @example "antonprox" */
+/** CreateUser */
+export interface CreateUser {
+	/** Username */
 	username: string
-	/** @example "624161982" */
-	user_id: number
-	/** @example "6241619823" */
-	ref_code: string
-	/** @example true */
-	premium: boolean
-	/** @example "1" */
-	task_id: number
+	/** User Id */
+	user_id: string
+	/** Ref Code */
+	ref_code?: string | null
+	/** Premium */
+	premium?: boolean | null
 }
 
-export interface PushSeeCreatePayload {
-	/** @example "624161982" */
-	user_id: number
+/** GetEnergy */
+export interface GetEnergy {
+	/** Energy */
+	energy: number
 }
+
+/** GetEnergyResponse */
+export interface GetEnergyResponse {
+	/** Link */
+	link: string
+}
+
+/** HTTPValidationError */
+export interface HTTPValidationError {
+	/** Detail */
+	detail?: ValidationError[]
+}
+
+/** LevelupResponse */
+export interface LevelupResponse {
+	abilities: AbilityScores
+	/** Power */
+	power: number
+}
+
+/** MatchCompetitioner */
+export interface MatchCompetitioner {
+	/** User Id */
+	user_id: number
+	/** Username */
+	username: string
+	/** Level */
+	level: number
+	/** Power */
+	power: number
+	abilities: AbilityScores
+}
+
+/** MatchLoot */
+export interface MatchLoot {
+	/** Coins */
+	coins: number
+}
+
+/** MatchResult */
+export enum MatchResult {
+	Win = 'win',
+	Lose = 'lose'
+}
+
+/** PVPMatch */
+export interface PVPMatch {
+	/**
+	 * Match Id
+	 * @format uuid
+	 */
+	match_id: string
+	player: MatchCompetitioner
+	opponent: MatchCompetitioner
+}
+
+/** PVPMatchResult */
+export interface PVPMatchResult {
+	result: MatchResult
+	loot: MatchLoot | null
+}
+
+/** User */
+export interface User {
+	/** Score */
+	score: number
+	/** Tickets */
+	tickets: number
+	/** Boxes */
+	boxes: number
+	/** Ton Balance */
+	ton_balance: number
+	mining: UserMining
+	advertising: UserAdvertising
+}
+
+/** UserAdvertising */
+export interface UserAdvertising {
+	/** Limit */
+	limit: number
+	/** Total */
+	total: number
+}
+
+/** UserMining */
+export interface UserMining {
+	/** Left */
+	left: string
+	/** Claim */
+	claim: boolean
+}
+
+/** ValidationError */
+export interface ValidationError {
+	/** Location */
+	loc: (string | number)[]
+	/** Message */
+	msg: string
+	/** Error Type */
+	type: string
+}
+
+/** Delta */
+export type LevelUpApiV1UsersUserIdLevelupPostPayload = AbilityScoresDelta | null
 
 import type {
 	AxiosInstance,
@@ -192,10 +243,7 @@ export class HttpClient<SecurityDataType = unknown> {
 		format,
 		...axiosConfig
 	}: ApiConfig<SecurityDataType> = {}) {
-		this.instance = axios.create({
-			...axiosConfig,
-			baseURL: axiosConfig.baseURL || 'http://127.0.0.1:8000'
-		})
+		this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || '' })
 		this.secure = secure
 		this.format = format
 		this.securityWorker = securityWorker
@@ -290,45 +338,23 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title Brocoin
- * @version 1.0.0
- * @baseUrl http://127.0.0.1:8000
+ * @title FastAPI
+ * @version 0.1.0
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
-	gets = {
+	api = {
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name UserCreate
-		 * @summary /gets/user/
-		 * @request POST:/gets/user/
+		 * @tags pvp
+		 * @name GetCharacterApiV1UsersUserIdCharacterGet
+		 * @summary Get Character
+		 * @request GET:/api/v1/users/{user_id}/character
 		 */
-		userCreate: (data: UserCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/gets/user/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			})
-	}
-	get = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name TasksCreate
-		 * @summary /get/tasks/
-		 * @request POST:/get/tasks/
-		 */
-		tasksCreate: (data: TasksCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/get/tasks/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
+		getCharacterApiV1UsersUserIdCharacterGet: (userId: number, params: RequestParams = {}) =>
+			this.request<CharacterProfile, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/character`,
+				method: 'GET',
 				format: 'json',
 				...params
 			}),
@@ -336,17 +362,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name RefClaimCreate
-		 * @summary /get/ref_claim/
-		 * @request POST:/get/ref_claim/
+		 * @tags pvp
+		 * @name LevelUpApiV1UsersUserIdLevelupPost
+		 * @summary Level Up
+		 * @request POST:/api/v1/users/{user_id}/levelup
 		 */
-		refClaimCreate: (data: RefClaimCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/get/ref_claim/`,
+		levelUpApiV1UsersUserIdLevelupPost: (
+			userId: number,
+			data: LevelUpApiV1UsersUserIdLevelupPostPayload,
+			params: RequestParams = {}
+		) =>
+			this.request<LevelupResponse, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/levelup`,
 				method: 'POST',
 				body: data,
-				type: ContentType.UrlEncoded,
+				type: ContentType.Json,
 				format: 'json',
 				...params
 			}),
@@ -354,17 +384,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name ReferalsCreate
-		 * @summary /get/referals/
-		 * @request POST:/get/referals/
+		 * @tags pvp
+		 * @name SearchMatchApiV1UsersUserIdPvpPost
+		 * @summary Search Match
+		 * @request POST:/api/v1/users/{user_id}/pvp
 		 */
-		referalsCreate: (data: ReferalsCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/get/referals/`,
+		searchMatchApiV1UsersUserIdPvpPost: (userId: number, params: RequestParams = {}) =>
+			this.request<PVPMatch, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/pvp`,
 				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
 				format: 'json',
 				...params
 			}),
@@ -372,36 +400,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name BoxesCreate
-		 * @summary /get/boxes/
-		 * @request POST:/get/boxes/
+		 * @tags pvp
+		 * @name SkipMatchApiV1PvpMatchIdSkipPost
+		 * @summary Skip Match
+		 * @request POST:/api/v1/pvp/{match_id}/skip
 		 */
-		boxesCreate: (data: BoxesCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/get/boxes/`,
+		skipMatchApiV1PvpMatchIdSkipPost: (matchId: string, params: RequestParams = {}) =>
+			this.request<MatchCompetitioner, HTTPValidationError>({
+				path: `/api/v1/pvp/${matchId}/skip`,
 				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			})
-	}
-	done = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name TasksCreate
-		 * @summary /done/tasks/
-		 * @request POST:/done/tasks/
-		 */
-		tasksCreate: (data: TasksCreateBody, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/done/tasks/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
 				format: 'json',
 				...params
 			}),
@@ -409,17 +416,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name MiningCreate
-		 * @summary /done/mining/
-		 * @request POST:/done/mining/
+		 * @tags pvp
+		 * @name StartMatchApiV1PvpMatchIdStartPost
+		 * @summary Start Match
+		 * @request POST:/api/v1/pvp/{match_id}/start
 		 */
-		miningCreate: (data: MiningCreateBody, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/done/mining/`,
+		startMatchApiV1PvpMatchIdStartPost: (matchId: string, params: RequestParams = {}) =>
+			this.request<PVPMatchResult, HTTPValidationError>({
+				path: `/api/v1/pvp/${matchId}/start`,
 				method: 'POST',
-				body: data,
-				type: ContentType.UrlEncoded,
 				format: 'json',
 				...params
 			}),
@@ -427,17 +432,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name DailyCreate
-		 * @summary /done/daily/
-		 * @request POST:/done/daily/
+		 * @tags users
+		 * @name GetUserApiV1UsersUserIdGet
+		 * @summary Get User
+		 * @request GET:/api/v1/users/{user_id}
 		 */
-		dailyCreate: (data: DailyCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/done/daily/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
+		getUserApiV1UsersUserIdGet: (userId: string, params: RequestParams = {}) =>
+			this.request<User, HTTPValidationError>({
+				path: `/api/v1/users/${userId}`,
+				method: 'GET',
 				format: 'json',
 				...params
 			}),
@@ -445,36 +448,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name FirstLoginCreate
-		 * @summary /done/first_login/
-		 * @request POST:/done/first_login/
+		 * @tags users
+		 * @name PostUserApiV1UsersPost
+		 * @summary Post User
+		 * @request POST:/api/v1/users
 		 */
-		firstLoginCreate: (data: FirstLoginCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/done/first_login/`,
+		postUserApiV1UsersPost: (data: CreateUser, params: RequestParams = {}) =>
+			this.request<User, HTTPValidationError>({
+				path: `/api/v1/users`,
 				method: 'POST',
 				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			})
-	}
-	add = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name ScoreCreate
-		 * @summary /add/score/
-		 * @request POST:/add/score/
-		 */
-		scoreCreate: (data: ScoreCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/add/score/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
+				type: ContentType.Json,
 				format: 'json',
 				...params
 			}),
@@ -482,149 +466,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name TicketsCreate
-		 * @summary /add/tickets/
-		 * @request POST:/add/tickets/
+		 * @tags users
+		 * @name GetStarsLinkApiV1StarsPost
+		 * @summary Get Stars Link
+		 * @request POST:/api/v1/stars
 		 */
-		ticketsCreate: (data: TicketsCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/add/tickets/`,
+		getStarsLinkApiV1StarsPost: (data: GetEnergy, params: RequestParams = {}) =>
+			this.request<GetEnergyResponse, HTTPValidationError>({
+				path: `/api/v1/stars`,
 				method: 'POST',
 				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			})
-	}
-	remove = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name ScoreCreate
-		 * @summary /remove/score/
-		 * @request POST:/remove/score/
-		 */
-		scoreCreate: (data: ScoreCreateBody, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/remove/score/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			}),
-
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name TicketsCreate
-		 * @summary remove/tickets/
-		 * @request POST:/remove/tickets/
-		 */
-		ticketsCreate: (data: TicketsCreateBody, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/remove/tickets/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			})
-	}
-	start = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name MiningCreate
-		 * @summary /start/mining/
-		 * @request POST:/start/mining/
-		 */
-		miningCreate: (data: MiningCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/start/mining/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.UrlEncoded,
-				format: 'json',
-				...params
-			})
-	}
-	switchRegion = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name SwitchRegionCreate
-		 * @summary /switch_region/
-		 * @request POST:/switch_region/
-		 */
-		switchRegionCreate: (data: SwitchRegionCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/switch_region/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			})
-	}
-	advertisingSee = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name AdvertisingSeeCreate
-		 * @summary /advertising_see/
-		 * @request POST:/advertising_see/
-		 */
-		advertisingSeeCreate: (data: AdvertisingSeeCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/advertising_see/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			})
-	}
-	check = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name TaskCreate
-		 * @summary /check/task/
-		 * @request POST:/check/task/
-		 */
-		taskCreate: (data: TaskCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/check/task/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			})
-	}
-	pushSee = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name PushSeeCreate
-		 * @summary /push_see/
-		 * @request POST:/push_see/
-		 */
-		pushSeeCreate: (data: PushSeeCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/push_see/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
+				type: ContentType.Json,
 				format: 'json',
 				...params
 			})

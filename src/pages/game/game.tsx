@@ -1,38 +1,59 @@
-import { computed, defineComponent, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 import styles from './styles.module.css'
-import { FindBroGame, SuperGame } from '@/components'
-
-export enum GameVariant {
-	FindBro = 'findBro',
-	SuperGame = 'superGame'
-}
+import { UserBalance } from '@/components/ui/user-balance'
+import { RouterView, useRouter } from 'vue-router'
+import { UiTabs } from '@/components'
+import { RouteName } from '@/router'
+import { useCommonStore } from '@/stores/common'
+import { useI18n } from 'vue-i18n'
 
 const GamePage = defineComponent({
 	name: 'GamePage',
 	setup() {
-		const currentGame = ref(GameVariant.FindBro)
+		const router = useRouter()
+		const { t } = useI18n()
 
-		const currentGameComponent = computed(() => {
-			switch (currentGame.value) {
-				case GameVariant.FindBro:
-					return <FindBroGame whenSwitchToSuperGame={switchToSuperGame} />
-				case GameVariant.SuperGame:
-					return <SuperGame whenSwitchToFindBroGame={switchToFindBroGame} />
-				default:
-					return <FindBroGame whenSwitchToSuperGame={switchToSuperGame} />
+		const commonStore = useCommonStore()
+
+		const activeTab = ref(router.currentRoute.value.name as string)
+
+		const tabOptions = [
+			{
+				label: t('fight'),
+				value: RouteName.GamePvp
+			},
+			{
+				label: t('profile'),
+				value: RouteName.GamePvpProfile
+			},
+			{
+				label: t('findBroGame'),
+				value: RouteName.GameFindBro
 			}
-		})
+		]
 
-		const switchToSuperGame = () => {
-			currentGame.value = GameVariant.SuperGame
+		const changeTab = (newTab: string) => {
+			router.push({ name: newTab })
+			activeTab.value = newTab
 		}
 
-		const switchToFindBroGame = () => {
-			currentGame.value = GameVariant.FindBro
-		}
-
-		return () => <div class={styles.wrapper}>{currentGameComponent.value}</div>
+		return () => (
+			<>
+				<UserBalance />
+				<div class={styles.navigation}>
+					<UiTabs
+						disabled={commonStore.isNavigationDisabled}
+						selected={activeTab.value}
+						options={tabOptions}
+						whenChange={changeTab}
+					/>
+				</div>
+				<div class={styles.wrapper}>
+					<RouterView />
+				</div>
+			</>
+		)
 	}
 })
 
