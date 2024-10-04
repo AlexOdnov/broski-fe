@@ -18,13 +18,10 @@ export const useSentry = () => {
 		Sentry.captureException(error, { extra })
 
 	const captureNetworkException = (error: unknown) => {
-		const extra = {
-			request: (error as AxiosError).request,
-			response: (error as AxiosError).response,
-			message: (error as AxiosError).message,
-			cause: (error as AxiosError).cause
+		if ((error as AxiosError).code === 'ERR_NETWORK') {
+			return
 		}
-		captureException(error, extra)
+		captureException(error, { cause: (error as AxiosError).cause })
 	}
 
 	return {

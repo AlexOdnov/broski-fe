@@ -90,7 +90,7 @@ export const useUserStore = defineStore('user', () => {
 			setTimeWhenUserUpdated(new Date().getTime())
 			startUpdateMiningString()
 		} catch (error) {
-			sentry.captureException(error)
+			sentry.captureNetworkException(error)
 			console.warn(error)
 		} finally {
 			commonStore.setIsLoading(false)
@@ -106,7 +106,7 @@ export const useUserStore = defineStore('user', () => {
 			setTimeWhenUserUpdated(new Date().getTime())
 			startUpdateMiningString()
 		} catch (error) {
-			sentry.captureException(error)
+			sentry.captureNetworkException(error)
 			console.warn(error)
 		}
 	}
@@ -139,7 +139,7 @@ export const useUserStore = defineStore('user', () => {
 			})
 			setUserLegacy(userResponse)
 		} catch (error) {
-			sentry.captureException(error)
+			sentry.captureNetworkException(error)
 			console.warn(error)
 		} finally {
 			withLoader && commonStore.setIsLoading(false)
