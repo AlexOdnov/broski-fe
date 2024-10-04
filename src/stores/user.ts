@@ -9,7 +9,6 @@ import { addHours, addMinutes, msToTime } from '@/utils/date'
 import { useCommonStore } from './common'
 import type { User } from '@/api/generatedApi'
 import { useSentry } from '@/services/sentry'
-import { AxiosError } from 'axios'
 
 export const useUserStore = defineStore('user', () => {
 	const api = useApi()
@@ -91,7 +90,7 @@ export const useUserStore = defineStore('user', () => {
 			setTimeWhenUserUpdated(new Date().getTime())
 			startUpdateMiningString()
 		} catch (error) {
-			sentry.captureException(error, (error as AxiosError).request)
+			sentry.captureNetworkException(error)
 			console.warn(error)
 		} finally {
 			commonStore.setIsLoading(false)
@@ -107,7 +106,7 @@ export const useUserStore = defineStore('user', () => {
 			setTimeWhenUserUpdated(new Date().getTime())
 			startUpdateMiningString()
 		} catch (error) {
-			sentry.captureException(error, (error as AxiosError).request)
+			sentry.captureNetworkException(error)
 			console.warn(error)
 		}
 	}
@@ -140,7 +139,7 @@ export const useUserStore = defineStore('user', () => {
 			})
 			setUserLegacy(userResponse)
 		} catch (error) {
-			sentry.captureException(error, (error as AxiosError).request)
+			sentry.captureNetworkException(error)
 			console.warn(error)
 		} finally {
 			withLoader && commonStore.setIsLoading(false)
