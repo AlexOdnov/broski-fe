@@ -63,7 +63,7 @@ export default defineComponent({
 				sentry.captureException(new Error('Failed to get telegram user information'))
 				return
 			}
-			sentry.captureException(new Error('test sentry'))
+			sentry.captureException(new Error('sentry test error from deploy'))
 			i18n.locale.value = tgStore.languageCode
 			commonStore.setIsLoadingForTimeout(envVariables.loaderDuration)
 			await useAdvertisingStore().init()
