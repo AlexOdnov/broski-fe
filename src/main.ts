@@ -11,6 +11,8 @@ import router from './router'
 import { createI18n } from 'vue-i18n'
 import { ruPluralRule } from '@/utils/ru-plural-rule'
 
+import * as Sentry from '@sentry/vue'
+
 const app = createApp(App)
 const i18n = createI18n({
 	legacy: false,
@@ -23,6 +25,13 @@ const i18n = createI18n({
 	pluralRules: {
 		ru: ruPluralRule
 	}
+})
+
+Sentry.init({
+	app,
+	dsn: process.env.SENTRY_DSN,
+	enableTracing: false,
+	release: 'broski-fe@' + process.env.CF_PAGES_COMMIT_SHA
 })
 
 app.use(createPinia())
