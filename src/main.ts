@@ -32,7 +32,12 @@ Sentry.init({
 	app,
 	dsn: envVariables.sentryDSN,
 	enableTracing: false,
-	allowUrls: ['broski.pages.dev', 'itsbrocoin.wtf', 'release.broski.pages.dev']
+	allowUrls: ['broski.pages.dev', 'itsbrocoin.wtf', 'release.broski.pages.dev'],
+	integrations: [
+		Sentry.extraErrorDataIntegration({
+			depth: 5
+		})
+	]
 })
 
 app.use(createPinia())
