@@ -129,20 +129,22 @@ export const useUserStore = defineStore('user', () => {
 	}
 
 	const loadUserLegacy = async (withLoader = false) => {
-		try {
-			withLoader && commonStore.setIsLoading(true)
-			const userResponse = await api.getUser({
-				user_id: tgStore.userId,
-				username: tgStore.username,
-				ref_code: tgStore.startParam,
-				premium: tgStore.isPremium
-			})
-			setUserLegacy(userResponse)
-		} catch (error) {
-			sentry.captureNetworkException(error)
-			console.warn(error)
-		} finally {
-			withLoader && commonStore.setIsLoading(false)
+		if (tgStore.userId) {
+			try {
+				withLoader && commonStore.setIsLoading(true)
+				const userResponse = await api.getUser({
+					user_id: tgStore.userId,
+					username: tgStore.username,
+					ref_code: tgStore.startParam,
+					premium: tgStore.isPremium
+				})
+				setUserLegacy(userResponse)
+			} catch (error) {
+				sentry.captureNetworkException(error)
+				console.warn(error)
+			} finally {
+				withLoader && commonStore.setIsLoading(false)
+			}
 		}
 	}
 
