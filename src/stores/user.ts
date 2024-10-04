@@ -139,7 +139,7 @@ export const useUserStore = defineStore('user', () => {
 			})
 			setUserLegacy(userResponse)
 		} catch (error) {
-			sentry.captureException(error as Error)
+			sentry.captureException(error)
 			console.warn(error)
 		} finally {
 			withLoader && commonStore.setIsLoading(false)
