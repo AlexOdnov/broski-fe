@@ -12,6 +12,7 @@ import { createI18n } from 'vue-i18n'
 import { ruPluralRule } from '@/utils/ru-plural-rule'
 
 import * as Sentry from '@sentry/vue'
+import { envVariables } from './services/env'
 
 const app = createApp(App)
 const i18n = createI18n({
@@ -29,9 +30,9 @@ const i18n = createI18n({
 
 Sentry.init({
 	app,
-	dsn: process.env.SENTRY_DSN,
+	dsn: envVariables.sentryDSN,
 	enableTracing: false,
-	release: 'broski-fe@' + process.env.CF_PAGES_COMMIT_SHA
+	allowUrls: ['broski.pages.dev', 'itsbrocoin.wtf', 'release.broski.pages.dev']
 })
 
 app.use(createPinia())

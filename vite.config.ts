@@ -14,6 +14,7 @@ export default defineConfig({
 			org: 'broski-inc',
 			project: 'broski-fe',
 			authToken: process.env.SENTRY_AUTH_TOKEN,
+			release: { name: 'broski-fe@' + process.env.CF_PAGES_COMMIT_SHA },
 			bundleSizeOptimizations: {
 				excludeDebugStatements: true,
 				excludeReplayIframe: true,
