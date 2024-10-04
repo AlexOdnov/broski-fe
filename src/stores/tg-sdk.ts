@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import type { TelegramWebApps } from 'telegram-webapps'
 import { computed } from 'vue'
 
 export const useTgSdkStore = defineStore('tgSdk', () => {
@@ -23,6 +24,17 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 		}
 	}
 
+	const openInvoice = (url: string, callback?: TelegramWebApps.InvoiceClosedEventHandler) => {
+		if (!url) {
+			return
+		}
+		try {
+			tg.openInvoice(url, callback)
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	const initTgApp = () => {
 		tg.expand()
 		tg.disableVerticalSwipes()
@@ -37,6 +49,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 		isPremium,
 		languageCode,
 		initTgApp,
-		openLink
+		openLink,
+		openInvoice
 	}
 })
