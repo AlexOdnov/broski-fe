@@ -93,7 +93,7 @@ export const usePvpStore = defineStore('pvp', () => {
 			setPvpCharacter(response)
 			setEnergyTimer(response.energy.time_to_restore)
 		} catch (error) {
-			sentry.captureException(error, (error as AxiosError).request)
+			sentry.captureNetworkException(error)
 			console.warn(error)
 		} finally {
 			withLoader && commonStore.setIsLoading(false)
