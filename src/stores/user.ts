@@ -8,9 +8,11 @@ import { computed } from 'vue'
 import { addHours, addMinutes, msToTime } from '@/utils/date'
 import { useCommonStore } from './common'
 import type { User } from '@/api/generatedApi'
+import { useSentry } from '@/services/sentry'
 
 export const useUserStore = defineStore('user', () => {
 	const api = useApi()
+	const sentry = useSentry()
 	const tgStore = useTgSdkStore()
 	const commonStore = useCommonStore()
 
@@ -88,6 +90,7 @@ export const useUserStore = defineStore('user', () => {
 			setTimeWhenUserUpdated(new Date().getTime())
 			startUpdateMiningString()
 		} catch (error) {
+			sentry.captureException(error)
 			console.warn(error)
 		} finally {
 			commonStore.setIsLoading(false)
@@ -103,6 +106,7 @@ export const useUserStore = defineStore('user', () => {
 			setTimeWhenUserUpdated(new Date().getTime())
 			startUpdateMiningString()
 		} catch (error) {
+			sentry.captureException(error)
 			console.warn(error)
 		}
 	}
@@ -135,6 +139,7 @@ export const useUserStore = defineStore('user', () => {
 			})
 			setUserLegacy(userResponse)
 		} catch (error) {
+			sentry.captureException(error)
 			console.warn(error)
 		} finally {
 			withLoader && commonStore.setIsLoading(false)

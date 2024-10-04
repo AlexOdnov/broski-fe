@@ -13,9 +13,11 @@ import type {
 import { useCommonStore } from './common'
 import { useUserStore } from './user'
 import { Temporal } from 'temporal-polyfill'
+import { useSentry } from '@/services/sentry'
 
 export const usePvpStore = defineStore('pvp', () => {
 	const api = useApi()
+	const sentry = useSentry()
 	const tgStore = useTgSdkStore()
 	const commonStore = useCommonStore()
 	const userStore = useUserStore()
@@ -90,6 +92,7 @@ export const usePvpStore = defineStore('pvp', () => {
 			setPvpCharacter(response)
 			setEnergyTimer(response.energy.time_to_restore)
 		} catch (error) {
+			sentry.captureException(error)
 			console.warn(error)
 		} finally {
 			withLoader && commonStore.setIsLoading(false)
