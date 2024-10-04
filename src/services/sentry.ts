@@ -1,11 +1,11 @@
 import * as Sentry from '@sentry/vue'
 
-export const useSentry = () => {
-	const captureException = (error: Error) => {
-		console.log(Sentry.getClient(), error)
+interface SentryError extends Error {
+	[key: string]: unknown
+}
 
-		Sentry.captureException(error)
-	}
+export const useSentry = () => {
+	const captureException = (error: SentryError) => Sentry.captureException(error)
 
 	return {
 		captureException

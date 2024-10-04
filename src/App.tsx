@@ -60,10 +60,8 @@ export default defineComponent({
 			tgStore.initTgApp()
 			if (!tgStore.user) {
 				console.warn('Failed to get telegram user information')
-				sentry.captureException(new Error('Failed to get telegram user information'))
 				return
 			}
-			sentry.captureException(new Error('sentry test error from deploy'))
 			i18n.locale.value = tgStore.languageCode
 			commonStore.setIsLoadingForTimeout(envVariables.loaderDuration)
 			await useAdvertisingStore().init()
