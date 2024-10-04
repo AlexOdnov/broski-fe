@@ -14,6 +14,7 @@ import { useCommonStore } from './common'
 import { useUserStore } from './user'
 import { Temporal } from 'temporal-polyfill'
 import { useSentry } from '@/services/sentry'
+import type { AxiosError } from 'axios'
 
 export const usePvpStore = defineStore('pvp', () => {
 	const api = useApi()
@@ -92,7 +93,7 @@ export const usePvpStore = defineStore('pvp', () => {
 			setPvpCharacter(response)
 			setEnergyTimer(response.energy.time_to_restore)
 		} catch (error) {
-			sentry.captureException(error)
+			sentry.captureException(error, (error as AxiosError).request)
 			console.warn(error)
 		} finally {
 			withLoader && commonStore.setIsLoading(false)
