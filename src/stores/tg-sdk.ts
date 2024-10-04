@@ -1,4 +1,4 @@
-import { useSentry } from '@/services/sentry'
+import { SentryError, useSentry } from '@/services/sentry'
 import { defineStore } from 'pinia'
 import type { TelegramWebApps } from 'telegram-webapps'
 import { computed } from 'vue'
@@ -43,11 +43,15 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 		tg.disableVerticalSwipes()
 		tg.ready()
 		if (!user.value) {
-			sentry.captureException({
-				name: 'Tg sdk error',
-				message: 'Failed to get telegram user information',
-				tg
-			})
+			sentry.captureException(
+				new SentryError(
+					{
+						name: 'Tg sdk error',
+						tg
+					},
+					'Failed to get telegram user information'
+				)
+			)
 		}
 	}
 
