@@ -13,7 +13,7 @@ export class SentryError extends Error {
 }
 
 export const useSentry = () => {
-	const captureException = (error: SentryError, extra?: Record<string, unknown>) =>
+	const captureException = (error: SentryError | unknown, extra?: Record<string, unknown>) =>
 		Sentry.captureException(error, { extra })
 
 	return {
