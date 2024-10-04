@@ -8,13 +8,31 @@ import { MatchCharacterCard } from '@/components/pvp'
 import { MatchResult } from '@/api/generatedApi'
 import { UiButton, UiText, type UiTextFontWeight } from '@/components'
 import { useI18n } from 'vue-i18n'
+import { useTgSdkStore } from '@/stores/tg-sdk'
+import { envVariables } from '@/services/env'
 
 const PvpPage = defineComponent({
 	name: 'PvpPage',
 	setup() {
 		const pvpStore = usePvpStore()
+		const tgStore = useTgSdkStore()
 		const { t } = useI18n()
+
 		const renderButtons = computed(() => {
+			if (!pvpStore.pvpMatch && !pvpStore.pvpCharacter?.energy.remaining) {
+				return (
+					<UiButton
+						class={styles.fullWidth}
+						font="BarcadeBrawlRegular"
+						text={t('pvp.getEnergy')}
+						loading={pvpStore.isLoading}
+						mod="primary"
+						whenClick={async () => {
+							tgStore.openInvoice(envVariables.invoiceUrl, () => pvpStore.loadPvpCharacter())
+						}}
+					/>
+				)
+			}
 			if (!pvpStore.pvpMatch) {
 				return (
 					<UiButton
