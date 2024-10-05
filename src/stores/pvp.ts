@@ -70,7 +70,7 @@ export const usePvpStore = defineStore('pvp', () => {
 			energyTimerInterval.value = setInterval(() => {
 				if (energyTimer.value) {
 					setEnergyTimerValue(energyTimer.value.add({ minutes: -1 }))
-					if (energyTimer.value.total({ unit: 'minutes' }) < 1) {
+					if (energyTimer.value.total({ unit: 'minutes' }) <= 0) {
 						loadPvpCharacter()
 					}
 				}
