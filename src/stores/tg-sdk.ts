@@ -51,7 +51,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 				)
 			}
 		} catch (error) {
-			sentry.captureException(new SentryError('Tg sdk error', 'Failed to init tg sdk'), {
+			sentry.captureException(error, {
 				...(tg ? tg : {})
 			})
 		}
