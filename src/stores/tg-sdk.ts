@@ -7,6 +7,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 	const sentry = useSentry()
 
 	let tg: null | TelegramWebApps.WebApp = null
+	let initTgSdkRetryCount = 4
 
 	const user = computed(() => tg?.initDataUnsafe?.user)
 	const startParam = computed(() => tg?.initDataUnsafe?.start_param)
@@ -45,13 +46,23 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			tg.disableVerticalSwipes()
 			tg.ready()
 			if (!user.value) {
+				initTgSdkRetryCount -= 1
+				if (initTgSdkRetryCount > 0) {
+					initTgApp()
+					return
+				}
 				sentry.captureException(
 					new SentryError('Tg sdk error', 'Failed to get telegram user information'),
 					{ ...tg }
 				)
 			}
 		} catch (error) {
-			sentry.captureException(new SentryError('Tg sdk error', 'Failed to init tg sdk'), {
+			initTgSdkRetryCount -= 1
+			if (initTgSdkRetryCount > 0) {
+				initTgApp()
+				return
+			}
+			sentry.captureException(error, {
 				...(tg ? tg : {})
 			})
 		}
