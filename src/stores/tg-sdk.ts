@@ -6,12 +6,12 @@ import { computed } from 'vue'
 export const useTgSdkStore = defineStore('tgSdk', () => {
 	const sentry = useSentry()
 
-	const tg = Telegram.WebApp
+	let tg: null | TelegramWebApps.WebApp = null
 
-	const user = computed(() => tg.initDataUnsafe.user)
+	const user = computed(() => tg?.initDataUnsafe?.user)
+	const startParam = computed(() => tg?.initDataUnsafe?.start_param)
 	const username = computed(() => user.value?.username || '')
 	const userId = computed(() => user.value?.id || 0)
-	const startParam = computed(() => tg.initDataUnsafe.start_param)
 	const isPremium = computed(() => user.value?.is_premium)
 	const languageCode = computed(() => user.value?.language_code || 'en')
 
@@ -20,10 +20,10 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			return
 		}
 		try {
-			tg.openTelegramLink(url)
+			tg?.openTelegramLink(url)
 		} catch (error) {
 			console.warn(error)
-			tg.openLink(url)
+			tg?.openLink(url)
 		}
 	}
 
@@ -32,21 +32,28 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			return
 		}
 		try {
-			tg.openInvoice(url, callback)
+			tg?.openInvoice(url, callback)
 		} catch (error) {
 			console.warn(error)
 		}
 	}
 
 	const initTgApp = () => {
-		tg.expand()
-		tg.disableVerticalSwipes()
-		tg.ready()
-		if (!user.value) {
-			sentry.captureException(
-				new SentryError('Tg sdk error', 'Failed to get telegram user information'),
-				{ ...tg }
-			)
+		try {
+			tg = Telegram.WebApp
+			tg.expand()
+			tg.disableVerticalSwipes()
+			tg.ready()
+			if (!user.value) {
+				sentry.captureException(
+					new SentryError('Tg sdk error', 'Failed to get telegram user information'),
+					{ ...tg }
+				)
+			}
+		} catch (error) {
+			sentry.captureException(new SentryError('Tg sdk error', 'Failed to init tg sdk'), {
+				...(tg ? tg : {})
+			})
 		}
 	}
 
