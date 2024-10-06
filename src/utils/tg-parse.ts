@@ -45,6 +45,11 @@ function urlParseQueryString(queryString: string) {
 		param = queryStringParams[i].split('=')
 		paramName = urlSafeDecode(param[0])
 		console.log(param)
+
+		if (param.length === 3 && param[1] === 'user') {
+			console.log('broken', param)
+			console.log(urlSafeDecode(param[2]))
+		}
 		paramValue = param[1] === null ? null : urlSafeDecode(param[1])
 		params[paramName] = paramValue
 	}
