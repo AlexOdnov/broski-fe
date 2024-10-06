@@ -27,8 +27,6 @@ function urlParseHashParams(locationHash: string) {
 	if (qIndex >= 0) {
 		locationHash = locationHash.substr(qIndex + 1)
 	}
-	console.log('hash', locationHash)
-
 	const query_params = urlParseQueryString(locationHash)
 	for (const k in query_params) {
 		params[k] = query_params[k]
@@ -42,13 +40,13 @@ function urlParseQueryString(queryString: string) {
 		return params
 	}
 	const queryStringParams = queryString.split('&')
-	console.log('query', queryStringParams)
-
 	let i, param, paramName, paramValue
 	for (i = 0; i < queryStringParams.length; i++) {
 		param = queryStringParams[i].split('=')
-		console.log('param', param)
 		paramName = urlSafeDecode(param[0])
+		if (param.length === 3 && param[1] === 'user') {
+			console.log(urlSafeDecode(param[2]))
+		}
 		paramValue = param[1] === null ? null : urlSafeDecode(param[1])
 		params[paramName] = paramValue
 	}
