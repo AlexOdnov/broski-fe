@@ -67,7 +67,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 				return
 			}
 			sentry.captureException(error, {
-				...(tg.value ? tg : {})
+				...(tg.value ? tg.value : {})
 			})
 		}
 	}
