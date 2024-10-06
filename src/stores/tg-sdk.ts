@@ -2,16 +2,17 @@ import { SentryError, useSentry } from '@/services/sentry'
 import { forceUpdateTgUser } from '@/utils/tg-parse'
 import { defineStore } from 'pinia'
 import type { TelegramWebApps } from 'telegram-webapps'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 export const useTgSdkStore = defineStore('tgSdk', () => {
 	const sentry = useSentry()
 
-	let tg: null | TelegramWebApps.WebApp = null
 	let initTgSdkRetryCount = 4
 
-	const user = computed(() => tg?.initDataUnsafe?.user)
-	const startParam = computed(() => tg?.initDataUnsafe?.start_param)
+	const tg = ref<null | TelegramWebApps.WebApp>(null)
+
+	const user = computed(() => tg.value?.initDataUnsafe?.user)
+	const startParam = computed(() => tg.value?.initDataUnsafe?.start_param)
 	const username = computed(() => user.value?.username || '')
 	const userId = computed(() => user.value?.id || 0)
 	const isPremium = computed(() => user.value?.is_premium)
@@ -22,10 +23,10 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			return
 		}
 		try {
-			tg?.openTelegramLink(url)
+			tg.value?.openTelegramLink(url)
 		} catch (error) {
 			console.warn(error)
-			tg?.openLink(url)
+			tg.value?.openLink(url)
 		}
 	}
 
@@ -34,7 +35,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			return
 		}
 		try {
-			tg?.openInvoice(url, callback)
+			tg.value?.openInvoice(url, callback)
 		} catch (error) {
 			console.warn(error)
 		}
@@ -42,10 +43,10 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 
 	const initTgApp = () => {
 		try {
-			tg = Telegram.WebApp
-			tg.expand()
-			tg.disableVerticalSwipes()
-			tg.ready()
+			tg.value = Telegram.WebApp
+			tg.value.expand()
+			tg.value.disableVerticalSwipes()
+			tg.value.ready()
 			if (!user.value) {
 				initTgSdkRetryCount -= 1
 				if (initTgSdkRetryCount > 0) {
@@ -65,7 +66,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 				return
 			}
 			sentry.captureException(error, {
-				...(tg ? tg : {})
+				...(tg.value ? tg : {})
 			})
 		}
 	}
