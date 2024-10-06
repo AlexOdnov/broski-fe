@@ -7,7 +7,7 @@ import { computed, ref } from 'vue'
 export const useTgSdkStore = defineStore('tgSdk', () => {
 	const sentry = useSentry()
 
-	let initTgSdkRetryCount = 4
+	let initTgSdkRetryCount = 3
 
 	const tg = ref<null | TelegramWebApps.WebApp>(null)
 
@@ -46,7 +46,6 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			tg.value = Telegram.WebApp
 			tg.value.expand()
 			tg.value.disableVerticalSwipes()
-			tg.value.ready()
 			if (!user.value) {
 				initTgSdkRetryCount -= 1
 				if (initTgSdkRetryCount > 0) {
@@ -60,6 +59,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 					{ ...tg }
 				)
 			}
+			tg.value.ready()
 		} catch (error) {
 			initTgSdkRetryCount -= 1
 			if (initTgSdkRetryCount > 0) {

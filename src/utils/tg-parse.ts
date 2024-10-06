@@ -1,4 +1,7 @@
+import { SentryError, useSentry } from '@/services/sentry'
 import type { TelegramWebApps } from 'telegram-webapps'
+
+const sentry = useSentry()
 
 function urlSafeDecode(urlencoded: string) {
 	try {
@@ -57,6 +60,7 @@ function getTgUserInfo() {
 	const initParams = urlParseHashParams(locationHash)
 	try {
 		tgUser = JSON.parse(initParams.user)
+		sentry.captureException(new SentryError('Tg sdk error', 'Forced update tg user info'))
 	} catch (error) {
 		console.warn(error)
 	}
