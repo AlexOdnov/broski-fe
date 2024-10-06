@@ -49,7 +49,7 @@ function urlParseHashParams(locationHash: string) {
 	return params
 }
 
-function getTgUserInfo() {
+export function forceUpdateTgUser() {
 	let tgUser: null | TelegramWebApps.WebAppUser = null
 	let locationHash = ''
 	try {
@@ -60,14 +60,12 @@ function getTgUserInfo() {
 	const initParams = urlParseHashParams(locationHash)
 	try {
 		tgUser = JSON.parse(initParams.user)
-		sentry.captureException(new SentryError('Tg sdk error', 'Forced update tg user info'))
 	} catch (error) {
 		console.warn(error)
 	}
-	return tgUser
-}
-
-export function forceUpdateTgUser() {
 	// @ts-expect-error
-	Telegram.WebApp.initDataUnsafe.user = getTgUserInfo()
+	Telegram.WebApp.initDataUnsafe.user = tgUser
+	sentry.captureException(new SentryError('Tg sdk error', 'Forced update tg user info'), {
+		...Telegram.WebApp.initDataUnsafe
+	})
 }
