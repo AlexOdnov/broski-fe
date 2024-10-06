@@ -46,13 +46,13 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			tg.expand()
 			tg.disableVerticalSwipes()
 			tg.ready()
+			console.log(initParams)
 			if (!user.value) {
 				initTgSdkRetryCount -= 1
 				if (initTgSdkRetryCount > 0) {
 					initTgApp()
 					return
 				}
-				console.log(initParams)
 				sentry.captureException(
 					new SentryError('Tg sdk error', 'Failed to get telegram user information'),
 					{ ...tg }
