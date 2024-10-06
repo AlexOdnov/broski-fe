@@ -1,5 +1,5 @@
 import { SentryError, useSentry } from '@/services/sentry'
-import { tgUser } from '@/utils/tg-parse'
+import { forceUpdateTgUser } from '@/utils/tg-parse'
 import { defineStore } from 'pinia'
 import type { TelegramWebApps } from 'telegram-webapps'
 import { computed } from 'vue'
@@ -46,10 +46,10 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			tg.expand()
 			tg.disableVerticalSwipes()
 			tg.ready()
-			console.log(tgUser)
 			if (!user.value) {
 				initTgSdkRetryCount -= 1
 				if (initTgSdkRetryCount > 0) {
+					forceUpdateTgUser()
 					initTgApp()
 					return
 				}

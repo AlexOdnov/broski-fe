@@ -9,6 +9,23 @@ function urlSafeDecode(urlencoded: string) {
 	}
 }
 
+function urlParseQueryString(queryString: string) {
+	const params: Record<string, string> = {}
+	if (!queryString.length) {
+		return params
+	}
+	const queryStringParams = queryString.split('&')
+	for (let i = 0; i < queryStringParams.length; i++) {
+		const param = queryStringParams[i].split('=')
+		if (param.length === 3 && param[1] === 'user') {
+			return {
+				user: urlSafeDecode(param[2])
+			}
+		}
+	}
+	return params
+}
+
 function urlParseHashParams(locationHash: string) {
 	locationHash = locationHash.replace(/^#/, '')
 	const params: Record<string, string> = {}
@@ -29,40 +46,24 @@ function urlParseHashParams(locationHash: string) {
 	return params
 }
 
-function urlParseQueryString(queryString: string) {
-	const params: Record<string, string> = {}
-	if (!queryString.length) {
-		return params
-	}
-	const queryStringParams = queryString.split('&')
-	for (let i = 0; i < queryStringParams.length; i++) {
-		const param = queryStringParams[i].split('=')
-		if (param.length === 3 && param[1] === 'user') {
-			return {
-				user: urlSafeDecode(param[2])
-			}
-		}
-	}
-	return params
-}
-
-function getTgUserInfo(params: Record<string, string>) {
+function getTgUserInfo() {
 	let tgUser: null | TelegramWebApps.WebAppUser = null
+	let locationHash = ''
 	try {
-		tgUser = JSON.parse(params.user)
+		locationHash = location.hash.toString()
+	} catch (error) {
+		console.warn(error)
+	}
+	const initParams = urlParseHashParams(locationHash)
+	try {
+		tgUser = JSON.parse(initParams.user)
 	} catch (error) {
 		console.warn(error)
 	}
 	return tgUser
 }
 
-let locationHash = ''
-try {
-	locationHash = location.hash.toString()
-} catch (error) {
-	console.warn(error)
+export function forceUpdateTgUser() {
+	// @ts-expect-error
+	Telegram.WebApp.initDataUnsafe.user = getTgUserInfo()
 }
-
-const initParams = urlParseHashParams(locationHash)
-
-export const tgUser = getTgUserInfo(initParams)
