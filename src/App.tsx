@@ -16,6 +16,7 @@ import { useAdvertisingStore } from '@/stores/advertising'
 import { envVariables } from './services/env'
 import { useI18n } from 'vue-i18n'
 import { usePvpStore } from './stores/pvp'
+import { SentryError, useSentry } from './services/sentry'
 
 export default defineComponent({
 	setup() {
@@ -26,6 +27,7 @@ export default defineComponent({
 		const referralsStore = useReferralsStore()
 		const pvpStore = usePvpStore()
 		const i18n = useI18n()
+		const sentry = useSentry()
 
 		const isUserExist = ref(false)
 
@@ -58,6 +60,10 @@ export default defineComponent({
 			tgStore.initTgApp()
 			if (!tgStore.user) {
 				console.warn('Failed to get telegram user information')
+				sentry.captureException(
+					new SentryError('Tg sdk error', 'Failed to get telegram user information'),
+					{ ...Telegram.WebApp }
+				)
 				return
 			}
 			i18n.locale.value = tgStore.languageCode
