@@ -56,7 +56,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 				}
 				sentry.captureException(
 					new SentryError('Tg sdk error', 'Failed to get telegram user information'),
-					{ ...tg.value }
+					tg.value
 				)
 			}
 			tg.value.ready()
