@@ -40,18 +40,13 @@ function urlParseQueryString(queryString: string) {
 		return params
 	}
 	const queryStringParams = queryString.split('&')
-	let i, param, paramName, paramValue
-	for (i = 0; i < queryStringParams.length; i++) {
-		param = queryStringParams[i].split('=')
-		paramName = urlSafeDecode(param[0])
-		console.log(param)
-
+	for (let i = 0; i < queryStringParams.length; i++) {
+		const param = queryStringParams[i].split('=')
 		if (param.length === 3 && param[1] === 'user') {
-			console.log('broken', param)
-			console.log(urlSafeDecode(param[2]))
+			return {
+				user: urlSafeDecode(param[2])
+			}
 		}
-		paramValue = param[1] === null ? null : urlSafeDecode(param[1])
-		params[paramName] = paramValue
 	}
 	return params
 }
