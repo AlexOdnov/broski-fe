@@ -62,7 +62,7 @@ export default defineComponent({
 				console.warn('Failed to get telegram user information')
 				sentry.captureException(
 					new SentryError('Tg sdk error', 'Failed to get telegram user information'),
-					{ ...Telegram.WebApp }
+					{ ...(Telegram?.WebApp ? Telegram.WebApp : {}) }
 				)
 				return
 			}
