@@ -50,6 +50,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			if (!user.value) {
 				initTgSdkRetryCount -= 1
 				if (initTgSdkRetryCount > 0) {
+					tg.value = null
 					forceUpdateTgUser()
 					initTgApp()
 					return
