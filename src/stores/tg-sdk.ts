@@ -62,9 +62,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 				initTgApp()
 				return
 			}
-			sentry.captureException(error, {
-				...(tg.value ? tg.value : {})
-			})
+			sentry.captureException(error, { ...Telegram.WebApp })
 		}
 	}
 
