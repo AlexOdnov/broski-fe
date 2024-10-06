@@ -1,4 +1,4 @@
-import { SentryError, useSentry } from '@/services/sentry'
+import { useSentry } from '@/services/sentry'
 import { forceUpdateTgUser } from '@/utils/tg-parse'
 import { defineStore } from 'pinia'
 import type { TelegramWebApps } from 'telegram-webapps'
@@ -62,7 +62,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 				initTgApp()
 				return
 			}
-			sentry.captureException(error, { ...(Telegram?.WebApp ? Telegram.WebApp : {}) })
+			sentry.captureException(error)
 		}
 	}
 
