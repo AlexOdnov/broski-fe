@@ -1,4 +1,5 @@
 import { SentryError, useSentry } from '@/services/sentry'
+import { initParams } from '@/utils/tg-parse'
 import { defineStore } from 'pinia'
 import type { TelegramWebApps } from 'telegram-webapps'
 import { computed } from 'vue'
@@ -51,6 +52,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 					initTgApp()
 					return
 				}
+				console.log(initParams)
 				sentry.captureException(
 					new SentryError('Tg sdk error', 'Failed to get telegram user information'),
 					{ ...tg }
