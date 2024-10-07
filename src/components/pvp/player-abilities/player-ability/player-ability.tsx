@@ -8,8 +8,9 @@ import {
 	StrengthIcon,
 	WeightIcon
 } from '@/components/icons'
+import type { AbilityScores } from '@/api/generatedApi'
 
-export type AbilityType = 'combinations' | 'defence' | 'speed' | 'strength' | 'weight'
+export type AbilityType = keyof AbilityScores
 
 export const PlayerAbility = defineComponent({
 	name: 'PlayerAbility',
@@ -19,6 +20,7 @@ export const PlayerAbility = defineComponent({
 		maximumValue: { type: Number, required: true },
 		upgradeCost: { type: Number, required: true },
 		loading: { type: Boolean, default: false },
+		disabled: { type: Boolean, default: false },
 		whenUpgrade: { type: Function as PropType<() => void>, required: true }
 	},
 	setup: (props) => {
@@ -52,11 +54,11 @@ export const PlayerAbility = defineComponent({
 				</div>
 				<UiButton
 					size={'sm'}
-					mod={'inverse'}
+					mod={'primary'}
 					font={'Roboto'}
 					leftIcon={<UiText fontSize={'24px'}>+</UiText>}
-					loading={props.loading}
-					bordered
+					loading={!props.disabled && props.loading}
+					disabled={props.disabled}
 					icon
 					whenClick={props.whenUpgrade}
 				/>

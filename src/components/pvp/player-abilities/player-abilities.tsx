@@ -5,11 +5,13 @@ import { PlayerAbility } from './player-ability'
 import { usePvpStore } from '@/stores/pvp'
 import type { AbilityScores, AbilityScoresDelta } from '@/api/generatedApi'
 import { useI18n } from 'vue-i18n'
+import { useUserStore } from '@/stores/user'
 
 export const PlayerAbilities = defineComponent({
 	name: 'PlayerAbilities',
 	setup: () => {
 		const pvpStore = usePvpStore()
+		const userStore = useUserStore()
 		const { t } = useI18n()
 
 		const maximumAbilityValue = computed(() => {
@@ -32,6 +34,10 @@ export const PlayerAbilities = defineComponent({
 			})
 		}
 
+		const isDisabled = (key: keyof AbilityScores) => {
+			return abilityUpgradeCosts.value[key] > userStore.userScore
+		}
+
 		return () => (
 			<div class={styles.playerAbilities}>
 				<UiText color={'#797979'} fontSize={'18px'} fontWeight={500} alignCenter>
@@ -43,6 +49,7 @@ export const PlayerAbilities = defineComponent({
 					maximumValue={maximumAbilityValue.value}
 					upgradeCost={abilityUpgradeCosts.value.strength}
 					loading={pvpStore.isLoading}
+					disabled={isDisabled('strength')}
 					whenUpgrade={() => upgradeAbility('strength')}
 				/>
 				<PlayerAbility
@@ -51,6 +58,7 @@ export const PlayerAbilities = defineComponent({
 					maximumValue={maximumAbilityValue.value}
 					upgradeCost={abilityUpgradeCosts.value.defence}
 					loading={pvpStore.isLoading}
+					disabled={isDisabled('defence')}
 					whenUpgrade={() => upgradeAbility('defence')}
 				/>
 				<PlayerAbility
@@ -59,6 +67,7 @@ export const PlayerAbilities = defineComponent({
 					maximumValue={maximumAbilityValue.value}
 					upgradeCost={abilityUpgradeCosts.value.speed}
 					loading={pvpStore.isLoading}
+					disabled={isDisabled('speed')}
 					whenUpgrade={() => upgradeAbility('speed')}
 				/>
 				<PlayerAbility
@@ -67,6 +76,7 @@ export const PlayerAbilities = defineComponent({
 					maximumValue={maximumAbilityValue.value}
 					upgradeCost={abilityUpgradeCosts.value.weight}
 					loading={pvpStore.isLoading}
+					disabled={isDisabled('weight')}
 					whenUpgrade={() => upgradeAbility('weight')}
 				/>
 				<PlayerAbility
@@ -75,6 +85,7 @@ export const PlayerAbilities = defineComponent({
 					maximumValue={maximumAbilityValue.value}
 					upgradeCost={abilityUpgradeCosts.value.combinations}
 					loading={pvpStore.isLoading}
+					disabled={isDisabled('combinations')}
 					whenUpgrade={() => upgradeAbility('combinations')}
 				/>
 			</div>
