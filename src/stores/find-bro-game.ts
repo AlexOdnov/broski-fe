@@ -115,9 +115,9 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 		setGameStatus(GameStatus.Idle)
 		resetRemainAttempts()
 		resetGameField()
-		if (userStore.user?.first_game) {
+		if (userStore.userLegacy?.first_game) {
 			setIsGameLoading(true)
-			// await userStore.loadUserStats()
+			await userStore.loadUserLegacy()
 			setIsGameLoading(false)
 		}
 	}
@@ -132,7 +132,7 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 		}
 
 		// подменяем поле для первой игры
-		if (userStore.user?.first_game) {
+		if (userStore.userLegacy?.first_game) {
 			const currentAttempt = INITIAL_ATTEMPTS_COUNT - remainAttempts.value
 			if (!currentAttempt) {
 				setGameField([...createEmptyGameElements(9)])
