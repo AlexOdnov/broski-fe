@@ -20,12 +20,12 @@ const GamePage = defineComponent({
 
 		const tabOptions = [
 			{
-				label: t('fight'),
-				value: RouteName.GamePvp
-			},
-			{
 				label: t('profile'),
 				value: RouteName.GamePvpProfile
+			},
+			{
+				label: t('fight'),
+				value: RouteName.GamePvp
 			},
 			{
 				label: t('findBroGame'),
