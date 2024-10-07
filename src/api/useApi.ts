@@ -200,6 +200,6 @@ export const useApi = () => {
 		upgradePvpCharacterAbility,
 		searchPvpMatch,
 		startPvpMatch,
-		skipPvpMatch,
+		skipPvpMatch
 	}
 }
