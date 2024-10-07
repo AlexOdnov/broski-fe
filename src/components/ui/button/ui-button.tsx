@@ -8,7 +8,7 @@ export type FontVariant = 'Roboto' | 'BarcadeBrawlRegular'
 export const UiButton = defineComponent({
 	name: 'UiButton',
 	props: {
-		text: { type: String, required: true },
+		text: { type: String, required: false },
 		leftIcon: { type: Object as PropType<VNode>, required: false },
 		size: { type: String as PropType<ButtonSize>, default: 'md' },
 		mod: { type: String as PropType<ButtonMod>, default: 'primary' },
@@ -16,6 +16,8 @@ export const UiButton = defineComponent({
 		disabled: { type: Boolean, default: false },
 		loading: { type: Boolean, default: false },
 		minWidth: { type: String, default: 'auto' },
+		bordered: { type: Boolean, default: false },
+		icon: { type: Boolean, default: false },
 		whenClick: { type: Function as PropType<(e: MouseEvent) => void>, required: true }
 	},
 	setup: (props) => {
@@ -65,7 +67,14 @@ export const UiButton = defineComponent({
 
 		return () => (
 			<button
-				class={[styles.button, sizeClass.value, modClass.value, fontVariantClass.value]}
+				class={[
+					styles.button,
+					sizeClass.value,
+					modClass.value,
+					fontVariantClass.value,
+					props.bordered && styles.bordered,
+					props.icon && styles.onlyIcon
+				]}
 				type="button"
 				disabled={props.disabled}
 				onClick={handleClick}
@@ -75,7 +84,7 @@ export const UiButton = defineComponent({
 					<div class={styles.loader} />
 				) : (
 					<>
-						{<div class={styles.leftIcon}>{props.leftIcon}</div>}
+						{props.leftIcon && <div class={styles.leftIcon}>{props.leftIcon}</div>}
 						{props.text}
 					</>
 				)}

@@ -1,16 +1,31 @@
 import { defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 import styles from './styles.module.css'
-import { UiProgressBar } from '../ui/progress-bar'
 import { envVariables } from '@/services/env'
 import { useI18n } from 'vue-i18n'
+import { UiProgressBar } from '@/components/ui'
+import { UiText } from '../ui/ui-text'
 
 export const LoadingScreen = defineComponent({
 	name: 'LoadingScreen',
 	setup: () => {
-		const scriptTag = ref<HTMLScriptElement | null>(null)
 		const { t } = useI18n()
+		const scriptTag = ref<HTMLScriptElement | null>(null)
+		const totalItems = 20
+		const currentProgress = ref(0)
+		const interval = ref<ReturnType<typeof setInterval> | null>(null)
 
 		onMounted(() => {
+			interval.value = setInterval(
+				() => {
+					if (currentProgress.value < totalItems - 1) {
+						currentProgress.value += 1
+					}
+				},
+				envVariables.loaderDuration / (totalItems - 1)
+			)
+			if (!envVariables.enableLoaderBanner) {
+				return
+			}
 			scriptTag.value = document.createElement('script')
 			scriptTag.value.src = 'https://js.onclckmn.com/static/onclicka.js'
 			scriptTag.value.dataset.admpid = '231083'
@@ -18,6 +33,10 @@ export const LoadingScreen = defineComponent({
 		})
 
 		onBeforeUnmount(() => {
+			interval.value && clearInterval(interval.value)
+			if (!envVariables.enableLoaderBanner) {
+				return
+			}
 			scriptTag.value?.remove()
 		})
 
@@ -30,14 +49,27 @@ export const LoadingScreen = defineComponent({
 					</div>
 					<div class={styles.progressBarWrapper}>
 						<img class={styles.logo} src="/images/broski-straight.webp" alt="BROski" />
-						<UiProgressBar duration={envVariables.loaderDuration} />
-						<p class={styles.loadingText}>{t('loading')}...</p>
+						<UiProgressBar
+							totalItems={totalItems}
+							filledItems={currentProgress.value}
+							height={30}
+							mod={'segmented'}
+							padding={2}
+							withCounter
+						/>
+						<UiText class={styles.loadingText} fontSize={'14px'}>
+							{t('loading')}...
+						</UiText>
 					</div>
 				</div>
-				<div class={styles.bannerWrapper}>
-					<div class={styles.banner} data-banner-id="6031971"></div>
-					<p class={[styles.loadingText, styles.bannerText]}>{t('noResponsibleForAd')}</p>
-				</div>
+				{envVariables.enableLoaderBanner && (
+					<div class={styles.bannerWrapper}>
+						<div class={styles.banner} data-banner-id="6031971"></div>
+						<UiText class={styles.loadingText} fontSize={'14px'}>
+							{t('noResponsibleForAd')}
+						</UiText>
+					</div>
+				)}
 			</div>
 		)
 	}

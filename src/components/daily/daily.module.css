@@ -12,17 +12,8 @@
 }
 
 .day {
-	font-family: 'BarcadeBrawlRegular', sans-serif;
-	font-size: 42px;
-	line-height: 42px;
 	color: #f0f0f0;
 	text-shadow: 10px 8px #0b0c0e;
-}
-
-.dayText {
-	font-family: 'BarcadeBrawlRegular', sans-serif;
-	font-size: 16px;
-	line-height: 16px;
 }
 
 .message {
@@ -51,21 +42,10 @@
 	padding: 10px;
 }
 
-.dayBlockTitle {
-	color: #f0f0f0;
-	font-weight: 600;
-	font-size: 14px;
-	line-height: 14px;
-}
-
 .dayBlockCoins {
 	display: flex;
 	align-items: center;
 	margin-top: 20px;
-	color: #ffb800;
-	font-weight: 400;
-	font-size: 12px;
-	line-height: 12px;
 }
 
 .dayBlockCoins img {
@@ -78,9 +58,6 @@
 	display: flex;
 	align-items: center;
 	color: #cbcbcb;
-	font-weight: 400;
-	font-size: 12px;
-	line-height: 12px;
 }
 
 .dayBlockTickets img {

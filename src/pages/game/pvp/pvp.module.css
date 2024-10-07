@@ -1,0 +1,37 @@
+.pvp {
+	display: grid;
+	width: 100%;
+	gap: 10px;
+	grid-template-columns: 1fr 1fr;
+	padding: 0 15px;
+}
+
+.fullWidth {
+	grid-column: span 2;
+}
+
+.textInFrontWrapper {
+	z-index: 2;
+	height: 0;
+	position: relative;
+	top: calc(40px + 6vh);
+	left: calc(50vw - 50% - 20px + 5px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.textInFront {
+	transform: rotate(-7deg);
+}
+
+.bottomText {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.lose {
+	opacity: 0.5;
+}

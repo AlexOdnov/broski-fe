@@ -9,7 +9,9 @@ export const UiHeightPlaceholder = defineComponent({
 		return () => (
 			<div
 				style={{
-					height: props.height
+					minHeight: props.height,
+					height: props.height,
+					maxHeight: props.height
 				}}
 			/>
 		)

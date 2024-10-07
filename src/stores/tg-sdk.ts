@@ -1,13 +1,20 @@
+import { useSentry } from '@/services/sentry'
+import { forceUpdateTgUser } from '@/utils/tg-parse'
 import { defineStore } from 'pinia'
-import { computed } from 'vue'
+import type { TelegramWebApps } from 'telegram-webapps'
+import { computed, ref } from 'vue'
 
 export const useTgSdkStore = defineStore('tgSdk', () => {
-	const tg = Telegram.WebApp
+	const sentry = useSentry()
 
-	const user = computed(() => tg.initDataUnsafe.user)
+	let initTgSdkRetryCount = 3
+
+	const tg = ref<null | TelegramWebApps.WebApp>(null)
+
+	const user = computed(() => tg.value?.initDataUnsafe?.user)
+	const startParam = computed(() => tg.value?.initDataUnsafe?.start_param)
 	const username = computed(() => user.value?.username || '')
 	const userId = computed(() => user.value?.id || 0)
-	const startParam = computed(() => tg.initDataUnsafe.start_param)
 	const isPremium = computed(() => user.value?.is_premium)
 	const languageCode = computed(() => user.value?.language_code || 'en')
 
@@ -16,17 +23,47 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			return
 		}
 		try {
-			tg.openTelegramLink(url)
+			tg.value?.openTelegramLink(url)
 		} catch (error) {
 			console.warn(error)
-			tg.openLink(url)
+			tg.value?.openLink(url)
+		}
+	}
+
+	const openInvoice = (url: string, callback?: TelegramWebApps.InvoiceClosedEventHandler) => {
+		if (!url) {
+			return
+		}
+		try {
+			tg.value?.openInvoice(url, callback)
+		} catch (error) {
+			console.warn(error)
 		}
 	}
 
 	const initTgApp = () => {
-		tg.expand()
-		tg.disableVerticalSwipes()
-		tg.ready()
+		try {
+			tg.value = Telegram.WebApp
+			tg.value.expand()
+			tg.value.disableVerticalSwipes()
+			if (!user.value) {
+				initTgSdkRetryCount -= 1
+				if (initTgSdkRetryCount > 0) {
+					tg.value = null
+					forceUpdateTgUser()
+					initTgApp()
+					return
+				}
+			}
+			tg.value.ready()
+		} catch (error) {
+			initTgSdkRetryCount -= 1
+			if (initTgSdkRetryCount > 0) {
+				initTgApp()
+				return
+			}
+			sentry.captureException(error)
+		}
 	}
 
 	return {
@@ -37,6 +74,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 		isPremium,
 		languageCode,
 		initTgApp,
-		openLink
+		openLink,
+		openInvoice
 	}
 })

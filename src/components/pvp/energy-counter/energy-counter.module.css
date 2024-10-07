@@ -1,0 +1,24 @@
+.energyWrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 4px;
+}
+
+.energy {
+	display: flex;
+	align-items: center;
+}
+
+.counter {
+	display: grid;
+	grid-template-columns: min-content 1px min-content;
+	align-items: center;
+	gap: 4px;
+}
+
+.separator {
+	width: 1px;
+	height: 100%;
+	background-color: #35332e;
+}
