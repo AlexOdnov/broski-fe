@@ -21,6 +21,40 @@ const WIN_GAME_ELEMENTS = ['B', 'R', 'O']
 
 const WIN_GAME_ELEMENTS_COUNT = WIN_GAME_ELEMENTS.length
 
+const FAKE_GAME_ELEMENTS: IGameElement[] = [
+	{
+		isOpen: false,
+		isPreview: false,
+		value: 'B'
+	},
+	{
+		isOpen: false,
+		isPreview: false,
+		value: null
+	},
+	{
+		isOpen: false,
+		isPreview: false,
+		value: 'R'
+	},
+	{
+		isOpen: false,
+		isPreview: false,
+		value: BOX_VALUE,
+		image: '/images/box.webp'
+	},
+	{
+		isOpen: false,
+		isPreview: false,
+		value: null
+	},
+	{
+		isOpen: false,
+		isPreview: false,
+		value: 'O'
+	}
+]
+
 const createGameField = (): IGameElement[] => {
 	return randomValueByChance(envVariables.lootboxChance)
 		? [
@@ -69,7 +103,7 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 		}
 	}
 
-	const finishGame = (withoutClaim = false) => {
+	const finishGame = async (withoutClaim = false) => {
 		if (![GameStatus.Lose, GameStatus.Win].includes(gameStatus.value)) {
 			return
 		}
@@ -81,6 +115,11 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 		setGameStatus(GameStatus.Idle)
 		resetRemainAttempts()
 		resetGameField()
+		if (userStore.userLegacy?.first_game) {
+			setIsGameLoading(true)
+			await userStore.loadUserLegacy()
+			setIsGameLoading(false)
+		}
 	}
 
 	const selectElement = (index: number) => {
@@ -88,11 +127,20 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 			return
 		}
 
-		const element = gameField.value[index]
-
-		if (element.isOpen) {
+		if (gameField.value[index].isOpen) {
 			return
 		}
+
+		// подменяем поле для первой игры
+		if (userStore.userLegacy?.first_game) {
+			const currentAttempt = INITIAL_ATTEMPTS_COUNT - remainAttempts.value
+			if (!currentAttempt) {
+				setGameField([...createEmptyGameElements(9)])
+			}
+			gameField.value[index] = FAKE_GAME_ELEMENTS[currentAttempt]
+		}
+
+		const element = gameField.value[index]
 
 		element.isOpen = true
 		setRemainAttempts(remainAttempts.value - 1)
