@@ -8,7 +8,7 @@ export const PowerCounter = defineComponent({
 	name: 'PowerCounter',
 	props: {
 		power: { type: Number, required: true },
-		totalPower: { type: Number, required: false },
+		totalPower: { type: Number, required: false }
 	},
 	setup: (props) => {
 		const { t } = useI18n()

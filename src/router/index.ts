@@ -20,7 +20,7 @@ const router = createRouter({
 			path: '/game',
 			name: RouteName.Game,
 			component: GamePage,
-			redirect: { name: RouteName.GamePvp },
+			redirect: { name: RouteName.GamePvpProfile },
 			children: [
 				{
 					path: 'pvp',
@@ -61,7 +61,7 @@ const router = createRouter({
 		},
 		{
 			path: '/:pathMatch(.*)',
-			redirect: { name: RouteName.GamePvp }
+			redirect: { name: RouteName.GamePvpProfile }
 		}
 	]
 })
