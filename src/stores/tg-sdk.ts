@@ -1,4 +1,4 @@
-import { useSentry } from '@/services/sentry'
+import { SentryError, useSentry } from '@/services/sentry'
 import { forceUpdateTgUser } from '@/utils/tg-parse'
 import { defineStore } from 'pinia'
 import type { TelegramWebApps } from 'telegram-webapps'
@@ -32,11 +32,17 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 
 	const openInvoice = (url: string, callback?: TelegramWebApps.InvoiceClosedEventHandler) => {
 		if (!url) {
+			sentry.captureException(new Error('Empty invoice url'))
 			return
 		}
 		try {
-			tg.value?.openInvoice(url, callback)
+			if (tg.value) {
+				tg.value.openInvoice(url, callback)
+			} else {
+				throw new SentryError('Tg sdk error', 'Tg sdk is not exist')
+			}
 		} catch (error) {
+			sentry.captureException(error)
 			console.warn(error)
 		}
 	}

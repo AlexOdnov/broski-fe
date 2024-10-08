@@ -65,7 +65,7 @@ export function forceUpdateTgUser() {
 	}
 	// @ts-expect-error
 	Telegram.WebApp.initDataUnsafe.user = tgUser
-	sentry.captureException(new SentryError('Tg sdk error', 'Forced update tg user info'), {
-		...Telegram.WebApp.initDataUnsafe
-	})
+	// sentry.captureException(new SentryError('Tg sdk error', 'Forced update tg user info'), {
+	// 	...Telegram.WebApp.initDataUnsafe
+	// })
 }
