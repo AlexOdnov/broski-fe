@@ -7,8 +7,8 @@ export const LevelCounter = defineComponent({
 	name: 'LevelCounter',
 	props: {
 		level: { type: Number, required: true },
-		expirience: { type: Number, required: true },
-		expirienceLimit: { type: Number, required: true }
+		experience: { type: Number, required: true },
+		experienceLimit: { type: Number, required: true }
 	},
 	setup: (props) => {
 		return () => (
@@ -24,13 +24,13 @@ export const LevelCounter = defineComponent({
 						</UiText>
 						&nbsp;
 						<UiText fontSize={'14px'} color={'#F0F0F0'}>
-							{props.expirience}/{props.expirienceLimit}
+							{props.experience}/{props.experienceLimit}
 						</UiText>
 					</div>
 				</div>
 				<UiProgressBar
-					totalItems={props.expirienceLimit}
-					filledItems={props.expirience}
+					totalItems={props.experienceLimit}
+					filledItems={props.experience}
 					height={10}
 				/>
 			</div>

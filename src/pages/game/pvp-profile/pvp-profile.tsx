@@ -19,8 +19,8 @@ const PvpProfilePage = defineComponent({
 			<div class={styles.pvpProfile}>
 				<LevelCounter
 					level={pvpStore.pvpCharacter?.level ?? 1}
-					expirience={1}
-					expirienceLimit={10}
+					experience={pvpStore.pvpCharacter?.experience.current_experience ?? 1}
+					experienceLimit={pvpStore.pvpCharacter?.experience.maximum_experience ?? 1}
 				/>
 				<PlayerInventory />
 				<div class={styles.parameters}>

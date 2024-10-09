@@ -1,6 +1,5 @@
 /* eslint-disable */
 /* tslint:disable */
-
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -51,14 +50,21 @@ export interface CharacterEnergy {
 	time_to_restore: string
 }
 
+/** CharacterExperience */
+export interface CharacterExperience {
+	/** Current Experience */
+	current_experience: number
+	/** Maximum Experience */
+	maximum_experience: number
+}
+
 /** CharacterProfile */
 export interface CharacterProfile {
 	abilities: AbilityScores
 	energy: CharacterEnergy
 	/** Level */
 	level: number
-	/** Experience */
-	experience: number
+	experience: CharacterExperience
 	/** Power */
 	power: number
 }
@@ -139,7 +145,7 @@ export interface PVPMatch {
 /** PVPMatchResult */
 export interface PVPMatchResult {
 	result: MatchResult
-	loot: MatchLoot | null
+	loot?: MatchLoot | null
 }
 
 /** User */
