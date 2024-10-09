@@ -86,7 +86,7 @@ export const MainComponent = defineComponent({
 							{isRewardAvailable.value && (
 								<>
 									<span class={[styles.btnText, styles.yellow]}>{t('claim')}</span>
-									<span class={[styles.claimNumber, styles.yellow]}>+72</span>
+									<span class={[styles.claimNumber, styles.yellow]}>+Exp</span>
 								</>
 							)}
 							{!isRewardAvailable.value && !timeBeforeMiningLeft.value && (
