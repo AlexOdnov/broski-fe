@@ -115,7 +115,7 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 		setGameStatus(GameStatus.Idle)
 		resetRemainAttempts()
 		resetGameField()
-		if (userStore.userLegacy?.first_game) {
+		if (userStore.userLegacy?.first_game && !withoutClaim) {
 			setIsGameLoading(true)
 			await userStore.loadUserLegacy()
 			setIsGameLoading(false)

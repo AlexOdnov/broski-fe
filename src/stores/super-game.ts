@@ -74,6 +74,9 @@ export const useSuperGameStore = defineStore('superGame', () => {
 		setGameStatus(GameStatus.Idle)
 		resetRemainAttempts()
 		resetGameField()
+		if (userStore.userLegacy?.first_game) {
+			userStore.loadUserLegacy()
+		}
 	}
 
 	const selectElement = (index: number) => {
