@@ -6,6 +6,13 @@ import { GameStatus, WIN_GAME_POINTS, type IGameElement } from '@/utils/games'
 
 export const INITIAL_ATTEMPTS_COUNT = 1
 
+const WIN_GAME_ELEMENT = {
+	isOpen: false,
+	isPreview: false,
+	value: GameStatus.Win,
+	image: '/images/fist-small.webp'
+}
+
 const createGameField = (): IGameElement[] => {
 	return [
 		{
@@ -17,14 +24,9 @@ const createGameField = (): IGameElement[] => {
 		{
 			isOpen: false,
 			isPreview: false,
-			value: GameStatus.Win,
-			image: '/images/fist-small.webp'
-		},
-		{
-			isOpen: false,
-			isPreview: false,
 			value: ''
-		}
+		},
+		{ ...WIN_GAME_ELEMENT }
 	]
 }
 
@@ -72,6 +74,9 @@ export const useSuperGameStore = defineStore('superGame', () => {
 		setGameStatus(GameStatus.Idle)
 		resetRemainAttempts()
 		resetGameField()
+		if (userStore.userLegacy?.first_game) {
+			userStore.loadUserLegacy()
+		}
 	}
 
 	const selectElement = (index: number) => {
@@ -79,11 +84,20 @@ export const useSuperGameStore = defineStore('superGame', () => {
 			return
 		}
 
-		const element = gameField.value[index]
+		const realElement = gameField.value[index]
 
-		if (element.isOpen) {
+		if (realElement.isOpen) {
 			return
 		}
+
+		// подменяем поле для первой игры
+		if (userStore.userLegacy?.first_game) {
+			const winIndex = gameField.value.findIndex((el) => el.value === WIN_GAME_ELEMENT.value)
+			gameField.value[winIndex] = { ...realElement }
+			gameField.value[index] = { ...WIN_GAME_ELEMENT }
+		}
+
+		const element = gameField.value[index]
 
 		element.isOpen = true
 		setRemainAttempts(remainAttempts.value - 1)

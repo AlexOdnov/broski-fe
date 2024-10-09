@@ -9,21 +9,18 @@ import {
 	PlayerAbilities
 } from '@/components/pvp'
 import { usePvpStore } from '@/stores/pvp'
-import { useI18n } from 'vue-i18n'
 
 const PvpProfilePage = defineComponent({
 	name: 'PvpProfilePage',
 	setup() {
-		const { t } = useI18n()
 		const pvpStore = usePvpStore()
 
 		return () => (
 			<div class={styles.pvpProfile}>
 				<LevelCounter
 					level={pvpStore.pvpCharacter?.level ?? 1}
-					expirience={1}
-					expirienceLimit={1}
-					levelName={t('pvp.newbie')}
+					experience={pvpStore.pvpCharacter?.experience.current_experience ?? 1}
+					experienceLimit={pvpStore.pvpCharacter?.experience.maximum_experience ?? 1}
 				/>
 				<PlayerInventory />
 				<div class={styles.parameters}>
