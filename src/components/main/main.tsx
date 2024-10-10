@@ -7,6 +7,7 @@ import { useReferralsStore } from '@/stores/referrals'
 import { useI18n } from 'vue-i18n'
 import { RouteName } from '@/router'
 import { useCommonStore } from '@/stores/common'
+import { usePvpStore } from '@/stores/pvp'
 
 export const MainComponent = defineComponent({
 	name: 'MainComponent',
@@ -17,6 +18,7 @@ export const MainComponent = defineComponent({
 		const tasksStore = useTasksStore()
 		const referralsStore = useReferralsStore()
 		const commonStore = useCommonStore()
+		const pvpStore = usePvpStore()
 
 		const isRewardAvailable = computed(
 			() => !timeBeforeMiningLeft.value && !userStore.user?.mining.claim
@@ -32,6 +34,7 @@ export const MainComponent = defineComponent({
 			if (isRewardAvailable.value) {
 				await userStore.doneMining()
 				await userStore.loadUser()
+				await pvpStore.loadPvpCharacter()
 			}
 		}
 
