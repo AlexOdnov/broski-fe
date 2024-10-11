@@ -28,6 +28,9 @@ export const MainComponent = defineComponent({
 		const timeBeforeMiningLeft = computed(() => userStore.timeBeforeMiningLeftString)
 
 		const whenMiningClicked = async () => {
+			if (isMiningLoading.value) {
+				return
+			}
 			isMiningLoading.value = true
 			if (!isRewardAvailable.value && !timeBeforeMiningLeft.value) {
 				await userStore.startMining()
