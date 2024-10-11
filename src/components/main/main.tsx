@@ -1,5 +1,5 @@
 import styles from './main.module.css'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { useTasksStore } from '@/stores/tasks'
@@ -20,12 +20,18 @@ export const MainComponent = defineComponent({
 		const commonStore = useCommonStore()
 		const pvpStore = usePvpStore()
 
+		const isMiningLoading = ref(false)
+
 		const isRewardAvailable = computed(
 			() => !timeBeforeMiningLeft.value && !userStore.user?.mining.claim
 		)
 		const timeBeforeMiningLeft = computed(() => userStore.timeBeforeMiningLeftString)
 
 		const whenMiningClicked = async () => {
+			if (isMiningLoading.value) {
+				return
+			}
+			isMiningLoading.value = true
 			if (!isRewardAvailable.value && !timeBeforeMiningLeft.value) {
 				await userStore.startMining()
 				await userStore.loadUser()
@@ -36,6 +42,7 @@ export const MainComponent = defineComponent({
 				await userStore.loadUser()
 				await pvpStore.loadPvpCharacter()
 			}
+			isMiningLoading.value = false
 		}
 
 		return () => (
