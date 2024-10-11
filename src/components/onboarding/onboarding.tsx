@@ -24,7 +24,7 @@ export const OnboardingComponent = defineComponent({
 				switch (currentStep.value) {
 					case 1:
 						return {
-							image: '/images/onboarding-1.webp',
+							image: '/images/onboarding-new-1.webp',
 							title: (
 								<div class={styles.title}>
 									<UiText isAccent>{t('onboarding.yoBro')}</UiText>&nbsp;
@@ -53,7 +53,7 @@ export const OnboardingComponent = defineComponent({
 						}
 					case 2:
 						return {
-							image: '/images/onboarding-2.webp',
+							image: '/images/onboarding-new-2.webp',
 							title: (
 								<div class={[styles.title, styles.titleFlex]}>
 									<UiText isAccent>{t('onboarding.battlesAndEnergy')}</UiText>
@@ -80,21 +80,38 @@ export const OnboardingComponent = defineComponent({
 						}
 					case 3:
 						return {
-							image: '/images/onboarding-3.webp',
+							image: '/images/onboarding-new-3.webp',
 							title: (
 								<div class={styles.title}>
-									{t('onboarding.wasToEarn')}<UiText isAccent> $BRO</UiText>
+									{t('onboarding.wasToEarn')}
+									<UiText isAccent> $BRO</UiText>
 								</div>
 							),
 							description: (
 								<div class={styles.description}>
-									<span>{t('onboarding.quests')}<UiText isAccent> $BRO </UiText>{t('onboarding.and')} <TicketIcon height={14}/></span>
-									<span>{t('onboarding.game')}<UiText isAccent> B,R,O </UiText> {t('onboarding.attempts')}</span>
+									<span>
+										{t('onboarding.quests')}
+										<UiText isAccent> $BRO </UiText>
+										{t('onboarding.and')} <TicketIcon height={14} />
+									</span>
+									<span>
+										{t('onboarding.game')}
+										<UiText isAccent> B,R,O </UiText> {t('onboarding.attempts')}
+									</span>
 									<span>{t('onboarding.inGameYouCanFind')}</span>
 									<ul class={styles.list}>
-										<li><EnergyIcon height={17} /> {t('onboarding.energy')} (5% {t('onboarding.chance')})</li>
-										<li>{t('onboarding.bag')}<UiText isAccent> $BRO </UiText> (2% {t('onboarding.chance')})</li>
-										<li><BoxIcon height={17} /> {t('onboarding.lootbox')} (1% {t('onboarding.chance')})</li>
+										<li>
+											<EnergyIcon height={17} /> {t('onboarding.energy')} (5%{' '}
+											{t('onboarding.chance')})
+										</li>
+										<li>
+											{t('onboarding.bag')}
+											<UiText isAccent> $BRO </UiText> (2% {t('onboarding.chance')})
+										</li>
+										<li>
+											<BoxIcon height={17} /> {t('onboarding.lootbox')} (1% {t('onboarding.chance')}
+											)
+										</li>
 									</ul>
 									<p class={styles.steps}>{currentStep.value}/4</p>
 								</div>
@@ -105,7 +122,7 @@ export const OnboardingComponent = defineComponent({
 						}
 					case 4:
 						return {
-							image: '/images/onboarding-3.webp',
+							image: '/images/onboarding-new-3.webp',
 							title: (
 								<div class={styles.title}>
 									<UiText isAccent>{t('onboarding.growFaster')}</UiText>
@@ -113,7 +130,11 @@ export const OnboardingComponent = defineComponent({
 							),
 							description: (
 								<div class={styles.description}>
-									<span>{t('onboarding.earnFivePercent')}<UiText isAccent> $BRO </UiText>{t('onboarding.earnings')}</span>
+									<span>
+										{t('onboarding.earnFivePercent')}
+										<UiText isAccent> $BRO </UiText>
+										{t('onboarding.earnings')}
+									</span>
 									<span>{t('onboarding.moreFriends')}</span>
 									<span>{t('onboarding.shareYourLink')}</span>
 									<p class={styles.steps}>{currentStep.value}/4</p>
@@ -125,7 +146,7 @@ export const OnboardingComponent = defineComponent({
 						}
 					default:
 						return {
-							image: '/images/onboarding-1.webp',
+							image: '/images/onboarding-new-1.webp',
 							title: <></>,
 							description: <></>,
 							buttonMod: 'inverse',
