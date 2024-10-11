@@ -44,7 +44,7 @@ export const OnboardingComponent = defineComponent({
 										<UiText isAccent> $BRO </UiText>
 										{t('onboarding.useEarned2')}
 									</span>
-									<p class={styles.steps}>{currentStep.value}/4</p>
+									<p class={styles.steps}>{currentStep.value}/3</p>
 								</div>
 							),
 							buttonMod: 'inverse',
@@ -71,56 +71,57 @@ export const OnboardingComponent = defineComponent({
 										<UiText isAccent>{t('onboarding.wantToWinMore')}</UiText>
 									</span>
 									<span>{t('onboarding.keepUpdatingYourStats')}</span>
-									<p class={styles.steps}>{currentStep.value}/4</p>
+									<p class={styles.steps}>{currentStep.value}/3</p>
 								</div>
 							),
 							buttonMod: 'inverse',
 							buttonText: t('onboarding.next'),
 							handler: () => (currentStep.value += 1)
 						}
+					// пока не актуально
+					// case 3:
+					// 	return {
+					// 		image: '/images/onboarding-new-3.webp',
+					// 		title: (
+					// 			<div class={styles.title}>
+					// 				{t('onboarding.wasToEarn')}
+					// 				<UiText isAccent> $BRO</UiText>
+					// 			</div>
+					// 		),
+					// 		description: (
+					// 			<div class={styles.description}>
+					// 				<span>
+					// 					{t('onboarding.quests')}
+					// 					<UiText isAccent> $BRO </UiText>
+					// 					{t('onboarding.and')} <TicketIcon height={14} />
+					// 				</span>
+					// 				<span>
+					// 					{t('onboarding.game')}
+					// 					<UiText isAccent> B,R,O </UiText> {t('onboarding.attempts')}
+					// 				</span>
+					// 				<span>{t('onboarding.inGameYouCanFind')}</span>
+					// 				<ul class={styles.list}>
+					// 					<li>
+					// 						<EnergyIcon height={17} /> {t('onboarding.energy')} (5%{' '}
+					// 						{t('onboarding.chance')})
+					// 					</li>
+					// 					<li>
+					// 						{t('onboarding.bag')}
+					// 						<UiText isAccent> $BRO </UiText> (2% {t('onboarding.chance')})
+					// 					</li>
+					// 					<li>
+					// 						<BoxIcon height={17} /> {t('onboarding.lootbox')} (1% {t('onboarding.chance')}
+					// 						)
+					// 					</li>
+					// 				</ul>
+					// 				<p class={styles.steps}>{currentStep.value}/4</p>
+					// 			</div>
+					// 		),
+					// 		buttonMod: 'inverse',
+					// 		buttonText: t('onboarding.next'),
+					// 		handler: () => (currentStep.value += 1)
+					// 	}
 					case 3:
-						return {
-							image: '/images/onboarding-new-3.webp',
-							title: (
-								<div class={styles.title}>
-									{t('onboarding.wasToEarn')}
-									<UiText isAccent> $BRO</UiText>
-								</div>
-							),
-							description: (
-								<div class={styles.description}>
-									<span>
-										{t('onboarding.quests')}
-										<UiText isAccent> $BRO </UiText>
-										{t('onboarding.and')} <TicketIcon height={14} />
-									</span>
-									<span>
-										{t('onboarding.game')}
-										<UiText isAccent> B,R,O </UiText> {t('onboarding.attempts')}
-									</span>
-									<span>{t('onboarding.inGameYouCanFind')}</span>
-									<ul class={styles.list}>
-										<li>
-											<EnergyIcon height={17} /> {t('onboarding.energy')} (5%{' '}
-											{t('onboarding.chance')})
-										</li>
-										<li>
-											{t('onboarding.bag')}
-											<UiText isAccent> $BRO </UiText> (2% {t('onboarding.chance')})
-										</li>
-										<li>
-											<BoxIcon height={17} /> {t('onboarding.lootbox')} (1% {t('onboarding.chance')}
-											)
-										</li>
-									</ul>
-									<p class={styles.steps}>{currentStep.value}/4</p>
-								</div>
-							),
-							buttonMod: 'inverse',
-							buttonText: t('onboarding.next'),
-							handler: () => (currentStep.value += 1)
-						}
-					case 4:
 						return {
 							image: '/images/onboarding-new-3.webp',
 							title: (
@@ -137,7 +138,7 @@ export const OnboardingComponent = defineComponent({
 									</span>
 									<span>{t('onboarding.moreFriends')}</span>
 									<span>{t('onboarding.shareYourLink')}</span>
-									<p class={styles.steps}>{currentStep.value}/4</p>
+									<p class={styles.steps}>{currentStep.value}/3</p>
 								</div>
 							),
 							buttonMod: 'primary',
