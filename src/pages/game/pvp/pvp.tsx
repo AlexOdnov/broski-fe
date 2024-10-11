@@ -6,7 +6,7 @@ import { usePvpStore } from '@/stores/pvp'
 import { TicketIcon } from '@/components/icons'
 import { MatchCharacterCard } from '@/components/pvp'
 import { MatchResult } from '@/api/generatedApi'
-import { UiButton, UiText, type UiTextFontWeight } from '@/components'
+import { CoinCounter, UiButton, UiText, type UiTextFontWeight } from '@/components'
 import { useI18n } from 'vue-i18n'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { envVariables } from '@/services/env'
@@ -116,11 +116,17 @@ const PvpPage = defineComponent({
 					{!pvpStore.pvpMatchResult && pvpStore.pvpMatch?.match_id && (
 						<>
 							<UiText {...textProps}> {t('pvp.skipOpponent')}:</UiText>&nbsp;
-							<UiText {...textProps} color={'#FFB800'}>
-								1
-							</UiText>
-							&nbsp;
-							<TicketIcon height={14} />
+							{envVariables.skipPvpCost === 'ticket' ? (
+								<>
+									<UiText {...textProps} color={'#FFB800'}>
+										1
+									</UiText>
+									&nbsp;
+									<TicketIcon height={14} />
+								</>
+							) : (
+								<CoinCounter reverse coins={50} />
+							)}
 						</>
 					)}
 					{pvpStore.pvpMatchResult?.result === MatchResult.Lose && (
