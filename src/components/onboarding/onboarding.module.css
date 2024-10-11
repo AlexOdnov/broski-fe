@@ -29,3 +29,12 @@
 	width: 1em;
 	height: 1em;
 }
+
+.list {
+	width: fit-content;
+	margin: auto;
+}
+
+.list li {
+	text-align: left;
+}
