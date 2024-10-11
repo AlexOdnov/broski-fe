@@ -6,6 +6,7 @@ export interface Env {
 	enableLoaderBanner: boolean
 	invoiceUrl: string
 	sentryDSN: string
+	skipPvpCost: 'coin' | 'ticket'
 }
 
 export const envVariables: Env = {
@@ -15,5 +16,6 @@ export const envVariables: Env = {
 	loaderDuration: Number(import.meta.env.VITE_LOADER_DURATION || 500),
 	enableLoaderBanner: import.meta.env.VITE_ENABLE_LOADER_BANNER === 'true',
 	invoiceUrl: import.meta.env.VITE_INVOICE_URL || '',
-	sentryDSN: import.meta.env.VITE_SENTRY_DSN || ''
+	sentryDSN: import.meta.env.VITE_SENTRY_DSN || '',
+	skipPvpCost: import.meta.env.VITE_SKIP_PVP_COST || 'ticket'
 }
