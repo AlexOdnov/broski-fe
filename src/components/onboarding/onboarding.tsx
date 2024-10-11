@@ -123,7 +123,7 @@ export const OnboardingComponent = defineComponent({
 					// 	}
 					case 3:
 						return {
-							image: '/images/onboarding-new-3.webp',
+							image: '/images/onboarding-new-4.webp',
 							title: (
 								<div class={styles.title}>
 									<UiText isAccent>{t('onboarding.growFaster')}</UiText>
