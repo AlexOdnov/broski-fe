@@ -12,6 +12,7 @@
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 14px;
+	background-color: #141517;
 }
 
 .text {
@@ -45,7 +46,6 @@
 	flex-grow: 1;
 	width: 100%;
 	height: calc(100% - 102px - 48px - 86px);
-	background: url('/images/bg-halloween.webp') center/cover no-repeat;
 }
 
 .scrollContent {

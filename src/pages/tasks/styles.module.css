@@ -9,7 +9,6 @@
 	padding: 18px 10px 0 10px;
 	height: calc(100% - 86px);
 	overflow-y: auto;
-	background: url('/images/bg-halloween.webp') center/cover no-repeat;
 }
 
 .opacity {
