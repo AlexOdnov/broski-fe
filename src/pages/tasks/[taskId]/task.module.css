@@ -1,6 +1,7 @@
 .taskWrapper {
 	display: flex;
 	flex-direction: column;
+	background: url('/images/bg-halloween.webp') center/cover no-repeat;
 }
 
 .task {
