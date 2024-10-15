@@ -12,7 +12,7 @@
 .userName {
 	display: grid;
 	gap: 5px;
-	grid-template-columns: 20px minmax(20px, calc(100% - 20px));
+	grid-template-columns: min-content 20px minmax(20px, calc(100% - 20px));
 }
 
 .userName span {
@@ -63,7 +63,14 @@
 }
 
 .lvl {
-	margin-left: auto;
+	display: grid;
+	grid-template-columns: min-content max-content;
+	gap: 2px;
+	border: 1px solid #35332e;
+	border-radius: 10px;
+	background-color: #141517;
+	align-items: baseline;
+	padding: 2px 4px 1px;
 }
 
 .yellowBorder {

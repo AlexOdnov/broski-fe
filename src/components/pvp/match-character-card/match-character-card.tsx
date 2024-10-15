@@ -43,6 +43,15 @@ export const MatchCharacterCard = defineComponent({
 		return () => (
 			<div class={styles.card}>
 				<div class={styles.userName}>
+					<div class={styles.lvl}>
+						<LevelIcon height={11} />
+						<UiText
+							color="#797979"
+							fontSize="12px"
+							lineHeight="12px"
+							fontWeight={400}
+						>{`lvl ${character.value?.level ?? '??'}`}</UiText>
+					</div>
 					<div class={styles.profileIconWrapper}>
 						<ProfileIcon size={10} />
 					</div>
@@ -99,15 +108,6 @@ export const MatchCharacterCard = defineComponent({
 							useGrouping: false
 						}) ?? '00'}
 					</div>
-				</div>
-				<div class={styles.lvl}>
-					<LevelIcon height={12} />
-					&nbsp;
-					<UiText
-						color="#4E4F4F"
-						fontSize="12"
-						fontWeight={400}
-					>{`lvl ${character.value?.level ?? '??'}`}</UiText>
 				</div>
 			</div>
 		)
