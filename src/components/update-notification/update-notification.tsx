@@ -33,7 +33,7 @@ export const UpdateNotificationComponent = defineComponent({
 						))}
 					</ul>
 				}
-				image="./images/update.webp"
+				image="/images/update.webp"
 				whenClick={userStore.doneUpdateNotification}
 			/>
 		)
