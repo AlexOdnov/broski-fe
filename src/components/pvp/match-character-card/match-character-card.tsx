@@ -36,9 +36,9 @@ export const MatchCharacterCard = defineComponent({
 		const imageUrl = computed(() => {
 			return props.isEnemy
 				? character.value
-					? '/images/enemy.webp'
-					: '/images/enemy_unknown.webp'
-				: '/images/user.webp'
+					? '/images/enemy-halloween.webp'
+					: '/images/enemy_unknown-halloween.webp'
+				: '/images/user-halloween.webp'
 		})
 		return () => (
 			<div class={styles.card}>

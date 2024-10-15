@@ -16,6 +16,7 @@ export enum GameStatus {
 export const WIN_GAME_POINTS = 200
 
 export const FIELD_PLACEHOLDERS = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
+export const HALLOWEEN_FIELD_PLACEHOLDERS = ['⚰️', '🕸', '🧟‍♂️', '🩸', '🎃', '👻', '💀', '🧛‍♂️', '🕷']
 
 const createEmptyGameElement = (): IGameElement => ({
 	isOpen: false,

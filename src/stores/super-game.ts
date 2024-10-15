@@ -19,7 +19,7 @@ const createGameField = (): IGameElement[] => {
 			isOpen: false,
 			isPreview: false,
 			value: GameStatus.Lose,
-			image: '/images/chicken.webp'
+			image: '/images/chicken-halloween.webp'
 		},
 		{
 			isOpen: false,

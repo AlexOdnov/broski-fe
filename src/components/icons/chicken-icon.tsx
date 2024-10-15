@@ -9,7 +9,7 @@ export const ChickenIcon = defineComponent({
 		return () => (
 			<img
 				style={{ height: `${props.height}px`, width: `${props.height}px` }}
-				src="/images/chicken.webp"
+				src="/images/chicken-halloween.webp"
 			/>
 		)
 	}

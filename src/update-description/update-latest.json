@@ -1,7 +1,7 @@
 {
-	"version": "v1.2.0",
+	"version": "v2.1",
 	"changes": {
-		"ru": [],
-		"en": []
+		"ru": ["Хэллоуинский дизайн", "Исправления ошибок"],
+		"en": ["Halloween design", "Bug fixes"]
 	}
 }
