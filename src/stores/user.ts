@@ -186,6 +186,7 @@ export const useUserStore = defineStore('user', () => {
 	const claimDailyReward = async () => {
 		try {
 			await api.claimDailyReward({ user_id: tgStore.userId })
+			await loadUser()
 			await loadUserLegacy()
 		} catch (error) {
 			console.warn(error)
