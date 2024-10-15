@@ -67,6 +67,18 @@ export interface CharacterProfile {
 	experience: CharacterExperience
 	/** Power */
 	power: number
+	premium?: CharacterProfilePremium | null
+}
+
+/** CharacterProfilePremium */
+export interface CharacterProfilePremium {
+	/** Active */
+	active: boolean
+	/**
+	 * Until
+	 * @format date
+	 */
+	until: string
 }
 
 /** CreateUser */
@@ -117,6 +129,9 @@ export interface MatchCompetitioner {
 	/** Power */
 	power: number
 	abilities: AbilityScores
+	/** Premium */
+	premium: boolean
+	stats?: PVPStats | null
 }
 
 /** MatchLoot */
@@ -146,6 +161,16 @@ export interface PVPMatch {
 export interface PVPMatchResult {
 	result: MatchResult
 	loot?: MatchLoot | null
+}
+
+/** PVPStats */
+export interface PVPStats {
+	/** Total */
+	total: number
+	/** Won */
+	won: number
+	/** Loot */
+	loot: number
 }
 
 /** User */
