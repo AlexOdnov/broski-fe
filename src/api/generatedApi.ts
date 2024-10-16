@@ -68,6 +68,7 @@ export interface CharacterProfile {
 	/** Power */
 	power: number
 	premium?: CharacterProfilePremium | null
+	stats?: PVPStats | null
 }
 
 /** CharacterProfilePremium */
