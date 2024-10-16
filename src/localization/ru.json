@@ -102,7 +102,10 @@
 	"farming": "Фарм",
 	"fight": "Бой",
 	"findBroGame": "3x3",
+	"minutes": "минут",
+	"days": "дней",
 	"pvp": {
+		"pvp": "PvP",
 		"back": "Назад",
 		"profile": "Профиль",
 		"energy": "Энергия",
@@ -120,5 +123,22 @@
 		"getEnergy": "10 энергии",
 		"upgrades": "Улучшения",
 		"stats": "Стата"
+	},
+	"premium": {
+		"premium": "Премиальный",
+		"energy": "энергии",
+		"becomeSuperbro": "стать супербро",
+		"pointsLimit": "увеличенный запас",
+		"regeneration": "восстановление 1",
+		"heroCard": "аватар",
+		"bronze": "бронзовых",
+		"lootboxes": "лутбоксов",
+		"oneTimeBonus": "Одноразовый бонус",
+		"battle": "боев оппонента",
+		"statistics": "Статистика",
+		"WLspot": "Вайтлист",
+		"NFTcollection": "на основную НФТ коллекцию",
+		"pvpWon": "Побед",
+		"robbed": "Заработано"
 	}
 }
