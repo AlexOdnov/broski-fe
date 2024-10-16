@@ -123,55 +123,55 @@ export const BuyPremium = defineComponent({
 				</div>
 				<ul class={styles.list}>
 					<li class={[styles.listItem, styles.listItemIcon]}>
-						<LevelIcon height={15} />
+						<LevelIcon height={17} />
 						&nbsp;
-						<UiText fontSize={'14px'} color={'#CBCBCB'}>
+						<UiText fontSize={'16px'} color={'#CBCBCB'}>
 							{t('premium.premium')}
 						</UiText>
 						&nbsp;
-						<UiText fontSize={'14px'} isAccent>
+						<UiText fontSize={'16px'} isAccent>
 							{t('pvp.pvp')}
 						</UiText>
 						&nbsp;
-						<UiText fontSize={'14px'} color={'#CBCBCB'}>
+						<UiText fontSize={'16px'} color={'#CBCBCB'}>
 							{t('premium.heroCard')}
 						</UiText>
 					</li>
 					<li class={[styles.listItem, styles.listItemIcon]}>
-						<BoxIcon height={15} />
+						<BoxIcon height={17} />
 						&nbsp;
-						<UiText fontSize={'14px'} color={'#CBCBCB'}>
+						<UiText fontSize={'16px'} color={'#CBCBCB'}>
 							{periodProperties.value.boxes}&nbsp;{t('premium.bronze')}
 						</UiText>
 						&nbsp;
-						<UiText fontSize={'14px'} isAccent>
+						<UiText fontSize={'16px'} isAccent>
 							{t('premium.lootboxes')}
 						</UiText>
 					</li>
 					<li class={styles.listItem}>
-						<UiText fontSize={'14px'} color={'#CBCBCB'}>
+						<UiText fontSize={'16px'} color={'#CBCBCB'}>
 							💰&nbsp;{t('premium.oneTimeBonus')}
 						</UiText>
 						&nbsp;
-						<UiText fontSize={'14px'} isAccent>
+						<UiText fontSize={'16px'} isAccent>
 							LVL*{Intl.NumberFormat('en-US').format(periodProperties.value.coins)}&nbsp;$BRO
 						</UiText>
 					</li>
 					<li class={styles.listItem}>
-						<UiText fontSize={'14px'} isAccent>
+						<UiText fontSize={'16px'} isAccent>
 							👀&nbsp;{t('premium.statistics')}
 						</UiText>
 						&nbsp;
-						<UiText fontSize={'14px'} color={'#CBCBCB'}>
+						<UiText fontSize={'16px'} color={'#CBCBCB'}>
 							{t('premium.battle')}
 						</UiText>
 					</li>
 					<li class={styles.listItem}>
-						<UiText fontSize={'14px'} isAccent>
+						<UiText fontSize={'16px'} isAccent>
 							📄&nbsp;{t('premium.WLspot')}
 						</UiText>
 						&nbsp;
-						<UiText fontSize={'14px'} color={'#CBCBCB'}>
+						<UiText fontSize={'16px'} color={'#CBCBCB'}>
 							{t('premium.NFTcollection')}
 						</UiText>
 					</li>
