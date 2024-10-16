@@ -1,6 +1,7 @@
 import styles from './bottom-sheet.module.css'
 import { defineComponent, ref, Teleport, Transition, type PropType, type VNode } from 'vue'
 import { UiButton } from '@/components/ui'
+import { useI18n } from 'vue-i18n'
 
 export interface UiBottomSheetMethods {
 	open: () => void
@@ -16,6 +17,7 @@ export const UiBottomSheet = defineComponent({
 		withExitButton: { type: Boolean, default: false }
 	},
 	setup: (props, { expose }) => {
+		const { t } = useI18n()
 		const isOpen = ref(false)
 
 		const open = () => {
@@ -51,7 +53,7 @@ export const UiBottomSheet = defineComponent({
 								{(props.withExitButton || props.fullscreen) && (
 									<UiButton
 										class={styles.exitButton}
-										text={'Exit'}
+										text={t('pvp.exit')}
 										mod={'inverse'}
 										bordered
 										size={'md'}
