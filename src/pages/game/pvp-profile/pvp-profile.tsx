@@ -28,11 +28,13 @@ const PvpProfilePage = defineComponent({
 					experience={pvpStore.pvpCharacter?.experience.current_experience ?? 1}
 					experienceLimit={pvpStore.pvpCharacter?.experience.maximum_experience ?? 1}
 				/>
+				{/* {!pvpStore.isCharacterPremium && ( */}
 				<UiButton
 					text={t('premium.becomeSuperbro')}
 					loading={pvpStore.isLoading}
 					whenClick={() => premiumModal.value?.open()}
 				/>
+				{/* )} */}
 				<PlayerInventory />
 				<div class={styles.parameters}>
 					<PowerCounter power={pvpStore.pvpCharacter?.power ?? 0} />
