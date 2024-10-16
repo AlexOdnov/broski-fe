@@ -127,11 +127,11 @@ export const MatchCharacterCard = defineComponent({
 						}) ?? '00'}
 					</div>
 				</div>
-				{character.value?.premium && (
+				{!character.value?.premium && (
 					<div class={styles.stats}>
 						<div class={styles.statsRow}>
 							<UiText fontSize={'12px'} color={'#797979'}>
-								PvP won:
+								{t('premium.pvpWon')}:
 							</UiText>
 							<UiText fontSize={'12px'} fontWeight={700} isAccent>
 								{typeof character.value?.stats?.won === 'number'
@@ -141,7 +141,7 @@ export const MatchCharacterCard = defineComponent({
 						</div>
 						<div class={styles.statsRow}>
 							<UiText fontSize={'12px'} color={'#797979'}>
-								loot:
+								{t('premium.robbed')}:
 							</UiText>
 							{typeof character.value?.stats?.loot === 'number' ? (
 								<CoinCounter size={12} coins={character.value?.stats?.loot} />

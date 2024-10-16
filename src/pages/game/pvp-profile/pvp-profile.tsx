@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 import styles from './styles.module.css'
 import {
@@ -6,14 +6,20 @@ import {
 	EnergyCounter,
 	PlayerInventory,
 	PowerCounter,
-	PlayerAbilities
+	PlayerAbilities,
+	BuyPremium
 } from '@/components/pvp'
 import { usePvpStore } from '@/stores/pvp'
+import { UiBottomSheet, UiButton, type UiBottomSheetMethods } from '@/components'
+import { useI18n } from 'vue-i18n'
 
 const PvpProfilePage = defineComponent({
 	name: 'PvpProfilePage',
 	setup() {
 		const pvpStore = usePvpStore()
+		const { t } = useI18n()
+
+		const premiumModal = ref<UiBottomSheetMethods | null>(null)
 
 		return () => (
 			<div class={styles.pvpProfile}>
@@ -21,6 +27,11 @@ const PvpProfilePage = defineComponent({
 					level={pvpStore.pvpCharacter?.level ?? 1}
 					experience={pvpStore.pvpCharacter?.experience.current_experience ?? 1}
 					experienceLimit={pvpStore.pvpCharacter?.experience.maximum_experience ?? 1}
+				/>
+				<UiButton
+					text={t('premium.becomeSuperbro')}
+					loading={pvpStore.isLoading}
+					whenClick={() => premiumModal.value?.open()}
 				/>
 				<PlayerInventory />
 				<div class={styles.parameters}>
@@ -33,6 +44,12 @@ const PvpProfilePage = defineComponent({
 					/>
 				</div>
 				<PlayerAbilities />
+				<UiBottomSheet
+					ref={premiumModal}
+					body={<BuyPremium whenBuyPremium={() => premiumModal.value?.close()} />}
+					fullscreen
+					withExitButton
+				/>
 			</div>
 		)
 	}
