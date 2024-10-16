@@ -127,7 +127,7 @@ export const MatchCharacterCard = defineComponent({
 						}) ?? '00'}
 					</div>
 				</div>
-				{!character.value?.premium && (
+				{character.value?.premium && (
 					<div class={styles.stats}>
 						<div class={styles.statsRow}>
 							<UiText fontSize={'12px'} color={'#797979'}>
