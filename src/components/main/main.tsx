@@ -8,6 +8,8 @@ import { useI18n } from 'vue-i18n'
 import { RouteName } from '@/router'
 import { useCommonStore } from '@/stores/common'
 import { usePvpStore } from '@/stores/pvp'
+import { DollarIcon, GamepadIcon, GiftIcon, ExpIcon, UserIcon } from '@/components/icons'
+import { UiText } from '@/components'
 
 export const MainComponent = defineComponent({
 	name: 'MainComponent',
@@ -57,54 +59,129 @@ export const MainComponent = defineComponent({
 							commonStore.isNavigationDisabled && styles.navigationDisabled
 						]}
 					>
-						<RouterLink activeClass={styles.active} to={{ name: RouteName.Game }}>
-							<div class={styles.navBtn}>
-								<div class={[styles.letter, styles.rotateLeft]}>B</div>
-								<div class={[styles.letterShadow, styles.rotateLeft]}>B</div>
-								<span class={styles.btnText}>{t('game')}</span>
-							</div>
-						</RouterLink>
-						<RouterLink activeClass={styles.active} to={{ name: RouteName.Tasks }}>
-							<div class={styles.navBtn}>
-								{Boolean(tasksStore.uncompletedTasks.length) && (
+						<div class={[styles.nav, styles.navLeft, styles.border]}>
+							<RouterLink activeClass={styles.active} to={{ name: RouteName.Game }}>
+								<div class={styles.navBtn}>
+									<GamepadIcon />
+									<UiText
+										fontSize="12px"
+										fontWeight={400}
+										lineHeight="12px"
+										fontFamily="roboto"
+										color="#FFB800"
+									>
+										{t('game')}
+									</UiText>
+								</div>
+							</RouterLink>
+							<div class={styles.delimiter} />
+							<RouterLink activeClass={styles.active} to={{ name: RouteName.Tasks }}>
+								<div class={styles.navBtn}>
+									<DollarIcon />
+									{Boolean(tasksStore.uncompletedTasks.length) && (
+										<img class={styles.notice} src="/images/notice.webp" />
+									)}
+									<UiText
+										fontSize="12px"
+										fontWeight={400}
+										lineHeight="12px"
+										fontFamily="roboto"
+										color="#4E4F4F"
+									>
+										{t('earn')}
+									</UiText>
+								</div>
+							</RouterLink>
+						</div>
+						<div class={[styles.centralNav, styles.navBtn, styles.border]} style={{opacity: '0.45'}}>
+							<GiftIcon height={40} />
+							<UiText
+								fontSize="12px"
+								fontWeight={400}
+								lineHeight="12px"
+								fontFamily="roboto"
+								color="#FFB800"
+							>
+								{t('open')}
+							</UiText>
+						</div>
+						<div class={[styles.nav, styles.navRight, styles.border]}>
+							<RouterLink activeClass={styles.active} to={{ name: RouteName.Referrals }}>
+								<div class={styles.navBtn}>
+									{Boolean(referralsStore.sumReferralsReward) && (
+										<img class={styles.notice} src="/images/notice.webp" />
+									)}
+									<UserIcon />
+									<UiText
+										fontSize="12px"
+										fontWeight={400}
+										lineHeight="12px"
+										fontFamily="roboto"
+										color="#4E4F4F"
+									>
+										{t('frens')}
+									</UiText>
+								</div>
+							</RouterLink>
+							<div class={styles.delimiter} />
+							<div
+								class={[styles.navBtn, timeBeforeMiningLeft.value]}
+								onClick={whenMiningClicked}
+							>
+								{(isRewardAvailable.value ||
+									(!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && (
 									<img class={styles.notice} src="/images/notice.webp" />
 								)}
-								<div class={[styles.letter, styles.rotateRight]}>R</div>
-								<div class={[styles.letterShadow, styles.rotateRight]}>R</div>
-								<span class={styles.btnText}>{t('earn')}</span>
-							</div>
-						</RouterLink>
-						<RouterLink activeClass={styles.active} to={{ name: RouteName.Referrals }}>
-							<div class={styles.navBtn}>
-								{Boolean(referralsStore.sumReferralsReward) && (
-									<img class={styles.notice} src="/images/notice.webp" />
+								<ExpIcon />
+								{isRewardAvailable.value && (
+									<>
+										{pvpStore.pvpCharacter?.level && (
+											<UiText
+												fontSize="12px"
+												fontWeight={400}
+												lineHeight="12px"
+												fontFamily="barcadeBrawl"
+												color="#4E4F4F"
+											>
+												+{pvpStore.pvpCharacter?.level}
+											</UiText>
+										)}
+										<UiText
+											fontSize="12px"
+											fontWeight={400}
+											lineHeight="12px"
+											fontFamily="roboto"
+											color="#FFB800"
+										>
+											{t('claim')}
+										</UiText>
+									</>
 								)}
-								<div class={[styles.letter, styles.rotateLeft]}>O</div>
-								<div class={[styles.letterShadow, styles.rotateLeft]}>O</div>
-								<span class={styles.btnText}>{t('myBros')}</span>
+								{!isRewardAvailable.value && !timeBeforeMiningLeft.value && (
+									<>
+										<UiText
+											fontSize="12px"
+											fontWeight={400}
+											lineHeight="12px"
+											fontFamily="roboto"
+											color="#FFB800"
+										>
+											{t('farm')}
+										</UiText>
+									</>
+								)}
+								{!isRewardAvailable.value && timeBeforeMiningLeft.value && (
+									<UiText
+										fontSize="12px"
+										fontWeight={400}
+										lineHeight="12px"
+										fontFamily="roboto"
+										color="#4E4F4F"
+									>
+										{timeBeforeMiningLeft.value}
+									</UiText>
+								)}
 							</div>
-						</RouterLink>
-						<div
-							class={[styles.navBtn, timeBeforeMiningLeft.value && styles.opacity]}
-							onClick={whenMiningClicked}
-						>
-							{(isRewardAvailable.value ||
-								(!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && (
-								<img class={styles.notice} src="/images/notice.webp" />
-							)}
-							<img class={styles.btnImg} src="/images/pickaxe.webp" />
-							{isRewardAvailable.value && (
-								<>
-									<span class={[styles.btnText, styles.yellow]}>{t('claim')}</span>
-									<span class={[styles.claimNumber, styles.yellow]}>+Exp</span>
-								</>
-							)}
-							{!isRewardAvailable.value && !timeBeforeMiningLeft.value && (
-								<span class={[styles.btnText, styles.yellow]}>{t('farm')}</span>
-							)}
-							{!isRewardAvailable.value && timeBeforeMiningLeft.value && (
-								<span class={styles.time}>{timeBeforeMiningLeft.value}</span>
-							)}
 						</div>
 					</nav>
 				</footer>

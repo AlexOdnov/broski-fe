@@ -15,13 +15,21 @@
 	width: 100%;
 }
 
+.border {
+	border: solid 1px #35332E;
+}
+
+.centralNav {
+	height: 71px;
+	border-radius: 10px;
+	background-color: #141517;
+}
+
 .navigation {
-	display: flex;
-	justify-content: center;
-	gap: 15px;
-	margin: 0 auto;
-	padding: 10px;
-	padding-bottom: 20px;
+	display: grid;
+	grid-template-columns: 1fr 71px 1fr;
+	padding: 10px 15px;
+	align-items: center;
 }
 
 .navigationDisabled {
@@ -33,65 +41,50 @@
 	text-decoration: none;
 }
 
-.navBtn {
-	user-select: none;
+.nav {
+	height: 53px;
+	padding: 8px;
 	display: flex;
-	padding: 10px;
-	position: relative;
-	background-color: #232323;
-	aspect-ratio: 1 / 1;
-	border-radius: 15px;
-	font-family: 'BarcadeBrawlRegular';
-	font-size: 42px;
-	font-weight: 400;
-	line-height: 42px;
-	text-align: center;
-	border: 1px solid #35332e;
-	width: 76px;
-	cursor: pointer;
-	isolation: isolate;
+	gap: 5px;
+	justify-content: space-evenly;
 }
 
-.navBtn:active {
-	background: linear-gradient(#0a0a0a, #232323);
+.navLeft {
+	background: linear-gradient(to right, #232323, #141517);
+	border-right: none;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.navRight {
+	background: linear-gradient(to left, #232323, #141517);
+	border-left: none;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.delimiter {
+	height: 100%;
+	width: 1px;
+	background-color: #35332E;
+}
+
+.navBtn {
+	user-select: none;
+	cursor: pointer;
+	isolation: isolate;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+	position: relative;
 }
 
 .btnImg {
 	filter: drop-shadow(5px, 5px, #0b0c0e);
-	width: 40px;
+	width: 20px;
 	margin: 0 auto;
-}
-
-.letter {
-	align-self: center;
-	margin: 0 auto;
-	position: relative;
-	background: linear-gradient(#555555, #242424);
-	background-clip: text;
-	color: transparent;
-	z-index: 2;
-}
-
-.letterShadow {
-	position: absolute;
-	top: calc(50% - 15px);
-	left: calc(50% - 17px);
-	color: #000000;
-	z-index: 1;
-}
-
-.btnText {
-	font-family: 'Roboto', Arial, sans-serif;
-	color: #f0f0f0;
-	font-size: 14px;
-	font-weight: 400;
-	line-height: 14px;
-	text-align: center;
-	position: absolute;
-	bottom: 10px;
-	left: 0;
-	width: 100%;
-	z-index: 3;
 }
 
 .rotateRight {
@@ -103,60 +96,15 @@
 }
 
 .active .navBtn {
-	background: linear-gradient(#0a0a0a, #232323);
-}
-
-.active .btnText {
-	color: #ffb800;
 }
 
 .yellow {
 	color: #ffb800;
 }
+
 .notice {
 	width: 20px;
 	height: 20px;
 	position: absolute;
-	right: 2px;
-	top: 2px;
-}
-
-@media screen and (max-width: 370px) {
-	.navigation {
-		gap: 10px;
-	}
-
-	.navBtn {
-		padding: 10px;
-		width: 66px;
-		font-size: 38px;
-		line-height: 38px;
-	}
-}
-
-.time {
-	font-family: 'Roboto', Arial, sans-serif;
-	color: #f0f0f0;
-	font-weight: 400;
-	line-height: 14px;
-	font-size: 14px;
-	position: absolute;
-	bottom: 10px;
-	left: 0;
-	width: 100%;
-}
-
-.opacity {
-	opacity: 0.25;
-}
-
-.claimNumber {
-	position: absolute;
-	font-family: 'BarcadeBrawlRegular';
-	font-weight: 400;
-	font-size: 12px;
-	line-height: 12px;
-	bottom: 32px;
-	left: 0;
-	width: 100%;
+	top: -20px;
 }
