@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref, type PropType } from 'vue'
+import { computed, defineComponent, ref, type PropType, onUpdated } from 'vue'
 import styles from './ui-progress-bar.module.css'
 import { UiText } from '../ui-text'
 
@@ -17,7 +17,7 @@ export const UiProgressBar = defineComponent({
 		counterColor: { type: String, default: '#141517' }
 	},
 	setup: (props) => {
-		const items = ref(Array(props.totalItems).fill(null))
+		const items = computed(() => Array(props.totalItems).fill(null))
 
 		const progressBarBorderStyle = computed(() => ({
 			padding: props.mod === 'segmented' ? '0' : `${props.padding + 1}px`

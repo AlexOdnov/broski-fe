@@ -1,7 +1,7 @@
 {
-	"version": "v2.1",
+	"version": "v2.2",
 	"changes": {
-		"ru": ["Хэллоуинский дизайн", "Исправления ошибок"],
-		"en": ["Halloween design", "Bug fixes"]
+		"ru": ["Премиум статус \"superbro\", лимит энергии 5, время восстановления 5 минут", "Новая строка навигации"],
+		"en": ["Premium status \"superbro\" with 5 energy limit & recovery energy time 5 minutes", "New navigation bar"]
 	}
 }
