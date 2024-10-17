@@ -5,11 +5,12 @@ import {
 	LevelIcon,
 	ProfileIcon,
 	SpeedIcon,
+	StarsIcon,
 	StrengthIcon,
 	WeightIcon
 } from '@/components/icons'
 import { PowerCounter } from '@/components/pvp'
-import { UiText } from '@/components'
+import { CoinCounter, UiText } from '@/components'
 
 import styles from './match-competitioner-card.module.css'
 import { usePvpStore } from '@/stores/pvp'
@@ -34,15 +35,33 @@ export const MatchCharacterCard = defineComponent({
 				: pvpStore.pvpMatch?.opponent.power
 		)
 		const imageUrl = computed(() => {
+			const enemyImg = character.value?.premium
+				? '/images/enemy-prem.webp'
+				: '/images/enemy-halloween.webp'
+
+			const userImg = character.value?.premium
+				? '/images/user-prem.webp'
+				: '/images/user-halloween.webp'
+
 			return props.isEnemy
 				? character.value
-					? '/images/enemy-halloween.webp'
+					? enemyImg
 					: '/images/enemy_unknown-halloween.webp'
-				: '/images/user-halloween.webp'
+				: userImg
 		})
+
 		return () => (
 			<div class={styles.card}>
 				<div class={styles.userName}>
+					<div class={styles.lvl}>
+						<LevelIcon height={11} />
+						<UiText
+							color="#797979"
+							fontSize="12px"
+							lineHeight="12px"
+							fontWeight={400}
+						>{`lvl ${character.value?.level ?? '??'}`}</UiText>
+					</div>
 					<div class={styles.profileIconWrapper}>
 						<ProfileIcon size={10} />
 					</div>
@@ -52,7 +71,15 @@ export const MatchCharacterCard = defineComponent({
 							: (tgStore.user?.username ?? 'user')}
 					</UiText>
 				</div>
-				<img src={imageUrl.value} class={[styles.avatar, !props.isEnemy && styles.yellowBorder]} />
+				<div class={styles.avatarWrapper}>
+					<img
+						src={imageUrl.value}
+						class={[styles.avatar, !props.isEnemy && styles.yellowBorder]}
+					/>
+					{character.value?.premium && (
+						<StarsIcon class={props.isEnemy ? styles.premIconEnemy : styles.premIcon} />
+					)}
+				</div>
 				<PowerCounter power={character.value?.power ?? 0} totalPower={totalPower.value} />
 				<div class={styles.flexRow}>
 					<div class={styles.iconWithNumber}>
@@ -100,15 +127,32 @@ export const MatchCharacterCard = defineComponent({
 						}) ?? '00'}
 					</div>
 				</div>
-				<div class={styles.lvl}>
-					<LevelIcon height={12} />
-					&nbsp;
-					<UiText
-						color="#4E4F4F"
-						fontSize="12"
-						fontWeight={400}
-					>{`lvl ${character.value?.level ?? '??'}`}</UiText>
-				</div>
+				{pvpStore.isCharacterPremium && (
+					<div class={styles.stats}>
+						<div class={styles.statsRow}>
+							<UiText fontSize={'12px'} color={'#797979'}>
+								{t('premium.pvpWon')}:
+							</UiText>
+							<UiText fontSize={'12px'} fontWeight={700} isAccent>
+								{typeof character.value?.stats?.won === 'number'
+									? Intl.NumberFormat('en-US').format(character.value?.stats?.won)
+									: '??'}
+							</UiText>
+						</div>
+						<div class={styles.statsRow}>
+							<UiText fontSize={'12px'} color={'#797979'}>
+								{t('premium.robbed')}:
+							</UiText>
+							{typeof character.value?.stats?.loot === 'number' ? (
+								<CoinCounter size={12} coins={character.value?.stats?.loot} />
+							) : (
+								<UiText fontSize={'12px'} fontWeight={700} isAccent>
+									??
+								</UiText>
+							)}
+						</div>
+					</div>
+				)}
 			</div>
 		)
 	}

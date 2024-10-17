@@ -44,6 +44,8 @@ export const usePvpStore = defineStore('pvp', () => {
 		weight: pvpCharacter.value?.abilities.weight ?? 1
 	}))
 
+	const isCharacterPremium = computed(() => Boolean(pvpCharacter.value?.premium?.active))
+
 	const setPvpCharacterAbilities = (abilities: AbilityScores) => {
 		if (pvpCharacter.value) {
 			setPvpCharacter({
@@ -174,6 +176,7 @@ export const usePvpStore = defineStore('pvp', () => {
 		isLoading,
 		pvpCharacter,
 		pvpCharacterAbilities,
+		isCharacterPremium,
 		pvpMatch,
 		pvpMatchResult,
 		timeToRestoreEnergy,

@@ -28,7 +28,7 @@ const PvpPage = defineComponent({
 						loading={pvpStore.isLoading}
 						mod="primary"
 						whenClick={async () => {
-							tgStore.openInvoice(envVariables.invoiceUrl, () => pvpStore.loadPvpCharacter())
+							tgStore.openInvoice(envVariables.invoice10Energy, () => pvpStore.loadPvpCharacter())
 						}}
 					/>
 				)

@@ -15,6 +15,7 @@ export const CoinCounter = defineComponent({
 			<UiText
 				class={[styles.coins, props.reverse && styles.reverse]}
 				fontSize={`${props.size}px`}
+				fontWeight={700}
 				isAccent
 			>
 				<CoinIcon height={props.size} />

@@ -6,8 +6,8 @@
 		"yoBro": "yo bro,",
 		"guide": "here’s guide how to play 👊",
 		"boostUrStats": "Boost your stats to win battles!",
-		"eachVictory" : "Each victory rewards you with",
-		"eachVictory2" : ", which is essential for bigger airdrops.",
+		"eachVictory": "Each victory rewards you with",
+		"eachVictory2": ", which is essential for bigger airdrops.",
 		"useEarned": "Use earned",
 		"useEarned2": "to level up your character.",
 		"battlesAndEnergy": "Battles & Energy",
@@ -105,7 +105,10 @@
 	"farming": "Farming",
 	"fight": "Fight",
 	"findBroGame": "3x3",
+	"minutes": "minutes",
+	"days": "days",
 	"pvp": {
+		"pvp": "PvP",
 		"back": "Back",
 		"profile": "Profile",
 		"energy": "Energy",
@@ -123,5 +126,22 @@
 		"getEnergy": "Get 10 energy",
 		"upgrades": "Upgrades",
 		"stats": "Stats"
+	},
+	"premium": {
+		"premium": "Premium",
+		"energy": "energy",
+		"becomeSuperbro": "become superbro",
+		"pointsLimit": "points limit",
+		"regeneration": "regeneration per 1",
+		"heroCard": "hero card",
+		"bronze": "bronze",
+		"lootboxes": "lootboxes",
+		"oneTimeBonus": "One-time bonus of",
+		"battle": "of opponent's battle",
+		"statistics": "Statistics",
+		"WLspot": "WL spot",
+		"NFTcollection": "spot for the NFT collection",
+		"pvpWon": "PvP won",
+		"robbed": "Robbed"
 	}
 }
