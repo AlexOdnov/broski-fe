@@ -13,6 +13,7 @@ import {
 	TimerIcon
 } from '@/components/icons'
 import { envVariables } from '@/services/env'
+import { useUserStore } from '@/stores/user'
 
 export const BuyPremium = defineComponent({
 	name: 'BuyPremium',
@@ -23,6 +24,7 @@ export const BuyPremium = defineComponent({
 		const { t } = useI18n()
 		const tgStore = useTgSdkStore()
 		const pvpStore = usePvpStore()
+		const userStore = useUserStore()
 
 		const selectedPeriod = ref('30')
 
@@ -78,7 +80,7 @@ export const BuyPremium = defineComponent({
 
 		const whenBuyPremium = () => {
 			tgStore.openInvoice(periodProperties.value.invoice, async () => {
-				await pvpStore.loadPvpCharacter()
+				await Promise.all([pvpStore.loadPvpCharacter(), userStore.loadUser()])
 				props.whenBuyPremium()
 			})
 		}
