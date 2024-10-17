@@ -28,7 +28,7 @@
 .navigation {
 	display: grid;
 	grid-template-columns: 1fr 71px 1fr;
-	padding: 15px;
+	padding: 10px 15px 20px;
 	align-items: center;
 }
 
