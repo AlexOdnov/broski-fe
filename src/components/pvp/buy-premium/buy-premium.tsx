@@ -151,7 +151,7 @@ export const BuyPremium = defineComponent({
 							</UiText>
 							&nbsp;
 							<UiText fontSize={'16px'} isAccent>
-								{t('premium.lootboxes')}
+								{t('lootbox', periodProperties.value.boxes)}
 							</UiText>
 						</li>
 					)}

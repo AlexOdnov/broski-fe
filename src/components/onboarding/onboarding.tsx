@@ -110,7 +110,7 @@ export const OnboardingComponent = defineComponent({
 					// 						<UiText isAccent> $BRO </UiText> (2% {t('onboarding.chance')})
 					// 					</li>
 					// 					<li>
-					// 						<BoxIcon height={17} /> {t('onboarding.lootbox')} (1% {t('onboarding.chance')}
+					// 						<BoxIcon height={17} /> {t('lootbox', 1)} (1% {t('onboarding.chance')}
 					// 						)
 					// 					</li>
 					// 				</ul>
