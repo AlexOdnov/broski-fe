@@ -7,9 +7,9 @@ export interface Env {
 	invoice3Energy: string
 	invoice10Energy: string
 	invoice20Energy: string
+	invoice3Premium: string
+	invoice7Premium: string
 	invoice14Premium: string
-	invoice30Premium: string
-	invoice90Premium: string
 	sentryDSN: string
 	skipPvpCost: 'coin' | 'ticket'
 }
@@ -23,9 +23,9 @@ export const envVariables: Env = {
 	invoice3Energy: import.meta.env.VITE_INVOICE_3_ENERGY || '',
 	invoice10Energy: import.meta.env.VITE_INVOICE_10_ENERGY || '',
 	invoice20Energy: import.meta.env.VITE_INVOICE_20_ENERGY || '',
+	invoice3Premium: import.meta.env.VITE_INVOICE_3_PREMIUM || '',
+	invoice7Premium: import.meta.env.VITE_INVOICE_7_PREMIUM || '',
 	invoice14Premium: import.meta.env.VITE_INVOICE_14_PREMIUM || '',
-	invoice30Premium: import.meta.env.VITE_INVOICE_30_PREMIUM || '',
-	invoice90Premium: import.meta.env.VITE_INVOICE_90_PREMIUM || '',
 	sentryDSN: import.meta.env.VITE_SENTRY_DSN || '',
 	skipPvpCost: import.meta.env.VITE_SKIP_PVP_COST || 'ticket'
 }

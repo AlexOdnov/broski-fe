@@ -30,14 +30,18 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 		}
 	}
 
-	const openInvoice = (url: string, callback?: TelegramWebApps.InvoiceClosedEventHandler) => {
+	const openInvoice = (
+		url: string,
+		callback?: (status: 'paid' | 'cancelled' | 'failed' | 'pending') => void
+	) => {
 		if (!url) {
 			sentry.captureException(new Error('Empty invoice url'))
 			return
 		}
 		try {
 			if (tg.value) {
-				tg.value.openInvoice(url, callback)
+				// ошибка в типизации tg web app sdk
+				tg.value.openInvoice(url, callback as unknown as TelegramWebApps.InvoiceClosedEventHandler)
 			} else {
 				throw new SentryError('Tg sdk error', 'Tg sdk is not exist')
 			}

@@ -24,7 +24,6 @@
 		"inGameYouCanFind": "In 3x3 game you can find:",
 		"energy": "energy",
 		"bag": "\uD83D\uDCB0 bag of",
-		"lootbox": "lootbox",
 		"chance": "chance",
 		"growFaster": "Grow faster with friends!",
 		"earnFivePercent": "Earn 5% of all their",
@@ -106,7 +105,8 @@
 	"fight": "Fight",
 	"findBroGame": "3x3",
 	"minutes": "minutes",
-	"days": "days",
+	"days": "{n} day | {n} days",
+	"lootbox": "lootbox | lootboxes",
 	"pvp": {
 		"pvp": "PvP",
 		"back": "Back",
@@ -130,17 +130,16 @@
 	"premium": {
 		"premium": "Premium",
 		"energy": "energy",
-		"becomeSuperbro": "become superbro",
+		"getPremium": "get premium",
 		"pointsLimit": "points limit",
 		"regeneration": "regeneration per 1",
 		"heroCard": "hero card",
 		"bronze": "bronze",
-		"lootboxes": "lootboxes",
 		"oneTimeBonus": "One-time bonus of",
 		"battle": "of opponent's battle",
 		"statistics": "Statistics",
 		"WLspot": "WL spot",
-		"NFTcollection": "spot for the NFT collection",
+		"NFTcollection": "for the NFT collection",
 		"pvpWon": "PvP won",
 		"robbed": "Robbed"
 	}
