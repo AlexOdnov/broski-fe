@@ -12,7 +12,7 @@
 .userName {
 	display: grid;
 	gap: 5px;
-	grid-template-columns: min-content minmax(20px, calc(100% - 20px));
+	grid-template-columns: min-content auto;
 }
 
 .userName span {
@@ -74,8 +74,7 @@
 }
 
 .lvl {
-	display: grid;
-	grid-template-columns: min-content max-content;
+	display: flex;
 	gap: 2px;
 	border: 1px solid #35332e;
 	border-radius: 10px;
