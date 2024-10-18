@@ -3,7 +3,6 @@ import {
 	CombinationsIcon,
 	DefenceIcon,
 	LevelIcon,
-	ProfileIcon,
 	SpeedIcon,
 	StarsIcon,
 	StrengthIcon,
@@ -61,9 +60,6 @@ export const MatchCharacterCard = defineComponent({
 							lineHeight="12px"
 							fontWeight={400}
 						>{`lvl ${character.value?.level ?? '??'}`}</UiText>
-					</div>
-					<div class={styles.profileIconWrapper}>
-						<ProfileIcon size={10} />
 					</div>
 					<UiText color={props.isEnemy && !character.value ? '#797979' : undefined}>
 						{props.isEnemy

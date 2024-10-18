@@ -12,23 +12,13 @@
 .userName {
 	display: grid;
 	gap: 5px;
-	grid-template-columns: min-content 20px minmax(20px, calc(100% - 20px));
+	grid-template-columns: min-content minmax(20px, calc(100% - 20px));
 }
 
 .userName span {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-}
-
-.profileIconWrapper {
-	border: solid 1px rgb(78, 79, 79);
-	border-radius: 50%;
-	width: 18px;
-	height: 18px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 }
 
 .avatarWrapper {
