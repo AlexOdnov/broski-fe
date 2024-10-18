@@ -30,15 +30,15 @@ export const BuyPremium = defineComponent({
 
 		const PREMIUM_OPTIONS = [
 			{
-				label: `3 ${t('days')}`,
+				label: `${t('days', 3)}`,
 				value: '3'
 			},
 			{
-				label: `7 ${t('days')}`,
+				label: `${t('days', 7)}`,
 				value: '7'
 			},
 			{
-				label: `14 ${t('days')}`,
+				label: `${t('days', 14)}`,
 				value: '14'
 			}
 		]

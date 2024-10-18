@@ -105,7 +105,7 @@
 	"fight": "Бой",
 	"findBroGame": "3x3",
 	"minutes": "минут",
-	"days": "дней",
+	"days": "0 дней | {n} день | {n} дня | {n} дней",
 	"pvp": {
 		"pvp": "PvP",
 		"back": "Назад",
