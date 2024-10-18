@@ -80,7 +80,11 @@ export const BuyPremium = defineComponent({
 
 		const whenBuyPremium = () => {
 			tgStore.openInvoice(periodProperties.value.invoice, async ({ status }) => {
+				console.log(status)
+
 				if (status === 'cancelled') {
+					console.log('cancel')
+
 					return
 				}
 				await Promise.all([pvpStore.loadPvpCharacter(), userStore.loadUser()])
