@@ -130,7 +130,7 @@
 	"premium": {
 		"premium": "Premium",
 		"energy": "energy",
-		"becomeSuperbro": "become superbro",
+		"getPremium": "get premium",
 		"pointsLimit": "points limit",
 		"regeneration": "regeneration per 1",
 		"heroCard": "hero card",
@@ -140,7 +140,7 @@
 		"battle": "of opponent's battle",
 		"statistics": "Statistics",
 		"WLspot": "WL spot",
-		"NFTcollection": "spot for the NFT collection",
+		"NFTcollection": "for the NFT collection",
 		"pvpWon": "PvP won",
 		"robbed": "Robbed"
 	}

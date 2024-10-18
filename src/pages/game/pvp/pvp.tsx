@@ -1,12 +1,18 @@
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 import styles from './pvp.module.css'
-import { EnergyCounter } from '@/components/pvp/energy-counter'
+import { EnergyCounter, BuyPremium, MatchCharacterCard } from '@/components/pvp'
 import { usePvpStore } from '@/stores/pvp'
 import { TicketIcon } from '@/components/icons'
-import { MatchCharacterCard } from '@/components/pvp'
 import { MatchResult } from '@/api/generatedApi'
-import { CoinCounter, UiButton, UiText, type UiTextFontWeight } from '@/components'
+import {
+	CoinCounter,
+	UiButton,
+	UiText,
+	type UiTextFontWeight,
+	UiBottomSheet,
+	type UiBottomSheetMethods
+} from '@/components'
 import { useI18n } from 'vue-i18n'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { envVariables } from '@/services/env'
@@ -18,20 +24,31 @@ const PvpPage = defineComponent({
 		const tgStore = useTgSdkStore()
 		const { t } = useI18n()
 
+		const premiumModal = ref<UiBottomSheetMethods | null>(null)
+
+		const renderDonateButton = computed(() => {
+			return pvpStore.isCharacterPremium ? (
+				<UiButton
+					class={styles.fullWidth}
+					text={t('pvp.getEnergy')}
+					loading={pvpStore.isLoading}
+					whenClick={async () => {
+						tgStore.openInvoice(envVariables.invoice10Energy, () => pvpStore.loadPvpCharacter())
+					}}
+				/>
+			) : (
+				<UiButton
+					class={styles.fullWidth}
+					text={t('premium.getPremium')}
+					loading={pvpStore.isLoading}
+					whenClick={() => premiumModal.value?.open()}
+				/>
+			)
+		})
+
 		const renderButtons = computed(() => {
 			if (!pvpStore.pvpMatch && !pvpStore.pvpCharacter?.energy.remaining) {
-				return (
-					<UiButton
-						class={styles.fullWidth}
-						font="BarcadeBrawlRegular"
-						text={t('pvp.getEnergy')}
-						loading={pvpStore.isLoading}
-						mod="primary"
-						whenClick={async () => {
-							tgStore.openInvoice(envVariables.invoice10Energy, () => pvpStore.loadPvpCharacter())
-						}}
-					/>
-				)
+				return renderDonateButton.value
 			}
 			if (!pvpStore.pvpMatch) {
 				return (
@@ -173,6 +190,12 @@ const PvpPage = defineComponent({
 				/>
 				{renderButtons.value}
 				{renderBottomText.value}
+				<UiBottomSheet
+					ref={premiumModal}
+					body={<BuyPremium whenBuyPremium={() => premiumModal.value?.close()} />}
+					fullscreen
+					withExitButton
+				/>
 			</div>
 		)
 	}

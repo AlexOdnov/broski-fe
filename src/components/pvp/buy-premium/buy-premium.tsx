@@ -26,45 +26,45 @@ export const BuyPremium = defineComponent({
 		const pvpStore = usePvpStore()
 		const userStore = useUserStore()
 
-		const selectedPeriod = ref('30')
+		const selectedPeriod = ref('7')
 
 		const PREMIUM_OPTIONS = [
 			{
+				label: `3 ${t('days')}`,
+				value: '3'
+			},
+			{
+				label: `7 ${t('days')}`,
+				value: '7'
+			},
+			{
 				label: `14 ${t('days')}`,
 				value: '14'
-			},
-			{
-				label: `30 ${t('days')}`,
-				value: '30'
-			},
-			{
-				label: `90 ${t('days')}`,
-				value: '90'
 			}
 		]
 
 		const periodProperties = computed(() => {
 			switch (selectedPeriod.value) {
+				case '3':
+					return {
+						cost: '50',
+						boxes: 0,
+						coins: 3000,
+						invoice: envVariables.invoice3Premium
+					}
+				case '7':
+					return {
+						cost: '100',
+						boxes: 0,
+						coins: 8000,
+						invoice: envVariables.invoice7Premium
+					}
 				case '14':
 					return {
-						cost: '465',
-						boxes: 3,
-						coins: 3000,
+						cost: '200',
+						boxes: 2,
+						coins: 20000,
 						invoice: envVariables.invoice14Premium
-					}
-				case '30':
-					return {
-						cost: '777',
-						boxes: 10,
-						coins: 10000,
-						invoice: envVariables.invoice30Premium
-					}
-				case '90':
-					return {
-						cost: '1899',
-						boxes: 45,
-						coins: 45000,
-						invoice: envVariables.invoice90Premium
 					}
 				default:
 					return {
@@ -79,7 +79,10 @@ export const BuyPremium = defineComponent({
 		const whenChangePeriod = (period: string) => (selectedPeriod.value = period)
 
 		const whenBuyPremium = () => {
-			tgStore.openInvoice(periodProperties.value.invoice, async () => {
+			tgStore.openInvoice(periodProperties.value.invoice, async ({ status }) => {
+				if (status === 'cancelled') {
+					return
+				}
 				await Promise.all([pvpStore.loadPvpCharacter(), userStore.loadUser()])
 				props.whenBuyPremium()
 			})
@@ -139,17 +142,19 @@ export const BuyPremium = defineComponent({
 							{t('premium.heroCard')}
 						</UiText>
 					</li>
-					<li class={[styles.listItem, styles.listItemIcon]}>
-						<BoxIcon height={17} />
-						&nbsp;
-						<UiText fontSize={'16px'} color={'#CBCBCB'}>
-							{periodProperties.value.boxes}&nbsp;{t('premium.bronze')}
-						</UiText>
-						&nbsp;
-						<UiText fontSize={'16px'} isAccent>
-							{t('premium.lootboxes')}
-						</UiText>
-					</li>
+					{Boolean(periodProperties.value.boxes) && (
+						<li class={[styles.listItem, styles.listItemIcon]}>
+							<BoxIcon height={17} />
+							&nbsp;
+							<UiText fontSize={'16px'} color={'#CBCBCB'}>
+								{periodProperties.value.boxes}&nbsp;{t('premium.bronze')}
+							</UiText>
+							&nbsp;
+							<UiText fontSize={'16px'} isAccent>
+								{t('premium.lootboxes')}
+							</UiText>
+						</li>
+					)}
 					<li class={styles.listItem}>
 						<UiText fontSize={'16px'} color={'#CBCBCB'}>
 							💰&nbsp;{t('premium.oneTimeBonus')}

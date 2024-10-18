@@ -30,7 +30,7 @@ const PvpProfilePage = defineComponent({
 				/>
 				{!pvpStore.isCharacterPremium && (
 					<UiButton
-						text={t('premium.becomeSuperbro')}
+						text={t('premium.getPremium')}
 						loading={pvpStore.isLoading}
 						whenClick={() => premiumModal.value?.open()}
 					/>
