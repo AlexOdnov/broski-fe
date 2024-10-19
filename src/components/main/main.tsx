@@ -65,7 +65,9 @@ export const MainComponent = defineComponent({
 						<div class={[styles.nav, styles.navLeft, styles.border]}>
 							<RouterLink to={{ name: RouteName.Game }}>
 								<div class={styles.navBtn}>
-									<GamepadIcon color={currentRoute.value === RouteName.Game ? '#FFB800' : undefined} />
+									<GamepadIcon
+										color={currentRoute.value === RouteName.Game ? '#FFB800' : undefined}
+									/>
 									<UiText
 										fontSize="12px"
 										fontWeight={400}
@@ -80,7 +82,9 @@ export const MainComponent = defineComponent({
 							<div class={styles.delimiter} />
 							<RouterLink to={{ name: RouteName.Tasks }}>
 								<div class={styles.navBtn}>
-									<DollarIcon color={currentRoute.value === RouteName.Tasks ? '#FFB800' : undefined} />
+									<DollarIcon
+										color={currentRoute.value === RouteName.Tasks ? '#FFB800' : undefined}
+									/>
 									{Boolean(tasksStore.uncompletedTasks.length) && (
 										<img class={styles.notice} src="/images/notice.webp" />
 									)}
@@ -96,7 +100,10 @@ export const MainComponent = defineComponent({
 								</div>
 							</RouterLink>
 						</div>
-						<div class={[styles.centralNav, styles.navBtn, styles.border]} style={{opacity: '0.45'}}>
+						<div
+							class={[styles.centralNav, styles.navBtn, styles.border]}
+							style={{ opacity: '0.45' }}
+						>
 							<GiftIcon height={40} />
 							<UiText
 								fontSize="12px"
@@ -114,7 +121,9 @@ export const MainComponent = defineComponent({
 									{Boolean(referralsStore.sumReferralsReward) && (
 										<img class={styles.notice} src="/images/notice.webp" />
 									)}
-									<UserIcon color={currentRoute.value === RouteName.Referrals ? '#FFB800' : undefined} />
+									<UserIcon
+										color={currentRoute.value === RouteName.Referrals ? '#FFB800' : undefined}
+									/>
 									<UiText
 										fontSize="12px"
 										fontWeight={400}
@@ -127,10 +136,7 @@ export const MainComponent = defineComponent({
 								</div>
 							</RouterLink>
 							<div class={styles.delimiter} />
-							<div
-								class={[styles.navBtn, timeBeforeMiningLeft.value]}
-								onClick={whenMiningClicked}
-							>
+							<div class={[styles.navBtn, timeBeforeMiningLeft.value]} onClick={whenMiningClicked}>
 								{(isRewardAvailable.value ||
 									(!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && (
 									<img class={styles.notice} src="/images/notice.webp" />
