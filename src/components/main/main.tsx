@@ -1,6 +1,6 @@
 import styles from './main.module.css'
 import { computed, defineComponent, ref } from 'vue'
-import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { useTasksStore } from '@/stores/tasks'
 import { useReferralsStore } from '@/stores/referrals'
@@ -21,9 +21,6 @@ export const MainComponent = defineComponent({
 		const referralsStore = useReferralsStore()
 		const commonStore = useCommonStore()
 		const pvpStore = usePvpStore()
-		const route = useRoute()
-
-		const currentRoute = computed(() => route.matched[0].name)
 
 		const isMiningLoading = ref(false)
 
@@ -63,40 +60,39 @@ export const MainComponent = defineComponent({
 						]}
 					>
 						<div class={[styles.nav, styles.navLeft, styles.border]}>
-							<RouterLink to={{ name: RouteName.Game }}>
+							<RouterLink
+								to={{ name: RouteName.Game }}
+								activeClass={styles.activeLink}
+								class={styles.routerLink}
+							>
 								<div class={styles.navBtn}>
-									<GamepadIcon color={currentRoute.value === RouteName.Game ? '#FFB800' : undefined} />
-									<UiText
-										fontSize="12px"
-										fontWeight={400}
-										lineHeight="12px"
-										fontFamily="roboto"
-										color={currentRoute.value === RouteName.Game ? '#FFB800' : '#4E4F4F'}
-									>
+									<GamepadIcon />
+									<UiText fontSize="12px" fontWeight={400} lineHeight="12px" fontFamily="roboto">
 										{t('game')}
 									</UiText>
 								</div>
 							</RouterLink>
 							<div class={styles.delimiter} />
-							<RouterLink to={{ name: RouteName.Tasks }}>
+							<RouterLink
+								to={{ name: RouteName.Tasks }}
+								activeClass={styles.activeLink}
+								class={styles.routerLink}
+							>
 								<div class={styles.navBtn}>
-									<DollarIcon color={currentRoute.value === RouteName.Tasks ? '#FFB800' : undefined} />
+									<DollarIcon />
 									{Boolean(tasksStore.uncompletedTasks.length) && (
 										<img class={styles.notice} src="/images/notice.webp" />
 									)}
-									<UiText
-										fontSize="12px"
-										fontWeight={400}
-										lineHeight="12px"
-										fontFamily="roboto"
-										color={currentRoute.value === RouteName.Tasks ? '#FFB800' : '#4E4F4F'}
-									>
+									<UiText fontSize="12px" fontWeight={400} lineHeight="12px" fontFamily="roboto">
 										{t('earn')}
 									</UiText>
 								</div>
 							</RouterLink>
 						</div>
-						<div class={[styles.centralNav, styles.navBtn, styles.border]} style={{opacity: '0.45'}}>
+						<div
+							class={[styles.centralNav, styles.navBtn, styles.border]}
+							style={{ opacity: '0.45' }}
+						>
 							<GiftIcon height={40} />
 							<UiText
 								fontSize="12px"
@@ -109,28 +105,23 @@ export const MainComponent = defineComponent({
 							</UiText>
 						</div>
 						<div class={[styles.nav, styles.navRight, styles.border]}>
-							<RouterLink to={{ name: RouteName.Referrals }}>
+							<RouterLink
+								to={{ name: RouteName.Referrals }}
+								activeClass={styles.activeLink}
+								class={styles.routerLink}
+							>
 								<div class={styles.navBtn}>
 									{Boolean(referralsStore.sumReferralsReward) && (
 										<img class={styles.notice} src="/images/notice.webp" />
 									)}
-									<UserIcon color={currentRoute.value === RouteName.Referrals ? '#FFB800' : undefined} />
-									<UiText
-										fontSize="12px"
-										fontWeight={400}
-										lineHeight="12px"
-										fontFamily="roboto"
-										color={currentRoute.value === RouteName.Referrals ? '#FFB800' : '#4E4F4F'}
-									>
+									<UserIcon />
+									<UiText fontSize="12px" fontWeight={400} lineHeight="12px" fontFamily="roboto">
 										{t('frens')}
 									</UiText>
 								</div>
 							</RouterLink>
 							<div class={styles.delimiter} />
-							<div
-								class={[styles.navBtn, timeBeforeMiningLeft.value]}
-								onClick={whenMiningClicked}
-							>
+							<div class={[styles.navBtn, timeBeforeMiningLeft.value]} onClick={whenMiningClicked}>
 								{(isRewardAvailable.value ||
 									(!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && (
 									<img class={styles.notice} src="/images/notice.webp" />
