@@ -36,7 +36,8 @@ export const useTasksStore = defineStore('tasks', () => {
 				duration: '100',
 				complete: false,
 				links: 'https://t.me/itsbrocoin',
-				image: ''
+				image: '',
+				priority: 0
 			}
 		])
 	}

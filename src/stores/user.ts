@@ -132,13 +132,32 @@ export const useUserStore = defineStore('user', () => {
 		if (tgStore.userId) {
 			try {
 				withLoader && commonStore.setIsLoading(true)
-				const userResponse = await api.getUser({
-					user_id: tgStore.userId,
-					username: tgStore.username,
-					ref_code: tgStore.startParam,
-					premium: tgStore.isPremium
+				// const userResponse = await api.getUser({
+				// 	user_id: tgStore.userId,
+				// 	username: tgStore.username,
+				// 	ref_code: tgStore.startParam,
+				// 	premium: tgStore.isPremium
+				// })
+				setUserLegacy({
+					advertising_limit: 10,
+					advertising_total: 10,
+					boxes: 43,
+					daily_claim: true,
+					daily_stric: 21,
+					first_game: false,
+					first_login: false,
+					left_mining: '00:00',
+					mining_claim: false,
+					position: 9497,
+					push_see: true,
+					ref_code: '338405049',
+					region: 'ru',
+					score: 4665,
+					tickets: 63,
+					ton_balanse: 0,
+					username: 'AlexOdnov',
+					last_tap: ''
 				})
-				setUserLegacy(userResponse)
 			} catch (error) {
 				sentry.captureNetworkException(error)
 				console.warn(error)

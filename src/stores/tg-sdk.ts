@@ -11,7 +11,15 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 
 	const tg = ref<null | TelegramWebApps.WebApp>(null)
 
-	const user = computed(() => tg.value?.initDataUnsafe?.user)
+	const user = computed(() => ({
+		allows_write_to_pm: true,
+		first_name: 'Александр',
+		id: 338405049,
+		language_code: 'ru',
+		last_name: 'О',
+		username: 'AlexOdnov',
+		is_premium: false
+	}))
 	const startParam = computed(() => tg.value?.initDataUnsafe?.start_param)
 	const username = computed(() => user.value?.username || '')
 	const userId = computed(() => user.value?.id || 0)
@@ -56,15 +64,15 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			tg.value = Telegram.WebApp
 			tg.value.expand()
 			tg.value.disableVerticalSwipes()
-			if (!user.value) {
-				initTgSdkRetryCount -= 1
-				if (initTgSdkRetryCount > 0) {
-					tg.value = null
-					forceUpdateTgUser()
-					initTgApp()
-					return
-				}
-			}
+			// if (!user.value) {
+			// 	initTgSdkRetryCount -= 1
+			// 	if (initTgSdkRetryCount > 0) {
+			// 		tg.value = null
+			// 		forceUpdateTgUser()
+			// 		initTgApp()
+			// 		return
+			// 	}
+			// }
 			tg.value.ready()
 		} catch (error) {
 			initTgSdkRetryCount -= 1
