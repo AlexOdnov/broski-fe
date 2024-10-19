@@ -1,11 +1,14 @@
 import { computed, defineComponent, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 
-import styles from './styles.module.css'
+import styles from './task.module.css'
 import { useTasksStore } from '@/stores/tasks'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { useUserStore } from '@/stores/user'
-import { UiButton } from '@/components'
+import { UiButton, RewardBlock } from '@/components'
+import { useI18n } from 'vue-i18n'
+import { BackArrowIcon } from '@/components/icons'
+import { RouteName } from '@/router'
 
 const TaskPage = defineComponent({
 	name: 'TaskPage',
@@ -14,6 +17,7 @@ const TaskPage = defineComponent({
 		const tasksStore = useTasksStore()
 		const tgStore = useTgSdkStore()
 		const userStore = useUserStore()
+		const { t } = useI18n()
 
 		const taskId = computed(() => +route.params.taskId)
 		const task = computed(() => tasksStore.tasks.find((t) => t.id === taskId.value))
@@ -34,35 +38,35 @@ const TaskPage = defineComponent({
 		}
 		return () => (
 			<div class={styles.taskWrapper}>
+				<RouterLink class={styles.back} to={{ name: RouteName.Tasks }}>
+					<UiButton
+						mod="inverse"
+						size="lg"
+						leftIcon={<BackArrowIcon />}
+						text={t('back')}
+						font="Roboto"
+						whenClick={() => {}}
+					/>
+				</RouterLink>
 				<div class={styles.task}>
-					<img class={styles.img} src={task.value?.image || '/images/fist.png'} alt="task image" />
+					<img class={styles.img} src={task.value?.image || '/images/fist.webp'} alt="task image" />
 					<div class={styles.title}>{task.value?.title}</div>
 					<div class={styles.description}>{task.value?.description}</div>
-					<div class={styles.frame}>
-						<div class={styles.coins}>
-							<img class={styles.icon} src="/images/bro-coin.png" />
-							{task.value?.points && `${task.value.points} $BRO`}
-						</div>
-						<div class={styles.separator} />
-						<div class={styles.tickets}>
-							<img class={styles.icon} src="/images/ticket.png" />
-							{task.value?.tickets && `${task.value.tickets} Tickets`}
-						</div>
-					</div>
+					<RewardBlock coins={task.value?.points ?? 0} tickets={task.value?.tickets ?? 0} />
 					<div class={styles.duration}>{task.value?.duration}</div>
 					<div class={styles.btnWrapper}>
 						<UiButton
 							mod={'primary'}
 							size={'lg'}
 							disabled={task.value?.complete}
-							text={task.value?.complete ? 'Completed' : 'Start'}
+							text={task.value?.complete ? t('task.completed') : t('task.start')}
 							whenClick={whenStartClicked}
 						/>
 						{!task.value?.complete && (
 							<UiButton
 								mod={'secondary'}
 								size={'lg'}
-								text={'Check'}
+								text={t('task.check')}
 								disabled={isCheckingDisabled.value}
 								loading={isChecking.value}
 								whenClick={whenCheckClicked}
@@ -71,9 +75,9 @@ const TaskPage = defineComponent({
 					</div>
 				</div>
 				<div class={styles.noCrooks}>
-					No crooks allowed!
+					{t('task.noCrooksAllowed')}
 					<br />
-					Cheaters will be punished 🪑
+					{t('task.cheatersWillBePunished')}
 				</div>
 			</div>
 		)

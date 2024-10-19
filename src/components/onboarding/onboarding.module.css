@@ -1,0 +1,40 @@
+.title {
+	text-align: center;
+}
+
+.titleFlex {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.description {
+	display: grid;
+	grid-template-rows: min-content min-content;
+	text-align: center;
+	gap: 8px;
+	height: 100%;
+}
+
+.steps {
+	margin: 0;
+	font-family: 'BarcadeBrawlRegular';
+	font-size: 16px;
+	line-height: 16px;
+	color: #4e4f4f;
+	align-self: center;
+}
+
+.icon {
+	width: 1em;
+	height: 1em;
+}
+
+.list {
+	width: fit-content;
+	margin: auto;
+}
+
+.list li {
+	text-align: left;
+}

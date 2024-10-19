@@ -1,0 +1,93 @@
+.rewards {
+	width: 100%;
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	text-align: center;
+	font-family: 'Roboto', Arial, sans-serif;
+	font-weight: 400;
+	gap: 23px;
+	padding: 50px 20px;
+	background: #232323;
+	background: url('/images/bg-halloween.webp') center/cover no-repeat;
+}
+
+.day {
+	color: #f0f0f0;
+	text-shadow: 10px 8px #0b0c0e;
+}
+
+.message {
+	font-size: 14px;
+	line-height: 18px;
+	color: #cbcbcb;
+}
+
+.tip {
+	color: #797979;
+}
+
+.daysBlock {
+	padding: 5px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	background-color: #0b0c0e;
+	border-radius: 15px;
+	gap: 5px;
+}
+
+.dayBlock {
+	text-align: left;
+	background-color: #141517;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.dayBlockCoins {
+	display: flex;
+	align-items: center;
+	margin-top: 20px;
+}
+
+.dayBlockCoins img {
+	width: 14px;
+	height: 14px;
+	margin-right: 5px;
+}
+
+.dayBlockTickets {
+	display: flex;
+	align-items: center;
+	color: #cbcbcb;
+}
+
+.dayBlockTickets img {
+	width: 14px;
+	height: 14px;
+	margin-left: 5px;
+}
+
+.currentDayBlock {
+	opacity: 0.2;
+	border: 1px solid #ffb800;
+}
+
+.dayBlockWrapper {
+	position: relative;
+}
+
+.okBlock {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 7px;
+	right: 7px;
+	background-color: #232323;
+	border-radius: 50%;
+	font-weight: 400;
+	font-size: 11px;
+	line-height: 11px;
+}

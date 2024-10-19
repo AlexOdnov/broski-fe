@@ -1,15 +1,25 @@
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 
 import styles from './styles.module.css'
-import { UiButton, type ButtonMod, ReferralElement } from '@/components'
+import { UiButton, type ButtonMod, ReferralElement, UiText } from '@/components'
+import { useReferralsStore } from '@/stores/referrals'
 import { useUserStore } from '@/stores/user'
+import { envVariables } from '@/services/env'
+import { useI18n } from 'vue-i18n'
+import { useTgSdkStore } from '@/stores/tg-sdk'
+import { UserBalance } from '@/components/ui/user-balance'
+import { StarIcon, TicketIcon } from '@/components/icons'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
 	setup() {
+		const referralsStore = useReferralsStore()
 		const userStore = useUserStore()
+		const tgSdk = useTgSdkStore()
 
 		const isLinkCopied = ref(false)
+		const intersectionObserver = ref<null | IntersectionObserver>(null)
+		const { t } = useI18n()
 
 		const copyButtonProps = computed(
 			(): {
@@ -19,11 +29,11 @@ const ReferralsPage = defineComponent({
 				return isLinkCopied.value
 					? {
 							mod: 'inverse',
-							text: 'Link Copied'
+							text: t('linkCopied')
 						}
 					: {
 							mod: 'primary',
-							text: 'Invite Bro'
+							text: t('inviteBro')
 						}
 			}
 		)
@@ -35,15 +45,15 @@ const ReferralsPage = defineComponent({
 				disabled?: boolean
 				whenClick: () => void
 			} => {
-				return userStore.sumReferralsReward
+				return referralsStore.sumReferralsReward
 					? {
 							mod: 'inverse',
-							text: `Claim ${Intl.NumberFormat('en-US').format(Number(userStore.sumReferralsReward))} $BRO`,
-							whenClick: userStore.claimReferralsReward
+							text: `${t('claim')} ${Intl.NumberFormat('en-US').format(referralsStore.sumReferralsReward)} $BRO`,
+							whenClick: referralsStore.claimReferralsReward
 						}
 					: {
 							mod: 'secondary',
-							text: `Come back later, bro!`,
+							text: t('comeBackLater'),
 							disabled: true,
 							whenClick: () => {}
 						}
@@ -51,8 +61,8 @@ const ReferralsPage = defineComponent({
 		)
 
 		const whenCopyLink = () => {
-			navigator.clipboard.writeText(
-				`${window.appConfig.botLink}?startapp=${userStore.user?.ref_code}`
+			tgSdk.openLink(
+				`https://t.me/share/url?url=${envVariables.botUrl}?startapp=${userStore.userLegacy?.ref_code}&text=${t('inviteText')}`
 			)
 			isLinkCopied.value = true
 			setTimeout(() => {
@@ -60,27 +70,61 @@ const ReferralsPage = defineComponent({
 			}, 3000)
 		}
 
+		onMounted(() => {
+			const loader = document.querySelector('#infinity-loader') as Element
+			const intersectionObserverConfig: IntersectionObserverInit = {
+				threshold: 0.01
+			}
+			const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
+				if (entries[0].isIntersecting) {
+					referralsStore.loadReferrals()
+				}
+			}
+			intersectionObserver.value = new IntersectionObserver(
+				intersectionCallback,
+				intersectionObserverConfig
+			)
+			intersectionObserver.value.observe(loader)
+		})
+
+		onBeforeUnmount(() => {
+			intersectionObserver.value?.disconnect()
+			referralsStore.resetStore()
+		})
+
 		return () => (
 			<div class={styles.referralsPage}>
+				<UserBalance />
 				<div class={styles.header}>
 					<div class={styles.text}>
 						<p class={styles.headerDark}>
-							10% from bro's income + <img class={styles.icon} src="/images/ticket.png" /> 5 Tickets
+							5% {t('fromBrosIncome')} + <TicketIcon height={14} />
+							&nbsp;
+							{t('ticket', 1)}
 						</p>
 						<p class={styles.headerLight}>
-							<img class={styles.icon} src="/images/star.png" /> Premium: additionally
-							<span class={styles.yellow}>50 $BRO</span> +
-							<img class={styles.icon} src="/images/ticket.png" /> 25 Tickets
+							<StarIcon height={14} />
+							{t('premiumAdditionally')}
+							<UiText isAccent>50 $BRO</UiText> +
+							<TicketIcon height={14} /> {t('ticket', 3)}
 						</p>
 					</div>
 					<UiButton size={'sm'} {...copyButtonProps.value} whenClick={whenCopyLink} />
 				</div>
 				<div class={styles.content}>
-					<p class={styles.subTitle}>My Bros</p>
+					<div class={styles.listHeader}>
+						<UiText fontSize={'18px'} color={'#f0f0f0'} fontWeight={500} class={styles.subTitle}>
+							{t('myBros')}
+						</UiText>
+						<UiText fontWeight={400} fontSize={'14px'} color={'#797979'}>
+							{t('total')}: {Intl.NumberFormat('en-US').format(referralsStore.totalReferrals)}
+						</UiText>
+					</div>
 					<div class={styles.scrollContent}>
-						{userStore.referrals.map((el) => (
+						{referralsStore.referrals.map((el) => (
 							<ReferralElement referralElement={el} />
 						))}
+						<div id="infinity-loader" style={{ minHeight: '1px' }} />
 					</div>
 				</div>
 				<div class={styles.claimButton}>

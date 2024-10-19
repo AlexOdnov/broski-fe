@@ -1,125 +1,58 @@
-import { computed, defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 import styles from './styles.module.css'
-import { GameStatus, INITIAL_ATTEMPTS_COUNT, useGameStore, WIN_GAME_POINTS } from '@/stores/game'
-import {
-	UiButton,
-	type ButtonMod,
-	TicketsCounter,
-	UiHeightPlaceholder,
-	GameElement
-} from '@/components'
-import { useUserStore } from '@/stores/user'
-
-const placeholders = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
+import { UserBalance } from '@/components/ui/user-balance'
+import { RouterView, useRouter } from 'vue-router'
+import { UiTabs } from '@/components'
+import { RouteName } from '@/router'
+import { useCommonStore } from '@/stores/common'
+import { useI18n } from 'vue-i18n'
 
 const GamePage = defineComponent({
 	name: 'GamePage',
 	setup() {
-		const gameStore = useGameStore()
-		const userStore = useUserStore()
+		const router = useRouter()
+		const { t } = useI18n()
 
-		const topText = computed(() => {
-			switch (gameStore.gameStatus) {
-				case GameStatus.Idle:
-					return ''
-				case GameStatus.Win:
-					return '“BROOO”'
-				case GameStatus.Lose:
-					return '“Fail”'
-				case GameStatus.InProgress:
-					return `${gameStore.remainAttempts}/${INITIAL_ATTEMPTS_COUNT}`
-				default:
-					return ''
+		const commonStore = useCommonStore()
+
+		const activeTab = ref(router.currentRoute.value.name as string)
+
+		const tabOptions = [
+			{
+				label: t('profile'),
+				value: RouteName.GamePvpProfile
+			},
+			{
+				label: t('fight'),
+				value: RouteName.GamePvp
+			},
+			{
+				label: t('findBroGame'),
+				value: RouteName.GameFindBro
 			}
-		})
+		]
 
-		const buttonProps = computed(
-			(): {
-				text: string
-				mod: ButtonMod
-				loading: boolean
-				minWidth?: string
-				whenClick: () => void
-			} => {
-				switch (gameStore.gameStatus) {
-					case GameStatus.Idle:
-						return {
-							text: 'Start game',
-							mod: 'primary',
-							minWidth: '202px',
-							loading: gameStore.isGameLoading,
-							whenClick: gameStore.startGame
-						}
-					case GameStatus.Win:
-						return {
-							text: `CLAIM ${WIN_GAME_POINTS} $bro`,
-							mod: 'primary',
-							loading: gameStore.isGameLoading,
-							whenClick: gameStore.finishGame
-						}
-					case GameStatus.Lose:
-						return {
-							text: 'next time',
-							mod: 'inverse',
-							loading: gameStore.isGameLoading,
-							whenClick: gameStore.finishGame
-						}
-					case GameStatus.InProgress:
-						return {
-							text: 'in progress',
-							mod: 'secondary',
-							loading: gameStore.isGameLoading,
-							whenClick: () => {}
-						}
-					default:
-						return {
-							text: 'wait',
-							mod: 'secondary',
-							loading: gameStore.isGameLoading,
-							whenClick: () => {}
-						}
-				}
-			}
-		)
-
-		const isButtonShown = computed(
-			() => userStore.userTickets > 0 || gameStore.gameStatus !== GameStatus.Idle
-		)
+		const changeTab = (newTab: string) => {
+			router.push({ name: newTab })
+			activeTab.value = newTab
+		}
 
 		return () => (
-			<div class={styles.game}>
-				{topText.value ? (
-					<p
-						class={[
-							styles.topText,
-							gameStore.gameStatus === GameStatus.Lose && styles.topTextError
-						]}
-					>
-						{topText.value}
-					</p>
-				) : (
-					<UiHeightPlaceholder height={'16px'} />
-				)}
-				<div class={styles.gameField} onClick={gameStore.startGame}>
-					{gameStore.gameField.map((el, index) => (
-						<GameElement
-							key={index}
-							placeholder={placeholders[index]}
-							gameElement={el}
-							whenClick={() => gameStore.selectElement(index)}
-						/>
-					))}
+			<>
+				<UserBalance />
+				<div class={styles.navigation}>
+					<UiTabs
+						disabled={commonStore.isNavigationDisabled}
+						selected={activeTab.value}
+						options={tabOptions}
+						whenChange={changeTab}
+					/>
 				</div>
-				<div class={styles.bottomBlock}>
-					{isButtonShown.value ? (
-						<UiButton {...buttonProps.value} />
-					) : (
-						<UiHeightPlaceholder height={'30px'} />
-					)}
-					<TicketsCounter />
+				<div class={styles.wrapper}>
+					<RouterView />
 				</div>
-			</div>
+			</>
 		)
 	}
 })

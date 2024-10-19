@@ -1,0 +1,103 @@
+.card {
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	background-color: #232323;
+	border-radius: 10px;
+	border: 1px solid #35332e;
+	justify-content: center;
+}
+
+.userName {
+	display: grid;
+	gap: 5px;
+	grid-template-columns: min-content auto;
+}
+
+.userName span {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.avatarWrapper {
+	position: relative;
+}
+
+.premIcon {
+	position: absolute;
+	top: 7px;
+	left: 8px;
+	color: #232323;
+}
+
+.premIconEnemy {
+	position: absolute;
+	top: 7px;
+	right: 8px;
+	color: #d9d9d9;
+}
+
+.avatar {
+	min-height: 90px;
+	height: auto;
+	aspect-ratio: 1.5;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 6px;
+	border-color: #35332e;
+	object-position: center top;
+	object-fit: cover;
+	width: 100%;
+}
+
+.flexRow {
+	border-top: 1px solid #35332e;
+	padding-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px;
+}
+
+.delimiter {
+	border-right: 1px solid #35332e;
+}
+
+.iconWithNumber {
+	display: flex;
+	align-items: center;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 12px;
+	color: #cbcbcb;
+}
+
+.lvl {
+	display: flex;
+	gap: 2px;
+	border: 1px solid #35332e;
+	border-radius: 10px;
+	background-color: #141517;
+	align-items: baseline;
+	padding: 2px 5px 1px;
+}
+
+.yellowBorder {
+	border-color: #ffb800;
+}
+
+.stats {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding-top: 10px;
+	border-top: 1px solid #35332e;
+}
+
+.statsRow {
+	display: flex;
+	gap: 10px;
+	justify-content: space-between;
+	align-items: center;
+}

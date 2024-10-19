@@ -1,0 +1,35 @@
+.popup {
+	position: relative;
+	padding: 25px 20px 30px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	flex-grow: 1;
+	height: 100dvh;
+	z-index: 2;
+	background-color: #141517;
+}
+
+.image {
+	width: 100%;
+	aspect-ratio: 1.21;
+	border-radius: 15px;
+	overflow: hidden;
+	border: 2px solid #35332e;
+}
+
+.header {
+	font-weight: 500;
+	font-size: 22px;
+	line-height: 22px;
+	color: #f0f0f0;
+}
+
+.body {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 18px;
+	color: #cbcbcb;
+	overflow-y: scroll;
+	flex-grow: 1;
+}

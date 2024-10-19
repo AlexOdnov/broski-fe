@@ -3,11 +3,12 @@
 
 @font-face {
 	font-family: 'BarcadeBrawlRegular';
-	src: local('BarcadeBrawlRegular'), url('./fonts/BarcadeBrawlRegular/BarcadeBrawlRegular.woff');
+	src: local('BarcadeBrawlRegular'), url('/fonts/BarcadeBrawlRegular.woff');
+	font-display: swap;
 }
 
 #app {
-	font-family: 'Roboto';
+	font-family: 'Roboto', Arial, sans-serif;
 	color: #cbcbcb;
 	max-width: 100vw;
 	height: 100dvh;

@@ -1,12 +1,14 @@
 .tasks {
-	font-family: 'Roboto';
+	font-family: 'Roboto', Arial, sans-serif;
 	font-size: 18px;
 	line-height: 18px;
 	color: #f0f0f0;
 	display: grid;
 	grid-template-columns: 1fr;
 	gap: 10px;
-	padding: 25px 10px 0 10px;
+	padding: 18px 10px 0 10px;
+	height: calc(100% - 86px);
+	overflow-y: auto;
 }
 
 .opacity {

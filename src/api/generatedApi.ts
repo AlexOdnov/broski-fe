@@ -9,84 +9,213 @@
  * ---------------------------------------------------------------
  */
 
-export interface UserCreatePayload {
-	/** @example "antonprox" */
-	username: string
-	/** @example "624161982" */
-	user_id: number
-	/** @example "624161982" */
-	ref_code?: string
-	/** @example true */
-	premium?: boolean
+/** AbilityScores */
+export interface AbilityScores {
+	/** Strength */
+	strength: number
+	/** Defence */
+	defence: number
+	/** Speed */
+	speed: number
+	/** Weight */
+	weight: number
+	/** Combinations */
+	combinations: number
 }
 
-export interface TasksCreatePayload {
-	/** @example "antonprox" */
-	username: string
+/** AbilityScoresDelta */
+export interface AbilityScoresDelta {
+	/** Strength */
+	strength?: number | null
+	/** Defence */
+	defence?: number | null
+	/** Speed */
+	speed?: number | null
+	/** Weight */
+	weight?: number | null
+	/** Combinations */
+	combinations?: number | null
 }
 
-export interface TasksCreateBody {
-	/** @example "antonprox" */
-	username: string
+/** CharacterEnergy */
+export interface CharacterEnergy {
+	/** Remaining */
+	remaining: number
+	/** Maximum */
+	maximum: number
 	/**
-	 * Id таски
-	 * @example "1"
+	 * Time To Restore
+	 * @format duration
 	 */
-	task_id: number
+	time_to_restore: string
 }
 
-export interface ScoreCreatePayload {
-	/** @example "antonprox" */
+/** CharacterExperience */
+export interface CharacterExperience {
+	/** Current Experience */
+	current_experience: number
+	/** Maximum Experience */
+	maximum_experience: number
+}
+
+/** CharacterProfile */
+export interface CharacterProfile {
+	abilities: AbilityScores
+	energy: CharacterEnergy
+	/** Level */
+	level: number
+	experience: CharacterExperience
+	/** Power */
+	power: number
+	premium?: CharacterProfilePremium | null
+	stats?: PVPStats | null
+}
+
+/** CharacterProfilePremium */
+export interface CharacterProfilePremium {
+	/** Active */
+	active: boolean
+	/**
+	 * Until
+	 * @format date
+	 */
+	until: string
+}
+
+/** CreateUser */
+export interface CreateUser {
+	/** Username */
 	username: string
-	/** @example "1000" */
+	/** User Id */
+	user_id: string
+	/** Ref Code */
+	ref_code?: string | null
+	/** Premium */
+	premium?: boolean | null
+}
+
+/** GetEnergy */
+export interface GetEnergy {
+	/** Energy */
+	energy: number
+}
+
+/** GetEnergyResponse */
+export interface GetEnergyResponse {
+	/** Link */
+	link: string
+}
+
+/** HTTPValidationError */
+export interface HTTPValidationError {
+	/** Detail */
+	detail?: ValidationError[]
+}
+
+/** LevelupResponse */
+export interface LevelupResponse {
+	abilities: AbilityScores
+	/** Power */
+	power: number
+}
+
+/** MatchCompetitioner */
+export interface MatchCompetitioner {
+	/** User Id */
+	user_id: number
+	/** Username */
+	username: string
+	/** Level */
+	level: number
+	/** Power */
+	power: number
+	abilities: AbilityScores
+	/** Premium */
+	premium: boolean
+	stats?: PVPStats | null
+}
+
+/** MatchLoot */
+export interface MatchLoot {
+	/** Coins */
+	coins: number
+}
+
+/** MatchResult */
+export enum MatchResult {
+	Win = 'win',
+	Lose = 'lose'
+}
+
+/** PVPMatch */
+export interface PVPMatch {
+	/**
+	 * Match Id
+	 * @format uuid
+	 */
+	match_id: string
+	player: MatchCompetitioner
+	opponent: MatchCompetitioner
+}
+
+/** PVPMatchResult */
+export interface PVPMatchResult {
+	result: MatchResult
+	loot?: MatchLoot | null
+}
+
+/** PVPStats */
+export interface PVPStats {
+	/** Total */
+	total: number
+	/** Won */
+	won: number
+	/** Loot */
+	loot: number
+}
+
+/** User */
+export interface User {
+	/** Score */
 	score: number
-}
-
-export interface TicketsCreatePayload {
-	/** @example "antonprox" */
-	username: string
-	/** @example "1" */
+	/** Tickets */
 	tickets: number
+	/** Boxes */
+	boxes: number
+	/** Ton Balance */
+	ton_balance: number
+	mining: UserMining
+	advertising: UserAdvertising
 }
 
-export interface ScoreCreateBody {
-	/** @example "antonprox" */
-	username: string
-	/** @example "1000" */
-	score: number
+/** UserAdvertising */
+export interface UserAdvertising {
+	/** Limit */
+	limit: number
+	/** Total */
+	total: number
 }
 
-export interface TicketsCreateBody {
-	/** @example "antonprox" */
-	username: string
-	/** @example "1" */
-	tickets: number
+/** UserMining */
+export interface UserMining {
+	/** Left */
+	left: string
+	/** Claim */
+	claim: boolean
 }
 
-export interface RefClaimCreatePayload {
-	/** @example "antonprox" */
-	username: string
+/** ValidationError */
+export interface ValidationError {
+	/** Location */
+	loc: (string | number)[]
+	/** Message */
+	msg: string
+	/** Error Type */
+	type: string
 }
 
-export interface MiningCreatePayload {
-	/** @example "antonprox" */
-	username: string
-}
-
-export interface MiningCreateBody {
-	/** @example "antonprox" */
-	username: string
-}
-
-export interface ReferalsCreatePayload {
-	/** @example "antonprox" */
-	username: string
-}
-
-export interface DailyCreatePayload {
-	/** @example "antonprox" */
-	username: string
-}
+/** Delta */
+export type LevelUpApiV1UsersUserIdLevelupPostPayload = AbilityScoresDelta | null
 
 import type {
 	AxiosInstance,
@@ -146,10 +275,7 @@ export class HttpClient<SecurityDataType = unknown> {
 		format,
 		...axiosConfig
 	}: ApiConfig<SecurityDataType> = {}) {
-		this.instance = axios.create({
-			...axiosConfig,
-			baseURL: axiosConfig.baseURL || 'http://127.0.0.1:8000'
-		})
+		this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || '' })
 		this.secure = secure
 		this.format = format
 		this.securityWorker = securityWorker
@@ -244,26 +370,23 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title Brocoin
- * @version 1.0.0
- * @baseUrl http://127.0.0.1:8000
+ * @title FastAPI
+ * @version 0.1.0
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
-	get = {
+	api = {
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name UserCreate
-		 * @summary /get/user/
-		 * @request POST:/get/user/
+		 * @tags pvp
+		 * @name GetCharacterApiV1UsersUserIdCharacterGet
+		 * @summary Get Character
+		 * @request GET:/api/v1/users/{user_id}/character
 		 */
-		userCreate: (data: UserCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/get/user/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
+		getCharacterApiV1UsersUserIdCharacterGet: (userId: number, params: RequestParams = {}) =>
+			this.request<CharacterProfile, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/character`,
+				method: 'GET',
 				format: 'json',
 				...params
 			}),
@@ -271,17 +394,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name TasksCreate
-		 * @summary /get/tasks/
-		 * @request POST:/get/tasks/
+		 * @tags pvp
+		 * @name LevelUpApiV1UsersUserIdLevelupPost
+		 * @summary Level Up
+		 * @request POST:/api/v1/users/{user_id}/levelup
 		 */
-		tasksCreate: (data: TasksCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/get/tasks/`,
+		levelUpApiV1UsersUserIdLevelupPost: (
+			userId: number,
+			data: LevelUpApiV1UsersUserIdLevelupPostPayload,
+			params: RequestParams = {}
+		) =>
+			this.request<LevelupResponse, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/levelup`,
 				method: 'POST',
 				body: data,
-				type: ContentType.FormData,
+				type: ContentType.Json,
 				format: 'json',
 				...params
 			}),
@@ -289,17 +416,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name RefClaimCreate
-		 * @summary /get/ref_claim/
-		 * @request POST:/get/ref_claim/
+		 * @tags pvp
+		 * @name SearchMatchApiV1UsersUserIdPvpPost
+		 * @summary Search Match
+		 * @request POST:/api/v1/users/{user_id}/pvp
 		 */
-		refClaimCreate: (data: RefClaimCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/get/ref_claim/`,
+		searchMatchApiV1UsersUserIdPvpPost: (userId: number, params: RequestParams = {}) =>
+			this.request<PVPMatch, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/pvp`,
 				method: 'POST',
-				body: data,
-				type: ContentType.UrlEncoded,
 				format: 'json',
 				...params
 			}),
@@ -307,36 +432,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name ReferalsCreate
-		 * @summary /get/referals/
-		 * @request POST:/get/referals/
+		 * @tags pvp
+		 * @name SkipMatchApiV1PvpMatchIdSkipPost
+		 * @summary Skip Match
+		 * @request POST:/api/v1/pvp/{match_id}/skip
 		 */
-		referalsCreate: (data: ReferalsCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/get/referals/`,
+		skipMatchApiV1PvpMatchIdSkipPost: (matchId: string, params: RequestParams = {}) =>
+			this.request<MatchCompetitioner, HTTPValidationError>({
+				path: `/api/v1/pvp/${matchId}/skip`,
 				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			})
-	}
-	done = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name TasksCreate
-		 * @summary /done/tasks/
-		 * @request POST:/done/tasks/
-		 */
-		tasksCreate: (data: TasksCreateBody, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/done/tasks/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
 				format: 'json',
 				...params
 			}),
@@ -344,17 +448,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name MiningCreate
-		 * @summary /done/mining/
-		 * @request POST:/done/mining/
+		 * @tags pvp
+		 * @name StartMatchApiV1PvpMatchIdStartPost
+		 * @summary Start Match
+		 * @request POST:/api/v1/pvp/{match_id}/start
 		 */
-		miningCreate: (data: MiningCreateBody, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/done/mining/`,
+		startMatchApiV1PvpMatchIdStartPost: (matchId: string, params: RequestParams = {}) =>
+			this.request<PVPMatchResult, HTTPValidationError>({
+				path: `/api/v1/pvp/${matchId}/start`,
 				method: 'POST',
-				body: data,
-				type: ContentType.UrlEncoded,
 				format: 'json',
 				...params
 			}),
@@ -362,36 +464,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name DailyCreate
-		 * @summary /done/daily/
-		 * @request POST:/done/daily/
+		 * @tags users
+		 * @name GetUserApiV1UsersUserIdGet
+		 * @summary Get User
+		 * @request GET:/api/v1/users/{user_id}
 		 */
-		dailyCreate: (data: DailyCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/done/daily/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			})
-	}
-	add = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name ScoreCreate
-		 * @summary /add/score/
-		 * @request POST:/add/score/
-		 */
-		scoreCreate: (data: ScoreCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/add/score/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
+		getUserApiV1UsersUserIdGet: (userId: string, params: RequestParams = {}) =>
+			this.request<User, HTTPValidationError>({
+				path: `/api/v1/users/${userId}`,
+				method: 'GET',
 				format: 'json',
 				...params
 			}),
@@ -399,36 +480,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name TicketsCreate
-		 * @summary /add/tickets/
-		 * @request POST:/add/tickets/
+		 * @tags users
+		 * @name PostUserApiV1UsersPost
+		 * @summary Post User
+		 * @request POST:/api/v1/users
 		 */
-		ticketsCreate: (data: TicketsCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/add/tickets/`,
+		postUserApiV1UsersPost: (data: CreateUser, params: RequestParams = {}) =>
+			this.request<User, HTTPValidationError>({
+				path: `/api/v1/users`,
 				method: 'POST',
 				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			})
-	}
-	remove = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name ScoreCreate
-		 * @summary /remove/score/
-		 * @request POST:/remove/score/
-		 */
-		scoreCreate: (data: ScoreCreateBody, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/remove/score/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.FormData,
+				type: ContentType.Json,
 				format: 'json',
 				...params
 			}),
@@ -436,36 +498,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
-		 * @tags default
-		 * @name TicketsCreate
-		 * @summary remove/tickets/
-		 * @request POST:/remove/tickets/
+		 * @tags users
+		 * @name GetStarsLinkApiV1StarsPost
+		 * @summary Get Stars Link
+		 * @request POST:/api/v1/stars
 		 */
-		ticketsCreate: (data: TicketsCreateBody, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/remove/tickets/`,
+		getStarsLinkApiV1StarsPost: (data: GetEnergy, params: RequestParams = {}) =>
+			this.request<GetEnergyResponse, HTTPValidationError>({
+				path: `/api/v1/stars`,
 				method: 'POST',
 				body: data,
-				type: ContentType.FormData,
-				format: 'json',
-				...params
-			})
-	}
-	start = {
-		/**
-		 * No description
-		 *
-		 * @tags default
-		 * @name MiningCreate
-		 * @summary /start/mining/
-		 * @request POST:/start/mining/
-		 */
-		miningCreate: (data: MiningCreatePayload, params: RequestParams = {}) =>
-			this.request<void, any>({
-				path: `/start/mining/`,
-				method: 'POST',
-				body: data,
-				type: ContentType.UrlEncoded,
+				type: ContentType.Json,
 				format: 'json',
 				...params
 			})

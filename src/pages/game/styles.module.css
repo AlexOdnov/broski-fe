@@ -1,33 +1,12 @@
-.game {
-	display: flex;
-	padding: 16px;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	gap: 20px;
-}
-
-.topText {
-	margin: 0;
-	font-family: 'BarcadeBrawlRegular';
-	font-size: 16px;
-	line-height: 16px;
-}
-
-.topTextError {
-	color: #ff5449;
-}
-
-.gameField {
-	display: grid;
-	grid-template-columns: repeat(3, 76px);
-	grid-template-rows: repeat(3, 76px);
-	gap: 2px;
-}
-
-.bottomBlock {
+.wrapper {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 15px;
+	height: calc(100% - 86px - 54px);
+	overflow-y: auto;
+}
+
+.navigation {
+	padding: 10px 15px;
 }

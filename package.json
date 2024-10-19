@@ -12,14 +12,19 @@
 		"lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
 		"format": "prettier --write src/",
 		"lint:all": "npm run format && npm run lint && npm run type-check",
-		"generate-api": "npx swagger-typescript-api -p ./src/api/swagger.yaml -o ./src/api -n generatedApi.ts --axios  --extract-request-params --extract-request-body --extract-enums",
+		"generate-api-legacy": "npx swagger-typescript-api -p ./src/api/swagger.yaml -o ./src/api -n legacyGeneratedApi.ts --axios  --extract-request-params --extract-request-body --extract-enums && npm run format",
+		"generate-api": "npx swagger-typescript-api -p https://api.itsbrocoin.wtf/openapi.json -o ./src/api -n generatedApi.ts --axios  --extract-request-params --extract-request-body --extract-enums && npm run format",
 		"prepare": "husky install"
 	},
 	"dependencies": {
+		"@sentry/vite-plugin": "^2.22.5",
+		"@sentry/vue": "^8.33.1",
 		"axios": "^1.7.4",
 		"normalize.css": "^8.0.1",
 		"pinia": "^2.1.7",
+		"temporal-polyfill": "^0.2.5",
 		"vue": "^3.4.29",
+		"vue-i18n": "^10.0.1",
 		"vue-router": "^4.3.3"
 	},
 	"devDependencies": {

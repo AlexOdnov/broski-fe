@@ -1,6 +1,8 @@
 import { defineComponent, type PropType } from 'vue'
 import styles from './styles.module.css'
 import type { Referral } from '@/api/responseTypes'
+import { UiText } from '@/components/ui'
+import { CoinIcon } from '@/components/icons'
 
 export const ReferralElement = defineComponent({
 	name: 'ReferralElement',
@@ -10,13 +12,17 @@ export const ReferralElement = defineComponent({
 	setup: (props) => {
 		return () => (
 			<div class={styles.wrapper}>
-				<p class={styles.username}>@{props.referralElement.username}</p>
-				<p class={styles.refs}>Refs: {props.referralElement.refs}</p>
+				<UiText class={styles.username} fontWeight={500} fontSize={'18px'}>
+					@{props.referralElement.username}
+				</UiText>
+				<UiText fontWeight={400} fontSize={'14px'} color={'#797979'}>
+					Refs: {props.referralElement.refs}
+				</UiText>
 				<p class={styles.bonus}>
-					+ <img class={styles.icon} src="/images/bro-coin.png" />
-					<span class={styles.yellow}>
+					+ <CoinIcon height={12} />
+					<UiText isAccent>
 						{Intl.NumberFormat('en-US').format(Number(props.referralElement.reward))} $BRO
-					</span>
+					</UiText>
 				</p>
 			</div>
 		)

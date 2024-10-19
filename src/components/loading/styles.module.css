@@ -1,20 +1,65 @@
 .loadingScreenWrapper {
 	background-color: #141517;
+	background: url('/images/bg-halloween.webp') center/cover no-repeat;
 	display: flex;
 	width: 100%;
 	height: 100%;
-}
-.loadingScreen {
-	margin: 0 auto;
-	align-self: center;
-	display: flex;
 	flex-direction: column;
 }
-.fist {
-	max-width: 306px;
+
+.loadingScreen {
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-grow: 1;
+	justify-content: center;
+}
+
+.progressBarWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	transform: rotate(-7deg);
+}
+
+.handWrapper {
+	position: relative;
+	width: 220px;
+	transform: rotate(180deg) translateX(-10px);
+}
+
+.shadow {
+	width: 220px;
+}
+
+.hand {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 220px;
 }
 
 .logo {
 	max-width: 282px;
 	margin: 0 auto;
+}
+
+.loadingText {
+	color: #797979;
+	margin: 0;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.bannerWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	padding: 0 15px 20px;
+}
+
+.banner {
+	min-height: 100px;
 }

@@ -3,22 +3,51 @@
 	<head>
 		<meta charset="UTF-8" />
 		<link rel="icon" href="/favicon.ico" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
 			rel="stylesheet"
 		/>
-		<script>
-			window.appConfig = {
-				baseUrl: 'https://bro-coin.ru',
-				botLink: 'https://t.me/itsbrocoinbot/BROSKI'
-			}
+		<link rel="preload" href="/fonts/BarcadeBrawlRegular.woff" as="font" crossorigin="anonymous" />
+		<link rel="preload" as="image" href="/images/shadow.webp" />
+		<link rel="preload" as="image" href="/images/broski.webp" />
+		<link rel="preload" as="image" href="/images/hand.gif" />
+		<link rel="preload" as="image" href="/images/bro-coin.webp" />
+		<link rel="preload" as="image" href="/images/ticket.webp" />
+		<link rel="preload" as="image" href="/images/pickaxe.webp" />
+		<link rel="preload" as="image" href="/images/notice.webp" />
+		<link rel="preload" as="image" href="/images/fist-small.webp" />
+		<link rel="preload" as="image" href="/images/chicken.webp" />
+		<link rel="preload" as="image" href="/images/box.webp" />
+		<link rel="preload" as="image" href="/images/onboarding-new-1.webp" />
+		<link rel="preload" as="image" href="/images/onboarding-new-2.webp" />
+		<link rel="preload" as="image" href="/images/onboarding-new-3.webp" />
+		<link rel="preload" as="image" href="/images/onboarding-new-4.webp" />
+		<link rel="preload" as="image" href="/images/update.webp" />
+		<link rel="preload" as="image" href="/images/energy.webp" />
+		<link rel="preload" as="image" href="/images/energy-shadowed.webp" />
+		<link rel="preload" as="image" href="/images/user.webp" />
+		<link rel="preload" as="image" href="/images/user-prem.webp" />
+		<link rel="preload" as="image" href="/images/enemy.webp" />
+		<link rel="preload" as="image" href="/images/enemy-prem.webp" />
+		<link rel="preload" as="image" href="/images/enemy_unknown.webp" />
+		<link rel="preload" as="image" href="/images/combinations.webp" />
+		<link rel="preload" as="image" href="/images/defence.webp" />
+		<link rel="preload" as="image" href="/images/speed.webp" />
+		<link rel="preload" as="image" href="/images/strength.webp" />
+		<link rel="preload" as="image" href="/images/weight.webp" />
+		<link rel="preload" as="image" href="/images/super-bro.webp" />
+		<link rel="preload" as="image" href="/images/timer.webp" />
+		<!-- halloween images -->
+		<link rel="preload" as="image" href="/images/broski-halloween.webp" />
+		<link rel="preload" as="image" href="/images/user-halloween.webp" />
+		<link rel="preload" as="image" href="/images/enemy-halloween.webp" />
+		<link rel="preload" as="image" href="/images/enemy_unknown-halloween.webp" />
+		<link rel="preload" as="image" href="/images/chicken-halloween.webp" />
+		<!-- OnClicka -->
+		<script src="https://js.canstrm.com/in-stream-ad-admanager/tma.js"></script>
+		<!-- Adsgram -->
+		<script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 
-			// fetch('/config.json').then(async (config) => {
-			// 	window.appConfig = await config.json()
-			// })
-		</script>
 		<script src="https://telegram.org/js/telegram-web-app.js"></script>
 		<meta
 			name="viewport"
@@ -29,6 +58,69 @@
 
 	<body>
 		<div id="app"></div>
+		<noscript>
+			<div>
+				<img
+					src="https://mc.yandex.ru/watch/98281021"
+					style="position: absolute; left: -9999px"
+					alt=""
+				/>
+			</div>
+		</noscript>
 		<script type="module" src="/src/main.ts"></script>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-M8HPSKJ2P4"></script>
+		<script>
+			window.dataLayer = window.dataLayer || []
+
+			function gtag() {
+				dataLayer.push(arguments)
+			}
+
+			gtag('js', new Date())
+			gtag('config', 'G-M8HPSKJ2P4')
+		</script>
+		<!-- end of Google tag -->
+
+		<!-- Yandex.Metrika counter -->
+		<script type="text/javascript">
+			;(function (m, e, t, r, i, k, a) {
+				m[i] =
+					m[i] ||
+					function () {
+						;(m[i].a = m[i].a || []).push(arguments)
+					}
+
+				m[i].l = 1 * new Date()
+
+				for (var j = 0; j < document.scripts.length; j++) {
+					if (document.scripts[j].src === r) {
+						return
+					}
+				}
+
+				;(k = e.createElement(t)),
+					(a = e.getElementsByTagName(t)[0]),
+					(k.async = 1),
+					(k.src = r),
+					a.parentNode.insertBefore(k, a)
+			})(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym')
+			ym(98281021, 'init', {
+				clickmap: true,
+				trackLinks: true,
+				accurateTrackBounce: true,
+				webvisor: true
+			})
+		</script>
+		<noscript>
+			<div>
+				<img
+					src="https://mc.yandex.ru/watch/98281021"
+					style="position: absolute; left: -9999px"
+					alt=""
+				/>
+			</div>
+		</noscript>
+		<!-- /Yandex.Metrika counter -->
 	</body>
 </html>

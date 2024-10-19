@@ -1,0 +1,45 @@
+.progressBar {
+	position: relative;
+	overflow: hidden;
+	border-radius: 9999px;
+	width: 100%;
+	display: grid;
+}
+
+.progressBarBorder {
+	position: relative;
+	overflow: hidden;
+	border-radius: 9999px;
+	width: 100%;
+}
+
+.progressBarBorder::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: 1px solid #35332e;
+	border-radius: 9999px;
+}
+
+.segment {
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out;
+}
+
+.roundSegment {
+	border-radius: 9999px;
+}
+
+.filler {
+	transition: width 0.2s ease-in-out;
+	border-radius: 9999px;
+}
+
+.counter {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
