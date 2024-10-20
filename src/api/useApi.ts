@@ -42,11 +42,11 @@ export interface IUserIdRequest {
 }
 
 const legacyApiInstance = new LegacyApi({
-	baseURL: 'https://brocoin.site' //envVariables.backendUrl
+	baseURL: envVariables.backendUrl
 })
 
 const apiInstance = new Api({
-	baseURL: 'https://brocoin.site' //envVariables.backendUrl
+	baseURL: envVariables.backendUrl
 })
 
 export const useApi = () => {
@@ -55,7 +55,7 @@ export const useApi = () => {
 			config.headers.set(
 				'Exactly_not_secret_key',
 				handleHeader(
-					useTgSdkStore()?.userId?.toString() ?? 'test',
+					useTgSdkStore()?.userId?.toString() ?? '',
 					envVariables.symbolsShift,
 					envVariables.symbolsQuantity
 				)
@@ -67,7 +67,7 @@ export const useApi = () => {
 			config.headers.set(
 				'Exactly_not_secret_key',
 				handleHeader(
-					useTgSdkStore()?.userId?.toString() ?? 'test',
+					useTgSdkStore()?.userId?.toString() ?? '',
 					envVariables.symbolsShift,
 					envVariables.symbolsQuantity
 				)
