@@ -1,4 +1,3 @@
-import { envVariables } from '@/services/env'
 import {
 	Api as LegacyApi,
 	type UserCreatePayload,
@@ -30,6 +29,9 @@ import type {
 	ReferalsCreateResponse,
 	UserStatsCreateResponse
 } from './responseTypes'
+import { handleHeader } from '@/utils/string-shift'
+import { useTgSdkStore } from '@/stores/tg-sdk'
+import { envVariables } from '@/services/env'
 
 export type IUpgradeAbilityRequest = {
 	userId: number
@@ -40,14 +42,37 @@ export interface IUserIdRequest {
 }
 
 const legacyApiInstance = new LegacyApi({
-	baseURL: envVariables.backendUrl
+	baseURL: 'https://brocoin.site'//envVariables.backendUrl
 })
 
 const apiInstance = new Api({
-	baseURL: envVariables.backendUrl
+	baseURL: 'https://brocoin.site'//envVariables.backendUrl
 })
 
 export const useApi = () => {
+	legacyApiInstance.instance.interceptors.request.use((config) => {
+		!config.headers.get('Exactly_not_secret_key') &&	config.headers.set(
+			'Exactly_not_secret_key',
+			handleHeader(
+				useTgSdkStore()?.userId?.toString() ?? 'test',
+				envVariables.symbolsShift,
+				envVariables.symbolsQuantity
+			)
+		)
+		return config
+	})
+	apiInstance.instance.interceptors.request.use((config) => {
+		!config.headers.get('Exactly_not_secret_key') &&	config.headers.set(
+			'Exactly_not_secret_key',
+			handleHeader(
+				useTgSdkStore()?.userId?.toString() ?? 'test',
+				envVariables.symbolsShift,
+				envVariables.symbolsQuantity
+			)
+		)
+		return config
+	})
+
 	const getUser = async (payload: UserCreatePayload): Promise<UserCreateResponse> => {
 		return (await legacyApiInstance.gets.userCreate(payload)).data as unknown as UserCreateResponse
 	}
