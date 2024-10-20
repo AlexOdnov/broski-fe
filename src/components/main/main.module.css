@@ -44,9 +44,9 @@
 .nav {
 	height: 53px;
 	padding: 8px;
-	display: grid;
+	display: flex;
 	gap: 5px;
-	grid-template-columns: 1fr 1px 1fr;
+	justify-content: space-evenly;
 }
 
 .navLeft {

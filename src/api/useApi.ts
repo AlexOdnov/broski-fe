@@ -42,34 +42,36 @@ export interface IUserIdRequest {
 }
 
 const legacyApiInstance = new LegacyApi({
-	baseURL: 'https://brocoin.site'//envVariables.backendUrl
+	baseURL: 'https://brocoin.site' //envVariables.backendUrl
 })
 
 const apiInstance = new Api({
-	baseURL: 'https://brocoin.site'//envVariables.backendUrl
+	baseURL: 'https://brocoin.site' //envVariables.backendUrl
 })
 
 export const useApi = () => {
 	legacyApiInstance.instance.interceptors.request.use((config) => {
-		!config.headers.get('Exactly_not_secret_key') &&	config.headers.set(
-			'Exactly_not_secret_key',
-			handleHeader(
-				useTgSdkStore()?.userId?.toString() ?? 'test',
-				envVariables.symbolsShift,
-				envVariables.symbolsQuantity
+		!config.headers.get('Exactly_not_secret_key') &&
+			config.headers.set(
+				'Exactly_not_secret_key',
+				handleHeader(
+					useTgSdkStore()?.userId?.toString() ?? 'test',
+					envVariables.symbolsShift,
+					envVariables.symbolsQuantity
+				)
 			)
-		)
 		return config
 	})
 	apiInstance.instance.interceptors.request.use((config) => {
-		!config.headers.get('Exactly_not_secret_key') &&	config.headers.set(
-			'Exactly_not_secret_key',
-			handleHeader(
-				useTgSdkStore()?.userId?.toString() ?? 'test',
-				envVariables.symbolsShift,
-				envVariables.symbolsQuantity
+		!config.headers.get('Exactly_not_secret_key') &&
+			config.headers.set(
+				'Exactly_not_secret_key',
+				handleHeader(
+					useTgSdkStore()?.userId?.toString() ?? 'test',
+					envVariables.symbolsShift,
+					envVariables.symbolsQuantity
+				)
 			)
-		)
 		return config
 	})
 
