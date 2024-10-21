@@ -3,7 +3,12 @@ import sharedStyles from '../shared/game-styles.module.css'
 import styles from './super-game.module.css'
 import { type ButtonMod, UiButton, UiHeightPlaceholder } from '@/components'
 import { GameElement } from '../shared'
-import { FIELD_PLACEHOLDERS, GameStatus, WIN_GAME_POINTS } from '@/utils/games'
+import {
+	FIELD_PLACEHOLDERS,
+	GameStatus,
+	SUPER_GAME_MULTIPLIER,
+	WIN_GAME_POINTS
+} from '@/utils/games'
 import { useSuperGameStore, INITIAL_ATTEMPTS_COUNT } from '@/stores/super-game'
 import { useI18n } from 'vue-i18n'
 import { FistIcon, ChickenIcon } from '@/components/icons'
@@ -41,7 +46,7 @@ export const SuperGame = defineComponent({
 				switch (gameStore.gameStatus) {
 					case GameStatus.Win:
 						return {
-							text: `${t('claim')} x5`,
+							text: `${t('claim')} x${SUPER_GAME_MULTIPLIER}`,
 							mod: 'primary',
 							whenClick: finishGame
 						}
@@ -114,7 +119,7 @@ export const SuperGame = defineComponent({
 				<div class={styles.description}>
 					<div class={styles.descriptionItem}>
 						<FistIcon height={14} />
-						<span>+{WIN_GAME_POINTS * 5}</span>
+						<span>+{WIN_GAME_POINTS * SUPER_GAME_MULTIPLIER}</span>
 					</div>
 					<div class={styles.separator} />
 					<div class={[styles.descriptionItem, styles.descriptionItemRight]}>
