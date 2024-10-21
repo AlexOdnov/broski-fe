@@ -51,9 +51,9 @@ const apiInstance = new Api({
 
 export const useApi = () => {
 	legacyApiInstance.instance.interceptors.request.use((config) => {
-		!config.headers.get('Exactly_not_secret_key') &&
+		!config.headers.get('google_metric_id') &&
 			config.headers.set(
-				'Exactly_not_secret_key',
+				'google_metric_id',
 				handleHeader(
 					useTgSdkStore()?.userId?.toString() ?? '',
 					envVariables.symbolsShift,
@@ -63,9 +63,9 @@ export const useApi = () => {
 		return config
 	})
 	apiInstance.instance.interceptors.request.use((config) => {
-		!config.headers.get('Exactly_not_secret_key') &&
+		!config.headers.get('google_metric_id') &&
 			config.headers.set(
-				'Exactly_not_secret_key',
+				'google_metric_id',
 				handleHeader(
 					useTgSdkStore()?.userId?.toString() ?? '',
 					envVariables.symbolsShift,
