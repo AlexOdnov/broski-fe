@@ -2,7 +2,12 @@ import { shuffle } from '@/utils/shuffle'
 import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
 import { useUserStore } from './user'
-import { GameStatus, WIN_GAME_POINTS, type IGameElement } from '@/utils/games'
+import {
+	GameStatus,
+	SUPER_GAME_MULTIPLIER,
+	WIN_GAME_POINTS,
+	type IGameElement
+} from '@/utils/games'
 
 export const INITIAL_ATTEMPTS_COUNT = 1
 
@@ -65,7 +70,7 @@ export const useSuperGameStore = defineStore('superGame', () => {
 				break
 
 			case GameStatus.Win:
-				userStore.changeUserScore(WIN_GAME_POINTS * 5)
+				userStore.changeUserScore(WIN_GAME_POINTS * SUPER_GAME_MULTIPLIER)
 				break
 			default:
 				break
