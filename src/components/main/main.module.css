@@ -16,7 +16,7 @@
 }
 
 .border {
-	border: solid 1px #35332E;
+	border: solid 1px #35332e;
 }
 
 .centralNav {
@@ -66,7 +66,7 @@
 .delimiter {
 	height: 100%;
 	width: 1px;
-	background-color: #35332E;
+	background-color: #35332e;
 }
 
 .navBtn {
@@ -100,4 +100,12 @@
 	height: 20px;
 	position: absolute;
 	top: -20px;
+}
+
+.routerLink {
+	color: #4e4f4f;
+}
+
+.activeLink {
+	color: #ffb800;
 }
