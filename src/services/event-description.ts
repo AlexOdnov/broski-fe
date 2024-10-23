@@ -1,5 +1,5 @@
 import { useTgSdkStore } from '@/stores/tg-sdk'
-import event from '@/event-description/current-event.json'
+import event from '@/data/event-description/current-event.json'
 
 export interface IEvent {
 	title: {

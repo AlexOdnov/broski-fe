@@ -3,8 +3,8 @@ import { computed, defineComponent } from 'vue'
 import { RewardBlock, UiButton } from '@/components'
 import { useUserStore } from '@/stores/user'
 import { getRewardByDay, type Reward } from '@/utils/get-daily-rewards'
-import { useI18n } from 'vue-i18n'
 import { UiText } from '../ui/ui-text'
+import { useLocalization } from '@/services/localization'
 
 export const DailyComponent = defineComponent({
 	name: 'DailyComponent',
@@ -13,13 +13,17 @@ export const DailyComponent = defineComponent({
 	},
 	setup: (props) => {
 		const userStore = useUserStore()
+		const { t } = useLocalization()
+
 		const currentReward = computed(() => getRewardByDay(props.day))
+
 		const day = computed(() =>
 			props.day.toLocaleString('en-US', {
 				minimumIntegerDigits: 2,
 				useGrouping: false
 			})
 		)
+
 		const visibleDays = computed(() => {
 			const days: (Reward & { claimed: boolean })[] = []
 			for (let i = props.day; i < props.day + 6; i++) {
@@ -27,11 +31,11 @@ export const DailyComponent = defineComponent({
 			}
 			return days
 		})
-		const { t } = useI18n()
 
 		const claimDailyReward = async () => {
 			await userStore.claimDailyReward()
 		}
+
 		return () => (
 			<div class={styles.rewards}>
 				<UiText

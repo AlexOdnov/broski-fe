@@ -4,17 +4,17 @@ import { RouterLink, RouterView } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { useTasksStore } from '@/stores/tasks'
 import { useReferralsStore } from '@/stores/referrals'
-import { useI18n } from 'vue-i18n'
 import { RouteName } from '@/router'
 import { useCommonStore } from '@/stores/common'
 import { usePvpStore } from '@/stores/pvp'
 import { DollarIcon, GamepadIcon, GiftIcon, ExpIcon, UserIcon } from '@/components/icons'
 import { UiText } from '@/components'
+import { useLocalization } from '@/services/localization'
 
 export const MainComponent = defineComponent({
 	name: 'MainComponent',
 	setup: () => {
-		const { t } = useI18n()
+		const { t } = useLocalization()
 
 		const userStore = useUserStore()
 		const tasksStore = useTasksStore()

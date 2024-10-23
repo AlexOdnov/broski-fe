@@ -2,16 +2,18 @@ import { defineComponent, ref } from 'vue'
 import styles from './profile.module.css'
 import { BoxIcon, CoinIcon, InfoIcon, MedalIcon, TonIcon } from '@/components/icons'
 import { useUserStore } from '@/stores/user'
-import { useI18n } from 'vue-i18n'
 import { HalfCircleDiagramm } from '@/components/ui/half-circle-diagram/half-circle-diagram'
 import { TicketIcon } from '@/components/icons/ticket-icon'
+import { useLocalization } from '@/services/localization'
 
 const ProfilePage = defineComponent({
 	name: 'ProfilePage',
 	setup: () => {
 		const userStore = useUserStore()
-		const hlafCirclcreDiv = ref<HTMLDivElement | null>(null)
-		const { t } = useI18n()
+		const { t } = useLocalization()
+
+		const halfCircleDiv = ref<HTMLDivElement | null>(null)
+
 		return () => (
 			<div class={styles.profileWrapper}>
 				<div class={styles.profile}>
@@ -42,8 +44,8 @@ const ProfilePage = defineComponent({
 						{t('duelStatistics')}
 						<InfoIcon />
 					</div>
-					<div ref={hlafCirclcreDiv} class={[styles.graphic, styles.yellow]}>
-						<HalfCircleDiagramm width={hlafCirclcreDiv.value?.clientWidth} value={50} />
+					<div ref={halfCircleDiv} class={[styles.graphic, styles.yellow]}>
+						<HalfCircleDiagramm width={halfCircleDiv.value?.clientWidth} value={50} />
 						{t('winRate')}
 					</div>
 					<div class={[styles.card, styles.yellow, styles.column, styles.statBlockText]}>

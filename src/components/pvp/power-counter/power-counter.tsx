@@ -2,7 +2,7 @@ import { defineComponent } from 'vue'
 import styles from './power-counter.module.css'
 import { UiProgressBar, UiText } from '@/components/ui'
 import { FistIcon } from '@/components/icons'
-import { useI18n } from 'vue-i18n'
+import { useLocalization } from '@/services/localization'
 
 export const PowerCounter = defineComponent({
 	name: 'PowerCounter',
@@ -11,7 +11,7 @@ export const PowerCounter = defineComponent({
 		totalPower: { type: Number, required: false }
 	},
 	setup: (props) => {
-		const { t } = useI18n()
+		const { t } = useLocalization()
 
 		return () => (
 			<div>

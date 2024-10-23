@@ -15,9 +15,9 @@ import { useCommonStore } from './stores/common'
 import { useReferralsStore } from './stores/referrals'
 import { useAdvertisingStore } from '@/stores/advertising'
 import { envVariables } from './services/env'
-import { useI18n } from 'vue-i18n'
 import { usePvpStore } from './stores/pvp'
 import { SentryError, useSentry } from './services/sentry'
+import { useLocalization } from './services/localization'
 
 export default defineComponent({
 	setup() {
@@ -27,7 +27,7 @@ export default defineComponent({
 		const commonStore = useCommonStore()
 		const referralsStore = useReferralsStore()
 		const pvpStore = usePvpStore()
-		const i18n = useI18n()
+		const { i18n } = useLocalization()
 		const sentry = useSentry()
 
 		const isUserExist = ref(false)

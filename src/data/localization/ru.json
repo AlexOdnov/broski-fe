@@ -72,6 +72,7 @@
 	"day": "День",
 	"ticket": "0 билетов | {n} билет | {n} билета | {n} билетов",
 	"inProgress": "играем",
+	"broOutOfTickets": "Bro, you're out of tickets, bro!",
 	"wait": "подождите",
 	"badLuck": "не повезло",
 	"bRooster": "“b-rooster”",
