@@ -10,7 +10,6 @@ import {
 	UiButton,
 	UiText,
 	type UiTextFontWeight,
-	UiBottomSheet,
 	type UiBottomSheetMethods
 } from '@/components'
 import { useI18n } from 'vue-i18n'
@@ -190,12 +189,7 @@ const PvpPage = defineComponent({
 				/>
 				{renderButtons.value}
 				{renderBottomText.value}
-				<UiBottomSheet
-					ref={premiumModal}
-					body={<BuyPremium whenBuyPremium={() => premiumModal.value?.close()} />}
-					fullscreen
-					withExitButton
-				/>
+				<BuyPremium ref={premiumModal} />
 			</div>
 		)
 	}
