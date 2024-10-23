@@ -33,7 +33,7 @@ export const EventNotificationComponent = defineComponent({
 					</div>
 				}
 				image={`/images/event.webp?${Date.now()}`}
-				whenClick={userStore.doneUpdateNotification}
+				whenClick={userStore.doneEventNotification}
 			/>
 		)
 	}
