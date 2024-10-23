@@ -24,6 +24,7 @@ export interface UserCreateResponse {
 	region: string
 	ton_balanse: number
 	push_see: boolean
+	daily_event: boolean
 }
 
 export interface UserStatsCreateResponse {

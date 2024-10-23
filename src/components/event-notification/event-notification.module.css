@@ -1,0 +1,11 @@
+.title {
+	display: block;
+	width: 100%;
+}
+
+.description {
+	display: flex;
+	flex-direction: column;
+	align-self: start;
+	gap: 10px;
+}
