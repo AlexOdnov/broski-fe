@@ -126,6 +126,10 @@ export const useApi = () => {
 		return await legacyApiInstance.pushSee.pushSeeCreate(payload)
 	}
 
+	const doneEventNotification = async (payload: PushSeeCreatePayload) => {
+		return await legacyApiInstance.dailyEvent.dailyEventCreate(payload)
+	}
+
 	const switchRegion = async (payload: SwitchRegionCreatePayload) => {
 		return await legacyApiInstance.switchRegion.switchRegionCreate(payload)
 	}
@@ -192,6 +196,7 @@ export const useApi = () => {
 		claimAdvertisingReward,
 		claimBox,
 		doneUpdateNotification,
+		doneEventNotification,
 		switchRegion,
 		// startGame,
 		// finishGame,
