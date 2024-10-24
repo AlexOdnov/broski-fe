@@ -37,19 +37,11 @@ export const MatchCharacterCard = defineComponent({
 		)
 
 		const imageUrl = computed(() => {
-			const enemyImg = character.value?.premium
-				? '/images/enemy-prem.webp'
-				: '/images/enemy-halloween.webp'
+			const enemyImg = character.value?.premium ? '/images/enemy-prem.webp' : '/images/enemy.webp'
 
-			const userImg = character.value?.premium
-				? '/images/user-prem.webp'
-				: '/images/user-halloween.webp'
+			const userImg = character.value?.premium ? '/images/user-prem.webp' : '/images/user.webp'
 
-			return props.isEnemy
-				? character.value
-					? enemyImg
-					: '/images/enemy_unknown-halloween.webp'
-				: userImg
+			return props.isEnemy ? (character.value ? enemyImg : '/images/enemy_unknown.webp') : userImg
 		})
 
 		return () => (

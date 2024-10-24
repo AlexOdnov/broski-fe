@@ -14,7 +14,7 @@ export const PlayerInventory = defineComponent({
 		const items = new Array(8).fill(t('soon'))
 
 		const imgSrc = computed(() =>
-			pvpStore.isCharacterPremium ? '/images/user-prem.webp' : '/images/user-halloween.webp'
+			pvpStore.isCharacterPremium ? '/images/user-prem.webp' : '/images/user.webp'
 		)
 
 		return () => (
