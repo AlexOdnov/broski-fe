@@ -13,16 +13,16 @@ import {
 	UiBottomSheet,
 	type UiBottomSheetMethods
 } from '@/components'
-import { useI18n } from 'vue-i18n'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { envVariables } from '@/services/env'
+import { useLocalization } from '@/services/localization'
 
 const PvpPage = defineComponent({
 	name: 'PvpPage',
 	setup() {
 		const pvpStore = usePvpStore()
 		const tgStore = useTgSdkStore()
-		const { t } = useI18n()
+		const { t } = useLocalization()
 
 		const premiumModal = ref<UiBottomSheetMethods | null>(null)
 

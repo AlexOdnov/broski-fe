@@ -1,7 +1,7 @@
 import styles from './bottom-sheet.module.css'
 import { defineComponent, ref, Teleport, Transition, type PropType, type VNode } from 'vue'
 import { UiButton } from '@/components/ui'
-import { useI18n } from 'vue-i18n'
+import { useLocalization } from '@/services/localization'
 
 export interface UiBottomSheetMethods {
 	open: () => void
@@ -17,7 +17,8 @@ export const UiBottomSheet = defineComponent({
 		withExitButton: { type: Boolean, default: false }
 	},
 	setup: (props, { expose }) => {
-		const { t } = useI18n()
+		const { t } = useLocalization()
+
 		const isOpen = ref(false)
 
 		const open = () => {

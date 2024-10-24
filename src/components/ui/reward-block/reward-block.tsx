@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
 import styles from './reward-block.module.css'
-import { useI18n } from 'vue-i18n'
+import { useLocalization } from '@/services/localization'
 
 export const RewardBlock = defineComponent({
 	name: 'RewardBlock',
@@ -9,7 +9,8 @@ export const RewardBlock = defineComponent({
 		tickets: { type: Number, required: true }
 	},
 	setup: (props) => {
-		const { t } = useI18n()
+		const { t } = useLocalization()
+
 		return () => (
 			<div class={styles.frame}>
 				<div class={styles.coins}>

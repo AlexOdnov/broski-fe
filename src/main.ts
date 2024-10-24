@@ -1,7 +1,7 @@
 import './assets/main.css'
 import 'normalize.css'
-import ru from '@/localization/ru.json'
-import en from '@/localization/en.json'
+import ru from '@/data/localization/ru.json'
+import en from '@/data/localization/en.json'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -13,16 +13,17 @@ import { ruPluralRule } from '@/utils/ru-plural-rule'
 
 import * as Sentry from '@sentry/vue'
 import { envVariables } from './services/env'
+import type { LocaleType, MessageSchema } from './services/localization'
 
 const app = createApp(App)
-const i18n = createI18n({
+const i18n = createI18n<[MessageSchema], LocaleType>({
 	legacy: false,
-	locale: 'en',
+	locale: 'en' as LocaleType,
 	messages: {
 		ru: { ...ru },
 		en: { ...en }
 	},
-	fallbackLocale: 'en',
+	fallbackLocale: 'en' as LocaleType,
 	pluralRules: {
 		ru: ruPluralRule
 	}

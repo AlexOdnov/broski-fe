@@ -1,5 +1,5 @@
 import { useTgSdkStore } from '@/stores/tg-sdk'
-import update from '@/update-description/update-latest.json'
+import update from '@/data/update-description/update-latest.json'
 
 export interface IUpdate {
 	version: string
