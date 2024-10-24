@@ -12,6 +12,7 @@ export const UiBottomSheet = defineComponent({
 	name: 'UiBottomSheet',
 	props: {
 		body: { type: null as unknown as PropType<VNode | string>, required: true },
+		footer: { type: null as unknown as PropType<VNode>, required: false },
 		withBackground: { type: Boolean, default: true },
 		fullscreen: { type: Boolean, default: false },
 		withExitButton: { type: Boolean, default: false }
@@ -51,16 +52,18 @@ export const UiBottomSheet = defineComponent({
 							)}
 							<div class={[styles.dialog, props.fullscreen && styles.fullscreen]}>
 								<div class={styles.body}>{props.body}</div>
-								{(props.withExitButton || props.fullscreen) && (
-									<UiButton
-										class={styles.exitButton}
-										text={t('pvp.exit')}
-										mod={'inverse'}
-										bordered
-										size={'md'}
-										whenClick={close}
-									/>
-								)}
+								<div class={styles.footer}>
+									{props.footer}
+									{(props.withExitButton || props.fullscreen) && (
+										<UiButton
+											text={t('pvp.exit')}
+											mod={'inverse'}
+											bordered
+											size={'md'}
+											whenClick={close}
+										/>
+									)}
+								</div>
 							</div>
 						</div>
 					)}
