@@ -30,6 +30,6 @@ export const envVariables: Env = {
 	invoice14Premium: import.meta.env.VITE_INVOICE_14_PREMIUM || '',
 	sentryDSN: import.meta.env.VITE_SENTRY_DSN || '',
 	skipPvpCost: import.meta.env.VITE_SKIP_PVP_COST || 'ticket',
-	symbolsQuantity: Number(import.meta.env.VITE_SYMBOLS_QUANTITY) || 3,
-	symbolsShift: Number(import.meta.env.VITE_SYMBOLS_SHIFT) || 3
+	symbolsQuantity: Number(import.meta.env.VITE_SYMBOLS_QUANTITY) || 0,
+	symbolsShift: Number(import.meta.env.VITE_SYMBOLS_SHIFT) || 0
 }
