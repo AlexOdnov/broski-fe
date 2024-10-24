@@ -35,6 +35,13 @@
 	overflow-y: scroll;
 }
 
+.footer {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
 .background {
 	position: fixed;
 	top: 0;

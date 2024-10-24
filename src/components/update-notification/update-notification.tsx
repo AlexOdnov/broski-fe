@@ -1,16 +1,16 @@
 import styles from './update-notification.module.css'
 import { defineComponent } from 'vue'
 import { UiPopup, UiText } from '../ui'
-import { useI18n } from 'vue-i18n'
 import { useUserStore } from '@/stores/user'
 import { useUpdateDescription } from '@/services/update-description'
+import { useLocalization } from '@/services/localization'
 
 export const UpdateNotificationComponent = defineComponent({
 	name: 'UpdateNotificationComponent',
 	setup: () => {
 		const userStore = useUserStore()
-		const { t } = useI18n()
 		const updateDescription = useUpdateDescription()
+		const { t } = useLocalization()
 
 		return () => (
 			<UiPopup

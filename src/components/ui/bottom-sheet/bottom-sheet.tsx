@@ -1,7 +1,7 @@
 import styles from './bottom-sheet.module.css'
 import { defineComponent, ref, Teleport, Transition, type PropType, type VNode } from 'vue'
 import { UiButton } from '@/components/ui'
-import { useI18n } from 'vue-i18n'
+import { useLocalization } from '@/services/localization'
 
 export interface UiBottomSheetMethods {
 	open: () => void
@@ -12,12 +12,14 @@ export const UiBottomSheet = defineComponent({
 	name: 'UiBottomSheet',
 	props: {
 		body: { type: null as unknown as PropType<VNode | string>, required: true },
+		footer: { type: null as unknown as PropType<VNode>, required: false },
 		withBackground: { type: Boolean, default: true },
 		fullscreen: { type: Boolean, default: false },
 		withExitButton: { type: Boolean, default: false }
 	},
 	setup: (props, { expose }) => {
-		const { t } = useI18n()
+		const { t } = useLocalization()
+
 		const isOpen = ref(false)
 
 		const open = () => {
@@ -50,16 +52,18 @@ export const UiBottomSheet = defineComponent({
 							)}
 							<div class={[styles.dialog, props.fullscreen && styles.fullscreen]}>
 								<div class={styles.body}>{props.body}</div>
-								{(props.withExitButton || props.fullscreen) && (
-									<UiButton
-										class={styles.exitButton}
-										text={t('pvp.exit')}
-										mod={'inverse'}
-										bordered
-										size={'md'}
-										whenClick={close}
-									/>
-								)}
+								<div class={styles.footer}>
+									{props.footer}
+									{(props.withExitButton || props.fullscreen) && (
+										<UiButton
+											text={t('pvp.exit')}
+											mod={'inverse'}
+											bordered
+											size={'md'}
+											whenClick={close}
+										/>
+									)}
+								</div>
 							</div>
 						</div>
 					)}

@@ -629,4 +629,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				...params
 			})
 	}
+	dailyEvent = {
+		/**
+		 * No description
+		 *
+		 * @tags default
+		 * @name PushSeeCreate
+		 * @summary /daily_event/
+		 * @request POST:/daily_event/
+		 */
+		dailyEventCreate: (data: PushSeeCreatePayload, params: RequestParams = {}) =>
+			this.request<void, any>({
+				path: `/daily_event/`,
+				method: 'POST',
+				body: data,
+				type: ContentType.FormData,
+				format: 'json',
+				...params
+			})
+	}
 }

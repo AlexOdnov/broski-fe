@@ -2,6 +2,7 @@ import { computed, defineComponent, ref } from 'vue'
 import styles from './style.module.css'
 import {
 	DailyComponent,
+	EventNotificationComponent,
 	LoadingScreen,
 	MainComponent,
 	OnboardingComponent,
@@ -14,9 +15,9 @@ import { useCommonStore } from './stores/common'
 import { useReferralsStore } from './stores/referrals'
 import { useAdvertisingStore } from '@/stores/advertising'
 import { envVariables } from './services/env'
-import { useI18n } from 'vue-i18n'
 import { usePvpStore } from './stores/pvp'
 import { SentryError, useSentry } from './services/sentry'
+import { useLocalization } from './services/localization'
 
 export default defineComponent({
 	setup() {
@@ -26,7 +27,7 @@ export default defineComponent({
 		const commonStore = useCommonStore()
 		const referralsStore = useReferralsStore()
 		const pvpStore = usePvpStore()
-		const i18n = useI18n()
+		const { i18n } = useLocalization()
 		const sentry = useSentry()
 
 		const isUserExist = ref(false)
@@ -38,6 +39,7 @@ export default defineComponent({
 		const needRenderDaily = computed(() => userStore.userLegacy?.daily_claim === false)
 		const needRenderOnboarding = computed(() => userStore.userLegacy?.first_login)
 		const needRenderUpdateNotification = computed(() => userStore.userLegacy?.push_see === false)
+		const needRenderEventNotification = computed(() => userStore.userLegacy?.daily_event === false)
 
 		const getComponent = computed(() => {
 			if (isLoaderVisible.value) {
@@ -48,6 +50,9 @@ export default defineComponent({
 			}
 			if (needRenderUpdateNotification.value) {
 				return <UpdateNotificationComponent />
+			}
+			if (needRenderEventNotification.value) {
+				return <EventNotificationComponent />
 			}
 			if (needRenderDaily.value) {
 				return <DailyComponent day={userStore.userLegacy?.daily_stric ?? 1} />

@@ -10,14 +10,14 @@ import {
 	BuyPremium
 } from '@/components/pvp'
 import { usePvpStore } from '@/stores/pvp'
-import { UiBottomSheet, UiButton, type UiBottomSheetMethods } from '@/components'
-import { useI18n } from 'vue-i18n'
+import { UiButton, type UiBottomSheetMethods } from '@/components'
+import { useLocalization } from '@/services/localization'
 
 const PvpProfilePage = defineComponent({
 	name: 'PvpProfilePage',
 	setup() {
 		const pvpStore = usePvpStore()
-		const { t } = useI18n()
+		const { t } = useLocalization()
 
 		const premiumModal = ref<UiBottomSheetMethods | null>(null)
 
@@ -46,12 +46,7 @@ const PvpProfilePage = defineComponent({
 					/>
 				</div>
 				<PlayerAbilities />
-				<UiBottomSheet
-					ref={premiumModal}
-					body={<BuyPremium whenBuyPremium={() => premiumModal.value?.close()} />}
-					fullscreen
-					withExitButton
-				/>
+				<BuyPremium ref={premiumModal} />
 			</div>
 		)
 	}

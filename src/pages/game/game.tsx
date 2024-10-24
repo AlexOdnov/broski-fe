@@ -6,14 +6,13 @@ import { RouterView, useRouter } from 'vue-router'
 import { UiTabs } from '@/components'
 import { RouteName } from '@/router'
 import { useCommonStore } from '@/stores/common'
-import { useI18n } from 'vue-i18n'
+import { useLocalization } from '@/services/localization'
 
 const GamePage = defineComponent({
 	name: 'GamePage',
 	setup() {
+		const { t } = useLocalization()
 		const router = useRouter()
-		const { t } = useI18n()
-
 		const commonStore = useCommonStore()
 
 		const activeTab = ref(router.currentRoute.value.name as string)

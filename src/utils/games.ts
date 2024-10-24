@@ -14,6 +14,7 @@ export enum GameStatus {
 }
 
 export const WIN_GAME_POINTS = 200
+export const SUPER_GAME_MULTIPLIER = 5
 
 export const FIELD_PLACEHOLDERS = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C']
 export const HALLOWEEN_FIELD_PLACEHOLDERS = ['⚰️', '🕸', '🧟‍♂️', '🩸', '🎃', '👻', '💀', '🧛‍♂️', '🕷']

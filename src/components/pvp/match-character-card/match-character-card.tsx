@@ -14,7 +14,7 @@ import { CoinCounter, UiText } from '@/components'
 import styles from './match-competitioner-card.module.css'
 import { usePvpStore } from '@/stores/pvp'
 import { useTgSdkStore } from '@/stores/tg-sdk'
-import { useI18n } from 'vue-i18n'
+import { useLocalization } from '@/services/localization'
 
 export const MatchCharacterCard = defineComponent({
 	name: 'MatchCharacterCard',
@@ -24,15 +24,18 @@ export const MatchCharacterCard = defineComponent({
 	setup: (props) => {
 		const tgStore = useTgSdkStore()
 		const pvpStore = usePvpStore()
-		const { t } = useI18n()
+		const { t } = useLocalization()
+
 		const character = computed(() => {
 			return props.isEnemy ? (pvpStore.pvpMatch?.opponent ?? null) : (pvpStore.pvpCharacter ?? null)
 		})
+
 		const totalPower = computed(() =>
 			(pvpStore.pvpCharacter?.power ?? 0) > (pvpStore.pvpMatch?.opponent.power ?? 0)
 				? pvpStore.pvpCharacter?.power
 				: pvpStore.pvpMatch?.opponent.power
 		)
+
 		const imageUrl = computed(() => {
 			const enemyImg = character.value?.premium
 				? '/images/enemy-prem.webp'

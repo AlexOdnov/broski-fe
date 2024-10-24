@@ -2,15 +2,16 @@ import { useUserStore } from '@/stores/user'
 import styles from './onboarding.module.css'
 import { ref, computed, defineComponent, type VNode } from 'vue'
 import { UiPopup, UiText, type ButtonMod } from '../ui'
-import { useI18n } from 'vue-i18n'
 import { BoxIcon, EnergyIcon, TicketIcon } from '@/components/icons'
+import { useLocalization } from '@/services/localization'
 
 export const OnboardingComponent = defineComponent({
 	name: 'OnboardingComponent',
 	setup: () => {
 		const userStore = useUserStore()
+		const { t } = useLocalization()
+
 		const currentStep = ref(1)
-		const { t } = useI18n()
 
 		const currentProperties = computed(
 			(): {
