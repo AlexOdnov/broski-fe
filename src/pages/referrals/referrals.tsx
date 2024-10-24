@@ -5,10 +5,10 @@ import { UiButton, type ButtonMod, ReferralElement, UiText } from '@/components'
 import { useReferralsStore } from '@/stores/referrals'
 import { useUserStore } from '@/stores/user'
 import { envVariables } from '@/services/env'
-import { useI18n } from 'vue-i18n'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { UserBalance } from '@/components/ui/user-balance'
 import { StarIcon, TicketIcon } from '@/components/icons'
+import { useLocalization } from '@/services/localization'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
@@ -16,10 +16,10 @@ const ReferralsPage = defineComponent({
 		const referralsStore = useReferralsStore()
 		const userStore = useUserStore()
 		const tgSdk = useTgSdkStore()
+		const { t } = useLocalization()
 
 		const isLinkCopied = ref(false)
 		const intersectionObserver = ref<null | IntersectionObserver>(null)
-		const { t } = useI18n()
 
 		const copyButtonProps = computed(
 			(): {

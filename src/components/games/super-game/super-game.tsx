@@ -10,8 +10,8 @@ import {
 	WIN_GAME_POINTS
 } from '@/utils/games'
 import { useSuperGameStore, INITIAL_ATTEMPTS_COUNT } from '@/stores/super-game'
-import { useI18n } from 'vue-i18n'
 import { FistIcon, ChickenIcon } from '@/components/icons'
+import { useLocalization } from '@/services/localization'
 
 export const SuperGame = defineComponent({
 	name: 'SuperGame',
@@ -20,7 +20,8 @@ export const SuperGame = defineComponent({
 	},
 	setup(props) {
 		const gameStore = useSuperGameStore()
-		const { t } = useI18n()
+		const { t } = useLocalization()
+
 		const topText = computed(() => {
 			switch (gameStore.gameStatus) {
 				case GameStatus.Win:

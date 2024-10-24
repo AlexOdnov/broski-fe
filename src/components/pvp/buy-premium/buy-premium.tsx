@@ -14,11 +14,12 @@ import {
 } from '@/components/icons'
 import { envVariables } from '@/services/env'
 import { useUserStore } from '@/stores/user'
+import { useLocalization } from '@/services/localization'
 
 export const BuyPremium = defineComponent({
 	name: 'BuyPremium',
 	setup: (_, { expose }) => {
-		const { t } = useI18n()
+		const { t } = useLocalization()
 		const tgStore = useTgSdkStore()
 		const pvpStore = usePvpStore()
 		const userStore = useUserStore()
