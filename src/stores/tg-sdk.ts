@@ -1,3 +1,4 @@
+import type { LocaleType } from '@/services/localization'
 import { SentryError, useSentry } from '@/services/sentry'
 import { forceUpdateTgUser } from '@/utils/tg-parse'
 import { defineStore } from 'pinia'
@@ -16,7 +17,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 	const username = computed(() => user.value?.username || '')
 	const userId = computed(() => user.value?.id || 0)
 	const isPremium = computed(() => user.value?.is_premium)
-	const languageCode = computed(() => user.value?.language_code || 'en')
+	const languageCode = computed(() => (user.value?.language_code || 'en') as LocaleType)
 
 	const openLink = (url?: string) => {
 		if (!url) {

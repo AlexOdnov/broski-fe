@@ -4,15 +4,15 @@ import { UiText } from '@/components/ui'
 import { PlayerAbility } from './player-ability'
 import { usePvpStore } from '@/stores/pvp'
 import type { AbilityScores, AbilityScoresDelta } from '@/api/generatedApi'
-import { useI18n } from 'vue-i18n'
 import { useUserStore } from '@/stores/user'
+import { useLocalization } from '@/services/localization'
 
 export const PlayerAbilities = defineComponent({
 	name: 'PlayerAbilities',
 	setup: () => {
 		const pvpStore = usePvpStore()
 		const userStore = useUserStore()
-		const { t } = useI18n()
+		const { t } = useLocalization()
 
 		const maximumAbilityValue = computed(() => {
 			return Math.max(...Object.values(pvpStore.pvpCharacterAbilities)) ?? 1

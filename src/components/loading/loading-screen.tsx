@@ -1,14 +1,15 @@
 import { defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 import styles from './styles.module.css'
 import { envVariables } from '@/services/env'
-import { useI18n } from 'vue-i18n'
 import { UiProgressBar } from '@/components/ui'
 import { UiText } from '../ui/ui-text'
+import { useLocalization } from '@/services/localization'
 
 export const LoadingScreen = defineComponent({
 	name: 'LoadingScreen',
 	setup: () => {
-		const { t } = useI18n()
+		const { t } = useLocalization()
+
 		const scriptTag = ref<HTMLScriptElement | null>(null)
 		const totalItems = 20
 		const currentProgress = ref(0)
