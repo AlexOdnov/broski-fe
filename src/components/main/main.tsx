@@ -89,10 +89,12 @@ export const MainComponent = defineComponent({
 								</div>
 							</RouterLink>
 						</div>
-						<div
-							class={[styles.centralNav, styles.navBtn, styles.border]}
-							style={{ opacity: '0.45' }}
+						<RouterLink
+							to={{ name: RouteName.Lootboxes }}
+							activeClass={styles.activeLink}
+							class={styles.routerLink}
 						>
+						<div class={[styles.centralNav, styles.navBtn, styles.border]}>
 							<GiftIcon height={40} />
 							<UiText
 								fontSize="12px"
@@ -104,6 +106,7 @@ export const MainComponent = defineComponent({
 								{t('open')}
 							</UiText>
 						</div>
+						</RouterLink>
 						<div class={[styles.nav, styles.navRight, styles.border]}>
 							<RouterLink
 								to={{ name: RouteName.Referrals }}
