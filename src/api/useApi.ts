@@ -1,4 +1,3 @@
-import { envVariables } from '@/services/env'
 import {
 	Api as LegacyApi,
 	type UserCreatePayload,
@@ -30,6 +29,9 @@ import type {
 	ReferalsCreateResponse,
 	UserStatsCreateResponse
 } from './responseTypes'
+import { handleHeader } from '@/utils/string-shift'
+import { useTgSdkStore } from '@/stores/tg-sdk'
+import { envVariables } from '@/services/env'
 
 export type IUpgradeAbilityRequest = {
 	userId: number
@@ -48,6 +50,31 @@ const apiInstance = new Api({
 })
 
 export const useApi = () => {
+	legacyApiInstance.instance.interceptors.request.use((config) => {
+		!config.headers.get('google_metric_id') &&
+			config.headers.set(
+				'google_metric_id',
+				handleHeader(
+					useTgSdkStore()?.userId?.toString() ?? '',
+					envVariables.symbolsShift,
+					envVariables.symbolsQuantity
+				)
+			)
+		return config
+	})
+	apiInstance.instance.interceptors.request.use((config) => {
+		!config.headers.get('google_metric_id') &&
+			config.headers.set(
+				'google_metric_id',
+				handleHeader(
+					useTgSdkStore()?.userId?.toString() ?? '',
+					envVariables.symbolsShift,
+					envVariables.symbolsQuantity
+				)
+			)
+		return config
+	})
+
 	const getUser = async (payload: UserCreatePayload): Promise<UserCreateResponse> => {
 		return (await legacyApiInstance.gets.userCreate(payload)).data as unknown as UserCreateResponse
 	}
