@@ -1,8 +1,9 @@
 import {defineComponent, onMounted, onUnmounted, type PropType, ref, type VNode} from 'vue'
-import {UiBottomSheet, type UiBottomSheetMethods, UiButton} from '@/components'
+import {UiBottomSheet, type UiBottomSheetMethods, UiButton, UiText} from '@/components'
 
 import styles from './lootboxes-modal.module.css'
 import {OpenConveyorBelt, type OpenConveyorBeltMethods} from "@/components/lootboxes-modal/open-conveyor-belt";
+import {GiftIcon, TicketIcon} from "@/components/icons";
 
 const items = [
 	{text: 'item 1', img: ''},
@@ -47,6 +48,13 @@ const items = [
 	{text: 'item 40', img: ''},
 ]
 
+enum LootboxesModalState {
+	default = 'default',
+	boxOpen = 'boxOpen',
+	rolling = 'rolling',
+	prize = 'rolling',
+}
+
 export const LootboxesModal = defineComponent({
 	props: {
 		openButton: {type: Object as PropType<VNode>, required: false},
@@ -55,12 +63,30 @@ export const LootboxesModal = defineComponent({
 	setup: (props) => {
 		const openConveyorBeltRef = ref<OpenConveyorBeltMethods | null>(null)
 		const lootboxModal = ref<UiBottomSheetMethods | null>(null)
+		const currentState = ref(LootboxesModalState.default)
+
+		onMounted(() => {
+			currentState.value = LootboxesModalState.default
+		})
 
 		const openModal = () => {
 			lootboxModal.value?.open()
 		}
 		const open = () => {
-			openConveyorBeltRef.value?.open()
+			currentState.value = LootboxesModalState.boxOpen
+			setTimeout(() => {
+				currentState.value = LootboxesModalState.rolling
+				setTimeout(() => rollConveyor(), 100)
+			}, 2000)
+		}
+
+		const rollConveyor = async () => {
+			try {
+				await openConveyorBeltRef.value?.open()
+			}
+			catch (error) {
+
+			}
 		}
 
 		return () => (<>
@@ -71,12 +97,64 @@ export const LootboxesModal = defineComponent({
 				withExitButton
 				body={
 					<>
-						<OpenConveyorBelt
-							ref={openConveyorBeltRef}
-							items={items}
-							targetElementIdx={32}
-						/>
+						<div class={styles.card}>
+							{currentState.value === LootboxesModalState.default && <>
+								<img class={styles.lootboxImage} src="/images/lootbox-open-static.webp"/>
+								<UiText
+									color="rgba(240, 240, 240, 1)"
+									fontFamily="barcadeBrawl"
+									fontSize="16px"
+									fontWeight={400}
+									lineHeight="16px"
+									shadow
+									alignCenter>bronze</UiText>
+								<div class={styles.darkCard}>
+									<UiText
+										color={"rgba(121, 121, 121, 1)"}
+										fontSize="14px"
+										fontWeight={400}
+										lineHeight="14px"
+										alignCenter
+									>You got:</UiText>
+									<UiText
+										color={"rgba(255, 184, 0, 1)"}
+										fontSize="14px"
+										fontWeight={400}
+										lineHeight="14px"
+										alignCenter
+									>&nbsp;12&nbsp;</UiText>
+									<GiftIcon height={14}/>
+								</div>
+							</>}
+							{currentState.value === LootboxesModalState.boxOpen &&
+								<img class={styles.lootboxImageGif} src="/images/lootbox-open.gif"/>}
+							{currentState.value === LootboxesModalState.rolling && <OpenConveyorBelt
+								class={styles.conveyor}
+								ref={openConveyorBeltRef}
+								items={items}
+								targetElementIdx={32}
+							/>}
+						</div>
 						<UiButton mod={'primary'} size={'lg'} text={'опен'} whenClick={open}/>
+						<UiButton mod={'secondary'} size={'lg'} text={'буй'} whenClick={() => null}/>
+						<div class={styles.costsText}>
+							<UiText
+								color={"rgba(121, 121, 121, 1)"}
+								fontSize="14px"
+								fontWeight={400}
+								lineHeight="14px"
+								alignCenter
+							>Opening costs:</UiText>
+							<UiText
+								color={"rgba(255, 184, 0, 1)"}
+								fontSize="14px"
+								fontWeight={400}
+								lineHeight="14px"
+								alignCenter
+							>&nbsp;1&nbsp;</UiText>
+							<TicketIcon height={14}/>
+						</div>
+						<div>сетка с призами</div>
 					</>
 				}
 			/>

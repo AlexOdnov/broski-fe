@@ -1,0 +1,46 @@
+.card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 10px;
+	border: solid 2px rgba(255, 184, 0, 1);
+	border-radius: 15px;
+	background: url("/images/lootbox-background.webp");
+	background-size: 100% 100%, cover;
+	padding: 15px;
+	min-height: 233px;
+}
+
+.darkCard {
+	background-color: rgba(35, 35, 35, 1);
+	padding: 5px;
+	border-radius: 8px;
+	border: 1px solid rgba(53, 51, 46, 1);
+	display: flex;
+	align-items: center;
+	width: max-content;
+	margin: auto;
+}
+
+.conveyor {
+	max-width:100%;
+}
+
+.lootboxImage {
+	margin: auto;
+	width: 150px;
+}
+
+.lootboxImageGif {
+	position: absolute;
+	width: 76%;
+	left: calc(12%);
+}
+
+.costsText {
+	width: max-content;
+	margin: auto;
+	display: flex;
+	align-items: center;
+}
