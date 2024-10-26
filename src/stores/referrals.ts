@@ -14,7 +14,86 @@ export const useReferralsStore = defineStore('referrals', () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [referralsResponse, setReferralsResponse, resetReferralsResponse] =
 		useState<ReferalsCreateResponse | null>(null)
-	const [referrals, setReferrals, resetReferrals] = useState<Referral[]>([])
+	const [referrals, setReferrals, resetReferrals] = useState<Referral[]>([
+		{
+			username: 'das',
+			refs: 123,
+			bonus: 321,
+			reward: 123
+		},
+		{
+			username: 'das',
+			refs: 123,
+			bonus: 321,
+			reward: 123
+		},
+		{
+			username: 'das',
+			refs: 123,
+			bonus: 321,
+			reward: 123
+		},
+		{
+			username: 'das',
+			refs: 123,
+			bonus: 321,
+			reward: 123
+		},
+		{
+			username: 'das',
+			refs: 123,
+			bonus: 321,
+			reward: 123
+		},
+		{
+			username: 'das',
+			refs: 123,
+			bonus: 321,
+			reward: 123
+		},
+		{
+			username: 'das',
+			refs: 123,
+			bonus: 321,
+			reward: 123
+		},
+		{
+			username: 'das',
+			refs: 123,
+			bonus: 321,
+			reward: 123
+		},
+		{
+			username: 'das',
+			refs: 123,
+			bonus: 321,
+			reward: 123
+		},
+		{
+			username: 'das',
+			refs: 123,
+			bonus: 321,
+			reward: 123
+		},
+		{
+			username: 'das',
+			refs: 123,
+			bonus: 321,
+			reward: 123
+		},
+		{
+			username: 'das',
+			refs: 123,
+			bonus: 321,
+			reward: 123
+		},
+		{
+			username: 'das',
+			refs: 123,
+			bonus: 321,
+			reward: 123
+		}
+	])
 
 	const totalReferrals = computed(() => referralsResponse.value?.total_referals || 0)
 	const sumReferralsReward = computed(() => referralsResponse.value?.total_score || 0)
