@@ -10,7 +10,7 @@ import { usePvpStore } from '@/stores/pvp'
 import { DollarIcon, GamepadIcon, GiftIcon, ExpIcon, UserIcon } from '@/components/icons'
 import { UiText } from '@/components'
 import { useLocalization } from '@/services/localization'
-import {LootboxesModal} from "@/components/lootboxes-modal/lootboxes-modal";
+import {LootboxesModal} from "@/components/lootboxes-modal";
 
 export const MainComponent = defineComponent({
 	name: 'MainComponent',
