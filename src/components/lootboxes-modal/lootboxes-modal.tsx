@@ -1,7 +1,9 @@
-import { computed, defineComponent, onMounted, onUnmounted, ref } from 'vue'
-import { UiButton } from '@/components'
+import {computed, defineComponent, onMounted, onUnmounted, type PropType, ref, type VNode} from 'vue'
+import {UiBottomSheet, type UiBottomSheetMethods, UiButton, UiText} from '@/components'
 
-import styles from './lootboxes.module.css'
+import styles from './lootboxes-modal.module.css'
+import {GiftIcon} from "@/components/icons";
+import type {IGameElement} from "@/utils/games";
 
 const item_size = 75
 const item_gap = 5
@@ -13,16 +15,19 @@ function getRandomInt(min: number, max: number) {
 	return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-const LootboxesPage = defineComponent({
-	name: 'LootboxesPage',
-	setup: () => {
+export const LootboxesModal = defineComponent({
+	props: {
+		openButton: { type: Object as PropType<VNode>, required: false },
+	},
+	name: 'LootboxesModal',
+	setup: (props) => {
 		const divRef = ref<HTMLDivElement | null>(null)
+		const lootboxModal = ref<UiBottomSheetMethods | null>(null)
 		const width = ref(-1)
 		const setWidth = () => {
 			const _width = divRef.value?.clientWidth ?? window.innerWidth
 			width.value = _width > 320 ? _width : 320
 		}
-
 		onMounted(() => {
 			setWidth()
 			window.addEventListener('resize', setWidth, true)
@@ -63,6 +68,10 @@ const LootboxesPage = defineComponent({
 			{ text: 'item 30', img: '' }
 		]
 
+		const openModal = () => {
+			lootboxModal.value?.open()
+		}
+
 		const open = () => {
 			const current = Math.floor(width.value / 2 / (item_size + item_gap)) + 1
 			const randomDx = getRandomInt(1, item_size - 1)
@@ -82,24 +91,31 @@ const LootboxesPage = defineComponent({
 			})
 			console.log('test')
 		}
-		return () => (
-			<div ref={divRef} class={styles.lootboxes}>
-				<div id='items' class={styles.boxesWrapper}>
-					<div class={styles.itemsWrapper}>
-						{items.map((item, idx) => {
-							return <div
-								key={'lootboxItem-' + idx}
-								style={idx === target_elem ? 'border: solid 1px red' : ''}
-								class={styles.item}
-							>
-								{item.text}
+		return () => (<>
+			{props.openButton && <div onClick={openModal}>{props.openButton}</div>}
+			<UiBottomSheet
+				ref={lootboxModal}
+				fullscreen
+				withExitButton
+				body={
+					<div ref={divRef} class={styles.lootboxes}>
+						<div id='items' class={styles.boxesWrapper}>
+							<div class={styles.itemsWrapper}>
+								{items.map((item, idx) => {
+									return <div
+										key={'lootboxItem-' + idx}
+										style={idx === target_elem ? 'border: solid 1px red' : ''}
+										class={styles.item}
+									>
+										{item.text}
+									</div>
+								})}
 							</div>
-						})}
+						</div>
+						<UiButton mod={'primary'} size={'lg'} text={'опен'} whenClick={open} />
 					</div>
-				</div>
-				<UiButton mod={'primary'} size={'lg'} text={'опен'} whenClick={open} />
-			</div>
-		)
+				}
+			/>
+		</>)
 	}
 })
-export default LootboxesPage

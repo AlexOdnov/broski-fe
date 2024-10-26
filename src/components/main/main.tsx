@@ -10,6 +10,7 @@ import { usePvpStore } from '@/stores/pvp'
 import { DollarIcon, GamepadIcon, GiftIcon, ExpIcon, UserIcon } from '@/components/icons'
 import { UiText } from '@/components'
 import { useLocalization } from '@/services/localization'
+import {LootboxesModal} from "@/components/lootboxes-modal/lootboxes-modal";
 
 export const MainComponent = defineComponent({
 	name: 'MainComponent',
@@ -89,24 +90,20 @@ export const MainComponent = defineComponent({
 								</div>
 							</RouterLink>
 						</div>
-						<RouterLink
-							to={{ name: RouteName.Lootboxes }}
-							activeClass={styles.activeLink}
-							class={styles.routerLink}
-						>
-						<div class={[styles.centralNav, styles.navBtn, styles.border]}>
-							<GiftIcon height={40} />
-							<UiText
-								fontSize="12px"
-								fontWeight={400}
-								lineHeight="12px"
-								fontFamily="roboto"
-								color="#FFB800"
-							>
-								{t('open')}
-							</UiText>
-						</div>
-						</RouterLink>
+						<LootboxesModal openButton={
+							<div class={[styles.centralNav, styles.navBtn, styles.border]}>
+								<GiftIcon height={40} />
+								<UiText
+									fontSize="12px"
+									fontWeight={400}
+									lineHeight="12px"
+									fontFamily="roboto"
+									color="#FFB800"
+								>
+									{t('open')}
+								</UiText>
+							</div>
+						}/>
 						<div class={[styles.nav, styles.navRight, styles.border]}>
 							<RouterLink
 								to={{ name: RouteName.Referrals }}
