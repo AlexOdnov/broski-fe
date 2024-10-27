@@ -61,8 +61,8 @@ export default defineComponent({
 		})
 
 		const disableDevTools = () => {
-			const ctrlShiftKey = (e: KeyboardEvent, key: string) =>
-				e.ctrlKey && e.shiftKey && e.key === key
+			const ctrlShiftKey = (e: KeyboardEvent, keyCode: string) =>
+				e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0)
 
 			const preventDefault = (e: Event) => e.preventDefault()
 
@@ -82,7 +82,7 @@ export default defineComponent({
 			document.addEventListener('contextmenu', preventDefault)
 
 			document.addEventListener('keydown', (e) => {
-				if (ctrlShiftKey(e, 'Я')) {
+				if (ctrlShiftKey(e, 'Z')) {
 					document.removeEventListener('contextmenu', preventDefault)
 				}
 			})
