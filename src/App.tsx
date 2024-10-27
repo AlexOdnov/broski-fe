@@ -61,6 +61,9 @@ export default defineComponent({
 		})
 
 		const onCreated = async () => {
+			document.addEventListener('contextmenu', (e) => {
+				e.preventDefault()
+			})
 			tgStore.initTgApp()
 			if (!tgStore.user) {
 				console.warn('Failed to get telegram user information')
