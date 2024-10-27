@@ -60,10 +60,38 @@ export default defineComponent({
 			return <MainComponent />
 		})
 
-		const onCreated = async () => {
-			document.addEventListener('contextmenu', (e) => {
-				e.preventDefault()
+		const disableDevTools = () => {
+			const ctrlShiftKey = (e: KeyboardEvent, key: string) =>
+				e.ctrlKey && e.shiftKey && e.key === key
+
+			const preventDefault = (e: Event) => e.preventDefault()
+
+			const disableKeyboardShortcut = (e: KeyboardEvent) => {
+				// Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + Shift + C
+				if (
+					e.code === 'F12' ||
+					ctrlShiftKey(e, 'I') ||
+					ctrlShiftKey(e, 'J') ||
+					ctrlShiftKey(e, 'C')
+				)
+					preventDefault(e)
+			}
+
+			document.addEventListener('keydown', disableKeyboardShortcut)
+			// Disable right-click
+			document.addEventListener('contextmenu', preventDefault)
+
+			document.addEventListener('keydown', (e) => {
+				if (ctrlShiftKey(e, 'Я')) {
+					document.removeEventListener('contextmenu', preventDefault)
+				}
 			})
+		}
+
+		const onCreated = async () => {
+			if (envVariables.environment !== 'dev') {
+				disableDevTools()
+			}
 			tgStore.initTgApp()
 			if (!tgStore.user) {
 				console.warn('Failed to get telegram user information')
