@@ -54,13 +54,44 @@ export default defineComponent({
 			if (needRenderEventNotification.value) {
 				return <EventNotificationComponent />
 			}
-			if (needRenderDaily.value) {
-				return <DailyComponent day={userStore.userLegacy?.daily_stric ?? 1} />
-			}
+			// if (needRenderDaily.value) {
+			// 	return <DailyComponent day={userStore.userLegacy?.daily_stric ?? 1} />
+			// }
 			return <MainComponent />
 		})
 
+		const disableDevTools = () => {
+			const ctrlShiftKey = (e: KeyboardEvent, keyCode: string) =>
+				e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0)
+
+			const preventDefault = (e: Event) => e.preventDefault()
+
+			const disableKeyboardShortcut = (e: KeyboardEvent) => {
+				// Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + Shift + C
+				if (
+					e.code === 'F12' ||
+					ctrlShiftKey(e, 'I') ||
+					ctrlShiftKey(e, 'J') ||
+					ctrlShiftKey(e, 'C')
+				)
+					preventDefault(e)
+			}
+
+			document.addEventListener('keydown', disableKeyboardShortcut)
+			// Disable right-click
+			document.addEventListener('contextmenu', preventDefault)
+
+			document.addEventListener('keydown', (e) => {
+				if (ctrlShiftKey(e, 'Z')) {
+					document.removeEventListener('contextmenu', preventDefault)
+				}
+			})
+		}
+
 		const onCreated = async () => {
+			if (envVariables.environment !== 'dev') {
+				disableDevTools()
+			}
 			tgStore.initTgApp()
 			if (!tgStore.user) {
 				console.warn('Failed to get telegram user information')
