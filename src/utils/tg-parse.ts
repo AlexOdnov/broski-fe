@@ -20,6 +20,7 @@ export function forceUpdateTgUser() {
 				: undefined,
 			photo_url: launchParamUser.photoUrl
 		}
+		console.warn(tgUser)
 		// @ts-expect-error
 		Telegram.WebApp.initDataUnsafe.user = tgUser
 	}
