@@ -1,5 +1,6 @@
 import styles from './open-conveyor-belt.module.css'
-import {defineComponent, onMounted, onUnmounted, ref} from "vue";
+import {computed, defineComponent, onMounted, onUnmounted, ref} from "vue";
+import type {Prize} from "@/api/generatedApi";
 
 function getRandomInt(min: number, max: number) {
 	min = Math.ceil(min)
@@ -13,11 +14,13 @@ export type OpenConveyorBeltMethods = {
 export const OpenConveyorBelt = defineComponent({
 	name: "OpenConveyorBelt",
 	props: {
-		items :{ type: Array<{text: string}>, default: () => [], required: true },
+		items: { type: Array<Prize>, default: () => [], required: true },
 		itemSize: { type: Number, default: 75 },
 		itemGap: { type: Number, default: 5 },
 		rollingTime: { type: Number, default: 4000 },
-		targetElementIdx: { type: Number, required: true },
+		targetElementIdx: { type: Number, default: 32 },
+		beltLength: { type: Number, default: 40 },
+		winIndex: { type: Number, required: true },
 	},
 	setup: (props, { expose }) => {
 		const divRef = ref<HTMLDivElement | null>(null)
@@ -26,6 +29,17 @@ export const OpenConveyorBelt = defineComponent({
 			const _width = divRef.value?.clientWidth ?? window.innerWidth
 			width.value = _width > 320 ? _width : 320
 		}
+		const belt = computed(() => {
+			const result: Prize[] = []
+			for(let idx = 0; idx < props.beltLength; idx++) {
+				if(idx === props.targetElementIdx) {
+					result.push(props.items[props.winIndex])
+				} else {
+					result.push(props.items[getRandomInt(0, props.items.length - 1)])
+				}
+			}
+			return result
+		})
 		onMounted(() => {
 			setWidth()
 			window.addEventListener('resize', setWidth, true)
@@ -61,13 +75,13 @@ export const OpenConveyorBelt = defineComponent({
 			 <div ref={divRef} class={styles.lootboxes}>
 				 <div id='items' class={styles.boxesWrapper}>
 					 <div class={styles.itemsWrapper}>
-						 {props.items?.map((item, idx) => {
+						 {belt.value?.map((item, idx) => {
 							 return <div
 								 key={'lootboxItem-' + idx}
 								 style={idx === props.targetElementIdx ? 'border: solid 1px red' : ''}
 								 class={styles.item}
 							 >
-								 {item.text}
+								 <img src={item?.image ?? ''} class={styles.beltBlock}/>
 							 </div>
 						 })}
 					 </div>
