@@ -7,7 +7,7 @@ import { useReferralsStore } from '@/stores/referrals'
 import { RouteName } from '@/router'
 import { useCommonStore } from '@/stores/common'
 import { usePvpStore } from '@/stores/pvp'
-import { DollarIcon, GamepadIcon, GiftIcon, ExpIcon, UserIcon } from '@/components/icons'
+import { DollarIcon, GamepadIcon, GiftIcon, UserIcon, ConstructIcon } from '@/components/icons'
 import { UiText } from '@/components'
 import { useLocalization } from '@/services/localization'
 
@@ -121,60 +121,17 @@ export const MainComponent = defineComponent({
 								</div>
 							</RouterLink>
 							<div class={styles.delimiter} />
-							<div class={[styles.navBtn, timeBeforeMiningLeft.value]} onClick={whenMiningClicked}>
-								{(isRewardAvailable.value ||
-									(!isRewardAvailable.value && !timeBeforeMiningLeft.value)) && (
-									<img class={styles.notice} src="/images/notice.webp" />
-								)}
-								<ExpIcon />
-								{isRewardAvailable.value && (
-									<>
-										{pvpStore.pvpCharacter?.level && (
-											<UiText
-												fontSize="12px"
-												fontWeight={400}
-												lineHeight="12px"
-												fontFamily="barcadeBrawl"
-												color="#4E4F4F"
-											>
-												+{pvpStore.pvpCharacter?.level}
-											</UiText>
-										)}
-										<UiText
-											fontSize="12px"
-											fontWeight={400}
-											lineHeight="12px"
-											fontFamily="roboto"
-											color="#FFB800"
-										>
-											{t('claim')}
-										</UiText>
-									</>
-								)}
-								{!isRewardAvailable.value && !timeBeforeMiningLeft.value && (
-									<>
-										<UiText
-											fontSize="12px"
-											fontWeight={400}
-											lineHeight="12px"
-											fontFamily="roboto"
-											color="#FFB800"
-										>
-											{t('farm')}
-										</UiText>
-									</>
-								)}
-								{!isRewardAvailable.value && timeBeforeMiningLeft.value && (
-									<UiText
-										fontSize="12px"
-										fontWeight={400}
-										lineHeight="12px"
-										fontFamily="roboto"
-										color="#4E4F4F"
-									>
-										{timeBeforeMiningLeft.value}
-									</UiText>
-								)}
+							<div class={[styles.navBtn]}>
+								<ConstructIcon style={{ color: '#4e4f4f' }} />
+								<UiText
+									fontSize="12px"
+									fontWeight={400}
+									lineHeight="12px"
+									fontFamily="roboto"
+									color={'#4e4f4f'}
+								>
+									{t('soon')}
+								</UiText>
 							</div>
 						</div>
 					</nav>

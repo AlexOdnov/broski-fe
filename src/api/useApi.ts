@@ -97,19 +97,19 @@ export const useApi = () => {
 	}
 
 	const addScore = async (payload: ScoreCreatePayload) => {
-		return await legacyApiInstance.add.scoreCreate(payload)
+		// return await legacyApiInstance.add.scoreCreate(payload)
 	}
 
 	const addTickets = async (payload: TicketsCreatePayload) => {
-		return await legacyApiInstance.add.ticketsCreate(payload)
+		// return await legacyApiInstance.add.ticketsCreate(payload)
 	}
 
 	const removeScore = async (payload: ScoreCreatePayload) => {
-		return await legacyApiInstance.remove.scoreCreate(payload)
+		// return await legacyApiInstance.remove.scoreCreate(payload)
 	}
 
 	const removeTickets = async (payload: TicketsCreatePayload) => {
-		return await legacyApiInstance.remove.ticketsCreate(payload)
+		// return await legacyApiInstance.remove.ticketsCreate(payload)
 	}
 
 	const doneTask = async (payload: TasksCreateBody) => {
@@ -125,11 +125,11 @@ export const useApi = () => {
 	}
 
 	const doneMining = async (payload: MiningCreateBody) => {
-		return await legacyApiInstance.done.miningCreate(payload)
+		// return await legacyApiInstance.done.miningCreate(payload)
 	}
 
 	const claimDailyReward = async (payload: DailyCreatePayload) => {
-		return await legacyApiInstance.done.dailyCreate(payload)
+		// return await legacyApiInstance.done.dailyCreate(payload)
 	}
 
 	const getReferrals = async (payload: ReferalsCreatePayload): Promise<ReferalsCreateResponse> => {
@@ -138,7 +138,7 @@ export const useApi = () => {
 	}
 
 	const claimAdvertisingReward = async (payload: AdvertisingSeeCreatePayload) => {
-		return await legacyApiInstance.advertisingSee.advertisingSeeCreate(payload)
+		// return await legacyApiInstance.advertisingSee.advertisingSeeCreate(payload)
 	}
 
 	const doneFirstLogin = async (payload: FirstLoginCreatePayload) => {
@@ -146,7 +146,7 @@ export const useApi = () => {
 	}
 
 	const claimBox = async (payload: BoxesCreatePayload) => {
-		return await legacyApiInstance.get.boxesCreate(payload)
+		// return await legacyApiInstance.get.boxesCreate(payload)
 	}
 
 	const doneUpdateNotification = async (payload: PushSeeCreatePayload) => {

@@ -35,7 +35,8 @@ const router = createRouter({
 				{
 					path: 'find-bro',
 					name: RouteName.GameFindBro,
-					component: () => import('@/pages/game/find-bro/find-bro')
+					redirect: { name: RouteName.GamePvpProfile }
+					// component: () => import('@/pages/game/find-bro/find-bro')
 				}
 			]
 		},
