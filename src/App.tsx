@@ -54,9 +54,9 @@ export default defineComponent({
 			if (needRenderEventNotification.value) {
 				return <EventNotificationComponent />
 			}
-			if (needRenderDaily.value) {
-				return <DailyComponent day={userStore.userLegacy?.daily_stric ?? 1} />
-			}
+			// if (needRenderDaily.value) {
+			// 	return <DailyComponent day={userStore.userLegacy?.daily_stric ?? 1} />
+			// }
 			return <MainComponent />
 		})
 

@@ -5,6 +5,7 @@ import { UiButton } from '../button'
 export interface ITabOption {
 	label: string
 	value: string
+	disabled?: boolean
 }
 
 export const UiTabs = defineComponent({
@@ -23,7 +24,7 @@ export const UiTabs = defineComponent({
 						size={'sm'}
 						font={'Roboto'}
 						text={el.label}
-						disabled={props.disabled}
+						disabled={props.disabled || el.disabled}
 						minWidth={`${100 / props.options.length}%`}
 						mod={props.selected === el.value ? 'primary' : 'secondary'}
 						whenClick={() => props.whenChange(el.value)}

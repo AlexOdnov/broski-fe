@@ -27,8 +27,9 @@ const GamePage = defineComponent({
 				value: RouteName.GamePvp
 			},
 			{
-				label: t('findBroGame'),
-				value: RouteName.GameFindBro
+				label: t('soon'),
+				value: RouteName.GameFindBro,
+				disabled: true
 			}
 		]
 
