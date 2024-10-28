@@ -56,7 +56,6 @@ export const LoadingScreen = defineComponent({
 							height={30}
 							mod={'segmented'}
 							padding={2}
-							withCounter
 						/>
 						<UiText class={styles.loadingText} fontSize={'14px'}>
 							{t('loading')}...

@@ -40,7 +40,7 @@ export const EnergyCounter = defineComponent({
 					filledItems={props.currentEnergy}
 					mod={'round-segmented'}
 					height={10}
-					color={'#55AEDD'}
+					fillerColor={'#55AEDD'}
 				/>
 			</div>
 		)

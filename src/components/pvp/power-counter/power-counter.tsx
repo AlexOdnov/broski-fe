@@ -28,7 +28,7 @@ export const PowerCounter = defineComponent({
 					totalItems={props.totalPower ? props.totalPower : props.power}
 					filledItems={props.power}
 					height={10}
-					color={'#A955DD'}
+					fillerColor={'#A955DD'}
 				/>
 			</div>
 		)

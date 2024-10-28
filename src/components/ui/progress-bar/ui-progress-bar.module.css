@@ -1,16 +1,18 @@
 .progressBar {
 	position: relative;
 	overflow: hidden;
-	border-radius: 9999px;
+	border-radius: var(--borderRadius);
 	width: 100%;
 	display: grid;
+	height: var(--fillerHeight);
 }
 
 .progressBarBorder {
 	position: relative;
 	overflow: hidden;
-	border-radius: 9999px;
+	border-radius: var(--borderRadius);
 	width: 100%;
+	background-color: #141517;
 }
 
 .progressBarBorder::after {
@@ -20,8 +22,8 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	border: 1px solid #35332e;
-	border-radius: 9999px;
+	border: var(--borderStyle);
+	border-radius: var(--borderRadius);
 }
 
 .segment {
@@ -30,12 +32,12 @@
 }
 
 .roundSegment {
-	border-radius: 9999px;
+	border-radius: var(--fillerRadius);
 }
 
 .filler {
 	transition: width 0.2s ease-in-out;
-	border-radius: 9999px;
+	border-radius: var(--fillerRadius);
 }
 
 .counter {
