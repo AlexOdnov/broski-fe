@@ -3,6 +3,8 @@ import { retrieveLaunchParams } from '@telegram-apps/bridge'
 
 export function forceUpdateTgUser() {
 	const launchParamUser = retrieveLaunchParams().initData?.user
+	console.log(launchParamUser)
+
 	if (launchParamUser) {
 		const tgUser: TelegramWebApps.WebAppUser = {
 			id: launchParamUser.id,

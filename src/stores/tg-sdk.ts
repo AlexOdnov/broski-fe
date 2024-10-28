@@ -57,7 +57,9 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			tg.value = Telegram.WebApp
 			tg.value.expand()
 			tg.value.disableVerticalSwipes()
+			console.log(user.value)
 			if (!user.value) {
+				console.log(user.value)
 				initTgSdkRetryCount -= 1
 				if (initTgSdkRetryCount > 0) {
 					tg.value = null
