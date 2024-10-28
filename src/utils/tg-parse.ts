@@ -20,9 +20,19 @@ function urlParseQueryString(queryString: string) {
 	const queryStringParams = queryString.split('&')
 	for (let i = 0; i < queryStringParams.length; i++) {
 		const param = queryStringParams[i].split('=')
-		if (param.length === 3 && param[1] === 'user') {
+		if (param.includes('user')) {
+			if (param.length === 3 && param[1] === 'user') {
+				return {
+					user: urlSafeDecode(param[2])
+				}
+			}
+			if (param.length === 2 && param[0] === 'user') {
+				return {
+					user: urlSafeDecode(param[1])
+				}
+			}
 			return {
-				user: urlSafeDecode(param[2])
+				user: ''
 			}
 		}
 	}
