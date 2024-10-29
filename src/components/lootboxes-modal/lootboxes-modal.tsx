@@ -49,6 +49,7 @@ export const LootboxesModal = defineComponent({
 		const claim = async () => {
 			await userStore.loadUser()
 			currentState.value = LootboxesModalState.default
+			openConveyorBeltRef.value?.reset()
 		}
 		const buy = async () => {
 			tgStore.openInvoice(envVariables.imvoiceLootboxBuy, (status) => {
@@ -87,7 +88,7 @@ export const LootboxesModal = defineComponent({
 						<div class={styles.content}>
 							<div
 								class={styles.card}
-								style={currentState.value === LootboxesModalState.boxOpen && { padding: 0 }}
+								style={currentState.value === LootboxesModalState.boxOpen && 'padding: 0; min-height: min-content;'}
 							>
 								{currentState.value === LootboxesModalState.default && (
 									<>

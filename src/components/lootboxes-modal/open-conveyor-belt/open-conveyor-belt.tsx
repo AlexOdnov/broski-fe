@@ -10,6 +10,7 @@ function getRandomInt(min: number, max: number) {
 
 export type OpenConveyorBeltMethods = {
 	open: () => void
+	reset: () => void
 }
 
 export const OpenConveyorBelt = defineComponent({
@@ -59,7 +60,7 @@ export const OpenConveyorBelt = defineComponent({
 				randomDx
 			const length = window.document.querySelectorAll('.' + styles.item).length
 			window.document.querySelectorAll('.' + styles.item).forEach((item, idx) => {
-				;(item as HTMLDivElement).style.transform = ''
+				(item as HTMLDivElement).style.transform = 'none'
 				item.animate(
 					{ transform: `translateX(${-dx}px)` },
 					{
@@ -75,8 +76,15 @@ export const OpenConveyorBelt = defineComponent({
 			})
 		}
 
+		const reset = () => {
+			window.document.querySelectorAll('.' + styles.item).forEach((item, idx) => {
+				(item as HTMLDivElement).style.transform = 'none'
+			})
+		}
+
 		expose({
-			open
+			open,
+			reset
 		})
 
 		return () => (
