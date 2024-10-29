@@ -99,7 +99,7 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 		if (userStore.userTickets > 0) {
 			setGameField(shuffle(gameField.value))
 			setGameStatus(GameStatus.InProgress)
-			userStore.changeUserTickets(-1)
+			// userStore.changeUserTickets(-1)
 		}
 	}
 
@@ -109,7 +109,7 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 		}
 
 		if (gameStatus.value === GameStatus.Win && !withoutClaim) {
-			userStore.changeUserScore(WIN_GAME_POINTS)
+			// userStore.changeUserScore(WIN_GAME_POINTS)
 		}
 
 		setGameStatus(GameStatus.Idle)
@@ -117,7 +117,7 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 		resetGameField()
 		if (userStore.userLegacy?.first_game && !withoutClaim) {
 			setIsGameLoading(true)
-			await userStore.loadUserLegacy()
+			// await userStore.loadUserLegacy()
 			setIsGameLoading(false)
 		}
 	}
@@ -146,7 +146,7 @@ export const useFindBroGameStore = defineStore('findBroGame', () => {
 		setRemainAttempts(remainAttempts.value - 1)
 
 		if (element.value === BOX_VALUE) {
-			userStore.claimBox(1)
+			// userStore.claimBox(1)
 		}
 
 		if (

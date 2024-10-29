@@ -1,14 +1,14 @@
 import { useApi } from '@/api/useApi'
 import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
-import type { TasksCreateResponseItem } from '@/api/responseTypes'
+import type { Task } from '@/api/generatedApi'
 import { useTgSdkStore } from './tg-sdk'
 import { computed } from 'vue'
 export const useTasksStore = defineStore('tasks', () => {
 	const tgStore = useTgSdkStore()
 	const api = useApi()
 
-	const [tasks, setTasks] = useState<TasksCreateResponseItem[]>([])
+	const [tasks, setTasks] = useState<Task[]>([])
 
 	const uncompletedTasks = computed(() =>
 		tasks.value.sort((a, b) => a.priority - b.priority).filter((t) => !t.complete)
@@ -19,7 +19,7 @@ export const useTasksStore = defineStore('tasks', () => {
 
 	const getTasks = async () => {
 		try {
-			const response = await api.getTasks({ user_id: tgStore.userId })
+			const response = await api.getTasks({ userId: tgStore.userId })
 			if (response?.tasks?.length > 0) {
 				setTasks(response.tasks)
 			}
@@ -44,7 +44,7 @@ export const useTasksStore = defineStore('tasks', () => {
 
 	const setTaskDone = async (taskId: number) => {
 		try {
-			const response = await api.doneTask({ user_id: tgStore.userId, task_id: taskId })
+			const response = await api.doneTask({ userId: tgStore.userId, task_id: taskId })
 			if (response.status === 200) {
 				const task = tasks.value.find((x) => x.id === taskId)
 				if (!task) {

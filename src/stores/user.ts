@@ -1,13 +1,10 @@
 import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
-import type { UserCreateResponse, UserStatsCreateResponse } from '@/api/responseTypes'
 import { useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
-import type { ScoreCreatePayload, TicketsCreatePayload } from '@/api/legacyGeneratedApi'
 import { computed } from 'vue'
-import { addHours, addMinutes, msToTime } from '@/utils/date'
 import { useCommonStore } from './common'
-import type { User } from '@/api/generatedApi'
+import type { User, LegacyUser } from '@/api/generatedApi'
 import { useSentry } from '@/services/sentry'
 
 export const useUserStore = defineStore('user', () => {
@@ -16,26 +13,8 @@ export const useUserStore = defineStore('user', () => {
 	const tgStore = useTgSdkStore()
 	const commonStore = useCommonStore()
 
-	const [timeBeforeMiningLeftString, setTimeDeforeMiningString] = useState<string | null>(null)
-	const [timeoutID, setTimeoutID] = useState<ReturnType<typeof setTimeout> | null>(null)
-
 	const [user, setUser] = useState<User | null>(null)
-	const [userLegacy, setUserLegacy] = useState<UserCreateResponse | null>(null)
-	const [userStats, setUserStats] = useState<UserStatsCreateResponse | null>(null)
-	const [timeWhenUserUpdated, setTimeWhenUserUpdated] = useState<number | null>(null)
-
-	const timeWhenClaimEnable = computed(() => {
-		if (!timeWhenUserUpdated.value || !user.value) {
-			return null
-		}
-		const delta = user.value.mining.left.split(':').map((x) => +x)
-		if (delta.length !== 2 || !isFinite(delta[0]) || !isFinite(delta[1])) {
-			return null
-		}
-		let time = addHours(timeWhenUserUpdated.value, delta[0])
-		time = addMinutes(time, delta[1])
-		return time
-	})
+	const [userLegacy, setUserLegacy] = useState<LegacyUser | null>(null)
 
 	const userTickets = computed(() => user.value?.tickets || 0)
 	const userScore = computed(() => user.value?.score || 0)
@@ -47,164 +26,39 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
-	const changeUserScore = async (value: number) => {
-		if (user.value) {
-			const payload: ScoreCreatePayload = {
-				user_id: tgStore.userId,
-				score: Math.abs(value)
-			}
-			try {
-				await (value > 0 ? api.addScore(payload) : api.removeScore(payload))
-				await loadUser()
-			} catch (error) {
-				console.warn(error)
-			}
-		}
-	}
-
-	const changeUserTickets = async (value: number) => {
-		if (user.value) {
-			const payload: TicketsCreatePayload = {
-				user_id: tgStore.userId,
-				tickets: Math.abs(value)
-			}
-			try {
-				await (value > 0 ? api.addTickets(payload) : api.removeTickets(payload))
-				await loadUser()
-			} catch (error) {
-				console.warn(error)
-			}
-		}
-	}
-
-	const initUser = async () => {
-		try {
-			commonStore.setIsLoading(true)
-			const userResponse = await api.postUser({
-				user_id: `${tgStore.userId}`,
-				username: tgStore.username,
-				ref_code: tgStore.startParam,
-				premium: tgStore.isPremium
-			})
-			setUser(userResponse)
-			setTimeWhenUserUpdated(new Date().getTime())
-			startUpdateMiningString()
-		} catch (error) {
-			sentry.captureNetworkException(error)
-			console.warn(error)
-		} finally {
-			commonStore.setIsLoading(false)
-		}
-	}
-
-	const loadUser = async () => {
-		try {
-			const userResponse = await api.getUserV2({
-				userId: `${tgStore.userId}`
-			})
-			setUser(userResponse)
-			setTimeWhenUserUpdated(new Date().getTime())
-			startUpdateMiningString()
-		} catch (error) {
-			sentry.captureNetworkException(error)
-			console.warn(error)
-		}
-	}
-
-	const loadUserStats = async (withLoader = false) => {
+	const loadUserLegacy = async (withLoader = false) => {
 		try {
 			withLoader && commonStore.setIsLoading(true)
-			const userResponse = await api.getUserStats({
+			const userResponse = await api.postUser({
 				user_id: tgStore.userId,
 				username: tgStore.username,
 				ref_code: tgStore.startParam,
 				premium: tgStore.isPremium
 			})
-			setUserStats(userResponse)
+			setUserLegacy(userResponse)
 		} catch (error) {
+			sentry.captureNetworkException(error)
 			console.warn(error)
 		} finally {
 			withLoader && commonStore.setIsLoading(false)
 		}
 	}
 
-	const loadUserLegacy = async (withLoader = false) => {
-		if (tgStore.userId) {
-			try {
-				withLoader && commonStore.setIsLoading(true)
-				// const userResponse = await api.getUser({
-				// 	user_id: tgStore.userId,
-				// 	username: tgStore.username,
-				// 	ref_code: tgStore.startParam,
-				// 	premium: tgStore.isPremium
-				// })
-				setUserLegacy({
-					advertising_limit: 10,
-					advertising_total: 10,
-					boxes: 43,
-					daily_claim: true,
-					daily_stric: 21,
-					first_game: false,
-					first_login: false,
-					left_mining: '00:00',
-					mining_claim: false,
-					position: 9497,
-					push_see: true,
-					ref_code: '338405049',
-					region: 'ru',
-					score: 4665,
-					tickets: 63,
-					ton_balanse: 0,
-					username: 'AlexOdnov',
-					last_tap: ''
-				})
-			} catch (error) {
-				sentry.captureNetworkException(error)
-				console.warn(error)
-			} finally {
-				withLoader && commonStore.setIsLoading(false)
-			}
-		}
-	}
-
-	const startMining = async () => {
+	const loadUser = async () => {
 		try {
-			await api.startMining({ user_id: tgStore.userId })
+			const userResponse = await api.getUser({
+				userId: tgStore.userId
+			})
+			setUser(userResponse)
 		} catch (error) {
+			sentry.captureNetworkException(error)
 			console.warn(error)
-		}
-	}
-
-	const doneMining = async () => {
-		try {
-			await api.doneMining({ user_id: tgStore.userId })
-		} catch (error) {
-			console.warn(error)
-		}
-	}
-
-	const startUpdateMiningString = () => {
-		if (timeoutID.value) {
-			clearTimeout(timeoutID.value)
-		}
-		const currentTimeInMs = new Date().getTime()
-		if (!timeWhenClaimEnable.value) {
-			setTimeDeforeMiningString(null)
-		} else {
-			const passedTimeInMs = timeWhenClaimEnable.value - currentTimeInMs
-			if (passedTimeInMs <= 0) {
-				setTimeDeforeMiningString(null)
-				return
-			} else {
-				setTimeDeforeMiningString(msToTime(passedTimeInMs))
-			}
-			setTimeoutID(setTimeout(startUpdateMiningString, 60000)) // раз в минуту
 		}
 	}
 
 	const claimDailyReward = async () => {
 		try {
-			await api.claimDailyReward({ user_id: tgStore.userId })
+			await api.claimDailyReward({ userId: tgStore.userId })
 			await loadUser()
 			await loadUserLegacy()
 		} catch (error) {
@@ -214,7 +68,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const claimAdvertisingReward = async () => {
 		try {
-			await api.claimAdvertisingReward({ user_id: tgStore.userId })
+			await api.claimAdvertisingReward({ userId: tgStore.userId })
 		} catch (error) {
 			console.warn(error)
 		} finally {
@@ -224,17 +78,8 @@ export const useUserStore = defineStore('user', () => {
 
 	const doneFirstLogin = async () => {
 		try {
-			await api.doneFirstLogin({ user_id: tgStore.userId })
+			await api.doneFirstLogin({ userId: tgStore.userId })
 			await loadUserLegacy()
-		} catch (error) {
-			console.warn(error)
-		}
-	}
-
-	const claimBox = async (boxCount: number) => {
-		try {
-			await api.claimBox({ user_id: tgStore.userId, box: boxCount })
-			await loadUser()
 		} catch (error) {
 			console.warn(error)
 		}
@@ -242,7 +87,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const doneUpdateNotification = async () => {
 		try {
-			await api.doneUpdateNotification({ user_id: tgStore.userId })
+			await api.doneUpdateNotification({ userId: tgStore.userId })
 			await loadUserLegacy()
 		} catch (error) {
 			console.warn(error)
@@ -251,7 +96,7 @@ export const useUserStore = defineStore('user', () => {
 
 	const doneEventNotification = async () => {
 		try {
-			await api.doneEventNotification({ user_id: tgStore.userId })
+			await api.doneEventNotification({ userId: tgStore.userId })
 			await loadUserLegacy()
 		} catch (error) {
 			console.warn(error)
@@ -261,7 +106,7 @@ export const useUserStore = defineStore('user', () => {
 	const switchRegion = async () => {
 		try {
 			await api.switchRegion({
-				user_id: tgStore.userId,
+				userId: tgStore.userId,
 				region: tgStore.languageCode
 			})
 		} catch (error) {
@@ -272,24 +117,14 @@ export const useUserStore = defineStore('user', () => {
 	return {
 		user,
 		userLegacy,
-		userStats,
 		userTickets,
 		userScore,
 		userBoxes,
-		initUser,
-		loadUser,
 		loadUserLegacy,
-		loadUserStats,
-		changeUserScore,
-		changeUserTickets,
-		startMining,
-		doneMining,
-		timeBeforeMiningLeftString,
-		startUpdateMiningString,
+		loadUser,
 		claimDailyReward,
 		claimAdvertisingReward,
 		doneFirstLogin,
-		claimBox,
 		doneUpdateNotification,
 		doneEventNotification,
 		switchRegion

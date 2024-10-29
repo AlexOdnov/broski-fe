@@ -49,27 +49,27 @@ const ProfilePage = defineComponent({
 						{t('winRate')}
 					</div>
 					<div class={[styles.card, styles.yellow, styles.column, styles.statBlockText]}>
-						{userStore.userStats?.duel.wins}
+						{/* {userStore.userStats?.duel.wins} */}
 						<div>{t('wins')}</div>
 					</div>
 					<div class={[styles.card, styles.red, styles.column, styles.statBlockText]}>
-						{userStore.userStats?.duel.loses}
+						{/* {userStore.userStats?.duel.loses} */}
 						<div>{t('loses')}</div>
 					</div>
 					<div class={[styles.fullWidth, styles.balances, styles.card]}>
 						<div class={styles.grayText}>{t('earned')}</div>
 						<div class={styles.iconWithNumber}>
 							<TonIcon />
-							{userStore.userStats?.duel.tons}
+							{/* {userStore.userStats?.duel.tons} */}
 						</div>
 						<div class={styles.delimiter} />
 						<div class={[styles.iconWithNumber, styles.yellow]}>
 							<CoinIcon />
-							{userStore.userStats?.duel.score}
+							{/* {userStore.userStats?.duel.score} */}
 						</div>
 						<div class={styles.delimiter} />
 						<div class={styles.grayText}>
-							{t('games')}&nbsp;<b class={styles.white}>{userStore.userStats?.duel.total}</b>
+							{/* {t('games')}&nbsp;<b class={styles.white}>{userStore.userStats?.duel.total}</b> */}
 						</div>
 					</div>
 					<div class={[styles.textTitle]}>
@@ -81,19 +81,19 @@ const ProfilePage = defineComponent({
 						{t('superGame')}
 						<InfoIcon />
 					</div>
-					<div class={[styles.card, styles.statBlockText]}>{userStore.userStats?.game.wins}</div>
+					{/* <div class={[styles.card, styles.statBlockText]}>{userStore.userStats?.game.wins}</div> */}
 					<div class={[styles.card, styles.statBlockText]}>
-						{userStore.userStats?.super_game.wins}
+						{/* {userStore.userStats?.super_game.wins} */}
 					</div>
 					<div class={[styles.card]}>
 						<div class={[styles.iconWithNumber, styles.yellow]}>
-							{userStore.userStats?.game.score}
+							{/* {userStore.userStats?.game.score} */}
 							<CoinIcon />
 						</div>
 					</div>
 					<div class={[styles.card]}>
 						<div class={[styles.iconWithNumber, styles.yellow]}>
-							{userStore.userStats?.super_game.score}
+							{/* {userStore.userStats?.super_game.score} */}
 							<CoinIcon />
 						</div>
 					</div>
@@ -112,17 +112,17 @@ const ProfilePage = defineComponent({
 					>
 						<div>
 							<span class={styles.grayText}>{t('bros')}:&nbsp;</span>
-							<span class={styles.whiteText}>{userStore.userStats?.refs.total}</span>
+							{/* <span class={styles.whiteText}>{userStore.userStats?.refs.total}</span> */}
 						</div>
 						<div class={styles.balances}>
 							<div class={styles.iconWithNumber}>
 								<CoinIcon />
-								{userStore.userStats?.refs.score}
+								{/* {userStore.userStats?.refs.score} */}
 							</div>
 							<div class={styles.delimiter} />
 							<div class={styles.iconWithNumber}>
 								<TicketIcon />
-								{userStore.userStats?.refs.tickets}
+								{/* {userStore.userStats?.refs.tickets} */}
 							</div>
 						</div>
 					</div>
@@ -137,17 +137,17 @@ const ProfilePage = defineComponent({
 					>
 						<div>
 							<span class={styles.grayText}>{t('tasks')}:&nbsp;</span>
-							<span class={styles.whiteText}>{userStore.userStats?.tasks.total}</span>
+							{/* <span class={styles.whiteText}>{userStore.userStats?.tasks.total}</span> */}
 						</div>
 						<div class={styles.balances}>
 							<div class={styles.iconWithNumber}>
 								<CoinIcon />
-								{userStore.userStats?.tasks.score}
+								{/* {userStore.userStats?.tasks.score} */}
 							</div>
 							<div class={styles.delimiter} />
 							<div class={styles.iconWithNumber}>
 								<TicketIcon />
-								{userStore.userStats?.tasks.tickets}
+								{/* {userStore.userStats?.tasks.tickets} */}
 							</div>
 						</div>
 					</div>
@@ -162,12 +162,12 @@ const ProfilePage = defineComponent({
 					>
 						<div>
 							<span class={styles.grayText}>{t('farming')}:&nbsp;</span>
-							<span class={styles.whiteText}>{userStore.userStats?.mining.total}</span>
+							{/* <span class={styles.whiteText}>{userStore.userStats?.mining.total}</span> */}
 						</div>
 						<div class={styles.balances}>
 							<div class={styles.iconWithNumber}>
 								<CoinIcon />
-								{userStore.userStats?.mining.score}
+								{/* {userStore.userStats?.mining.score} */}
 							</div>
 							<div class={styles.delimiter} />
 						</div>

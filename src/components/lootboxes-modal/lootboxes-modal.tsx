@@ -89,7 +89,10 @@ export const LootboxesModal = defineComponent({
 						<div class={styles.content}>
 							<div
 								class={styles.card}
-								style={currentState.value === LootboxesModalState.boxOpen && 'padding: 0; min-height: min-content;'}
+								style={
+									currentState.value === LootboxesModalState.boxOpen &&
+									'padding: 0; min-height: min-content;'
+								}
 							>
 								{currentState.value === LootboxesModalState.default && (
 									<>
