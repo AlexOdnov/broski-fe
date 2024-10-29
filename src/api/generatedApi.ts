@@ -319,7 +319,7 @@ export class HttpClient<SecurityDataType = unknown> {
 			...(params2 || {}),
 			headers: {
 				...((method &&
-						this.instance.defaults.headers[method.toLowerCase() as keyof HeadersDefaults]) ||
+					this.instance.defaults.headers[method.toLowerCase() as keyof HeadersDefaults]) ||
 					{}),
 				...(params1.headers || {}),
 				...((params2 && params2.headers) || {})
@@ -381,7 +381,7 @@ export class HttpClient<SecurityDataType = unknown> {
 			...requestParams,
 			headers: {
 				...(requestParams.headers || {}),
-				...(type ? {'Content-Type': type} : {})
+				...(type ? { 'Content-Type': type } : {})
 			},
 			params: query,
 			responseType: responseFormat,

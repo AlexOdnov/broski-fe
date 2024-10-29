@@ -23,12 +23,12 @@
 	text-align: center;
 	overflow: hidden;
 	white-space: nowrap;
-	border-top: 2px solid #FFB800;
-	border-bottom: 2px solid #FFB800;
+	border-top: 2px solid #ffb800;
+	border-bottom: 2px solid #ffb800;
 }
 
 .boxesWrapper:before {
-	content: "";
+	content: '';
 	position: absolute;
 	z-index: 1;
 	top: 0;
@@ -36,11 +36,11 @@
 	left: calc(50% - 10px);
 	border-style: solid;
 	border-width: 0 10px 10px 10px;
-	border-color: transparent transparent #FFB800 transparent;
+	border-color: transparent transparent #ffb800 transparent;
 }
 
 .boxesWrapper:after {
-	content: "";
+	content: '';
 	position: absolute;
 	z-index: 1;
 	top: 0;
@@ -48,7 +48,7 @@
 	left: calc(50% - 10px);
 	border-style: solid;
 	border-width: 10px 10px 0 10px;
-	border-color: #FFB800 transparent transparent transparent;
+	border-color: #ffb800 transparent transparent transparent;
 }
 
 .itemsWrapper {

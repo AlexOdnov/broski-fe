@@ -1,14 +1,14 @@
-import {defineStore} from "pinia";
-import {useState} from "@/utils/useState";
-import type {Prize} from "@/api/generatedApi";
-import {useApi} from "@/api/useApi";
-import {useTgSdkStore} from "@/stores/tg-sdk";
+import { defineStore } from 'pinia'
+import { useState } from '@/utils/useState'
+import type { Prize } from '@/api/generatedApi'
+import { useApi } from '@/api/useApi'
+import { useTgSdkStore } from '@/stores/tg-sdk'
 
 export const useLootboxesStore = defineStore('lootboxes', () => {
 	const api = useApi()
 	const tgStore = useTgSdkStore()
 
-	const [prizes, setPrizes] = useState<Prize[]>([]);
+	const [prizes, setPrizes] = useState<Prize[]>([])
 
 	const loadPrizes = async () => {
 		try {
@@ -31,6 +31,6 @@ export const useLootboxesStore = defineStore('lootboxes', () => {
 	return {
 		prizes,
 		loadPrizes,
-		openLootbox,
+		openLootbox
 	}
 })

@@ -203,7 +203,7 @@ export const useApi = () => {
 		return (await apiInstance.api.skipMatchApiV1PvpMatchIdSkipPost(payload.matchId)).data
 	}
 
-	const getPrizes = async ()=> {
+	const getPrizes = async () => {
 		return (await apiInstance.api.getPrizesApiV1PrizesGet()).data
 	}
 
@@ -242,6 +242,6 @@ export const useApi = () => {
 		startPvpMatch,
 		skipPvpMatch,
 		getPrizes,
-		openLootbox,
+		openLootbox
 	}
 }
