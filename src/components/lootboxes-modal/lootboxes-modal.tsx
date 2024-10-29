@@ -7,6 +7,8 @@ import {GiftIcon, StarsIcon, TicketIcon} from "@/components/icons";
 import {useLootboxesStore} from "@/stores/lootboxes";
 import {useLocalization} from "@/services/localization";
 import {useUserStore} from "@/stores/user";
+import {useTgSdkStore} from "@/stores/tg-sdk";
+import {envVariables} from "@/services/env";
 
 enum LootboxesModalState {
 	default = 'default',
@@ -21,6 +23,7 @@ export const LootboxesModal = defineComponent({
 	setup: (props) => {
 		const lootboxesStore = useLootboxesStore()
 		const userStore = useUserStore()
+		const tgStore = useTgSdkStore()
 		const openConveyorBeltRef = ref<OpenConveyorBeltMethods | null>(null)
 		const lootboxModal = ref<UiBottomSheetMethods | null>(null)
 		const currentState = ref(LootboxesModalState.default)
@@ -44,6 +47,14 @@ export const LootboxesModal = defineComponent({
 			await userStore.loadUser()
 			currentState.value = LootboxesModalState.default
 		}
+		const buy = async () => {
+			tgStore.openInvoice(envVariables.imvoiceLootboxBuy, (status) => {
+				if (status === 'cancelled') {
+					return
+				}
+				userStore.loadUser()
+			})
+		}
 
 		const rollConveyor = async () => {
 			try {
@@ -53,8 +64,10 @@ export const LootboxesModal = defineComponent({
 					if (idx !== -1) {
 						winIndex.value = idx
 					}
+					openConveyorBeltRef.value?.open()
+				} else {
+					currentState.value = LootboxesModalState.default
 				}
-				openConveyorBeltRef.value?.open()
 			} catch (error) {
 				console.warn(error)
 			}
@@ -138,7 +151,7 @@ export const LootboxesModal = defineComponent({
 							<UiButton disabled={currentState.value !== LootboxesModalState.default} mod={'primary'} size={'lg'}
 												text={t('lootboxes.open')} whenClick={open}/>}
 						<UiButton disabled={currentState.value !== LootboxesModalState.default} leftIcon={<StarsIcon />} mod={'inverse'} size={'lg'}
-											text={t('lootboxes.buy')} whenClick={() => null}/>
+											text={t('lootboxes.buy')} whenClick={buy}/>
 						<div class={styles.costsText}>
 							<UiText
 								color={"rgba(121, 121, 121, 1)"}
