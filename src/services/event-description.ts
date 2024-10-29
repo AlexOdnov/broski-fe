@@ -16,12 +16,10 @@ export const useEventDescription = () => {
 	const updateDescription = event as IEvent
 	const tgStore = useTgSdkStore()
 
-	const title =
-		updateDescription.title[tgStore.languageCode as 'ru' | 'en'] || updateDescription.title.en
+	const title = updateDescription.title[tgStore.languageCode] || updateDescription.title.en
 
 	const description =
-		updateDescription.description[tgStore.languageCode as 'ru' | 'en'] ||
-		updateDescription.description.en
+		updateDescription.description[tgStore.languageCode] || updateDescription.description.en
 
 	return {
 		title,
