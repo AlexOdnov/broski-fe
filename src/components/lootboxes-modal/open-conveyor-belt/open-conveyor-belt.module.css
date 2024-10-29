@@ -7,7 +7,6 @@
 	width: 75px;
 	height: 75px;
 	border-radius: 12px;
-	border: 1px solid white;
 	position: relative;
 }
 .item img {
@@ -54,4 +53,5 @@
 .itemsWrapper {
 	display: flex;
 	gap: 5px;
+	padding: 5px 0;
 }
