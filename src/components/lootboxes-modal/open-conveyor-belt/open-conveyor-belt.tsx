@@ -1,5 +1,5 @@
 import styles from './open-conveyor-belt.module.css'
-import { computed, defineComponent, onMounted, onUnmounted, ref } from 'vue'
+import {computed, defineComponent, nextTick, onMounted, onUnmounted, ref, watch} from 'vue'
 import type { Prize } from '@/api/generatedApi'
 
 function getRandomInt(min: number, max: number) {
@@ -53,7 +53,11 @@ export const OpenConveyorBelt = defineComponent({
 		onUnmounted(() => {
 			window.removeEventListener('resize', setWidth)
 		})
-		const open = () => {
+		const open = async () => {
+			if(belt.value[props.targetElementIdx] && props.items[props.winIndex] && belt.value.at(props.targetElementIdx)?.item !== props.items.at(props.winIndex)?.item) {
+				belt.value[props.targetElementIdx] = props.items[props.winIndex]
+				await nextTick()
+			}
 			const current = Math.floor(width.value / 2 / (props.itemSize + props.itemGap)) + 1
 			const randomDx = getRandomInt(1, props.itemSize - 1)
 			const dx =

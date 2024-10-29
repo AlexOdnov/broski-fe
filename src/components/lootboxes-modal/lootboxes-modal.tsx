@@ -68,6 +68,7 @@ export const LootboxesModal = defineComponent({
 					if (idx !== -1) {
 						winIndex.value = idx
 					}
+					await nextTick()
 					openConveyorBeltRef.value?.open()
 				} else {
 					currentState.value = LootboxesModalState.default
