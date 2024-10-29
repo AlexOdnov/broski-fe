@@ -12,9 +12,9 @@ import {
 	FIELD_PLACEHOLDERS,
 	HALLOWEEN_FIELD_PLACEHOLDERS
 } from '@/utils/games'
-import { useI18n } from 'vue-i18n'
 import { UiText } from '@/components/ui/ui-text'
 import { shuffle } from '@/utils/shuffle'
+import { useLocalization } from '@/services/localization'
 
 export const FindBroGame = defineComponent({
 	name: 'FindBroGame',
@@ -25,7 +25,7 @@ export const FindBroGame = defineComponent({
 		const gameStore = useFindBroGameStore()
 		const userStore = useUserStore()
 		const advStore = useAdvertisingStore()
-		const { t } = useI18n()
+		const { t } = useLocalization()
 
 		const placeholders = ref(shuffle(HALLOWEEN_FIELD_PLACEHOLDERS))
 

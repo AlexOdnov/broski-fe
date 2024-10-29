@@ -4,19 +4,21 @@ import styles from './styles.module.css'
 import { useTasksStore } from '@/stores/tasks'
 import { TaskListItem } from '@/components/tasks/task-list-item'
 import { useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
 import { UserBalance } from '@/components/ui/user-balance'
 import { RouteName } from '@/router'
+import { useLocalization } from '@/services/localization'
 
 const TasksPage = defineComponent({
 	name: 'TasksPage',
 	setup() {
 		const router = useRouter()
 		const tasksStore = useTasksStore()
+		const { t } = useLocalization()
+
 		const taskSelected = (selectedTaskId: number) => {
 			router.push({ name: RouteName.Task, params: { taskId: selectedTaskId } })
 		}
-		const { t } = useI18n()
+
 		return () => (
 			<div>
 				<UserBalance />

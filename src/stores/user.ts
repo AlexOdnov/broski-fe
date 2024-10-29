@@ -249,6 +249,15 @@ export const useUserStore = defineStore('user', () => {
 		}
 	}
 
+	const doneEventNotification = async () => {
+		try {
+			await api.doneEventNotification({ user_id: tgStore.userId })
+			await loadUserLegacy()
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	const switchRegion = async () => {
 		try {
 			await api.switchRegion({
@@ -282,6 +291,7 @@ export const useUserStore = defineStore('user', () => {
 		doneFirstLogin,
 		claimBox,
 		doneUpdateNotification,
+		doneEventNotification,
 		switchRegion
 	}
 })

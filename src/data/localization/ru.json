@@ -37,7 +37,7 @@
 	"refs": "Рефы",
 	"ok": "ОК",
 	"bro": "бро",
-	"soon": "скоро",
+	"soon": "Скоро",
 	"brooo": "“БРООО”",
 	"game": "Игра",
 	"open": "Скоро",
@@ -72,6 +72,7 @@
 	"day": "День",
 	"ticket": "0 билетов | {n} билет | {n} билета | {n} билетов",
 	"inProgress": "играем",
+	"broOutOfTickets": "Bro, you're out of tickets, bro!",
 	"wait": "подождите",
 	"badLuck": "не повезло",
 	"bRooster": "“b-rooster”",
@@ -141,5 +142,11 @@
 		"NFTcollection": "на основную НФТ коллекцию",
 		"pvpWon": "Побед",
 		"robbed": "Заработано"
+	},
+	"lootboxes": {
+		"open": "Открыть",
+		"buy": "купить",
+		"claim": "собрать",
+		"youHave": "У тебя"
 	}
 }

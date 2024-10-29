@@ -2,7 +2,7 @@ import { defineComponent } from 'vue'
 import styles from './energy-counter.module.css'
 import { UiProgressBar, UiText } from '@/components/ui'
 import { EnergyIcon } from '@/components/icons'
-import { useI18n } from 'vue-i18n'
+import { useLocalization } from '@/services/localization'
 
 export const EnergyCounter = defineComponent({
 	name: 'EnergyCounter',
@@ -12,7 +12,7 @@ export const EnergyCounter = defineComponent({
 		timeToRestore: { type: String, required: false }
 	},
 	setup: (props) => {
-		const { t } = useI18n()
+		const { t } = useLocalization()
 
 		return () => (
 			<div>

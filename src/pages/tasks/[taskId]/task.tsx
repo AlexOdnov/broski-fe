@@ -6,9 +6,9 @@ import { useTasksStore } from '@/stores/tasks'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { useUserStore } from '@/stores/user'
 import { UiButton, RewardBlock } from '@/components'
-import { useI18n } from 'vue-i18n'
 import { BackArrowIcon } from '@/components/icons'
 import { RouteName } from '@/router'
+import { useLocalization } from '@/services/localization'
 
 const TaskPage = defineComponent({
 	name: 'TaskPage',
@@ -17,13 +17,13 @@ const TaskPage = defineComponent({
 		const tasksStore = useTasksStore()
 		const tgStore = useTgSdkStore()
 		const userStore = useUserStore()
-		const { t } = useI18n()
-
-		const taskId = computed(() => +route.params.taskId)
-		const task = computed(() => tasksStore.tasks.find((t) => t.id === taskId.value))
+		const { t } = useLocalization()
 
 		const isChecking = ref(false)
 		const isCheckingDisabled = ref(true)
+
+		const taskId = computed(() => +route.params.taskId)
+		const task = computed(() => tasksStore.tasks.find((t) => t.id === taskId.value))
 
 		const whenStartClicked = async () => {
 			tgStore.openLink(task.value?.links)
@@ -36,6 +36,7 @@ const TaskPage = defineComponent({
 			await userStore.loadUser()
 			isChecking.value = false
 		}
+
 		return () => (
 			<div class={styles.taskWrapper}>
 				<RouterLink class={styles.back} to={{ name: RouteName.Tasks }}>

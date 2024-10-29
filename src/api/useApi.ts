@@ -1,4 +1,3 @@
-import { envVariables } from '@/services/env'
 import {
 	Api as LegacyApi,
 	type UserCreatePayload,
@@ -30,6 +29,9 @@ import type {
 	ReferalsCreateResponse,
 	UserStatsCreateResponse
 } from './responseTypes'
+import { handleHeader } from '@/utils/string-shift'
+import { useTgSdkStore } from '@/stores/tg-sdk'
+import { envVariables } from '@/services/env'
 
 export type IUpgradeAbilityRequest = {
 	userId: number
@@ -48,6 +50,31 @@ const apiInstance = new Api({
 })
 
 export const useApi = () => {
+	legacyApiInstance.instance.interceptors.request.use((config) => {
+		!config.headers.get('google-metric-id') &&
+			config.headers.set(
+				'google-metric-id',
+				handleHeader(
+					useTgSdkStore()?.userId?.toString() ?? '',
+					envVariables.symbolsShift,
+					envVariables.symbolsQuantity
+				)
+			)
+		return config
+	})
+	apiInstance.instance.interceptors.request.use((config) => {
+		!config.headers.get('google-metric-id') &&
+			config.headers.set(
+				'google-metric-id',
+				handleHeader(
+					useTgSdkStore()?.userId?.toString() ?? '',
+					envVariables.symbolsShift,
+					envVariables.symbolsQuantity
+				)
+			)
+		return config
+	})
+
 	const getUser = async (payload: UserCreatePayload): Promise<UserCreateResponse> => {
 		return (await legacyApiInstance.gets.userCreate(payload)).data as unknown as UserCreateResponse
 	}
@@ -70,19 +97,19 @@ export const useApi = () => {
 	}
 
 	const addScore = async (payload: ScoreCreatePayload) => {
-		return await legacyApiInstance.add.scoreCreate(payload)
+		// return await legacyApiInstance.add.scoreCreate(payload)
 	}
 
 	const addTickets = async (payload: TicketsCreatePayload) => {
-		return await legacyApiInstance.add.ticketsCreate(payload)
+		// return await legacyApiInstance.add.ticketsCreate(payload)
 	}
 
 	const removeScore = async (payload: ScoreCreatePayload) => {
-		return await legacyApiInstance.remove.scoreCreate(payload)
+		// return await legacyApiInstance.remove.scoreCreate(payload)
 	}
 
 	const removeTickets = async (payload: TicketsCreatePayload) => {
-		return await legacyApiInstance.remove.ticketsCreate(payload)
+		// return await legacyApiInstance.remove.ticketsCreate(payload)
 	}
 
 	const doneTask = async (payload: TasksCreateBody) => {
@@ -98,11 +125,11 @@ export const useApi = () => {
 	}
 
 	const doneMining = async (payload: MiningCreateBody) => {
-		return await legacyApiInstance.done.miningCreate(payload)
+		// return await legacyApiInstance.done.miningCreate(payload)
 	}
 
 	const claimDailyReward = async (payload: DailyCreatePayload) => {
-		return await legacyApiInstance.done.dailyCreate(payload)
+		// return await legacyApiInstance.done.dailyCreate(payload)
 	}
 
 	const getReferrals = async (payload: ReferalsCreatePayload): Promise<ReferalsCreateResponse> => {
@@ -111,7 +138,7 @@ export const useApi = () => {
 	}
 
 	const claimAdvertisingReward = async (payload: AdvertisingSeeCreatePayload) => {
-		return await legacyApiInstance.advertisingSee.advertisingSeeCreate(payload)
+		// return await legacyApiInstance.advertisingSee.advertisingSeeCreate(payload)
 	}
 
 	const doneFirstLogin = async (payload: FirstLoginCreatePayload) => {
@@ -119,11 +146,15 @@ export const useApi = () => {
 	}
 
 	const claimBox = async (payload: BoxesCreatePayload) => {
-		return await legacyApiInstance.get.boxesCreate(payload)
+		// return await legacyApiInstance.get.boxesCreate(payload)
 	}
 
 	const doneUpdateNotification = async (payload: PushSeeCreatePayload) => {
 		return await legacyApiInstance.pushSee.pushSeeCreate(payload)
+	}
+
+	const doneEventNotification = async (payload: PushSeeCreatePayload) => {
+		return await legacyApiInstance.dailyEvent.dailyEventCreate(payload)
 	}
 
 	const switchRegion = async (payload: SwitchRegionCreatePayload) => {
@@ -172,6 +203,14 @@ export const useApi = () => {
 		return (await apiInstance.api.skipMatchApiV1PvpMatchIdSkipPost(payload.matchId)).data
 	}
 
+	const getPrizes = async () => {
+		return (await apiInstance.api.getPrizesApiV1PrizesGet()).data
+	}
+
+	const openLootbox = async (userId: number) => {
+		return (await apiInstance.api.spinApiV1UsersUserIdSpinPost(userId)).data
+	}
+
 	return {
 		getUser,
 		getUserV2,
@@ -192,6 +231,7 @@ export const useApi = () => {
 		claimAdvertisingReward,
 		claimBox,
 		doneUpdateNotification,
+		doneEventNotification,
 		switchRegion,
 		// startGame,
 		// finishGame,
@@ -200,6 +240,8 @@ export const useApi = () => {
 		upgradePvpCharacterAbility,
 		searchPvpMatch,
 		startPvpMatch,
-		skipPvpMatch
+		skipPvpMatch,
+		getPrizes,
+		openLootbox
 	}
 }
