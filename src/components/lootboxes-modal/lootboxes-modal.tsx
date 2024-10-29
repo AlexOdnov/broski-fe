@@ -16,7 +16,7 @@ enum LootboxesModalState {
 }
 
 export const LootboxesModal = defineComponent({
-	props: { openButton: { type: Object as PropType<VNode>, required: false } },
+	props: {openButton: {type: Object as PropType<VNode>, required: false}},
 	name: 'LootboxesModal',
 	setup: (props) => {
 		const lootboxesStore = useLootboxesStore()
@@ -25,11 +25,12 @@ export const LootboxesModal = defineComponent({
 		const lootboxModal = ref<UiBottomSheetMethods | null>(null)
 		const currentState = ref(LootboxesModalState.default)
 		const winIndex = ref(0)
-		const { t } = useLocalization()
+		const {t} = useLocalization()
 
 		const prizes = computed(() => lootboxesStore.prizes)
 
 		onMounted(async () => {
+			await lootboxesStore.loadPrizes()
 			currentState.value = LootboxesModalState.default
 		})
 
@@ -48,13 +49,15 @@ export const LootboxesModal = defineComponent({
 			try {
 				const result = await lootboxesStore.openLootbox()
 				if (result) {
-					const idx = lootboxesStore.prizes.findIndex( p => p.item === result)
-					if( idx !== -1 ) {
+					const idx = lootboxesStore.prizes.findIndex(p => p.item === result)
+					if (idx !== -1) {
 						winIndex.value = idx
 					}
 				}
 				openConveyorBeltRef.value?.open()
-			} catch (error) { console.warn(error) }
+			} catch (error) {
+				console.warn(error)
+			}
 		}
 
 		return () => (<>
@@ -115,12 +118,27 @@ export const LootboxesModal = defineComponent({
 								}}
 							/>}
 							{currentState.value === LootboxesModalState.prize && <>
-								<img class={styles.prizeShowImg} src={prizes.value?.at(winIndex.value)?.image ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuwAjENpDBsnhb91rzlQxF39KqlCZxHqHVig&s'} />
+								<img class={styles.prizeShowImg}
+										 src={prizes.value?.at(winIndex.value)?.image ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuwAjENpDBsnhb91rzlQxF39KqlCZxHqHVig&s'}/>
+								<div class={styles.darkCard}>
+									<UiText
+										color={"rgba(121, 121, 121, 1)"}
+										fontSize="14px"
+										fontWeight={400}
+										lineHeight="14px"
+										alignCenter
+									>{prizes.value?.at(winIndex.value)?.description}
+									</UiText>
+								</div>
 							</>}
 						</div>
-						{currentState.value === LootboxesModalState.prize && <UiButton mod={'primary'} size={'lg'} text={t('lootboxes.claim')} whenClick={claim}/>}
-						{currentState.value !== LootboxesModalState.prize && <UiButton disabled={currentState.value !== LootboxesModalState.default} mod={'primary'} size={'lg'} text={t('lootboxes.open')} whenClick={open}/>}
-						<UiButton disabled={currentState.value !== LootboxesModalState.default} mod={'secondary'} size={'lg'} text={t('lootboxes.buy')} whenClick={() => null}/>
+						{currentState.value === LootboxesModalState.prize &&
+							<UiButton mod={'primary'} size={'lg'} text={t('lootboxes.claim')} whenClick={claim}/>}
+						{currentState.value !== LootboxesModalState.prize &&
+							<UiButton disabled={currentState.value !== LootboxesModalState.default} mod={'primary'} size={'lg'}
+												text={t('lootboxes.open')} whenClick={open}/>}
+						<UiButton disabled={currentState.value !== LootboxesModalState.default} mod={'secondary'} size={'lg'}
+											text={t('lootboxes.buy')} whenClick={() => null}/>
 						<div class={styles.costsText}>
 							<UiText
 								color={"rgba(121, 121, 121, 1)"}
@@ -138,7 +156,9 @@ export const LootboxesModal = defineComponent({
 							>&nbsp;1&nbsp;</UiText>
 							<TicketIcon height={14}/>
 						</div>
-						<div class={styles.prizes}>{prizes.value.map(prize => (<img class={styles.prize} src={prize.image} />))}</div>
+						<div class={styles.prizes}>
+							{prizes.value.map(prize => (<img key={prize.item} class={styles.prize} src={prize.image}/>))}
+						</div>
 					</div>
 				}
 			/>

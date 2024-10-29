@@ -79,12 +79,12 @@ export const OpenConveyorBelt = defineComponent({
 			<div ref={divRef} class={styles.lootboxes}>
 				<div id='items' class={styles.boxesWrapper}>
 					<div class={styles.itemsWrapper}>
-						{belt.value?.map((item, idx) => {
+						{belt.value?.map((item) => {
 							return <div
-								key={'lootboxItem-' + idx}
+								key={'lootboxItem-' + item.item}
 								class={styles.item}
 							>
-								<img src={item?.image ?? ''} class={styles.beltBlock}/>
+								<img src={item?.image ?? ''} class={styles.beltBlock} />
 							</div>
 						})}
 					</div>

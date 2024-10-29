@@ -10,6 +10,10 @@
 	border: 1px solid white;
 	position: relative;
 }
+.item img {
+	max-width: 100%;
+	max-height: 100%;
+}
 
 .boxesWrapper {
 	min-width: 320px;

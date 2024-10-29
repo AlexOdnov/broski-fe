@@ -30,6 +30,6 @@
 	font-size: 14px;
 	line-height: 18px;
 	color: #cbcbcb;
-	overflow-y: scroll;
+	overflow-y: auto;
 	flex-grow: 1;
 }

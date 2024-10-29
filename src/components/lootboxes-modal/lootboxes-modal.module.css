@@ -52,10 +52,12 @@
 	border-radius: 15px;
 	background-color: rgba(11, 12, 14, 1);
 	margin: auto;
+	padding: 5px;
 }
 
 .prize {
 	border-radius: 10px;
+	max-width: 100%;
 }
 .content {
 	display: flex;
