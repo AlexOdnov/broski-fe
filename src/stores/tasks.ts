@@ -26,20 +26,6 @@ export const useTasksStore = defineStore('tasks', () => {
 		} catch (error) {
 			console.warn(error)
 		}
-		setTasks([
-			{
-				id: 1,
-				title: 'qeweqw',
-				description: 'asdsad sadasd sadasd asdasd asdas d',
-				points: 100,
-				tickets: 3,
-				duration: '100',
-				complete: false,
-				links: 'https://t.me/itsbrocoin',
-				image: '',
-				priority: 0
-			}
-		])
 	}
 
 	const setTaskDone = async (taskId: number) => {
