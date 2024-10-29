@@ -131,6 +131,7 @@ export const LootboxesModal = defineComponent({
 										class={styles.lootboxImageVideo}
 										src="/videos/lootbox-open.mp4"
 										autoplay
+										playsinline
 										onEnded={async () => {
 											currentState.value = LootboxesModalState.rolling
 											await nextTick()
