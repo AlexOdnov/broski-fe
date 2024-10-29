@@ -32,18 +32,21 @@ export const OpenConveyorBelt = defineComponent({
 			const _width = divRef.value?.clientWidth ?? window.innerWidth
 			width.value = _width > 320 ? _width : 320
 		}
-		const belt = computed(() => {
-			const result: Prize[] = []
+		const belt = ref<Prize[]>([])
+		const computeBelt = () => {
+			const prizes: Prize[] = []
 			for (let idx = 0; idx < props.beltLength; idx++) {
 				if (idx === props.targetElementIdx) {
-					result.push(props.items[props.winIndex])
+					prizes.push(props.items[props.winIndex])
 				} else {
-					result.push(props.items[getRandomInt(0, props.items.length - 1)])
+					prizes.push(props.items[getRandomInt(0, props.items.length - 1)])
 				}
 			}
-			return result
-		})
+			belt.value = prizes
+		}
+
 		onMounted(() => {
+			computeBelt()
 			setWidth()
 			window.addEventListener('resize', setWidth, true)
 		})
@@ -84,7 +87,8 @@ export const OpenConveyorBelt = defineComponent({
 
 		expose({
 			open,
-			reset
+			reset,
+			computeBelt,
 		})
 
 		return () => (

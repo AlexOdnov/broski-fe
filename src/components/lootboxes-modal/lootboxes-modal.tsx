@@ -199,27 +199,6 @@ export const LootboxesModal = defineComponent({
 								text={t('lootboxes.buy')}
 								whenClick={buy}
 							/>
-							<div class={styles.costsText}>
-								<UiText
-									color={'rgba(121, 121, 121, 1)'}
-									fontSize="14px"
-									fontWeight={400}
-									lineHeight="14px"
-									alignCenter
-								>
-									{t('lootboxes.openingCosts')}:
-								</UiText>
-								<UiText
-									color={'rgba(255, 184, 0, 1)'}
-									fontSize="14px"
-									fontWeight={400}
-									lineHeight="14px"
-									alignCenter
-								>
-									&nbsp;1&nbsp;
-								</UiText>
-								<TicketIcon height={14} />
-							</div>
 							<div class={styles.prizes}>
 								{prizes.value.map((prize) => (
 									<img key={prize.item} class={styles.prize} src={prize.image} />

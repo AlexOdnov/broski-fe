@@ -144,10 +144,9 @@
 		"robbed": "Robbed"
 	},
 	"lootboxes": {
-		"open": "open",
+		"open": "Open",
 		"buy": "buy",
 		"claim": "claim",
-		"youHave": "You have",
-		"openingCosts": "Opening costs"
+		"youHave": "You have"
 	}
 }

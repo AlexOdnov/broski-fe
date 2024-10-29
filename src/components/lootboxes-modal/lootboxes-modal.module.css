@@ -40,13 +40,6 @@
 	height: 100%;
 }
 
-.costsText {
-	width: max-content;
-	margin: auto;
-	display: flex;
-	align-items: center;
-}
-
 .prizes {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
