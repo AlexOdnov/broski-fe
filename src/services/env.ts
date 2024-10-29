@@ -10,6 +10,7 @@ export interface Env {
 	invoice3Premium: string
 	invoice7Premium: string
 	invoice14Premium: string
+	imvoiceLootboxBuy: string
 	sentryDSN: string
 	skipPvpCost: 'coin' | 'ticket'
 	symbolsQuantity: number
@@ -29,6 +30,7 @@ export const envVariables: Env = {
 	invoice3Premium: import.meta.env.VITE_INVOICE_3_PREMIUM || '',
 	invoice7Premium: import.meta.env.VITE_INVOICE_7_PREMIUM || '',
 	invoice14Premium: import.meta.env.VITE_INVOICE_14_PREMIUM || '',
+	imvoiceLootboxBuy: import.meta.env.VITE_INVOICE_LOOTBOX_BUY || '',
 	sentryDSN: import.meta.env.VITE_SENTRY_DSN || '',
 	skipPvpCost: import.meta.env.VITE_SKIP_PVP_COST || 'ticket',
 	symbolsQuantity: Number(import.meta.env.VITE_SYMBOLS_QUANTITY) || 0,

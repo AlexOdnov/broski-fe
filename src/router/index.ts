@@ -10,7 +10,7 @@ export enum RouteName {
 	Tasks = 'tasks',
 	Task = 'task',
 	Referrals = 'referrals',
-	Profile = 'profile'
+	Profile = 'profile',
 }
 
 const router = createRouter({

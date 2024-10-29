@@ -203,6 +203,14 @@ export const useApi = () => {
 		return (await apiInstance.api.skipMatchApiV1PvpMatchIdSkipPost(payload.matchId)).data
 	}
 
+	const getPrizes = async ()=> {
+		return (await apiInstance.api.getPrizesApiV1PrizesGet()).data
+	}
+
+	const openLootbox = async (userId: number) => {
+		return (await apiInstance.api.spinApiV1UsersUserIdSpinPost(userId)).data
+	}
+
 	return {
 		getUser,
 		getUserV2,
@@ -232,6 +240,8 @@ export const useApi = () => {
 		upgradePvpCharacterAbility,
 		searchPvpMatch,
 		startPvpMatch,
-		skipPvpMatch
+		skipPvpMatch,
+		getPrizes,
+		openLootbox,
 	}
 }
