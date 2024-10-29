@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
-import type { ReferalsCreateResponse, Referral } from '@/api/responseTypes'
+import type { UserReferrals, Referral } from '@/api/generatedApi'
 import { useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
 import { computed } from 'vue'
@@ -13,10 +13,10 @@ export const useReferralsStore = defineStore('referrals', () => {
 
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [referralsResponse, setReferralsResponse, resetReferralsResponse] =
-		useState<ReferalsCreateResponse | null>(null)
+		useState<UserReferrals | null>(null)
 	const [referrals, setReferrals, resetReferrals] = useState<Referral[]>([])
 
-	const totalReferrals = computed(() => referralsResponse.value?.total_referals || 0)
+	const totalReferrals = computed(() => referralsResponse.value?.total_referrals || 0)
 	const sumReferralsReward = computed(() => referralsResponse.value?.total_score || 0)
 
 	const resetStore = () => {
@@ -27,7 +27,7 @@ export const useReferralsStore = defineStore('referrals', () => {
 	const claimReferralsReward = async () => {
 		try {
 			await api.claimRefBonus({
-				user_id: tgStore.userId
+				userId: tgStore.userId
 			})
 			resetStore()
 			await userStore.loadUser()
@@ -48,12 +48,12 @@ export const useReferralsStore = defineStore('referrals', () => {
 			}
 			setIsLoading(true)
 			const response = await api.getReferrals({
-				user_id: tgStore.userId,
+				userId: tgStore.userId,
 				page: referralsResponse.value?.current_page || 0 + 1,
-				limit: 20
+				per_page: 20
 			})
 			setReferralsResponse(response)
-			setReferrals([...referrals.value, ...response.referals])
+			setReferrals([...referrals.value, ...response.referrals])
 			setIsLoading(false)
 		} catch (error) {
 			console.warn(error)

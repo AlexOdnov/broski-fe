@@ -87,9 +87,9 @@ export interface CreateUser {
 	/** Username */
 	username: string
 	/** User Id */
-	user_id: string
+	user_id: number
 	/** Ref Code */
-	ref_code?: string | null
+	ref_code?: number | null
 	/** Premium */
 	premium?: boolean | null
 }
@@ -110,6 +110,46 @@ export interface GetEnergyResponse {
 export interface HTTPValidationError {
 	/** Detail */
 	detail?: ValidationError[]
+}
+
+/** LegacyUser */
+export interface LegacyUser {
+	/** Username */
+	username: string
+	/** Score */
+	score: number
+	/** Left Mining */
+	left_mining: string
+	/** Mining Claim */
+	mining_claim: boolean
+	/** Ref Code */
+	ref_code: string
+	/** Position */
+	position: number
+	/** Tickets */
+	tickets: number
+	/** Boxes */
+	boxes: number
+	/** Daily Stric */
+	daily_stric: number
+	/** Daily Claim */
+	daily_claim: boolean
+	/** First Login */
+	first_login: boolean
+	/** Region */
+	region: string
+	/** First Game */
+	first_game: boolean
+	/** Advertising Limit */
+	advertising_limit: number
+	/** Advertising Total */
+	advertising_total: number
+	/** Ton Balanse */
+	ton_balanse: number
+	/** Push See */
+	push_see: boolean
+	/** Daily Event */
+	daily_event: boolean
 }
 
 /** LevelupResponse */
@@ -174,6 +214,14 @@ export interface PVPStats {
 	loot: number
 }
 
+/** PostTaskRequest */
+export interface PostTaskRequest {
+	/** User Id */
+	user_id: number
+	/** Task Id */
+	task_id: number
+}
+
 /** Prize */
 export interface Prize {
 	/** Idx */
@@ -190,10 +238,66 @@ export interface Prize {
 	image: string
 }
 
+/** Referral */
+export interface Referral {
+	/** Username */
+	username: string
+	/** Refs */
+	refs: number
+	/** Bonus */
+	bonus: number
+	/** Reward */
+	reward: number
+}
+
+/** RegionRequest */
+export interface RegionRequest {
+	/** Region */
+	region: string
+}
+
 /** SpinResult */
 export interface SpinResult {
 	/** Result */
 	result: string
+}
+
+/** Task */
+export interface Task {
+	/** Id */
+	id: number
+	/** Title */
+	title: string
+	/** Points */
+	points: number
+	/** Tickets */
+	tickets: number
+	/** Experience */
+	experience: number
+	/** Duration */
+	duration: string
+	/** Links */
+	links: string
+	/** Complete */
+	complete: boolean
+	/** Description */
+	description: string
+	/** Image */
+	image: string
+	/** Priority */
+	priority: number
+}
+
+/** TaskRequest */
+export interface TaskRequest {
+	/** Task Id */
+	task_id: number
+}
+
+/** Tasks */
+export interface Tasks {
+	/** Tasks */
+	tasks: Task[]
 }
 
 /** User */
@@ -226,6 +330,22 @@ export interface UserMining {
 	claim: boolean
 }
 
+/** UserReferrals */
+export interface UserReferrals {
+	/** Username */
+	username: string
+	/** Referrals */
+	referrals: Referral[]
+	/** Total Referrals */
+	total_referrals: number
+	/** Total Pages */
+	total_pages: number
+	/** Current Page */
+	current_page: number
+	/** Total Score */
+	total_score: number
+}
+
 /** ValidationError */
 export interface ValidationError {
 	/** Location */
@@ -238,6 +358,21 @@ export interface ValidationError {
 
 /** Delta */
 export type LevelUpApiV1UsersUserIdLevelupPostPayload = AbilityScoresDelta | null
+
+export interface GetUserReferralsApiV1UsersUserIdReferralsGetParams {
+	/**
+	 * Page
+	 * @default 1
+	 */
+	page?: number
+	/**
+	 * Per Page
+	 * @default 10
+	 */
+	per_page?: number
+	/** User Id */
+	userId: number
+}
 
 import type {
 	AxiosInstance,
@@ -486,12 +621,154 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		/**
 		 * No description
 		 *
+		 * @tags tasks
+		 * @name GetTasksApiV1UsersUserIdTasksGet
+		 * @summary Get Tasks
+		 * @request GET:/api/v1/users/{user_id}/tasks
+		 */
+		getTasksApiV1UsersUserIdTasksGet: (userId: number, params: RequestParams = {}) =>
+			this.request<Tasks, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/tasks`,
+				method: 'GET',
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags tasks
+		 * @name PostTaskApiV1TasksPost
+		 * @summary Post Task
+		 * @request POST:/api/v1/tasks
+		 */
+		postTaskApiV1TasksPost: (data: PostTaskRequest, params: RequestParams = {}) =>
+			this.request<any, HTTPValidationError>({
+				path: `/api/v1/tasks`,
+				method: 'POST',
+				body: data,
+				type: ContentType.Json,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags tasks
+		 * @name FirstLoginApiV1UsersUserIdFirstLoginPost
+		 * @summary First Login
+		 * @request POST:/api/v1/users/{user_id}/first-login
+		 */
+		firstLoginApiV1UsersUserIdFirstLoginPost: (userId: number, params: RequestParams = {}) =>
+			this.request<any, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/first-login`,
+				method: 'POST',
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags tasks
+		 * @name SwitchRegionApiV1UsersUserIdSwitchRegionPost
+		 * @summary Switch Region
+		 * @request POST:/api/v1/users/{user_id}/switch-region
+		 */
+		switchRegionApiV1UsersUserIdSwitchRegionPost: (
+			userId: number,
+			data: RegionRequest,
+			params: RequestParams = {}
+		) =>
+			this.request<any, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/switch-region`,
+				method: 'POST',
+				body: data,
+				type: ContentType.Json,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags tasks
+		 * @name SeePushApiV1UsersUserIdSeePushPost
+		 * @summary See Push
+		 * @request POST:/api/v1/users/{user_id}/see-push
+		 */
+		seePushApiV1UsersUserIdSeePushPost: (userId: number, params: RequestParams = {}) =>
+			this.request<any, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/see-push`,
+				method: 'POST',
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags tasks
+		 * @name DailyEventApiV1UsersUserIdDailyEventPost
+		 * @summary Daily Event
+		 * @request POST:/api/v1/users/{user_id}/daily-event
+		 */
+		dailyEventApiV1UsersUserIdDailyEventPost: (userId: number, params: RequestParams = {}) =>
+			this.request<any, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/daily-event`,
+				method: 'POST',
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags tasks
+		 * @name DoneDailyApiV1UsersUserIdDoneDailyPost
+		 * @summary Done Daily
+		 * @request POST:/api/v1/users/{user_id}/done-daily
+		 */
+		doneDailyApiV1UsersUserIdDoneDailyPost: (userId: number, params: RequestParams = {}) =>
+			this.request<any, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/done-daily`,
+				method: 'POST',
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags tasks
+		 * @name CheckTaskApiV1UsersUserIdCheckTaskPost
+		 * @summary Check Task
+		 * @request POST:/api/v1/users/{user_id}/check-task
+		 */
+		checkTaskApiV1UsersUserIdCheckTaskPost: (
+			userId: number,
+			data: TaskRequest,
+			params: RequestParams = {}
+		) =>
+			this.request<any, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/check-task`,
+				method: 'POST',
+				body: data,
+				type: ContentType.Json,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
 		 * @tags users
 		 * @name GetUserApiV1UsersUserIdGet
 		 * @summary Get User
 		 * @request GET:/api/v1/users/{user_id}
 		 */
-		getUserApiV1UsersUserIdGet: (userId: string, params: RequestParams = {}) =>
+		getUserApiV1UsersUserIdGet: (userId: number, params: RequestParams = {}) =>
 			this.request<User, HTTPValidationError>({
 				path: `/api/v1/users/${userId}`,
 				method: 'GET',
@@ -508,11 +785,47 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * @request POST:/api/v1/users
 		 */
 		postUserApiV1UsersPost: (data: CreateUser, params: RequestParams = {}) =>
-			this.request<User, HTTPValidationError>({
+			this.request<LegacyUser, HTTPValidationError>({
 				path: `/api/v1/users`,
 				method: 'POST',
 				body: data,
 				type: ContentType.Json,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags users
+		 * @name GetUserReferralsApiV1UsersUserIdReferralsGet
+		 * @summary Get User Referrals
+		 * @request GET:/api/v1/users/{user_id}/referrals
+		 */
+		getUserReferralsApiV1UsersUserIdReferralsGet: (
+			{ userId, ...query }: GetUserReferralsApiV1UsersUserIdReferralsGetParams,
+			params: RequestParams = {}
+		) =>
+			this.request<UserReferrals, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/referrals`,
+				method: 'GET',
+				query: query,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags tasks
+		 * @name RefClaimApiV1UsersUserIdRefClaimPost
+		 * @summary Ref Claim
+		 * @request POST:/api/v1/users/{user_id}/ref-claim
+		 */
+		refClaimApiV1UsersUserIdRefClaimPost: (userId: number, params: RequestParams = {}) =>
+			this.request<any, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/ref-claim`,
+				method: 'POST',
 				format: 'json',
 				...params
 			}),

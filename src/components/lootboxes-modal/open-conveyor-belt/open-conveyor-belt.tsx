@@ -1,5 +1,5 @@
 import styles from './open-conveyor-belt.module.css'
-import {computed, defineComponent, nextTick, onMounted, onUnmounted, ref, watch} from 'vue'
+import { computed, defineComponent, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import type { Prize } from '@/api/generatedApi'
 
 function getRandomInt(min: number, max: number) {
@@ -54,7 +54,11 @@ export const OpenConveyorBelt = defineComponent({
 			window.removeEventListener('resize', setWidth)
 		})
 		const open = async () => {
-			if(belt.value[props.targetElementIdx] && props.items[props.winIndex] && belt.value.at(props.targetElementIdx)?.item !== props.items.at(props.winIndex)?.item) {
+			if (
+				belt.value[props.targetElementIdx] &&
+				props.items[props.winIndex] &&
+				belt.value.at(props.targetElementIdx)?.item !== props.items.at(props.winIndex)?.item
+			) {
 				belt.value[props.targetElementIdx] = props.items[props.winIndex]
 				await nextTick()
 			}
@@ -67,7 +71,7 @@ export const OpenConveyorBelt = defineComponent({
 				randomDx
 			const length = window.document.querySelectorAll('.' + styles.item).length
 			window.document.querySelectorAll('.' + styles.item).forEach((item, idx) => {
-				(item as HTMLDivElement).style.transform = 'none'
+				;(item as HTMLDivElement).style.transform = 'none'
 				item.animate(
 					{ transform: `translateX(${-dx}px)` },
 					{
@@ -85,14 +89,14 @@ export const OpenConveyorBelt = defineComponent({
 
 		const reset = () => {
 			window.document.querySelectorAll('.' + styles.item).forEach((item, idx) => {
-				(item as HTMLDivElement).style.transform = 'none'
+				;(item as HTMLDivElement).style.transform = 'none'
 			})
 		}
 
 		expose({
 			open,
 			reset,
-			computeBelt,
+			computeBelt
 		})
 
 		return () => (

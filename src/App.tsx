@@ -27,8 +27,9 @@ export default defineComponent({
 		const commonStore = useCommonStore()
 		const referralsStore = useReferralsStore()
 		const pvpStore = usePvpStore()
-		const { i18n } = useLocalization()
+		const advertisingStore = useAdvertisingStore()
 		const sentry = useSentry()
+		const { i18n } = useLocalization()
 
 		const isUserExist = ref(false)
 
@@ -54,9 +55,9 @@ export default defineComponent({
 			if (needRenderEventNotification.value) {
 				return <EventNotificationComponent />
 			}
-			// if (needRenderDaily.value) {
-			// 	return <DailyComponent day={userStore.userLegacy?.daily_stric ?? 1} />
-			// }
+			if (needRenderDaily.value) {
+				return <DailyComponent day={userStore.userLegacy?.daily_stric ?? 1} />
+			}
 			return <MainComponent />
 		})
 
@@ -102,7 +103,6 @@ export default defineComponent({
 			}
 			i18n.locale.value = tgStore.languageCode
 			commonStore.setIsLoadingForTimeout(envVariables.loaderDuration)
-			await useAdvertisingStore().init()
 			await userStore.loadUserLegacy(true)
 			await Promise.all([userStore.loadUser(), pvpStore.loadPvpCharacter(true)])
 			if (!userStore.user || !userStore.userLegacy || !pvpStore.pvpCharacter) {
@@ -110,9 +110,9 @@ export default defineComponent({
 				return
 			}
 			isUserExist.value = true
+			advertisingStore.init()
 			tasksStore.getTasks()
 			referralsStore.loadReferrals()
-			userStore.startUpdateMiningString()
 			userStore.switchRegion()
 		}
 

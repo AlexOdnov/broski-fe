@@ -1,12 +1,10 @@
 import styles from './main.module.css'
-import { computed, defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
-import { useUserStore } from '@/stores/user'
 import { useTasksStore } from '@/stores/tasks'
 import { useReferralsStore } from '@/stores/referrals'
 import { RouteName } from '@/router'
 import { useCommonStore } from '@/stores/common'
-import { usePvpStore } from '@/stores/pvp'
 import { DollarIcon, GamepadIcon, GiftIcon, UserIcon, ConstructIcon } from '@/components/icons'
 import { UiText } from '@/components'
 import { useLocalization } from '@/services/localization'
@@ -17,36 +15,9 @@ export const MainComponent = defineComponent({
 	setup: () => {
 		const { t } = useLocalization()
 
-		const userStore = useUserStore()
 		const tasksStore = useTasksStore()
 		const referralsStore = useReferralsStore()
 		const commonStore = useCommonStore()
-		const pvpStore = usePvpStore()
-
-		const isMiningLoading = ref(false)
-
-		const isRewardAvailable = computed(
-			() => !timeBeforeMiningLeft.value && !userStore.user?.mining.claim
-		)
-		const timeBeforeMiningLeft = computed(() => userStore.timeBeforeMiningLeftString)
-
-		const whenMiningClicked = async () => {
-			if (isMiningLoading.value) {
-				return
-			}
-			isMiningLoading.value = true
-			if (!isRewardAvailable.value && !timeBeforeMiningLeft.value) {
-				await userStore.startMining()
-				await userStore.loadUser()
-				return
-			}
-			if (isRewardAvailable.value) {
-				await userStore.doneMining()
-				await userStore.loadUser()
-				await pvpStore.loadPvpCharacter()
-			}
-			isMiningLoading.value = false
-		}
 
 		return () => (
 			<>
