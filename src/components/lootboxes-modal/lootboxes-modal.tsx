@@ -3,7 +3,7 @@ import {UiBottomSheet, type UiBottomSheetMethods, UiButton, UiText} from '@/comp
 
 import styles from './lootboxes-modal.module.css'
 import {OpenConveyorBelt, type OpenConveyorBeltMethods} from "@/components/lootboxes-modal/open-conveyor-belt";
-import {GiftIcon, TicketIcon} from "@/components/icons";
+import {GiftIcon, StarsIcon, TicketIcon} from "@/components/icons";
 import {useLootboxesStore} from "@/stores/lootboxes";
 import {useLocalization} from "@/services/localization";
 import {useUserStore} from "@/stores/user";
@@ -137,7 +137,7 @@ export const LootboxesModal = defineComponent({
 						{currentState.value !== LootboxesModalState.prize &&
 							<UiButton disabled={currentState.value !== LootboxesModalState.default} mod={'primary'} size={'lg'}
 												text={t('lootboxes.open')} whenClick={open}/>}
-						<UiButton disabled={currentState.value !== LootboxesModalState.default} mod={'secondary'} size={'lg'}
+						<UiButton disabled={currentState.value !== LootboxesModalState.default} leftIcon={<StarsIcon />} mod={'inverse'} size={'lg'}
 											text={t('lootboxes.buy')} whenClick={() => null}/>
 						<div class={styles.costsText}>
 							<UiText
