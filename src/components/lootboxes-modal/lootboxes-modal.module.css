@@ -57,3 +57,15 @@
 .prize {
 	border-radius: 10px;
 }
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+}
+
+.prizeShowImg {
+	max-width: 100px;
+	max-height: 100px;
+	margin: auto;
+	border-radius: 16px;
+}

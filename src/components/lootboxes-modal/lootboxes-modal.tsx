@@ -5,12 +5,14 @@ import styles from './lootboxes-modal.module.css'
 import {OpenConveyorBelt, type OpenConveyorBeltMethods} from "@/components/lootboxes-modal/open-conveyor-belt";
 import {GiftIcon, TicketIcon} from "@/components/icons";
 import {useLootboxesStore} from "@/stores/lootboxes";
+import {useLocalization} from "@/services/localization";
+import {useUserStore} from "@/stores/user";
 
 enum LootboxesModalState {
 	default = 'default',
 	boxOpen = 'boxOpen',
 	rolling = 'rolling',
-	prize = 'rolling',
+	prize = 'prize',
 }
 
 export const LootboxesModal = defineComponent({
@@ -18,10 +20,12 @@ export const LootboxesModal = defineComponent({
 	name: 'LootboxesModal',
 	setup: (props) => {
 		const lootboxesStore = useLootboxesStore()
+		const userStore = useUserStore()
 		const openConveyorBeltRef = ref<OpenConveyorBeltMethods | null>(null)
 		const lootboxModal = ref<UiBottomSheetMethods | null>(null)
 		const currentState = ref(LootboxesModalState.default)
 		const winIndex = ref(0)
+		const { t } = useLocalization()
 
 		const prizes = computed(() => lootboxesStore.prizes)
 
@@ -34,6 +38,10 @@ export const LootboxesModal = defineComponent({
 		}
 		const open = () => {
 			currentState.value = LootboxesModalState.boxOpen
+		}
+		const claim = async () => {
+			await userStore.loadUser()
+			currentState.value = LootboxesModalState.default
 		}
 
 		const rollConveyor = async () => {
@@ -56,7 +64,7 @@ export const LootboxesModal = defineComponent({
 				fullscreen
 				withExitButton
 				body={
-					<>
+					<div class={styles.content}>
 						<div class={styles.card} style={currentState.value === LootboxesModalState.boxOpen && {padding: 0}}>
 							{currentState.value === LootboxesModalState.default && <>
 								<img class={styles.lootboxImage} src="/images/lootbox-open-static.webp"/>
@@ -75,14 +83,14 @@ export const LootboxesModal = defineComponent({
 										fontWeight={400}
 										lineHeight="14px"
 										alignCenter
-									>You got:</UiText>
+									>{t('lootboxes.youHave')}:</UiText>
 									<UiText
 										color={"rgba(255, 184, 0, 1)"}
 										fontSize="14px"
 										fontWeight={400}
 										lineHeight="14px"
 										alignCenter
-									>&nbsp;12&nbsp;</UiText>
+									>&nbsp;{userStore.user?.boxes}&nbsp;</UiText>
 									<GiftIcon height={14}/>
 								</div>
 							</>}
@@ -102,10 +110,17 @@ export const LootboxesModal = defineComponent({
 								ref={openConveyorBeltRef}
 								items={prizes.value}
 								winIndex={winIndex.value}
+								onAnimationEnd={() => {
+									currentState.value = LootboxesModalState.prize
+								}}
 							/>}
+							{currentState.value === LootboxesModalState.prize && <>
+								<img class={styles.prizeShowImg} src={prizes.value?.at(winIndex.value)?.image ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuwAjENpDBsnhb91rzlQxF39KqlCZxHqHVig&s'} />
+							</>}
 						</div>
-						<UiButton mod={'primary'} size={'lg'} text={'опен'} whenClick={open}/>
-						<UiButton mod={'secondary'} size={'lg'} text={'буй'} whenClick={() => null}/>
+						{currentState.value === LootboxesModalState.prize && <UiButton mod={'primary'} size={'lg'} text={t('lootboxes.claim')} whenClick={claim}/>}
+						{currentState.value !== LootboxesModalState.prize && <UiButton disabled={currentState.value !== LootboxesModalState.default} mod={'primary'} size={'lg'} text={t('lootboxes.open')} whenClick={open}/>}
+						<UiButton disabled={currentState.value !== LootboxesModalState.default} mod={'secondary'} size={'lg'} text={t('lootboxes.buy')} whenClick={() => null}/>
 						<div class={styles.costsText}>
 							<UiText
 								color={"rgba(121, 121, 121, 1)"}
@@ -113,7 +128,7 @@ export const LootboxesModal = defineComponent({
 								fontWeight={400}
 								lineHeight="14px"
 								alignCenter
-							>Opening costs:</UiText>
+							>{t('lootboxes.openingCosts')}:</UiText>
 							<UiText
 								color={"rgba(255, 184, 0, 1)"}
 								fontSize="14px"
@@ -124,7 +139,7 @@ export const LootboxesModal = defineComponent({
 							<TicketIcon height={14}/>
 						</div>
 						<div class={styles.prizes}>{prizes.value.map(prize => (<img class={styles.prize} src={prize.image} />))}</div>
-					</>
+					</div>
 				}
 			/>
 		</>)

@@ -142,5 +142,12 @@
 		"NFTcollection": "for the NFT collection",
 		"pvpWon": "PvP won",
 		"robbed": "Robbed"
+	},
+	"lootboxes": {
+		"open": "open",
+		"buy": "buy",
+		"claim": "claim",
+		"youHave": "You have",
+		"openingCosts": "Opening costs"
 	}
 }
