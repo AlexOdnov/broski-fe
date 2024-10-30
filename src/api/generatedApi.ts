@@ -174,6 +174,28 @@ export interface PVPStats {
 	loot: number
 }
 
+/** Prize */
+export interface Prize {
+	/** Idx */
+	idx: number
+	/** Item */
+	item: string
+	/** Probability */
+	probability: number
+	/** Rarity */
+	rarity: string
+	/** Description */
+	description: string
+	/** Image */
+	image: string
+}
+
+/** SpinResult */
+export interface SpinResult {
+	/** Result */
+	result: string
+}
+
 /** User */
 export interface User {
 	/** Score */
@@ -509,6 +531,38 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				method: 'POST',
 				body: data,
 				type: ContentType.Json,
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * @description Эндпоинт для запуска рулетки и получения результата.
+		 *
+		 * @tags spin
+		 * @name SpinApiV1UsersUserIdSpinPost
+		 * @summary Spin
+		 * @request POST:/api/v1/users/{user_id}/spin
+		 */
+		spinApiV1UsersUserIdSpinPost: (userId: number, params: RequestParams = {}) =>
+			this.request<SpinResult, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/spin`,
+				method: 'POST',
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * @description Эндпоинт для получения списка предметов с их id и редкостью.
+		 *
+		 * @tags prizes
+		 * @name GetPrizesApiV1PrizesGet
+		 * @summary Get Prizes
+		 * @request GET:/api/v1/prizes
+		 */
+		getPrizesApiV1PrizesGet: (params: RequestParams = {}) =>
+			this.request<Prize[], any>({
+				path: `/api/v1/prizes`,
+				method: 'GET',
 				format: 'json',
 				...params
 			})
