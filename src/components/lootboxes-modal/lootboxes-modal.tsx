@@ -47,6 +47,11 @@ export const LootboxesModal = defineComponent({
 		}
 		const open = () => {
 			currentState.value = LootboxesModalState.boxOpen
+			setTimeout(async () => {
+				currentState.value = LootboxesModalState.rolling
+				await nextTick()
+				rollConveyor()
+			}, 2000)
 		}
 		const claim = async () => {
 			await Promise.all([ userStore.loadUser(), pvpStore.loadPvpCharacter() ])
@@ -58,7 +63,7 @@ export const LootboxesModal = defineComponent({
 				if (status === 'cancelled') {
 					return
 				}
-				userStore.loadUser()
+				setTimeout(() => userStore.loadUser(), 1000)
 			})
 		}
 
@@ -136,11 +141,7 @@ export const LootboxesModal = defineComponent({
 										src="/videos/lootbox-open.mp4"
 										autoplay
 										playsinline
-										onEnded={async () => {
-											currentState.value = LootboxesModalState.rolling
-											await nextTick()
-											rollConveyor()
-										}}
+										onEnded={async () => {}}
 									/>
 								)}
 								{currentState.value === LootboxesModalState.rolling && (
