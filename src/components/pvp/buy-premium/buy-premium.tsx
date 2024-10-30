@@ -1,7 +1,6 @@
 import { computed, defineComponent, ref } from 'vue'
 import styles from './buy-premium.module.css'
 import { UiBottomSheet, UiButton, UiTabs, UiText, type UiBottomSheetMethods } from '@/components/ui'
-import { useI18n } from 'vue-i18n'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { usePvpStore } from '@/stores/pvp'
 import {
@@ -47,21 +46,21 @@ export const BuyPremium = defineComponent({
 				case '3':
 					return {
 						cost: '50',
-						boxes: 0,
+						boxes: 2,
 						coins: 3000,
 						invoice: envVariables.invoice3Premium
 					}
 				case '7':
 					return {
 						cost: '100',
-						boxes: 0,
+						boxes: 7,
 						coins: 8000,
 						invoice: envVariables.invoice7Premium
 					}
 				case '14':
 					return {
 						cost: '200',
-						boxes: 2,
+						boxes: 10,
 						coins: 20000,
 						invoice: envVariables.invoice14Premium
 					}
