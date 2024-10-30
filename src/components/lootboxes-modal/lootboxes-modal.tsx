@@ -12,6 +12,7 @@ import { useLocalization } from '@/services/localization'
 import { useUserStore } from '@/stores/user'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { envVariables } from '@/services/env'
+import { usePvpStore } from '@/stores/pvp'
 
 enum LootboxesModalState {
 	default = 'default',
@@ -26,6 +27,7 @@ export const LootboxesModal = defineComponent({
 	setup: (props) => {
 		const lootboxesStore = useLootboxesStore()
 		const userStore = useUserStore()
+		const pvpStore = usePvpStore()
 		const tgStore = useTgSdkStore()
 		const openConveyorBeltRef = ref<OpenConveyorBeltMethods | null>(null)
 		const lootboxModal = ref<UiBottomSheetMethods | null>(null)
@@ -47,7 +49,7 @@ export const LootboxesModal = defineComponent({
 			currentState.value = LootboxesModalState.boxOpen
 		}
 		const claim = async () => {
-			await userStore.loadUser()
+			await Promise.all([userStore.loadUser(), pvpStore.loadPvpCharacter()])
 			currentState.value = LootboxesModalState.default
 			openConveyorBeltRef.value?.reset()
 		}
@@ -145,15 +147,17 @@ export const LootboxesModal = defineComponent({
 									/>
 								)}
 								{currentState.value === LootboxesModalState.rolling && (
-									<OpenConveyorBelt
-										class={styles.conveyor}
-										ref={openConveyorBeltRef}
-										items={prizes.value}
-										winIndex={winIndex.value}
-										onAnimationEnd={() => {
-											currentState.value = LootboxesModalState.prize
-										}}
-									/>
+									<div class={styles.conveyorWrapper}>
+										<OpenConveyorBelt
+											class={styles.conveyor}
+											ref={openConveyorBeltRef}
+											items={prizes.value}
+											winIndex={winIndex.value}
+											onAnimationEnd={() => {
+												currentState.value = LootboxesModalState.prize
+											}}
+										/>
+									</div>
 								)}
 								{currentState.value === LootboxesModalState.prize && (
 									<>
@@ -188,7 +192,10 @@ export const LootboxesModal = defineComponent({
 							)}
 							{currentState.value !== LootboxesModalState.prize && (
 								<UiButton
-									disabled={currentState.value !== LootboxesModalState.default}
+									disabled={
+										currentState.value !== LootboxesModalState.default ||
+										userStore.user?.boxes === 0
+									}
 									mod={'primary'}
 									size={'lg'}
 									text={t('lootboxes.open')}

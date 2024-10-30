@@ -1,13 +1,7 @@
 {
-	"version": "v2.2",
+	"version": "v2.3",
 	"changes": {
-		"ru": [
-			"Премиум статус \"superbro\", лимит энергии 5, время восстановления 5 минут",
-			"Новая строка навигации"
-		],
-		"en": [
-			"Premium status \"superbro\" with 5 energy limit & recovery energy time 5 minutes",
-			"New navigation bar"
-		]
+		"ru": ["Добавлены бронзовые лутбоксы"],
+		"en": ["Added bronze lootboxes"]
 	}
 }
