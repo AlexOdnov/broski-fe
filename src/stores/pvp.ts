@@ -139,7 +139,7 @@ export const usePvpStore = defineStore('pvp', () => {
 		if (pvpMatch.value) {
 			try {
 				setIsLoading(true)
-				const response = await api.startPvpMatch({ matchId: pvpMatch.value?.match_id })
+				const response = await api.startPvpMatch({ userId: tgStore.userId })
 				setPvpMatchResult(response)
 				loadPvpCharacter()
 			} catch (error) {
@@ -154,7 +154,7 @@ export const usePvpStore = defineStore('pvp', () => {
 		if (pvpMatch.value) {
 			try {
 				setIsLoading(true)
-				const response = await api.skipPvpMatch({ matchId: pvpMatch.value?.match_id })
+				const response = await api.skipPvpMatch({ userId: tgStore.userId })
 				setPvpMatch({ ...pvpMatch.value, opponent: response })
 				userStore.loadUser()
 			} catch (error) {

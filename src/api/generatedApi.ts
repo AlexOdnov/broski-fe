@@ -216,8 +216,6 @@ export interface PVPStats {
 
 /** PostTaskRequest */
 export interface PostTaskRequest {
-	/** User Id */
-	user_id: number
 	/** Task Id */
 	task_id: number
 }
@@ -590,13 +588,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags pvp
-		 * @name SkipMatchApiV1PvpMatchIdSkipPost
+		 * @name SkipMatchApiV1UsersUserIdSkipPvpPost
 		 * @summary Skip Match
-		 * @request POST:/api/v1/pvp/{match_id}/skip
+		 * @request POST:/api/v1/users/{user_id}/skip-pvp
 		 */
-		skipMatchApiV1PvpMatchIdSkipPost: (matchId: string, params: RequestParams = {}) =>
+		skipMatchApiV1UsersUserIdSkipPvpPost: (userId: number, params: RequestParams = {}) =>
 			this.request<MatchCompetitioner, HTTPValidationError>({
-				path: `/api/v1/pvp/${matchId}/skip`,
+				path: `/api/v1/users/${userId}/skip-pvp`,
 				method: 'POST',
 				format: 'json',
 				...params
@@ -606,13 +604,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags pvp
-		 * @name StartMatchApiV1PvpMatchIdStartPost
+		 * @name StartMatchApiV1UsersUserIdStartPvpPost
 		 * @summary Start Match
-		 * @request POST:/api/v1/pvp/{match_id}/start
+		 * @request POST:/api/v1/users/{user_id}/start-pvp
 		 */
-		startMatchApiV1PvpMatchIdStartPost: (matchId: string, params: RequestParams = {}) =>
+		startMatchApiV1UsersUserIdStartPvpPost: (userId: number, params: RequestParams = {}) =>
 			this.request<PVPMatchResult, HTTPValidationError>({
-				path: `/api/v1/pvp/${matchId}/start`,
+				path: `/api/v1/users/${userId}/start-pvp`,
 				method: 'POST',
 				format: 'json',
 				...params
@@ -638,13 +636,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags tasks
-		 * @name PostTaskApiV1TasksPost
+		 * @name PostTaskApiV1UsersUserIdCompleteTaskPost
 		 * @summary Post Task
-		 * @request POST:/api/v1/tasks
+		 * @request POST:/api/v1/users/{user_id}/complete-task
 		 */
-		postTaskApiV1TasksPost: (data: PostTaskRequest, params: RequestParams = {}) =>
+		postTaskApiV1UsersUserIdCompleteTaskPost: (
+			userId: number,
+			data: PostTaskRequest,
+			params: RequestParams = {}
+		) =>
 			this.request<any, HTTPValidationError>({
-				path: `/api/v1/tasks`,
+				path: `/api/v1/users/${userId}/complete-task`,
 				method: 'POST',
 				body: data,
 				type: ContentType.Json,
