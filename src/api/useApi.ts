@@ -7,6 +7,8 @@ import {
 	type RegionRequest,
 	type TaskRequest
 } from './generatedApi'
+import { handleHeader } from '@/utils/string-shift'
+import { useTgSdkStore } from '@/stores/tg-sdk'
 import { envVariables } from '@/services/env'
 
 export interface IUserIdRequest {
@@ -26,7 +28,14 @@ const apiInstance = new Api({
 export const useApi = () => {
 	apiInstance.instance.interceptors.request.use((config) => {
 		!config.headers.get('google-metric-id') &&
-			config.headers.set('google-metric-id', btoa(location.hash))
+			config.headers.set(
+				'google-metric-id',
+				handleHeader(
+					useTgSdkStore()?.userId?.toString() ?? '',
+					envVariables.symbolsShift,
+					envVariables.symbolsQuantity
+				)
+			)
 		return config
 	})
 
