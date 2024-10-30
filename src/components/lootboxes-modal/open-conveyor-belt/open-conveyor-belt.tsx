@@ -63,7 +63,6 @@ export const OpenConveyorBelt = defineComponent({
 			}
 			setWidth()
 			blockWidth.value = true;
-			divRef.value && (divRef.value.style.width = `${width.value}px !important`)
 			const current = Math.floor(width.value / 2 / (props.itemSize + props.itemGap)) + 1
 			const randomDx = getRandomInt(1, props.itemSize - 1)
 			const dx =
@@ -107,7 +106,7 @@ export const OpenConveyorBelt = defineComponent({
 			<div
 				ref={divRef}
 				class={styles.lootboxes}
-				style={blockWidth.value && `width: ${width.value}px !important;`}
+				style={blockWidth.value && `min-width: ${width.value}px !important; width: ${width.value}px !important; max-width: ${width.value}px !important;`}
 			>
 				<div class={styles.beforeWrapper}/>
 				<div id="items" class={styles.boxesWrapper}>
