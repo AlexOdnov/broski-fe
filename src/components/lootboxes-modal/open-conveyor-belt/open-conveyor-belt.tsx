@@ -1,5 +1,5 @@
 import styles from './open-conveyor-belt.module.css'
-import {computed, defineComponent, nextTick, onMounted, onUnmounted, ref, watch} from 'vue'
+import { defineComponent, nextTick, onMounted, onUnmounted, ref} from 'vue'
 import type { Prize } from '@/api/generatedApi'
 
 function getRandomInt(min: number, max: number) {
@@ -28,9 +28,12 @@ export const OpenConveyorBelt = defineComponent({
 	setup: (props, { expose }) => {
 		const divRef = ref<HTMLDivElement | null>(null)
 		const width = ref(-1)
+		const blockWidth = ref(false)
 		const setWidth = () => {
+			if(blockWidth.value) return
 			const _width = divRef.value?.clientWidth ?? window.innerWidth
-			width.value = _width > 320 ? _width : 320
+			width.value = _width
+			// width.value = _width > 320 ? _width : 320
 		}
 		const belt = ref<Prize[]>([])
 		const computeBelt = () => {
@@ -58,6 +61,9 @@ export const OpenConveyorBelt = defineComponent({
 				belt.value[props.targetElementIdx] = props.items[props.winIndex]
 				await nextTick()
 			}
+			setWidth()
+			blockWidth.value = true;
+			divRef.value && (divRef.value.style.width = `${width.value}px !important`)
 			const current = Math.floor(width.value / 2 / (props.itemSize + props.itemGap)) + 1
 			const randomDx = getRandomInt(1, props.itemSize - 1)
 			const dx =
@@ -78,6 +84,8 @@ export const OpenConveyorBelt = defineComponent({
 					;(item as HTMLDivElement).style.transform = `translateX(${-dx}px)`
 					if (idx === length - 1) {
 						props.onAnimationEnd()
+						blockWidth.value = false
+						divRef.value && (divRef.value.style.width = 'auto')
 					}
 				}
 			})
@@ -96,7 +104,12 @@ export const OpenConveyorBelt = defineComponent({
 		})
 
 		return () => (
-			<div ref={divRef} class={styles.lootboxes}>
+			<div
+				ref={divRef}
+				class={styles.lootboxes}
+				style={blockWidth.value && `width: ${width.value}px !important;`}
+			>
+				<div class={styles.beforeWrapper}/>
 				<div id="items" class={styles.boxesWrapper}>
 					<div class={styles.itemsWrapper}>
 						{belt.value?.map((item) => {
@@ -108,6 +121,7 @@ export const OpenConveyorBelt = defineComponent({
 						})}
 					</div>
 				</div>
+				<div class={styles.afterWrapper}/>
 			</div>
 		)
 	}

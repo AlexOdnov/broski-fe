@@ -1,6 +1,7 @@
 .lootboxes {
-	width: 100vw;
+	width: 100%;
 	overflow-x: hidden;
+	position: relative;
 }
 
 .item {
@@ -15,7 +16,6 @@
 }
 
 .boxesWrapper {
-	min-width: 320px;
 	width: 100%;
 	display: flex;
 	position: relative;
@@ -26,7 +26,8 @@
 	border-bottom: 2px solid #ffb800;
 }
 
-.boxesWrapper:before {
+/*.boxesWrapper:before {*/
+.beforeWrapper {
 	content: '';
 	position: absolute;
 	z-index: 1;
@@ -38,7 +39,8 @@
 	border-color: transparent transparent #ffb800 transparent;
 }
 
-.boxesWrapper:after {
+/*.boxesWrapper:after {*/
+.afterWrapper {
 	content: '';
 	position: absolute;
 	z-index: 1;

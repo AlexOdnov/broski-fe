@@ -144,15 +144,17 @@ export const LootboxesModal = defineComponent({
 									/>
 								)}
 								{currentState.value === LootboxesModalState.rolling && (
-									<OpenConveyorBelt
-										class={styles.conveyor}
-										ref={openConveyorBeltRef}
-										items={prizes.value}
-										winIndex={winIndex.value}
-										onAnimationEnd={() => {
-											currentState.value = LootboxesModalState.prize
-										}}
-									/>
+									<div class={styles.conveyorWrapper} >
+										<OpenConveyorBelt
+											class={styles.conveyor}
+											ref={openConveyorBeltRef}
+											items={prizes.value}
+											winIndex={winIndex.value}
+											onAnimationEnd={() => {
+												currentState.value = LootboxesModalState.prize
+											}}
+										/>
+									</div>
 								)}
 								{currentState.value === LootboxesModalState.prize && (
 									<>
