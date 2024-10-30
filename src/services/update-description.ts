@@ -13,8 +13,7 @@ export const useUpdateDescription = () => {
 	const updateDescription = update as IUpdate
 	const tgStore = useTgSdkStore()
 
-	const changes =
-		updateDescription.changes[tgStore.languageCode as 'ru' | 'en'] || updateDescription.changes.en
+	const changes = updateDescription.changes[tgStore.languageCode] || updateDescription.changes.en
 
 	return {
 		version: updateDescription.version,

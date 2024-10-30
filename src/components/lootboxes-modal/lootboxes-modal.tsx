@@ -12,7 +12,7 @@ import { useLocalization } from '@/services/localization'
 import { useUserStore } from '@/stores/user'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { envVariables } from '@/services/env'
-import { usePvpStore } from "@/stores/pvp";
+import { usePvpStore } from '@/stores/pvp'
 
 enum LootboxesModalState {
 	default = 'default',
@@ -49,7 +49,7 @@ export const LootboxesModal = defineComponent({
 			currentState.value = LootboxesModalState.boxOpen
 		}
 		const claim = async () => {
-			await Promise.all([ userStore.loadUser(), pvpStore.loadPvpCharacter() ])
+			await Promise.all([userStore.loadUser(), pvpStore.loadPvpCharacter()])
 			currentState.value = LootboxesModalState.default
 			openConveyorBeltRef.value?.reset()
 		}
@@ -91,7 +91,10 @@ export const LootboxesModal = defineComponent({
 						<div class={styles.content}>
 							<div
 								class={styles.card}
-								style={currentState.value === LootboxesModalState.boxOpen && 'padding: 0; min-height: min-content;'}
+								style={
+									currentState.value === LootboxesModalState.boxOpen &&
+									'padding: 0; min-height: min-content;'
+								}
 							>
 								{currentState.value === LootboxesModalState.default && (
 									<>
@@ -144,7 +147,7 @@ export const LootboxesModal = defineComponent({
 									/>
 								)}
 								{currentState.value === LootboxesModalState.rolling && (
-									<div class={styles.conveyorWrapper} >
+									<div class={styles.conveyorWrapper}>
 										<OpenConveyorBelt
 											class={styles.conveyor}
 											ref={openConveyorBeltRef}
@@ -189,7 +192,10 @@ export const LootboxesModal = defineComponent({
 							)}
 							{currentState.value !== LootboxesModalState.prize && (
 								<UiButton
-									disabled={currentState.value !== LootboxesModalState.default || userStore.user?.boxes === 0}
+									disabled={
+										currentState.value !== LootboxesModalState.default ||
+										userStore.user?.boxes === 0
+									}
 									mod={'primary'}
 									size={'lg'}
 									text={t('lootboxes.open')}

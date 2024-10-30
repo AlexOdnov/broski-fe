@@ -20,7 +20,7 @@ export const useLootboxesStore = defineStore('lootboxes', () => {
 
 	const openLootbox = async (): Promise<string | null> => {
 		try {
-			const result = await api.openLootbox(tgStore.userId)
+			const result = await api.openLootbox({ userId: tgStore.userId })
 			return result.result ?? null
 		} catch (error) {
 			console.warn(error)
