@@ -185,7 +185,7 @@ export const LootboxesModal = defineComponent({
 							)}
 							{currentState.value !== LootboxesModalState.prize && (
 								<UiButton
-									disabled={currentState.value !== LootboxesModalState.default}
+									disabled={currentState.value !== LootboxesModalState.default || userStore.user?.boxes === 0}
 									mod={'primary'}
 									size={'lg'}
 									text={t('lootboxes.open')}
