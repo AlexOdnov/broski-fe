@@ -62,15 +62,15 @@ export const useSuperGameStore = defineStore('superGame', () => {
 
 		switch (gameStatus.value) {
 			case GameStatus.Lose:
-				userStore.changeUserScore(-WIN_GAME_POINTS)
+				// userStore.changeUserScore(-WIN_GAME_POINTS)
 				break
 
 			case GameStatus.Nothing:
-				userStore.changeUserScore(WIN_GAME_POINTS)
+				// userStore.changeUserScore(WIN_GAME_POINTS)
 				break
 
 			case GameStatus.Win:
-				userStore.changeUserScore(WIN_GAME_POINTS * SUPER_GAME_MULTIPLIER)
+				// userStore.changeUserScore(WIN_GAME_POINTS * SUPER_GAME_MULTIPLIER)
 				break
 			default:
 				break
@@ -80,7 +80,7 @@ export const useSuperGameStore = defineStore('superGame', () => {
 		resetRemainAttempts()
 		resetGameField()
 		if (userStore.userLegacy?.first_game) {
-			userStore.loadUserLegacy()
+			// userStore.loadUserLegacy()
 		}
 	}
 

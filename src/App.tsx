@@ -6,7 +6,8 @@ import {
 	LoadingScreen,
 	MainComponent,
 	OnboardingComponent,
-	UpdateNotificationComponent
+	UpdateNotificationComponent,
+	DisabledScreen
 } from './components'
 import { useUserStore } from './stores/user'
 import { useTgSdkStore } from './stores/tg-sdk'
@@ -27,8 +28,9 @@ export default defineComponent({
 		const commonStore = useCommonStore()
 		const referralsStore = useReferralsStore()
 		const pvpStore = usePvpStore()
-		const { i18n } = useLocalization()
+		const advertisingStore = useAdvertisingStore()
 		const sentry = useSentry()
+		const { i18n } = useLocalization()
 
 		const isUserExist = ref(false)
 
@@ -40,8 +42,12 @@ export default defineComponent({
 		const needRenderOnboarding = computed(() => userStore.userLegacy?.first_login)
 		const needRenderUpdateNotification = computed(() => userStore.userLegacy?.push_see === false)
 		const needRenderEventNotification = computed(() => userStore.userLegacy?.daily_event === false)
+		const needRenderDisabledScreen = computed(() => envVariables.disableApp)
 
 		const getComponent = computed(() => {
+			if (needRenderDisabledScreen.value) {
+				return <DisabledScreen />
+			}
 			if (isLoaderVisible.value) {
 				return <LoadingScreen />
 			}
@@ -54,9 +60,9 @@ export default defineComponent({
 			if (needRenderEventNotification.value) {
 				return <EventNotificationComponent />
 			}
-			// if (needRenderDaily.value) {
-			// 	return <DailyComponent day={userStore.userLegacy?.daily_stric ?? 1} />
-			// }
+			if (needRenderDaily.value) {
+				return <DailyComponent day={userStore.userLegacy?.daily_stric ?? 1} />
+			}
 			return <MainComponent />
 		})
 
@@ -102,20 +108,16 @@ export default defineComponent({
 			}
 			i18n.locale.value = tgStore.languageCode
 			commonStore.setIsLoadingForTimeout(envVariables.loaderDuration)
-			await useAdvertisingStore().init()
-			await Promise.all([
-				userStore.initUser(),
-				userStore.loadUserLegacy(true),
-				pvpStore.loadPvpCharacter(true)
-			])
+			await userStore.loadUserLegacy(true)
+			await Promise.all([userStore.loadUser(), pvpStore.loadPvpCharacter(true)])
 			if (!userStore.user || !userStore.userLegacy || !pvpStore.pvpCharacter) {
 				console.warn('Failed to get broski user information')
 				return
 			}
 			isUserExist.value = true
+			advertisingStore.init()
 			tasksStore.getTasks()
 			referralsStore.loadReferrals()
-			userStore.startUpdateMiningString()
 			userStore.switchRegion()
 		}
 

@@ -33,7 +33,8 @@ const TaskPage = defineComponent({
 		const whenCheckClicked = async () => {
 			isChecking.value = true
 			await tasksStore.setTaskDone(taskId.value)
-			await userStore.loadUser()
+			tasksStore.getTasks()
+			userStore.loadUser()
 			isChecking.value = false
 		}
 
