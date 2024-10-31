@@ -53,7 +53,7 @@ export const useApi = () => {
 
 	const doneTask = async (payload: IDoneTaskRequest) => {
 		return (
-			await apiInstance.api.checkTaskApiV1UsersUserIdCheckTaskPost(payload.userId, {
+			await apiInstance.api.postTaskApiV1UsersUserIdCompleteTaskPost(payload.userId, {
 				task_id: payload.task_id
 			})
 		).data
