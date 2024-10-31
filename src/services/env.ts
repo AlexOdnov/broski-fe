@@ -10,15 +10,17 @@ export interface Env {
 	invoice3Premium: string
 	invoice7Premium: string
 	invoice14Premium: string
+	imvoiceLootboxBuy: string
 	sentryDSN: string
 	skipPvpCost: 'coin' | 'ticket'
 	symbolsQuantity: number
 	symbolsShift: number
 	environment: 'prod' | 'dev'
+	disableApp: boolean
 }
 
 export const envVariables: Env = {
-	backendUrl: import.meta.env.VITE_BACKEND_URL || 'https://brocoin.site',
+	backendUrl: import.meta.env.VITE_BACKEND_URL || 'https://api.itsbrocoin.wtf',
 	botUrl: import.meta.env.VITE_BOT_URL || 'https://t.me/itsbrocoinbot/BROSKI',
 	lootboxChance: Number(import.meta.env.VITE_LOOTBOX_CHANCE || 1),
 	loaderDuration: Number(import.meta.env.VITE_LOADER_DURATION || 500),
@@ -29,9 +31,11 @@ export const envVariables: Env = {
 	invoice3Premium: import.meta.env.VITE_INVOICE_3_PREMIUM || '',
 	invoice7Premium: import.meta.env.VITE_INVOICE_7_PREMIUM || '',
 	invoice14Premium: import.meta.env.VITE_INVOICE_14_PREMIUM || '',
+	imvoiceLootboxBuy: import.meta.env.VITE_INVOICE_LOOTBOX_BUY || '',
 	sentryDSN: import.meta.env.VITE_SENTRY_DSN || '',
 	skipPvpCost: import.meta.env.VITE_SKIP_PVP_COST || 'ticket',
 	symbolsQuantity: Number(import.meta.env.VITE_SYMBOLS_QUANTITY) || 0,
 	symbolsShift: Number(import.meta.env.VITE_SYMBOLS_SHIFT) || 0,
-	environment: import.meta.env.VITE_ENVIRONMENT || 'dev'
+	environment: import.meta.env.VITE_ENVIRONMENT || 'dev',
+	disableApp: import.meta.env.VITE_DISABLE_APP === 'true'
 }

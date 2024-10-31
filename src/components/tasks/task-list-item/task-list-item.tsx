@@ -1,11 +1,11 @@
 import { defineComponent, type PropType } from 'vue'
 import styles from './task-list-item.module.css'
-import type { TasksCreateResponseItem } from '@/api/responseTypes'
+import type { Task } from '@/api/generatedApi'
 import { UiText } from '@/components/ui'
 export const TaskListItem = defineComponent({
 	name: 'TaskListItem',
 	props: {
-		task: { type: Object as PropType<TasksCreateResponseItem>, required: true },
+		task: { type: Object as PropType<Task>, required: true },
 		whenTaskSelected: { type: Function as PropType<(taskId: number) => void>, required: true }
 	},
 	setup: (props) => {

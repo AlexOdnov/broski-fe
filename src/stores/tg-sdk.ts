@@ -13,7 +13,11 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 	const tg = ref<null | TelegramWebApps.WebApp>(null)
 
 	const user = computed(() => tg.value?.initDataUnsafe?.user)
-	const startParam = computed(() => tg.value?.initDataUnsafe?.start_param)
+	const startParam = computed(() =>
+		Number(tg.value?.initDataUnsafe?.start_param)
+			? Number(tg.value?.initDataUnsafe?.start_param)
+			: undefined
+	)
 	const username = computed(() => user.value?.username || '')
 	const userId = computed(() => user.value?.id || 0)
 	const isPremium = computed(() => user.value?.is_premium)
