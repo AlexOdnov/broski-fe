@@ -1,0 +1,13 @@
+.abilityCounter {
+	display: flex;
+	gap: 4px;
+	align-items: center;
+}
+
+.abilityCounterReverse {
+	flex-direction: row-reverse;
+}
+
+.iconDisabled {
+	mix-blend-mode: luminosity;
+}
