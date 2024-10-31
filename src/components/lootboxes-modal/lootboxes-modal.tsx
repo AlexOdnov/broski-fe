@@ -51,7 +51,7 @@ export const LootboxesModal = defineComponent({
 				currentState.value = LootboxesModalState.rolling
 				await nextTick()
 				rollConveyor()
-			}, 2000)
+			}, 2500)
 		}
 		const claim = async () => {
 			await Promise.all([userStore.loadUser(), pvpStore.loadPvpCharacter()])
