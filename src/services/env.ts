@@ -16,6 +16,7 @@ export interface Env {
 	symbolsQuantity: number
 	symbolsShift: number
 	environment: 'prod' | 'dev'
+	disableApp: boolean
 }
 
 export const envVariables: Env = {
@@ -35,5 +36,6 @@ export const envVariables: Env = {
 	skipPvpCost: import.meta.env.VITE_SKIP_PVP_COST || 'ticket',
 	symbolsQuantity: Number(import.meta.env.VITE_SYMBOLS_QUANTITY) || 0,
 	symbolsShift: Number(import.meta.env.VITE_SYMBOLS_SHIFT) || 0,
-	environment: import.meta.env.VITE_ENVIRONMENT || 'dev'
+	environment: import.meta.env.VITE_ENVIRONMENT || 'dev',
+	disableApp: import.meta.env.VITE_DISABLE_APP === 'true'
 }
