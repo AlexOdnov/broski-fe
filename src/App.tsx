@@ -6,7 +6,8 @@ import {
 	LoadingScreen,
 	MainComponent,
 	OnboardingComponent,
-	UpdateNotificationComponent
+	UpdateNotificationComponent,
+	DisabledScreen
 } from './components'
 import { useUserStore } from './stores/user'
 import { useTgSdkStore } from './stores/tg-sdk'
@@ -40,8 +41,12 @@ export default defineComponent({
 		const needRenderOnboarding = computed(() => userStore.userLegacy?.first_login)
 		const needRenderUpdateNotification = computed(() => userStore.userLegacy?.push_see === false)
 		const needRenderEventNotification = computed(() => userStore.userLegacy?.daily_event === false)
+		const needRenderDisabledScreen = computed(() => envVariables.disableApp)
 
 		const getComponent = computed(() => {
+			if (needRenderDisabledScreen.value) {
+				return <DisabledScreen />
+			}
 			if (isLoaderVisible.value) {
 				return <LoadingScreen />
 			}
