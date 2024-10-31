@@ -19,7 +19,9 @@ export const UiProgressBar = defineComponent({
 		counterColor: { type: String, default: '#141517' }
 	},
 	setup: (props) => {
-		const items = computed(() => Array(props.totalItems).fill(null))
+		const innerTotalItems = computed(() => (props.totalItems > 0 ? props.totalItems : 1))
+		const innerFilledItems = computed(() => (props.totalItems > 0 ? props.filledItems : 1))
+		const items = computed(() => Array(innerTotalItems.value).fill(null))
 
 		const progressBarBorderStyle = computed(() => ({
 			padding: props.mod === 'segmented' ? '0' : `${props.padding + 1}px`,
@@ -31,14 +33,15 @@ export const UiProgressBar = defineComponent({
 		}))
 
 		const progressBarStyle = computed(() => ({
-			gridTemplateColumns: props.mod === 'filled' ? 'auto' : `repeat(${props.totalItems}, 1fr)`,
+			gridTemplateColumns:
+				props.mod === 'filled' ? 'auto' : `repeat(${innerTotalItems.value}, 1fr)`,
 			border: props.mod === 'segmented' ? 'var(--borderStyle)' : 'none',
 			gap: `${props.padding}px`
 		}))
 
 		const fillerStyle = computed(() => ({
 			backgroundColor: props.fillerColor,
-			width: `${(props.filledItems / props.totalItems) * 100}%`
+			width: `${(innerFilledItems.value / innerTotalItems.value) * 100}%`
 		}))
 
 		const counterStyle = computed(() => ({
@@ -46,9 +49,9 @@ export const UiProgressBar = defineComponent({
 		}))
 
 		const getSegmentStyle = (index: number) => ({
-			opacity: index < props.filledItems || props.mod === 'round-segmented' ? 1 : 0,
+			opacity: index < innerFilledItems.value || props.mod === 'round-segmented' ? 1 : 0,
 			backgroundColor:
-				index >= props.filledItems && props.mod === 'round-segmented'
+				index >= innerFilledItems.value && props.mod === 'round-segmented'
 					? '#35332e'
 					: props.fillerColor
 		})
