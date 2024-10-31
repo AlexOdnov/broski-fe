@@ -6,14 +6,8 @@ import { useUserStore } from '@/stores/user'
 import { useAdvertisingStore } from '@/stores/advertising'
 import { AdIcon } from '@/components/icons'
 import { GameElement } from '../shared'
-import {
-	GameStatus,
-	WIN_GAME_POINTS,
-	FIELD_PLACEHOLDERS,
-	HALLOWEEN_FIELD_PLACEHOLDERS
-} from '@/utils/games'
+import { GameStatus, WIN_GAME_POINTS, FIELD_PLACEHOLDERS } from '@/utils/games'
 import { UiText } from '@/components/ui/ui-text'
-import { shuffle } from '@/utils/shuffle'
 import { useLocalization } from '@/services/localization'
 
 export const FindBroGame = defineComponent({
@@ -27,7 +21,7 @@ export const FindBroGame = defineComponent({
 		const advStore = useAdvertisingStore()
 		const { t } = useLocalization()
 
-		const placeholders = ref(shuffle(HALLOWEEN_FIELD_PLACEHOLDERS))
+		const placeholders = ref(FIELD_PLACEHOLDERS)
 
 		const topText = computed(() => {
 			switch (gameStore.gameStatus) {
@@ -104,7 +98,6 @@ export const FindBroGame = defineComponent({
 
 		const finishGame = () => {
 			gameStore.finishGame()
-			placeholders.value = shuffle(HALLOWEEN_FIELD_PLACEHOLDERS)
 		}
 
 		const whenAdvClick = async () => {
@@ -116,7 +109,6 @@ export const FindBroGame = defineComponent({
 
 		const switchToSuperGame = () => {
 			gameStore.finishGame(true)
-			placeholders.value = shuffle(HALLOWEEN_FIELD_PLACEHOLDERS)
 			props.whenSwitchToSuperGame()
 		}
 
