@@ -49,7 +49,7 @@ export const LoadingScreen = defineComponent({
 						<img class={styles.hand} src="/images/hand.gif" alt="hand" />
 					</div>
 					<div class={styles.progressBarWrapper}>
-						<img class={styles.logo} src="/images/broski-halloween.webp" alt="BROski" />
+						<img class={styles.logo} src="/images/broski.webp" alt="BROski" />
 						<UiProgressBar
 							totalItems={totalItems}
 							filledItems={currentProgress.value}
