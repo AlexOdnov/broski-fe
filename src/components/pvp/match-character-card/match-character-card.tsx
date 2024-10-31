@@ -1,17 +1,9 @@
 import { computed, defineComponent } from 'vue'
-import {
-	CombinationsIcon,
-	DefenceIcon,
-	LevelIcon,
-	SpeedIcon,
-	StarsIcon,
-	StrengthIcon,
-	WeightIcon
-} from '@/components/icons'
-import { PowerCounter } from '@/components/pvp'
+import { LevelIcon, StarsIcon } from '@/components/icons'
+import { AbilityCounter, PowerCounter } from '@/components/pvp'
 import { CoinCounter, UiText } from '@/components'
 
-import styles from './match-competitioner-card.module.css'
+import styles from './match-character-card.module.css'
 import { usePvpStore } from '@/stores/pvp'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { useLocalization } from '@/services/localization'
@@ -44,6 +36,10 @@ export const MatchCharacterCard = defineComponent({
 			return props.isEnemy ? (character.value ? enemyImg : '/images/enemy_unknown.webp') : userImg
 		})
 
+		const maximumAbilityValue = computed(() => {
+			return Math.max(...Object.values(character.value?.abilities || {})) ?? 1
+		})
+
 		return () => (
 			<div class={styles.card}>
 				<div class={styles.userName}>
@@ -71,53 +67,49 @@ export const MatchCharacterCard = defineComponent({
 						<StarsIcon class={props.isEnemy ? styles.premIconEnemy : styles.premIcon} />
 					)}
 				</div>
-				<PowerCounter power={character.value?.power ?? 0} totalPower={totalPower.value} />
-				<div class={styles.flexRow}>
-					<div class={styles.iconWithNumber}>
-						<StrengthIcon height={12} />
-						&nbsp;
-						{character.value?.abilities?.strength?.toLocaleString('en-US', {
-							minimumIntegerDigits: 2,
-							useGrouping: false
-						}) ?? '00'}
-					</div>
-					<div class={styles.delimiter} />
-					<div class={styles.iconWithNumber}>
-						<DefenceIcon height={12} />
-						&nbsp;
-						{character.value?.abilities?.defence?.toLocaleString('en-US', {
-							minimumIntegerDigits: 2,
-							useGrouping: false
-						}) ?? '00'}
-					</div>
-					<div class={styles.delimiter} />
-					<div class={styles.iconWithNumber}>
-						<SpeedIcon height={12} />
-						&nbsp;
-						{character.value?.abilities?.speed?.toLocaleString('en-US', {
-							minimumIntegerDigits: 2,
-							useGrouping: false
-						}) ?? '00'}
-					</div>
-					<div class={styles.delimiter} />
-					<div class={styles.iconWithNumber}>
-						<WeightIcon height={12} />
-						&nbsp;
-						{character.value?.abilities?.weight?.toLocaleString('en-US', {
-							minimumIntegerDigits: 2,
-							useGrouping: false
-						}) ?? '00'}
-					</div>
-					<div class={styles.delimiter} />
-					<div class={styles.iconWithNumber}>
-						<CombinationsIcon height={12} />
-						&nbsp;
-						{character.value?.abilities?.combinations?.toLocaleString('en-US', {
-							minimumIntegerDigits: 2,
-							useGrouping: false
-						}) ?? '00'}
-					</div>
+				<div class={styles.abilities}>
+					<AbilityCounter
+						size={'sm'}
+						reverse={props.isEnemy}
+						abilityType={'strength'}
+						currentValue={character.value?.abilities.strength ?? 0}
+						maximumValue={maximumAbilityValue.value}
+						disabled={!character.value}
+					/>
+					<AbilityCounter
+						size={'sm'}
+						reverse={props.isEnemy}
+						abilityType={'defence'}
+						currentValue={character.value?.abilities.defence ?? 0}
+						maximumValue={maximumAbilityValue.value}
+						disabled={!character.value}
+					/>
+					<AbilityCounter
+						size={'sm'}
+						reverse={props.isEnemy}
+						abilityType={'speed'}
+						currentValue={character.value?.abilities.speed ?? 0}
+						maximumValue={maximumAbilityValue.value}
+						disabled={!character.value}
+					/>
+					<AbilityCounter
+						size={'sm'}
+						reverse={props.isEnemy}
+						abilityType={'weight'}
+						currentValue={character.value?.abilities.weight ?? 0}
+						maximumValue={maximumAbilityValue.value}
+						disabled={!character.value}
+					/>
+					<AbilityCounter
+						size={'sm'}
+						reverse={props.isEnemy}
+						abilityType={'combinations'}
+						currentValue={character.value?.abilities.combinations ?? 0}
+						maximumValue={maximumAbilityValue.value}
+						disabled={!character.value}
+					/>
 				</div>
+				<PowerCounter power={character.value?.power ?? 0} totalPower={totalPower.value} />
 				{pvpStore.isCharacterPremium && (
 					<div class={styles.stats}>
 						<div class={styles.statsRow}>

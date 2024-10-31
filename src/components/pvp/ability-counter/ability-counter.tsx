@@ -63,7 +63,12 @@ export const AbilityCounter = defineComponent({
 				/>
 				{props.size === 'sm' && (
 					<UiText fontSize={'12px'} color={props.disabled ? '#4E4F4F' : '#CBCBCB'}>
-						{props.currentValue}
+						{props.disabled
+							? '00'
+							: props.currentValue.toLocaleString('en-US', {
+									minimumIntegerDigits: 2,
+									useGrouping: false
+								})}
 					</UiText>
 				)}
 			</div>
