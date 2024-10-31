@@ -31,9 +31,9 @@ export const MatchCharacterCard = defineComponent({
 		})
 
 		const totalPower = computed(() =>
-			(pvpStore.pvpCharacter?.power ?? 0) > (pvpStore.pvpMatch?.opponent.power ?? 0)
-				? pvpStore.pvpCharacter?.power
-				: pvpStore.pvpMatch?.opponent.power
+			character.value?.power
+				? Math.max(pvpStore.pvpCharacter?.power ?? 0, pvpStore.pvpMatch?.opponent.power ?? 0)
+				: 0
 		)
 
 		const imageUrl = computed(() => {
