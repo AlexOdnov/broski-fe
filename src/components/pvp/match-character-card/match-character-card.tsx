@@ -1,5 +1,5 @@
 import { computed, defineComponent } from 'vue'
-import { LevelIcon, StarsIcon } from '@/components/icons'
+import { LevelIcon, StarsIcon, ProfileIcon } from '@/components/icons'
 import { AbilityCounter, PowerCounter } from '@/components/pvp'
 import { CoinCounter, UiText } from '@/components'
 
@@ -43,15 +43,29 @@ export const MatchCharacterCard = defineComponent({
 		return () => (
 			<div class={styles.card}>
 				<div class={styles.userName}>
-					<div class={styles.lvl}>
-						<LevelIcon height={11} />
-						<UiText
-							color="#797979"
-							fontSize="12px"
-							lineHeight="12px"
-							fontWeight={400}
-						>{`lvl ${character.value?.level ?? '??'}`}</UiText>
-					</div>
+					{props.isEnemy ? (
+						character.value ? (
+							<div class={styles.lvl}>
+								<LevelIcon height={11} />
+								<UiText
+									color="#797979"
+									fontSize="12px"
+									lineHeight="12px"
+									fontWeight={400}
+								>{`lvl ${character.value?.level}`}</UiText>
+							</div>
+						) : (
+							<div class={styles.profileIconWrapper}>
+								<UiText isAccent fontWeight={700} fontSize={'12px'}>
+									i
+								</UiText>
+							</div>
+						)
+					) : (
+						<div class={styles.profileIconWrapper}>
+							<ProfileIcon size={10} />
+						</div>
+					)}
 					<UiText color={props.isEnemy && !character.value ? '#797979' : undefined}>
 						{props.isEnemy
 							? (pvpStore.pvpMatch?.opponent.username ?? t('pvp.lookingForEnemy'))
