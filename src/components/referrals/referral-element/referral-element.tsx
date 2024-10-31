@@ -1,6 +1,6 @@
 import { defineComponent, type PropType } from 'vue'
 import styles from './styles.module.css'
-import type { Referral } from '@/api/responseTypes'
+import type { Referral } from '@/api/generatedApi'
 import { UiText } from '@/components/ui'
 import { CoinIcon } from '@/components/icons'
 

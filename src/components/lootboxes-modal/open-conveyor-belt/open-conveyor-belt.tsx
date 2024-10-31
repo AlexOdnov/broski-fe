@@ -1,5 +1,6 @@
 import styles from './open-conveyor-belt.module.css'
-import { defineComponent, nextTick, onMounted, onUnmounted, ref} from 'vue'
+
+import { defineComponent, nextTick, onMounted, onUnmounted, ref } from 'vue'
 import type { Prize } from '@/api/generatedApi'
 
 function getRandomInt(min: number, max: number) {
@@ -30,7 +31,7 @@ export const OpenConveyorBelt = defineComponent({
 		const width = ref(-1)
 		const blockWidth = ref(false)
 		const setWidth = () => {
-			if(blockWidth.value) return
+			if (blockWidth.value) return
 			const _width = divRef.value?.clientWidth ?? window.innerWidth
 			width.value = _width
 			// width.value = _width > 320 ? _width : 320
@@ -57,12 +58,16 @@ export const OpenConveyorBelt = defineComponent({
 			window.removeEventListener('resize', setWidth)
 		})
 		const open = async () => {
-			if(belt.value[props.targetElementIdx] && props.items[props.winIndex] && belt.value.at(props.targetElementIdx)?.item !== props.items.at(props.winIndex)?.item) {
+			if (
+				belt.value[props.targetElementIdx] &&
+				props.items[props.winIndex] &&
+				belt.value.at(props.targetElementIdx)?.item !== props.items.at(props.winIndex)?.item
+			) {
 				belt.value[props.targetElementIdx] = props.items[props.winIndex]
 				await nextTick()
 			}
 			setWidth()
-			blockWidth.value = true;
+			blockWidth.value = true
 			const current = Math.floor(width.value / 2 / (props.itemSize + props.itemGap)) + 1
 			const randomDx = getRandomInt(1, props.itemSize - 1)
 			const dx =
@@ -72,7 +77,7 @@ export const OpenConveyorBelt = defineComponent({
 				randomDx
 			const length = window.document.querySelectorAll('.' + styles.item).length
 			window.document.querySelectorAll('.' + styles.item).forEach((item, idx) => {
-				(item as HTMLDivElement).style.transform = 'none'
+				;(item as HTMLDivElement).style.transform = 'none'
 				item.animate(
 					{ transform: `translateX(${-dx}px)` },
 					{
@@ -92,23 +97,26 @@ export const OpenConveyorBelt = defineComponent({
 
 		const reset = () => {
 			window.document.querySelectorAll('.' + styles.item).forEach((item, idx) => {
-				(item as HTMLDivElement).style.transform = 'none'
+				;(item as HTMLDivElement).style.transform = 'none'
 			})
 		}
 
 		expose({
 			open,
 			reset,
-			computeBelt,
+			computeBelt
 		})
 
 		return () => (
 			<div
 				ref={divRef}
 				class={styles.lootboxes}
-				style={blockWidth.value && `min-width: ${width.value}px !important; width: ${width.value}px !important; max-width: ${width.value}px !important;`}
+				style={
+					blockWidth.value &&
+					`min-width: ${width.value}px !important; width: ${width.value}px !important; max-width: ${width.value}px !important;`
+				}
 			>
-				<div class={styles.beforeWrapper}/>
+				<div class={styles.beforeWrapper} />
 				<div id="items" class={styles.boxesWrapper}>
 					<div class={styles.itemsWrapper}>
 						{belt.value?.map((item) => {
@@ -120,7 +128,7 @@ export const OpenConveyorBelt = defineComponent({
 						})}
 					</div>
 				</div>
-				<div class={styles.afterWrapper}/>
+				<div class={styles.afterWrapper} />
 			</div>
 		)
 	}
