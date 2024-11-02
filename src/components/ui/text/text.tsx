@@ -1,5 +1,5 @@
 import { computed, defineComponent, type PropType } from 'vue'
-import styles from './ui-text.module.css'
+import styles from './text.module.css'
 
 export type UiTextFontWeight = 400 | 500 | 600 | 700
 export type UiTextFontFamily = 'roboto' | 'barcadeBrawl'

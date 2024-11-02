@@ -1,16 +1,18 @@
 import { computed, defineComponent, ref } from 'vue'
-import styles from './ui-header.module.css'
+import styles from './header.module.css'
 import { useUserStore } from '@/stores/user'
 import { UiHeightPlaceholder, UiProgressBar, UiText, type UiBottomSheetMethods } from '@/components'
 import { usePvpStore } from '@/stores/pvp'
 import { HeaderPremActiveIcon, HeaderPremIcon } from '@/components/icons'
 import { BuyPremium } from '@/components/pvp'
+import { useCommonStore } from '@/stores/common'
 
 export const UiHeader = defineComponent({
 	name: 'UiHeader',
 	setup: () => {
 		const userStore = useUserStore()
 		const pvpStore = usePvpStore()
+		const commonStore = useCommonStore()
 
 		const premiumModal = ref<UiBottomSheetMethods | null>(null)
 
@@ -25,7 +27,10 @@ export const UiHeader = defineComponent({
 
 		return () => (
 			<>
-				<div class={styles.header}>
+				<div
+					class={styles.header}
+					style={commonStore.isNavigationDisabled && 'pointer-events: none'}
+				>
 					<div class={styles.headerItem} onClick={() => premiumModal.value?.open()}>
 						<UiProgressBar
 							filledItems={pvpStore.pvpCharacter?.experience.current_experience ?? 0}

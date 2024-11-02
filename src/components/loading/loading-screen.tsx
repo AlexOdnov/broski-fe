@@ -2,7 +2,7 @@ import { defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 import styles from './styles.module.css'
 import { envVariables } from '@/services/env'
 import { UiProgressBar } from '@/components/ui'
-import { UiText } from '../ui/ui-text'
+import { UiText } from '../ui'
 import { useLocalization } from '@/services/localization'
 
 export const LoadingScreen = defineComponent({

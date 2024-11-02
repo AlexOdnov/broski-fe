@@ -7,7 +7,7 @@ import { useAdvertisingStore } from '@/stores/advertising'
 import { AdIcon } from '@/components/icons'
 import { GameElement } from '../shared'
 import { GameStatus, WIN_GAME_POINTS, FIELD_PLACEHOLDERS } from '@/utils/games'
-import { UiText } from '@/components/ui/ui-text'
+import { UiText } from '@/components/ui'
 import { useLocalization } from '@/services/localization'
 
 export const FindBroGame = defineComponent({

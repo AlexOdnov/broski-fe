@@ -6,7 +6,7 @@ import { TaskListItem } from '@/components/tasks/task-list-item'
 import { useRouter } from 'vue-router'
 import { RouteName } from '@/router'
 import { useLocalization } from '@/services/localization'
-import { UiHeader } from '@/components/ui/ui-header/ui-header'
+import { UiHeader } from '@/components/ui'
 
 const TasksPage = defineComponent({
 	name: 'TasksPage',

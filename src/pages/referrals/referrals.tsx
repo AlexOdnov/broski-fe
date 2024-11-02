@@ -8,7 +8,7 @@ import { envVariables } from '@/services/env'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { StarIcon, TicketIcon } from '@/components/icons'
 import { useLocalization } from '@/services/localization'
-import { UiHeader } from '@/components/ui/ui-header/ui-header'
+import { UiHeader } from '@/components/ui'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',

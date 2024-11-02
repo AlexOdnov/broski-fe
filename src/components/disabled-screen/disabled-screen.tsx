@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
 import styles from './styles.module.css'
-import { UiText } from '../ui/ui-text'
+import { UiText } from '../ui'
 
 export const DisabledScreen = defineComponent({
 	name: 'DisabledScreen',

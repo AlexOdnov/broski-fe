@@ -6,7 +6,7 @@ import { UiTabs } from '@/components'
 import { RouteName } from '@/router'
 import { useCommonStore } from '@/stores/common'
 import { useLocalization } from '@/services/localization'
-import { UiHeader } from '@/components/ui/ui-header/ui-header'
+import { UiHeader } from '@/components/ui'
 
 const GamePage = defineComponent({
 	name: 'GamePage',
