@@ -26,7 +26,7 @@ export const UiTabs = defineComponent({
 						text={el.label}
 						disabled={props.disabled || el.disabled}
 						minWidth={`${100 / props.options.length}%`}
-						mod={props.selected === el.value ? 'primary' : 'secondary'}
+						mod={props.selected === el.value ? 'primary' : 'inverse'}
 						whenClick={() => props.whenChange(el.value)}
 					/>
 				))}

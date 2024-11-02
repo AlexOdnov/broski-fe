@@ -15,6 +15,8 @@ import { useUserStore } from './user'
 import { Temporal } from 'temporal-polyfill'
 import { useSentry } from '@/services/sentry'
 
+export type AbilityType = keyof AbilityScores
+
 export const usePvpStore = defineStore('pvp', () => {
 	const api = useApi()
 	const sentry = useSentry()

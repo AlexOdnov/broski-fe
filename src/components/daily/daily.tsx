@@ -3,7 +3,7 @@ import { computed, defineComponent } from 'vue'
 import { RewardBlock, UiButton } from '@/components'
 import { useUserStore } from '@/stores/user'
 import { getRewardByDay, type Reward } from '@/utils/get-daily-rewards'
-import { UiText } from '../ui/ui-text'
+import { UiText } from '../ui'
 import { useLocalization } from '@/services/localization'
 
 export const DailyComponent = defineComponent({

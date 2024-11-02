@@ -1,9 +1,10 @@
 .pvp {
+	position: relative;
 	display: grid;
 	width: 100%;
-	gap: 10px;
+	gap: 12px;
 	grid-template-columns: 1fr 1fr;
-	padding: 10px 15px;
+	padding: 6px 15px;
 }
 
 .fullWidth {
@@ -13,9 +14,10 @@
 .textInFrontWrapper {
 	z-index: 2;
 	height: 0;
-	position: relative;
-	top: calc(40px + 6vh);
-	left: calc(50vw - 50% - 20px + 5px);
+	position: absolute;
+	top: calc(90px);
+	left: 50%;
+	transform: translateX(calc(-50% - 6px));
 	display: flex;
 	align-items: center;
 	justify-content: center;

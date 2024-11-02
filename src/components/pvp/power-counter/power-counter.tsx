@@ -8,28 +8,36 @@ export const PowerCounter = defineComponent({
 	name: 'PowerCounter',
 	props: {
 		power: { type: Number, required: true },
-		totalPower: { type: Number, required: false }
+		totalPower: { type: Number, required: false },
+		hideProgressBar: { type: Boolean, default: false }
 	},
 	setup: (props) => {
 		const { t } = useLocalization()
 
 		return () => (
-			<div>
+			<div class={styles.powerCounter}>
 				<div class={styles.powerWrapper}>
 					<UiText class={styles.power} fontSize={'14px'} color={'#797979'}>
-						<FistIcon height={14} />
+						<FistIcon height={16} />
 						&nbsp;{t('pvp.battlePower')}:
 					</UiText>
-					<UiText fontSize={'14px'} fontWeight={700} isAccent>
-						{Math.round(props.power)}
+					<UiText
+						fontSize={'14px'}
+						fontWeight={700}
+						isAccent={!!props.power}
+						color={!props.power ? '#4E4F4F' : undefined}
+					>
+						{props.power ? Math.round(props.power) : '00'}
 					</UiText>
 				</div>
-				<UiProgressBar
-					totalItems={props.totalPower ? props.totalPower : props.power}
-					filledItems={props.power}
-					height={10}
-					color={'#A955DD'}
-				/>
+				{!props.hideProgressBar && (
+					<UiProgressBar
+						totalItems={props.totalPower ? props.totalPower : props.power}
+						filledItems={props.power}
+						height={10}
+						fillerColor={props.power ? '#A955DD' : '#4E4F4F'}
+					/>
+				)}
 			</div>
 		)
 	}
