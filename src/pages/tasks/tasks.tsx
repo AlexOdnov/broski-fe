@@ -4,9 +4,9 @@ import styles from './styles.module.css'
 import { useTasksStore } from '@/stores/tasks'
 import { TaskListItem } from '@/components/tasks/task-list-item'
 import { useRouter } from 'vue-router'
-import { UserBalance } from '@/components/ui/user-balance'
 import { RouteName } from '@/router'
 import { useLocalization } from '@/services/localization'
+import { UiHeader } from '@/components/ui/ui-header/ui-header'
 
 const TasksPage = defineComponent({
 	name: 'TasksPage',
@@ -21,7 +21,7 @@ const TasksPage = defineComponent({
 
 		return () => (
 			<div>
-				<UserBalance />
+				<UiHeader />
 				<div class={styles.tasks}>
 					<span class={styles.listTitle}>{t('task.tasks')}</span>
 					{tasksStore.uncompletedTasks.map((task, index) => {

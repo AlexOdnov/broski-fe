@@ -1,12 +1,12 @@
 import { defineComponent, ref } from 'vue'
 
 import styles from './styles.module.css'
-import { UserBalance } from '@/components/ui/user-balance'
 import { RouterView, useRouter } from 'vue-router'
 import { UiTabs } from '@/components'
 import { RouteName } from '@/router'
 import { useCommonStore } from '@/stores/common'
 import { useLocalization } from '@/services/localization'
+import { UiHeader } from '@/components/ui/ui-header/ui-header'
 
 const GamePage = defineComponent({
 	name: 'GamePage',
@@ -40,7 +40,7 @@ const GamePage = defineComponent({
 
 		return () => (
 			<>
-				<UserBalance />
+				<UiHeader />
 				<div class={styles.navigation}>
 					<UiTabs
 						disabled={commonStore.isNavigationDisabled}
