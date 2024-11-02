@@ -26,9 +26,9 @@ export const UiProgressBar = defineComponent({
 		const progressBarBorderStyle = computed(() => ({
 			padding: props.mod === 'segmented' ? '0' : `${props.padding + 1}px`,
 			'--borderColor': props.borderColor,
-			'--borderRadius': props.rounded ? '9999px' : `${props.height / 4}px`,
+			'--borderRadius': props.rounded ? '9999px' : `${props.height / 3}px`,
 			'--fillerHeight': `${props.height - 2 - props.padding * 2}px`,
-			'--fillerRadius': props.rounded ? '9999px' : `calc(var(--fillerHeight) / 4)`,
+			'--fillerRadius': props.rounded ? '9999px' : `calc(var(--fillerHeight) / 3)`,
 			'--borderStyle': '1px solid var(--borderColor)'
 		}))
 

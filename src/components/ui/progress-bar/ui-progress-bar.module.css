@@ -1,7 +1,7 @@
 .progressBar {
 	position: relative;
 	overflow: hidden;
-	border-radius: var(--borderRadius);
+	border-radius: var(--fillerRadius);
 	width: 100%;
 	display: grid;
 	height: var(--fillerHeight);
