@@ -15,10 +15,10 @@ export const PowerCounter = defineComponent({
 		const { t } = useLocalization()
 
 		return () => (
-			<div>
+			<div class={styles.powerCounter}>
 				<div class={styles.powerWrapper}>
 					<UiText class={styles.power} fontSize={'14px'} color={'#797979'}>
-						<FistIcon height={14} />
+						<FistIcon height={16} />
 						&nbsp;{t('pvp.battlePower')}:
 					</UiText>
 					<UiText
@@ -27,7 +27,7 @@ export const PowerCounter = defineComponent({
 						isAccent={!!props.power}
 						color={!props.power ? '#4E4F4F' : undefined}
 					>
-						{props.power ? Math.round(props.power) : '000'}
+						{props.power ? Math.round(props.power) : '00'}
 					</UiText>
 				</div>
 				{!props.hideProgressBar && (
