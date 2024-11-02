@@ -21,7 +21,7 @@ export const PlayerInventory = defineComponent({
 			<div class={styles.playerInventory}>
 				<div class={styles.avatarWrapper}>
 					<img src={imgSrc.value} class={styles.playerAvatar} />
-					{pvpStore.pvpCharacter?.premium?.active && <StarsIcon class={styles.premIcon} />}
+					{pvpStore.isCharacterPremium && <StarsIcon class={styles.premIcon} />}
 				</div>
 				<div class={styles.separator} />
 				<div class={styles.items}>
