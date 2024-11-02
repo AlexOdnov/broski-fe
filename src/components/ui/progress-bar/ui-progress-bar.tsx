@@ -16,6 +16,8 @@ export const UiProgressBar = defineComponent({
 		padding: { type: Number, default: 1 },
 		withCounter: { type: Boolean, default: false },
 		rounded: { type: Boolean, default: true },
+		leftStraight: { type: Boolean, default: false },
+		rightStraight: { type: Boolean, default: false },
 		counterColor: { type: String, default: '#141517' }
 	},
 	setup: (props) => {
@@ -23,12 +25,16 @@ export const UiProgressBar = defineComponent({
 		const innerFilledItems = computed(() => (props.totalItems > 0 ? props.filledItems : 1))
 		const items = computed(() => Array(innerTotalItems.value).fill(null))
 
+		const getBorderRadius = (radius: string) => {
+			return `${props.leftStraight ? 0 : radius} ${props.rightStraight ? 0 : radius} ${props.rightStraight ? 0 : radius} ${props.leftStraight ? 0 : radius}`
+		}
+
 		const progressBarBorderStyle = computed(() => ({
 			padding: props.mod === 'segmented' ? '0' : `${props.padding + 1}px`,
 			'--borderColor': props.borderColor,
-			'--borderRadius': props.rounded ? '9999px' : `${props.height / 3}px`,
+			'--borderRadius': props.rounded ? '9999px' : getBorderRadius(`${props.height / 3}px`),
 			'--fillerHeight': `${props.height - 2 - props.padding * 2}px`,
-			'--fillerRadius': props.rounded ? '9999px' : `calc(var(--fillerHeight) / 3)`,
+			'--fillerRadius': props.rounded ? '9999px' : getBorderRadius(`calc(var(--fillerHeight) / 3)`),
 			'--borderStyle': '1px solid var(--borderColor)'
 		}))
 
