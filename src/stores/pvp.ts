@@ -84,7 +84,10 @@ export const usePvpStore = defineStore('pvp', () => {
 
 	const timeToRestoreEnergy = computed(() =>
 		energyTimer.value?.total({ unit: 'seconds' })
-			? `${energyTimer.value.minutes}:${energyTimer.value.seconds}`
+			? `${energyTimer.value.minutes}:${energyTimer.value.seconds.toLocaleString('en-US', {
+					minimumIntegerDigits: 2,
+					useGrouping: false
+				})}`
 			: ''
 	)
 
