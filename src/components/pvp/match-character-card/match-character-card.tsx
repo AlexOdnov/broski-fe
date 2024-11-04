@@ -37,7 +37,12 @@ export const MatchCharacterCard = defineComponent({
 		})
 
 		const maximumAbilityValue = computed(() => {
-			return Math.max(...Object.values(character.value?.abilities || {})) ?? 1
+			return (
+				Math.max(
+					...Object.values(pvpStore.pvpCharacter?.abilities || {}),
+					...Object.values(pvpStore.pvpMatch?.opponent.abilities || {})
+				) ?? 1
+			)
 		})
 
 		return () => (
@@ -84,7 +89,6 @@ export const MatchCharacterCard = defineComponent({
 				<div class={styles.abilities}>
 					<AbilityCounter
 						size={'sm'}
-						reverse={props.isEnemy}
 						abilityType={'strength'}
 						currentValue={character.value?.abilities.strength ?? 0}
 						maximumValue={maximumAbilityValue.value}
@@ -92,7 +96,6 @@ export const MatchCharacterCard = defineComponent({
 					/>
 					<AbilityCounter
 						size={'sm'}
-						reverse={props.isEnemy}
 						abilityType={'defence'}
 						currentValue={character.value?.abilities.defence ?? 0}
 						maximumValue={maximumAbilityValue.value}
@@ -100,7 +103,6 @@ export const MatchCharacterCard = defineComponent({
 					/>
 					<AbilityCounter
 						size={'sm'}
-						reverse={props.isEnemy}
 						abilityType={'speed'}
 						currentValue={character.value?.abilities.speed ?? 0}
 						maximumValue={maximumAbilityValue.value}
@@ -108,7 +110,6 @@ export const MatchCharacterCard = defineComponent({
 					/>
 					<AbilityCounter
 						size={'sm'}
-						reverse={props.isEnemy}
 						abilityType={'weight'}
 						currentValue={character.value?.abilities.weight ?? 0}
 						maximumValue={maximumAbilityValue.value}
@@ -116,7 +117,6 @@ export const MatchCharacterCard = defineComponent({
 					/>
 					<AbilityCounter
 						size={'sm'}
-						reverse={props.isEnemy}
 						abilityType={'combinations'}
 						currentValue={character.value?.abilities.combinations ?? 0}
 						maximumValue={maximumAbilityValue.value}

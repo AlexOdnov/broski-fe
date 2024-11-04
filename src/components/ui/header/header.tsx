@@ -17,7 +17,9 @@ export const UiHeader = defineComponent({
 		const premiumModal = ref<UiBottomSheetMethods | null>(null)
 
 		const coins = computed(() =>
-			Intl.NumberFormat('en-US', { notation: 'compact' }).format(userStore.userScore)
+			userStore.userScore > 100000
+				? Intl.NumberFormat('en-US', { notation: 'compact' }).format(userStore.userScore)
+				: Intl.NumberFormat('en-US').format(userStore.userScore)
 		)
 		const tonBalance = computed(() =>
 			new Intl.NumberFormat('en-us', { minimumFractionDigits: 3 }).format(
