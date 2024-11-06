@@ -1,0 +1,35 @@
+.bannerWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	min-width: 300px;
+	width: 300px;
+	margin: 0 auto;
+}
+
+.banner {
+	min-height: 100px;
+	height: 100px;
+	width: 100%;
+	border-radius: 12px;
+	overflow: hidden;
+
+	background-color: #222;
+	background: linear-gradient(
+			100deg,
+			rgba(255, 255, 255, 0) 40%,
+			rgba(255, 255, 255, 0.05) 50%,
+			rgba(255, 255, 255, 0) 60%
+		)
+		#222;
+	background-size: 200% 100%;
+	background-position-x: 180%;
+	animation: 1.5s loading ease-in-out infinite;
+}
+
+@keyframes loading {
+	to {
+		background-position-x: -20%;
+	}
+}

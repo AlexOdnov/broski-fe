@@ -4,6 +4,7 @@ export interface Env {
 	lootboxChance: number
 	loaderDuration: number
 	enableLoaderBanner: boolean
+	enableInAppBanner: boolean
 	invoice3Energy: string
 	invoice10Energy: string
 	invoice20Energy: string
@@ -25,6 +26,7 @@ export const envVariables: Env = {
 	lootboxChance: Number(import.meta.env.VITE_LOOTBOX_CHANCE || 1),
 	loaderDuration: Number(import.meta.env.VITE_LOADER_DURATION || 500),
 	enableLoaderBanner: import.meta.env.VITE_ENABLE_LOADER_BANNER === 'true',
+	enableInAppBanner: import.meta.env.VITE_ENABLE_IN_APP_BANNER === 'true',
 	invoice3Energy: import.meta.env.VITE_INVOICE_3_ENERGY || '',
 	invoice10Energy: import.meta.env.VITE_INVOICE_10_ENERGY || '',
 	invoice20Energy: import.meta.env.VITE_INVOICE_20_ENERGY || '',
