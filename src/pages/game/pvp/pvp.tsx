@@ -10,7 +10,8 @@ import {
 	UiButton,
 	UiText,
 	type UiTextFontWeight,
-	type UiBottomSheetMethods
+	type UiBottomSheetMethods,
+	UiBanner
 } from '@/components'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { envVariables } from '@/services/env'
@@ -183,6 +184,7 @@ const PvpPage = defineComponent({
 				/>
 				{renderButtons.value}
 				{renderBottomText.value}
+				<UiBanner class={styles.fullWidth} />
 				<BuyPremium ref={premiumModal} />
 			</div>
 		)
