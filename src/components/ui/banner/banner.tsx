@@ -41,7 +41,7 @@ export const UiBanner = defineComponent({
 			isBannerVisible.value ? (
 				<div class={styles.bannerWrapper}>
 					<div class={styles.banner} data-banner-id="6031971"></div>
-					<UiText class={styles.loadingText} fontSize={'14px'} color={'#797979'} alignCenter>
+					<UiText fontSize={'12px'} color={'#797979'} alignCenter>
 						{t('noResponsibleForAd')}
 					</UiText>
 				</div>
