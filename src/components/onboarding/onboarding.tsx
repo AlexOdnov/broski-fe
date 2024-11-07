@@ -85,8 +85,7 @@ export const OnboardingComponent = defineComponent({
 									</span>
 									<span>{t('onboarding.slide3.s3p1')}<UiText
 										isAccent>{t('onboarding.slide3.s3p2')}</UiText>{t('onboarding.slide3.s3p3')}</span>
-									<span><UiText isAccent>{t('onboarding.slide3.s4p1')}</UiText>{t('onboarding.slide3.s4p2')}<UiText
-										isAccent>{t('onboarding.slide3.s4p3')}</UiText></span>
+									<span><UiText isAccent>{t('onboarding.slide3.s4p1')}</UiText></span>
 									<p class={styles.steps}>{currentStep.value}/4</p>
 								</div>
 							),
