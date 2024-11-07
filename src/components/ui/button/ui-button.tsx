@@ -19,7 +19,7 @@ export const UiButton = defineComponent({
 		minWidth: { type: String, default: 'auto' },
 		bordered: { type: Boolean, default: false },
 		icon: { type: Boolean, default: false },
-		hapticFeedback: { type: String as PropType<HapticStyle | 'none'>, default: 'light' },
+		hapticFeedback: { type: String as PropType<HapticStyle | 'none'>, default: 'medium' },
 		whenClick: { type: Function as PropType<(e: MouseEvent) => void>, required: true }
 	},
 	setup: (props) => {
