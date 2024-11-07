@@ -110,10 +110,10 @@ export default defineComponent({
 			commonStore.setIsLoadingForTimeout(envVariables.loaderDuration)
 			await userStore.loadUserLegacy(true)
 			await Promise.all([userStore.loadUser(), pvpStore.loadPvpCharacter(true)])
-			if (!userStore.user || !userStore.userLegacy || !pvpStore.pvpCharacter) {
-				console.warn('Failed to get broski user information')
-				return
-			}
+			// if (!userStore.user || !userStore.userLegacy || !pvpStore.pvpCharacter) {
+			// 	console.warn('Failed to get broski user information')
+			// 	return
+			// }
 			isUserExist.value = true
 			advertisingStore.init()
 			tasksStore.getTasks()
