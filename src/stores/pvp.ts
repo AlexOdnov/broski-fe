@@ -15,6 +15,8 @@ import { useUserStore } from './user'
 import { Temporal } from 'temporal-polyfill'
 import { useSentry } from '@/services/sentry'
 
+export type AbilityType = keyof AbilityScores
+
 export const usePvpStore = defineStore('pvp', () => {
 	const api = useApi()
 	const sentry = useSentry()
@@ -68,21 +70,24 @@ export const usePvpStore = defineStore('pvp', () => {
 		energyTimerInterval.value && clearInterval(energyTimerInterval.value)
 		setEnergyTimerValue(Temporal.Duration.from(value))
 
-		if (energyTimer.value && energyTimer.value.total({ unit: 'minutes' })) {
+		if (energyTimer.value && energyTimer.value.total({ unit: 'seconds' })) {
 			energyTimerInterval.value = setInterval(() => {
 				if (energyTimer.value) {
-					setEnergyTimerValue(energyTimer.value.add({ minutes: -1 }))
-					if (energyTimer.value.total({ unit: 'minutes' }) <= 0) {
+					setEnergyTimerValue(energyTimer.value.subtract({ seconds: 1 }))
+					if (energyTimer.value.total({ unit: 'seconds' }) <= 0) {
 						loadPvpCharacter()
 					}
 				}
-			}, 1000 * 60)
+			}, 1000)
 		}
 	}
 
 	const timeToRestoreEnergy = computed(() =>
-		energyTimer.value?.total({ unit: 'minutes' })
-			? `${energyTimer.value.hours ? `${energyTimer.value.hours}h\u00A0` : ''}${energyTimer.value.minutes}m`
+		energyTimer.value?.total({ unit: 'seconds' })
+			? `${energyTimer.value.minutes}:${energyTimer.value.seconds.toLocaleString('en-US', {
+					minimumIntegerDigits: 2,
+					useGrouping: false
+				})}`
 			: ''
 	)
 
@@ -139,7 +144,7 @@ export const usePvpStore = defineStore('pvp', () => {
 		if (pvpMatch.value) {
 			try {
 				setIsLoading(true)
-				const response = await api.startPvpMatch({ matchId: pvpMatch.value?.match_id })
+				const response = await api.startPvpMatch({ userId: tgStore.userId })
 				setPvpMatchResult(response)
 				loadPvpCharacter()
 			} catch (error) {
@@ -154,7 +159,7 @@ export const usePvpStore = defineStore('pvp', () => {
 		if (pvpMatch.value) {
 			try {
 				setIsLoading(true)
-				const response = await api.skipPvpMatch({ matchId: pvpMatch.value?.match_id })
+				const response = await api.skipPvpMatch({ userId: tgStore.userId })
 				setPvpMatch({ ...pvpMatch.value, opponent: response })
 				userStore.loadUser()
 			} catch (error) {

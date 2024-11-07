@@ -53,7 +53,7 @@ export const useApi = () => {
 
 	const doneTask = async (payload: IDoneTaskRequest) => {
 		return (
-			await apiInstance.api.checkTaskApiV1UsersUserIdCheckTaskPost(payload.userId, {
+			await apiInstance.api.postTaskApiV1UsersUserIdCompleteTaskPost(payload.userId, {
 				task_id: payload.task_id
 			})
 		).data
@@ -114,12 +114,12 @@ export const useApi = () => {
 		return (await apiInstance.api.searchMatchApiV1UsersUserIdPvpPost(payload.userId)).data
 	}
 
-	const startPvpMatch = async (payload: { matchId: string }) => {
-		return (await apiInstance.api.startMatchApiV1PvpMatchIdStartPost(payload.matchId)).data
+	const startPvpMatch = async (payload: IUserIdRequest) => {
+		return (await apiInstance.api.startMatchApiV1UsersUserIdStartPvpPost(payload.userId)).data
 	}
 
-	const skipPvpMatch = async (payload: { matchId: string }) => {
-		return (await apiInstance.api.skipMatchApiV1PvpMatchIdSkipPost(payload.matchId)).data
+	const skipPvpMatch = async (payload: IUserIdRequest) => {
+		return (await apiInstance.api.skipMatchApiV1UsersUserIdSkipPvpPost(payload.userId)).data
 	}
 
 	const getPrizes = async () => {

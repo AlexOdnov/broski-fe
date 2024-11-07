@@ -62,6 +62,11 @@
 	background-color: #1d1e20;
 }
 
+.modInverse[disabled] {
+	color: #4e4f4f;
+	background-color: #1d1e20;
+}
+
 .leftIcon {
 	max-height: 1em;
 	display: flex;

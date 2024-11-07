@@ -1,6 +1,6 @@
-import { computed, defineComponent, ref, type PropType, onUpdated } from 'vue'
+import { computed, defineComponent, type PropType } from 'vue'
 import styles from './ui-progress-bar.module.css'
-import { UiText } from '../ui-text'
+import { UiText } from '@/components/ui'
 
 export type ProgressBarMod = 'filled' | 'segmented' | 'round-segmented'
 
@@ -11,28 +11,43 @@ export const UiProgressBar = defineComponent({
 		filledItems: { type: Number, required: true },
 		height: { type: Number, required: true },
 		mod: { type: String as PropType<ProgressBarMod>, default: 'filled' },
-		color: { type: String, default: '#ffb800' },
+		fillerColor: { type: String, default: '#ffb800' },
+		borderColor: { type: String, default: '#35332e' },
 		padding: { type: Number, default: 1 },
 		withCounter: { type: Boolean, default: false },
+		rounded: { type: Boolean, default: true },
+		leftStraight: { type: Boolean, default: false },
+		rightStraight: { type: Boolean, default: false },
 		counterColor: { type: String, default: '#141517' }
 	},
 	setup: (props) => {
-		const items = computed(() => Array(props.totalItems).fill(null))
+		const innerTotalItems = computed(() => (props.totalItems > 0 ? props.totalItems : 1))
+		const innerFilledItems = computed(() => (props.totalItems > 0 ? props.filledItems : 1))
+		const items = computed(() => Array(innerTotalItems.value).fill(null))
+
+		const getBorderRadius = (radius: string) => {
+			return `${props.leftStraight ? 0 : radius} ${props.rightStraight ? 0 : radius} ${props.rightStraight ? 0 : radius} ${props.leftStraight ? 0 : radius}`
+		}
 
 		const progressBarBorderStyle = computed(() => ({
-			padding: props.mod === 'segmented' ? '0' : `${props.padding + 1}px`
+			padding: props.mod === 'segmented' ? '0' : `${props.padding + 1}px`,
+			'--borderColor': props.borderColor,
+			'--borderRadius': props.rounded ? '9999px' : getBorderRadius(`${props.height / 3}px`),
+			'--fillerHeight': `${props.height - 2 - props.padding * 2}px`,
+			'--fillerRadius': props.rounded ? '9999px' : getBorderRadius(`calc(var(--fillerHeight) / 3)`),
+			'--borderStyle': '1px solid var(--borderColor)'
 		}))
 
 		const progressBarStyle = computed(() => ({
-			gridTemplateColumns: props.mod === 'filled' ? 'auto' : `repeat(${props.totalItems}, 1fr)`,
-			height: `${props.height - 2 - props.padding * 2}px`,
-			border: props.mod === 'segmented' ? '1px solid #35332e' : 'none',
+			gridTemplateColumns:
+				props.mod === 'filled' ? 'auto' : `repeat(${innerTotalItems.value}, 1fr)`,
+			border: props.mod === 'segmented' ? 'var(--borderStyle)' : 'none',
 			gap: `${props.padding}px`
 		}))
 
 		const fillerStyle = computed(() => ({
-			backgroundColor: props.color,
-			width: `${(props.filledItems / props.totalItems) * 100}%`
+			backgroundColor: props.fillerColor,
+			width: `${(innerFilledItems.value / innerTotalItems.value) * 100}%`
 		}))
 
 		const counterStyle = computed(() => ({
@@ -40,9 +55,11 @@ export const UiProgressBar = defineComponent({
 		}))
 
 		const getSegmentStyle = (index: number) => ({
-			opacity: index < props.filledItems || props.mod === 'round-segmented' ? 1 : 0,
+			opacity: index < innerFilledItems.value || props.mod === 'round-segmented' ? 1 : 0,
 			backgroundColor:
-				index >= props.filledItems && props.mod === 'round-segmented' ? '#35332e' : props.color
+				index >= innerFilledItems.value && props.mod === 'round-segmented'
+					? '#35332e'
+					: props.fillerColor
 		})
 
 		return () => (

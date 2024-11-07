@@ -9,7 +9,6 @@
 	align-items: center;
 	background-color: #141517;
 	overflow-y: auto;
-	background: url('/images/bg-halloween.webp') center/cover no-repeat;
-	max-width: 400px;
-	margin: 0 auto;
+
+	--headerHeight: 46px;
 }

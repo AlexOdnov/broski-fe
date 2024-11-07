@@ -2,7 +2,7 @@ import { defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 import styles from './styles.module.css'
 import { envVariables } from '@/services/env'
 import { UiProgressBar } from '@/components/ui'
-import { UiText } from '../ui/ui-text'
+import { UiText } from '../ui'
 import { useLocalization } from '@/services/localization'
 
 export const LoadingScreen = defineComponent({
@@ -49,14 +49,13 @@ export const LoadingScreen = defineComponent({
 						<img class={styles.hand} src="/images/hand.gif" alt="hand" />
 					</div>
 					<div class={styles.progressBarWrapper}>
-						<img class={styles.logo} src="/images/broski-halloween.webp" alt="BROski" />
+						<img class={styles.logo} src="/images/broski.webp" alt="BROski" />
 						<UiProgressBar
 							totalItems={totalItems}
 							filledItems={currentProgress.value}
 							height={30}
 							mod={'segmented'}
 							padding={2}
-							withCounter
 						/>
 						<UiText class={styles.loadingText} fontSize={'14px'}>
 							{t('loading')}...

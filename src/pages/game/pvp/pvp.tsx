@@ -1,7 +1,7 @@
 import { computed, defineComponent, ref } from 'vue'
 
 import styles from './pvp.module.css'
-import { EnergyCounter, BuyPremium, MatchCharacterCard } from '@/components/pvp'
+import { BuyPremium, MatchCharacterCard } from '@/components/pvp'
 import { usePvpStore } from '@/stores/pvp'
 import { TicketIcon } from '@/components/icons'
 import { MatchResult } from '@/api/generatedApi'
@@ -159,12 +159,6 @@ const PvpPage = defineComponent({
 
 		return () => (
 			<div class={styles.pvp}>
-				<EnergyCounter
-					class={styles.fullWidth}
-					currentEnergy={pvpStore.pvpCharacter?.energy.remaining ?? 0}
-					totalEnergy={pvpStore.pvpCharacter?.energy.maximum ?? 0}
-					timeToRestore={pvpStore.timeToRestoreEnergy}
-				/>
 				<div class={[styles.textInFrontWrapper, styles.fullWidth]}>
 					{textInFront.value && (
 						<UiText

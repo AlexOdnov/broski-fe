@@ -6,6 +6,7 @@ import { usePvpStore } from '@/stores/pvp'
 import type { AbilityScores, AbilityScoresDelta } from '@/api/generatedApi'
 import { useUserStore } from '@/stores/user'
 import { useLocalization } from '@/services/localization'
+import { PowerCounter } from '../power-counter'
 
 export const PlayerAbilities = defineComponent({
 	name: 'PlayerAbilities',
@@ -40,9 +41,16 @@ export const PlayerAbilities = defineComponent({
 
 		return () => (
 			<div class={styles.playerAbilities}>
-				<UiText color={'#797979'} fontSize={'18px'} fontWeight={500} alignCenter>
-					{t('pvp.upgrades')}
-				</UiText>
+				<div class={styles.header}>
+					<PowerCounter
+						hideProgressBar
+						power={pvpStore.pvpCharacter?.power || 0}
+						totalPower={pvpStore.pvpCharacter?.power}
+					/>
+					<UiText color={'#797979'} fontSize={'18px'} fontWeight={500}>
+						{t('pvp.upgrades')}
+					</UiText>
+				</div>
 				<PlayerAbility
 					abilityType={'strength'}
 					currentValue={pvpStore.pvpCharacterAbilities.strength}
