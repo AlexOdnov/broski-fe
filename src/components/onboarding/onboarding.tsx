@@ -56,11 +56,9 @@ export const OnboardingComponent = defineComponent({
 							),
 							description: (
 								<div class={styles.description}>
-									<span><UiText isAccent>{t('onboarding.slide2.s1p1')}</UiText>{t('onboarding.slide2.s1p2')}<UiText
-										isAccent>{t('onboarding.slide2.s1p3')}</UiText>{t('onboarding.slide2.s1p4')}<UiText
-										isAccent>{t('onboarding.slide2.s1p5')}</UiText></span>
+									<span><UiText isAccent>{t('onboarding.slide2.s1p1')}</UiText>{t('onboarding.slide2.s1p2')}</span>
 									<span>
-										<UiText isAccent>{t('onboarding.slide2.s2p1')}</UiText>{t('onboarding.slide2.s2p2')}
+										<UiText isAccent>{t('onboarding.slide2.s2p1')}</UiText>
 									</span>
 									<span><UiText isAccent>{t('onboarding.slide2.s3p1')}</UiText>{t('onboarding.slide2.s3p2')}<UiText
 										isAccent>{t('onboarding.slide2.s3p3')}</UiText></span>
@@ -81,12 +79,12 @@ export const OnboardingComponent = defineComponent({
 							),
 							description: (
 								<div class={styles.description}>
-									<span><UiText isAccent>{t('onboarding.slide3.s1p1')}</UiText>{t('onboarding.slide3.s1p2')}</span>
+									<span>{t('onboarding.slide3.s1p1')}</span>
 									<span>
-										<UiText isAccent>{t('onboarding.slide3.s2p1')}</UiText>{t('onboarding.slide3.s2p2')}
+										{t('onboarding.slide3.s2p1')}
 									</span>
-									<span><UiText isAccent>{t('onboarding.slide3.s3p1')}</UiText>{t('onboarding.slide3.s3p2')}<UiText
-										isAccent>{t('onboarding.slide3.s3p3')}</UiText>{t('onboarding.slide3.s3p4')}</span>
+									<span>{t('onboarding.slide3.s3p1')}<UiText
+										isAccent>{t('onboarding.slide3.s3p2')}</UiText>{t('onboarding.slide3.s3p3')}</span>
 									<span><UiText isAccent>{t('onboarding.slide3.s4p1')}</UiText>{t('onboarding.slide3.s4p2')}<UiText
 										isAccent>{t('onboarding.slide3.s4p3')}</UiText></span>
 									<p class={styles.steps}>{currentStep.value}/4</p>
@@ -106,7 +104,7 @@ export const OnboardingComponent = defineComponent({
 							),
 							description: (
 								<div class={styles.description}>
-									<span><UiText isAccent>{t('onboarding.slide4.s1p1')}</UiText>{t('onboarding.slide4.s1p2')}<UiText isAccent>{t('onboarding.slide4.s1p3')}</UiText></span>
+									<span>{t('onboarding.slide4.s1p0')}<UiText isAccent>{t('onboarding.slide4.s1p1')}</UiText>{t('onboarding.slide4.s1p2')}<UiText isAccent>{t('onboarding.slide4.s1p3')}</UiText></span>
 									<span>
 										{t('onboarding.slide4.s2p1')}<UiText isAccent>{t('onboarding.slide4.s2p2')}</UiText>{t('onboarding.slide4.s2p3')}<UiText isAccent>{t('onboarding.slide4.s2p4')}</UiText>
 									</span>
