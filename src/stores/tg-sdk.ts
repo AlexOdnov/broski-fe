@@ -58,7 +58,8 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 		}
 	}
 
-	const hapticFeedback = (style: HapticStyle) => tg.value?.HapticFeedback.impactOccurred(style)
+	const hapticFeedback = (style: HapticStyle) =>
+		Telegram.WebApp?.HapticFeedback.impactOccurred(style)
 
 	const initTgApp = () => {
 		try {
