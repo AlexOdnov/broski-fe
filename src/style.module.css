@@ -9,4 +9,6 @@
 	align-items: center;
 	background-color: #141517;
 	overflow-y: auto;
+
+	--headerHeight: 46px;
 }

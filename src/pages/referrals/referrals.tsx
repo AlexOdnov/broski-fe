@@ -6,9 +6,9 @@ import { useReferralsStore } from '@/stores/referrals'
 import { useUserStore } from '@/stores/user'
 import { envVariables } from '@/services/env'
 import { useTgSdkStore } from '@/stores/tg-sdk'
-import { UserBalance } from '@/components/ui/user-balance'
 import { StarIcon, TicketIcon } from '@/components/icons'
 import { useLocalization } from '@/services/localization'
+import { UiHeader } from '@/components/ui'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
@@ -94,7 +94,7 @@ const ReferralsPage = defineComponent({
 
 		return () => (
 			<div class={styles.referralsPage}>
-				<UserBalance />
+				<UiHeader />
 				<div class={styles.header}>
 					<div class={styles.text}>
 						<p class={styles.headerDark}>

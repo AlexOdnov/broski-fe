@@ -4,9 +4,3 @@
 	grid-template-columns: 1fr min-content 75px;
 	align-items: center;
 }
-
-.barWrapper {
-	display: flex;
-	gap: 4px;
-	align-items: center;
-}

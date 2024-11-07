@@ -111,7 +111,7 @@ export const BuyPremium = defineComponent({
 								<EnergyShadowedIcon height={50} />
 								<div class={styles.informerTag}>
 									<UiText fontSize={'10px'} fontFamily={'barcadeBrawl'} isAccent>
-										5 {t('premium.energy')}
+										8 {t('premium.energy')}
 									</UiText>
 								</div>
 								<UiText fontSize={'12px'} fontWeight={700} color={'#F0F0F0'}>
@@ -122,7 +122,7 @@ export const BuyPremium = defineComponent({
 								<TimerIcon height={50} />
 								<div class={styles.informerTag}>
 									<UiText fontSize={'10px'} fontFamily={'barcadeBrawl'} isAccent>
-										5 {t('minutes')}
+										3 {t('minutes')}
 									</UiText>
 								</div>
 								<UiText

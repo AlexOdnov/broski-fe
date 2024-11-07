@@ -9,6 +9,16 @@
 	justify-content: center;
 }
 
+.profileIconWrapper {
+	border: solid 1px rgb(78, 79, 79);
+	border-radius: 50%;
+	width: 18px;
+	height: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 .userName {
 	display: grid;
 	gap: 5px;
@@ -52,25 +62,12 @@
 	width: 100%;
 }
 
-.flexRow {
-	border-top: 1px solid #35332e;
-	padding-top: 10px;
+.abilities {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 5px;
-}
-
-.delimiter {
-	border-right: 1px solid #35332e;
-}
-
-.iconWithNumber {
-	display: flex;
-	align-items: center;
-	font-weight: 400;
-	font-size: 12px;
-	line-height: 12px;
-	color: #cbcbcb;
+	flex-direction: column;
+	gap: 10px;
+	border-bottom: 1px solid #35332e;
+	padding-bottom: 10px;
 }
 
 .lvl {

@@ -1,16 +1,9 @@
-import { computed, defineComponent, type PropType } from 'vue'
+import { defineComponent, type PropType } from 'vue'
 import styles from './player-ability.module.css'
-import { CoinCounter, UiButton, UiProgressBar, UiText } from '@/components/ui'
-import {
-	CombinationsIcon,
-	DefenceIcon,
-	SpeedIcon,
-	StrengthIcon,
-	WeightIcon
-} from '@/components/icons'
-import type { AbilityScores } from '@/api/generatedApi'
+import { CoinCounter, UiButton, UiText } from '@/components/ui'
 
-export type AbilityType = keyof AbilityScores
+import type { AbilityType } from '@/stores/pvp'
+import { AbilityCounter } from '../../ability-counter'
 
 export const PlayerAbility = defineComponent({
 	name: 'PlayerAbility',
@@ -24,34 +17,13 @@ export const PlayerAbility = defineComponent({
 		whenUpgrade: { type: Function as PropType<() => void>, required: true }
 	},
 	setup: (props) => {
-		const iconComponent = computed(() => {
-			switch (props.abilityType) {
-				case 'combinations':
-					return CombinationsIcon
-				case 'defence':
-					return DefenceIcon
-				case 'speed':
-					return SpeedIcon
-				case 'strength':
-					return StrengthIcon
-				case 'weight':
-					return WeightIcon
-				default:
-					return WeightIcon
-			}
-		})
-
 		return () => (
 			<div class={styles.playerAbility}>
-				<div class={styles.barWrapper}>
-					<iconComponent.value height={16} />
-					<UiProgressBar
-						totalItems={props.maximumValue}
-						filledItems={props.currentValue}
-						height={20}
-						withCounter
-					/>
-				</div>
+				<AbilityCounter
+					abilityType={props.abilityType}
+					currentValue={props.currentValue}
+					maximumValue={props.maximumValue}
+				/>
 				<UiButton
 					size={'sm'}
 					mod={'primary'}

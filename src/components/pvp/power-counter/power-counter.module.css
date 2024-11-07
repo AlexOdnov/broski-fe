@@ -1,8 +1,14 @@
+.powerCounter {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
 .powerWrapper {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 4px;
+	gap: 2px;
 }
 
 .power {

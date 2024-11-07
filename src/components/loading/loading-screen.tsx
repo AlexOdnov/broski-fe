@@ -2,7 +2,7 @@ import { defineComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 import styles from './styles.module.css'
 import { envVariables } from '@/services/env'
 import { UiProgressBar } from '@/components/ui'
-import { UiText } from '../ui/ui-text'
+import { UiText } from '../ui'
 import { useLocalization } from '@/services/localization'
 
 export const LoadingScreen = defineComponent({
@@ -56,7 +56,6 @@ export const LoadingScreen = defineComponent({
 							height={30}
 							mod={'segmented'}
 							padding={2}
-							withCounter
 						/>
 						<UiText class={styles.loadingText} fontSize={'14px'}>
 							{t('loading')}...
