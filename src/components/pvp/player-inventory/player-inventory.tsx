@@ -55,15 +55,13 @@ export const PlayerInventory = defineComponent({
 					{defencePotion.value > 0 ? (
 						<div class={styles.item}>
 							<DefencePotionIcon />
-							<span>
-								<UiText fontSize={'12px'} color="#F0F0F0" lineHeight="12px">
-									{defencePotion.value}
-								</UiText>
+							<UiText fontSize={'12px'} color="#F0F0F0" lineHeight="12px">
+								{defencePotion.value}
 								&nbsp;
 								<UiText fontSize={'8px'} color="#797979" lineHeight="8px">
 									left
 								</UiText>
-							</span>
+							</UiText>
 						</div>
 					) : (
 						<div class={styles.item}>
@@ -73,15 +71,13 @@ export const PlayerInventory = defineComponent({
 					{combinationPotion.value > 0 ? (
 						<div class={styles.item}>
 							<CombinationPotionIcon />
-							<span>
-								<UiText fontSize={'12px'} color="#F0F0F0" lineHeight="12px">
-									{combinationPotion.value}
-								</UiText>
+							<UiText fontSize={'12px'} color="#F0F0F0" lineHeight="12px">
+								{combinationPotion.value}
 								&nbsp;
 								<UiText fontSize={'8px'} color="#797979" lineHeight="8px">
 									left
 								</UiText>
-							</span>
+							</UiText>
 						</div>
 					) : (
 						<div class={styles.item}>

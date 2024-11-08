@@ -62,8 +62,9 @@
 	border: 1px solid #35332e;
 	border-radius: 4px;
 	color: #232323;
-	min-width: 34px;
-	min-height: 50px;
+	min-width: 40px;
+	min-height: 40px;
+	aspect-ratio: 1;
 }
 
 .button {
