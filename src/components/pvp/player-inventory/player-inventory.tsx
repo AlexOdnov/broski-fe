@@ -4,6 +4,8 @@ import { UiText } from '@/components/ui'
 import { StarsIcon } from '@/components/icons'
 import { usePvpStore } from '@/stores/pvp'
 import { useLocalization } from '@/services/localization'
+import { DefencePotionIcon } from '@/components/icons/defence-potion-icon'
+import { CombinationPotionIcon } from '@/components/icons/combination-potion-icon'
 
 export const PlayerInventory = defineComponent({
 	name: 'PlayerInventory',
@@ -11,7 +13,18 @@ export const PlayerInventory = defineComponent({
 		const { t } = useLocalization()
 		const pvpStore = usePvpStore()
 
-		const items = new Array(8).fill(t('soon'))
+		const defencePotion = computed(() => pvpStore.pvpCharacter?.tonic.red_tonic ?? 0)
+		const combinationPotion = computed(() => pvpStore.pvpCharacter?.tonic.green_tonic ?? 0)
+		const soonItems = computed(() => {
+			let soonItemsQuantity = 8
+			if (defencePotion.value > 0) {
+				soonItemsQuantity--
+			}
+			if (combinationPotion.value > 0) {
+				soonItemsQuantity--
+			}
+			return new Array(soonItemsQuantity).fill(t('soon'))
+		})
 
 		const imgSrc = computed(() =>
 			pvpStore.isCharacterPremium ? '/images/user-prem.webp' : '/images/user.webp'
@@ -25,7 +38,33 @@ export const PlayerInventory = defineComponent({
 				</div>
 				<div class={styles.separator} />
 				<div class={styles.items}>
-					{items.map((el) => (
+					{defencePotion.value > 0 && (
+						<div class={styles.item}>
+							<DefencePotionIcon />
+							<span>
+								<UiText fontSize={'12px'} color="#F0F0F0" lineHeight="12px">
+									{defencePotion.value}
+								</UiText>&nbsp;
+								<UiText fontSize={'8px'} color="#797979" lineHeight="8px">
+									left
+								</UiText>
+							</span>
+						</div>
+					)}
+					{combinationPotion.value > 0 && (
+						<div class={styles.item}>
+							<CombinationPotionIcon />
+							<span>
+								<UiText fontSize={'12px'} color="#F0F0F0" lineHeight="12px">
+									{combinationPotion.value}
+								</UiText>&nbsp;
+								<UiText fontSize={'8px'} color="#797979" lineHeight="8px">
+									left
+								</UiText>
+							</span>
+						</div>
+					)}
+					{soonItems.value.map((el) => (
 						<div class={styles.item}>
 							<UiText fontWeight={400} fontSize={'12px'}>
 								{el}

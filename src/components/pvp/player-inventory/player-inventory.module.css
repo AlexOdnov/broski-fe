@@ -54,6 +54,9 @@
 
 .item {
 	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 4px;
 	justify-content: center;
 	align-items: center;
 	background-color: #141517;
