@@ -1,5 +1,6 @@
 /* eslint-disable */
 /* tslint:disable */
+
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -67,6 +68,7 @@ export interface CharacterProfile {
 	experience: CharacterExperience
 	/** Power */
 	power: number
+	tonic: UserTonic
 	premium?: CharacterProfilePremium | null
 	stats?: PVPStats | null
 }
@@ -118,10 +120,6 @@ export interface LegacyUser {
 	username: string
 	/** Score */
 	score: number
-	/** Left Mining */
-	left_mining: string
-	/** Mining Claim */
-	mining_claim: boolean
 	/** Ref Code */
 	ref_code: string
 	/** Position */
@@ -150,6 +148,7 @@ export interface LegacyUser {
 	push_see: boolean
 	/** Daily Event */
 	daily_event: boolean
+	mining?: UserMining | null
 }
 
 /** LevelupResponse */
@@ -308,7 +307,7 @@ export interface User {
 	boxes: number
 	/** Ton Balance */
 	ton_balance: number
-	mining: UserMining
+	mining?: UserMining | null
 	advertising: UserAdvertising
 }
 
@@ -322,10 +321,8 @@ export interface UserAdvertising {
 
 /** UserMining */
 export interface UserMining {
-	/** Left */
-	left: string
-	/** Claim */
-	claim: boolean
+	/** Coins */
+	coins: number
 }
 
 /** UserReferrals */
@@ -342,6 +339,14 @@ export interface UserReferrals {
 	current_page: number
 	/** Total Score */
 	total_score: number
+}
+
+/** UserTonic */
+export interface UserTonic {
+	/** Red Tonic */
+	red_tonic: number
+	/** Green Tonic */
+	green_tonic: number
 }
 
 /** ValidationError */
@@ -782,24 +787,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 		 * No description
 		 *
 		 * @tags users
-		 * @name PostUserApiV1UsersPost
-		 * @summary Post User
-		 * @request POST:/api/v1/users
-		 */
-		postUserApiV1UsersPost: (data: CreateUser, params: RequestParams = {}) =>
-			this.request<LegacyUser, HTTPValidationError>({
-				path: `/api/v1/users`,
-				method: 'POST',
-				body: data,
-				type: ContentType.Json,
-				format: 'json',
-				...params
-			}),
-
-		/**
-		 * No description
-		 *
-		 * @tags users
 		 * @name GetUserReferralsApiV1UsersUserIdReferralsGet
 		 * @summary Get User Referrals
 		 * @request GET:/api/v1/users/{user_id}/referrals
@@ -833,6 +820,40 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 			}),
 
 		/**
+		 * @description Эндпоинт для запуска рулетки и получения результата.
+		 *
+		 * @tags spin
+		 * @name SpinApiV1UsersUserIdSpinPost
+		 * @summary Spin
+		 * @request POST:/api/v1/users/{user_id}/spin
+		 */
+		spinApiV1UsersUserIdSpinPost: (userId: number, params: RequestParams = {}) =>
+			this.request<SpinResult, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/spin`,
+				method: 'POST',
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags users
+		 * @name PostUserApiV1UsersPost
+		 * @summary Post User
+		 * @request POST:/api/v1/users
+		 */
+		postUserApiV1UsersPost: (data: CreateUser, params: RequestParams = {}) =>
+			this.request<LegacyUser, HTTPValidationError>({
+				path: `/api/v1/users`,
+				method: 'POST',
+				body: data,
+				type: ContentType.Json,
+				format: 'json',
+				...params
+			}),
+
+		/**
 		 * No description
 		 *
 		 * @tags users
@@ -846,22 +867,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 				method: 'POST',
 				body: data,
 				type: ContentType.Json,
-				format: 'json',
-				...params
-			}),
-
-		/**
-		 * @description Эндпоинт для запуска рулетки и получения результата.
-		 *
-		 * @tags spin
-		 * @name SpinApiV1UsersUserIdSpinPost
-		 * @summary Spin
-		 * @request POST:/api/v1/users/{user_id}/spin
-		 */
-		spinApiV1UsersUserIdSpinPost: (userId: number, params: RequestParams = {}) =>
-			this.request<SpinResult, HTTPValidationError>({
-				path: `/api/v1/users/${userId}/spin`,
-				method: 'POST',
 				format: 'json',
 				...params
 			}),
