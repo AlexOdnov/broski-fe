@@ -53,6 +53,11 @@
 }
 
 .modSecondary {
+	color: #797979;
+	background-color: #1d1e20;
+}
+
+.modSecondary[disabled] {
 	color: #4e4f4f;
 	background-color: #1d1e20;
 }
