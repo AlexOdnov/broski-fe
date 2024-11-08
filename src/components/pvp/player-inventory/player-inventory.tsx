@@ -19,7 +19,7 @@ export const PlayerInventory = defineComponent({
 		const defencePotion = computed(() => pvpStore.pvpCharacter?.tonic.red_tonic ?? 0)
 		const combinationPotion = computed(() => pvpStore.pvpCharacter?.tonic.green_tonic ?? 0)
 
-		const soonItems = computed(() => new Array(2).fill(t('soon')))
+		const soonItems = computed(() => new Array(2).fill(''))
 
 		const imgSrc = computed(() =>
 			pvpStore.isCharacterPremium ? '/images/user-prem.webp' : '/images/user.webp'
