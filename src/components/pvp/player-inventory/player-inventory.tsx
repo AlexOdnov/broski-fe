@@ -13,8 +13,8 @@ export const PlayerInventory = defineComponent({
 		const { t } = useLocalization()
 		const pvpStore = usePvpStore()
 
-		const defencePotion = computed(() => 14)
-		const combinationPotion = computed(() => 88)
+		const defencePotion = computed(() => pvpStore.pvpCharacter?.tonic.red_tonic ?? 0)
+		const combinationPotion = computed(() => pvpStore.pvpCharacter?.tonic.green_tonic ?? 0)
 		const soonItems = computed(() => {
 			let soonItemsQuantity = 8
 			if (defencePotion.value > 0) {

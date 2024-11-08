@@ -68,6 +68,7 @@ export interface CharacterProfile {
 	experience: CharacterExperience
 	/** Power */
 	power: number
+	tonic: UserTonic
 	premium?: CharacterProfilePremium | null
 	stats?: PVPStats | null
 }
@@ -119,10 +120,6 @@ export interface LegacyUser {
 	username: string
 	/** Score */
 	score: number
-	/** Left Mining */
-	left_mining: string
-	/** Mining Claim */
-	mining_claim: boolean
 	/** Ref Code */
 	ref_code: string
 	/** Position */
@@ -151,6 +148,7 @@ export interface LegacyUser {
 	push_see: boolean
 	/** Daily Event */
 	daily_event: boolean
+	mining?: UserMining | null
 }
 
 /** LevelupResponse */
@@ -309,9 +307,8 @@ export interface User {
 	boxes: number
 	/** Ton Balance */
 	ton_balance: number
-	mining: UserMining
+	mining?: UserMining | null
 	advertising: UserAdvertising
-	tonic: UserTonic
 }
 
 /** UserAdvertising */
@@ -324,10 +321,8 @@ export interface UserAdvertising {
 
 /** UserMining */
 export interface UserMining {
-	/** Left */
-	left: string
-	/** Claim */
-	claim: boolean
+	/** Coins */
+	coins: number
 }
 
 /** UserReferrals */
@@ -349,9 +344,9 @@ export interface UserReferrals {
 /** UserTonic */
 export interface UserTonic {
 	/** Red Tonic */
-	red_tonic: boolean
+	red_tonic: number
 	/** Green Tonic */
-	green_tonic: boolean
+	green_tonic: number
 }
 
 /** ValidationError */
