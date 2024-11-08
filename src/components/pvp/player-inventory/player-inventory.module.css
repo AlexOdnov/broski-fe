@@ -63,7 +63,7 @@
 	border-radius: 4px;
 	color: #232323;
 	min-width: 34px;
-	aspect-ratio: 1;
+	min-height: 50px;
 }
 
 .button {
