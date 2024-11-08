@@ -9,6 +9,7 @@ import { DollarIcon, GamepadIcon, GiftIcon, UserIcon, ConstructIcon } from '@/co
 import { UiText } from '@/components'
 import { useLocalization } from '@/services/localization'
 import { LootboxesModal } from '@/components/lootboxes-modal'
+import { useTgSdkStore } from '@/stores/tg-sdk'
 
 export const MainComponent = defineComponent({
 	name: 'MainComponent',
@@ -18,6 +19,7 @@ export const MainComponent = defineComponent({
 		const tasksStore = useTasksStore()
 		const referralsStore = useReferralsStore()
 		const commonStore = useCommonStore()
+		const tgStore = useTgSdkStore()
 
 		return () => (
 			<>
@@ -37,7 +39,7 @@ export const MainComponent = defineComponent({
 								activeClass={styles.activeLink}
 								class={styles.routerLink}
 							>
-								<div class={styles.navBtn}>
+								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback('light')}>
 									<GamepadIcon />
 									<UiText fontSize="12px" fontWeight={400} lineHeight="12px" fontFamily="roboto">
 										{t('game')}
@@ -50,7 +52,7 @@ export const MainComponent = defineComponent({
 								activeClass={styles.activeLink}
 								class={styles.routerLink}
 							>
-								<div class={styles.navBtn}>
+								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback('medium')}>
 									<DollarIcon />
 									{Boolean(tasksStore.uncompletedTasks.length) && (
 										<img class={styles.notice} src="/images/notice.webp" />
@@ -63,7 +65,10 @@ export const MainComponent = defineComponent({
 						</div>
 						<LootboxesModal
 							openButton={
-								<div class={[styles.centralNav, styles.navBtn, styles.border]}>
+								<div
+									class={[styles.centralNav, styles.navBtn, styles.border]}
+									onClick={() => tgStore.hapticFeedback('heavy')}
+								>
 									<GiftIcon height={40} />
 									<UiText
 										fontSize="12px"
@@ -83,7 +88,7 @@ export const MainComponent = defineComponent({
 								activeClass={styles.activeLink}
 								class={styles.routerLink}
 							>
-								<div class={styles.navBtn}>
+								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback('soft')}>
 									{Boolean(referralsStore.sumReferralsReward) && (
 										<img class={styles.notice} src="/images/notice.webp" />
 									)}
@@ -94,7 +99,7 @@ export const MainComponent = defineComponent({
 								</div>
 							</RouterLink>
 							<div class={styles.delimiter} />
-							<div class={[styles.navBtn]}>
+							<div class={[styles.navBtn]} onClick={() => tgStore.hapticFeedback('rigid')}>
 								<ConstructIcon style={{ color: '#4e4f4f' }} />
 								<UiText
 									fontSize="12px"
