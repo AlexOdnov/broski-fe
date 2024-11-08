@@ -5,10 +5,9 @@
 	border-radius: 10px;
 	overflow: hidden;
 	display: grid;
-	grid-template-columns: repeat(2, 1fr) 1px repeat(4, 1fr);
-	grid-template-rows: repeat(2, 1fr);
+	grid-template-columns: repeat(2, 1fr) 1px 1fr 28px 1px repeat(2, 1fr);
+	grid-template-rows: min-content 28px;
 	gap: 10px;
-	aspect-ratio: 2.9;
 	width: 100%;
 }
 
@@ -27,12 +26,12 @@
 }
 
 .playerAvatar {
-	aspect-ratio: 1/1;
 	border-radius: 6px;
 	border: 1px solid #ffb800;
 	object-fit: cover;
 	object-position: center;
 	width: 100%;
+	height: 100%;
 	overflow: hidden;
 }
 
@@ -46,9 +45,9 @@
 .items {
 	display: grid;
 	gap: 10px;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: repeat(2, 1fr);
-	grid-column: span 4;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: min-content 28px;
+	grid-column: span 2;
 	grid-row: span 2;
 }
 
@@ -63,4 +62,10 @@
 	border: 1px solid #35332e;
 	border-radius: 4px;
 	color: #232323;
+	min-width: 34px;
+	aspect-ratio: 1;
+}
+
+.button {
+	grid-column: span 2;
 }

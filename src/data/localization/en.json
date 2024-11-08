@@ -123,6 +123,7 @@
 	"minutes": "minutes",
 	"days": "{n} day | {n} days",
 	"lootbox": "lootbox | lootboxes",
+	"chat": "Chat",
 	"pvp": {
 		"pvp": "PvP",
 		"back": "Back",
