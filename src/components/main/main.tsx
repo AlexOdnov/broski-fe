@@ -39,7 +39,10 @@ export const MainComponent = defineComponent({
 								activeClass={styles.activeLink}
 								class={styles.routerLink}
 							>
-								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback('light')}>
+								<div
+									class={styles.navBtn}
+									onClick={() => Telegram.WebApp.HapticFeedback.notificationOccurred('error')}
+								>
 									<GamepadIcon />
 									<UiText fontSize="12px" fontWeight={400} lineHeight="12px" fontFamily="roboto">
 										{t('game')}
@@ -52,7 +55,10 @@ export const MainComponent = defineComponent({
 								activeClass={styles.activeLink}
 								class={styles.routerLink}
 							>
-								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback('medium')}>
+								<div
+									class={styles.navBtn}
+									onClick={() => Telegram.WebApp.HapticFeedback.notificationOccurred('success')}
+								>
 									<DollarIcon />
 									{Boolean(tasksStore.uncompletedTasks.length) && (
 										<img class={styles.notice} src="/images/notice.webp" />
@@ -67,7 +73,7 @@ export const MainComponent = defineComponent({
 							openButton={
 								<div
 									class={[styles.centralNav, styles.navBtn, styles.border]}
-									onClick={() => tgStore.hapticFeedback('heavy')}
+									onClick={() => Telegram.WebApp.HapticFeedback.notificationOccurred('warning')}
 								>
 									<GiftIcon height={40} />
 									<UiText
@@ -88,7 +94,10 @@ export const MainComponent = defineComponent({
 								activeClass={styles.activeLink}
 								class={styles.routerLink}
 							>
-								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback('soft')}>
+								<div
+									class={styles.navBtn}
+									onClick={() => Telegram.WebApp.HapticFeedback.selectionChanged()}
+								>
 									{Boolean(referralsStore.sumReferralsReward) && (
 										<img class={styles.notice} src="/images/notice.webp" />
 									)}
