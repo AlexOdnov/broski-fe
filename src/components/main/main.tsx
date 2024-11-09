@@ -39,7 +39,7 @@ export const MainComponent = defineComponent({
 								activeClass={styles.activeLink}
 								class={styles.routerLink}
 							>
-								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback('soft')}>
+								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback()}>
 									<GamepadIcon />
 									<UiText fontSize="12px" fontWeight={400} lineHeight="12px" fontFamily="roboto">
 										{t('game')}
@@ -52,7 +52,7 @@ export const MainComponent = defineComponent({
 								activeClass={styles.activeLink}
 								class={styles.routerLink}
 							>
-								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback('soft')}>
+								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback()}>
 									<DollarIcon />
 									{Boolean(tasksStore.uncompletedTasks.length) && (
 										<img class={styles.notice} src="/images/notice.webp" />
@@ -67,7 +67,7 @@ export const MainComponent = defineComponent({
 							openButton={
 								<div
 									class={[styles.centralNav, styles.navBtn, styles.border]}
-									onClick={() => tgStore.hapticFeedback('soft')}
+									onClick={() => tgStore.hapticFeedback()}
 								>
 									<GiftIcon height={40} />
 									<UiText
@@ -88,7 +88,7 @@ export const MainComponent = defineComponent({
 								activeClass={styles.activeLink}
 								class={styles.routerLink}
 							>
-								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback('soft')}>
+								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback()}>
 									{Boolean(referralsStore.sumReferralsReward) && (
 										<img class={styles.notice} src="/images/notice.webp" />
 									)}

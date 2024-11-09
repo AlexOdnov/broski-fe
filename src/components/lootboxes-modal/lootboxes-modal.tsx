@@ -65,7 +65,7 @@ export const LootboxesModal = defineComponent({
 				}
 				setTimeout(() => {
 					userStore.loadUser()
-					tgStore.hapticFeedback('soft')
+					tgStore.hapticFeedback()
 				}, 500)
 			})
 		}
@@ -159,7 +159,7 @@ export const LootboxesModal = defineComponent({
 											winIndex={winIndex.value}
 											onAnimationEnd={() => {
 												currentState.value = LootboxesModalState.prize
-												tgStore.hapticFeedback('soft')
+												tgStore.hapticFeedback()
 											}}
 										/>
 									</div>
