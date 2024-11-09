@@ -6,6 +6,7 @@ import { usePvpStore } from '@/stores/pvp'
 import { HeaderPremActiveIcon, HeaderPremIcon } from '@/components/icons'
 import { BuyPremium } from '@/components/pvp'
 import { useCommonStore } from '@/stores/common'
+import { useTgSdkStore } from '@/stores/tg-sdk'
 
 export const UiHeader = defineComponent({
 	name: 'UiHeader',
@@ -13,6 +14,7 @@ export const UiHeader = defineComponent({
 		const userStore = useUserStore()
 		const pvpStore = usePvpStore()
 		const commonStore = useCommonStore()
+		const tgStore = useTgSdkStore()
 
 		const premiumModal = ref<UiBottomSheetMethods | null>(null)
 
@@ -33,7 +35,13 @@ export const UiHeader = defineComponent({
 					class={styles.header}
 					style={commonStore.isNavigationDisabled && 'pointer-events: none'}
 				>
-					<div class={styles.headerItem} onClick={() => premiumModal.value?.open()}>
+					<div
+						class={styles.headerItem}
+						onClick={() => {
+							premiumModal.value?.open()
+							tgStore.hapticFeedback()
+						}}
+					>
 						<UiProgressBar
 							filledItems={pvpStore.pvpCharacter?.experience.current_experience ?? 0}
 							totalItems={pvpStore.pvpCharacter?.experience.maximum_experience ?? 1}
