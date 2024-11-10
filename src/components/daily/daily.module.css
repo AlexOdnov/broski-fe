@@ -37,15 +37,25 @@
 
 .dayBlock {
 	text-align: left;
+	display: flex;
+	flex-direction: column;
+	flex-flow: wrap;
+	min-height: 87px;
+	align-content: space-between;
 	background-color: #141517;
 	border-radius: 10px;
 	padding: 10px;
 }
 
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
 .dayBlockCoins {
 	display: flex;
 	align-items: center;
-	margin-top: 20px;
 }
 
 .dayBlockCoins img {

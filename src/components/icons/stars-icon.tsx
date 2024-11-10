@@ -2,11 +2,14 @@ import { defineComponent } from 'vue'
 
 export const StarsIcon = defineComponent({
 	name: 'StarsIcon',
-	setup: () => {
+	props: {
+		height: { type: Number, default: 16 }
+	},
+	setup: (props) => {
 		return () => (
 			<svg
-				width="17"
-				height="16"
+				width={props.height * 17 / 16}
+				height={props.height}
 				viewBox="0 0 17 16"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
