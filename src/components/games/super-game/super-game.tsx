@@ -25,7 +25,7 @@ export const SuperGame = defineComponent({
 		const topText = computed(() => {
 			switch (gameStore.gameStatus) {
 				case GameStatus.Win:
-					return t('superBro')
+					return t('suuuperBrooo')
 				case GameStatus.Nothing:
 					return t('badLuck')
 				case GameStatus.Lose:
