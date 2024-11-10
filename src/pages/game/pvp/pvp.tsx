@@ -74,6 +74,9 @@ const PvpPage = defineComponent({
 							mod="primary"
 							whenClick={async () => {
 								await pvpStore.startPvpMatch()
+								if (pvpStore.pvpMatchResult?.result === MatchResult.Win) {
+									tgStore.hapticFeedback('heavy')
+								}
 							}}
 						/>
 						<UiButton

@@ -1,5 +1,6 @@
 import { computed, defineComponent, type PropType, type VNode } from 'vue'
 import styles from './ui-button.module.css'
+import { useTgSdkStore, type HapticStyle } from '@/stores/tg-sdk'
 
 export type ButtonSize = 'sm' | 'md' | 'lg'
 export type ButtonMod = 'primary' | 'secondary' | 'inverse'
@@ -18,9 +19,12 @@ export const UiButton = defineComponent({
 		minWidth: { type: String, default: 'auto' },
 		bordered: { type: Boolean, default: false },
 		icon: { type: Boolean, default: false },
+		hapticFeedback: { type: String as PropType<HapticStyle | 'none'>, default: 'soft' },
 		whenClick: { type: Function as PropType<(e: MouseEvent) => void>, required: true }
 	},
 	setup: (props) => {
+		const tgStore = useTgSdkStore()
+
 		const sizeClass = computed(() => {
 			switch (props.size) {
 				case 'sm':
@@ -61,6 +65,9 @@ export const UiButton = defineComponent({
 		const handleClick = (e: MouseEvent) => {
 			if (props.disabled || props.loading) {
 				return
+			}
+			if (props.hapticFeedback !== 'none') {
+				tgStore.hapticFeedback(props.hapticFeedback)
 			}
 			props.whenClick(e)
 		}
