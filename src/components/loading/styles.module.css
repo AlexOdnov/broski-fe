@@ -22,23 +22,6 @@
 	transform: rotate(-7deg);
 }
 
-.handWrapper {
-	position: relative;
-	width: 220px;
-	transform: rotate(180deg) translateX(-10px);
-}
-
-.shadow {
-	width: 220px;
-}
-
-.hand {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 220px;
-}
-
 .logo {
 	max-width: 282px;
 	margin: 0 auto;
