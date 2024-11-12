@@ -6,7 +6,7 @@ export const DropConfetti = defineComponent({
 	setup: () => {
 		onMounted(async () => {
 			await dropConfetti()
-			return () => null
 		})
+		return () => null
 	}
 })

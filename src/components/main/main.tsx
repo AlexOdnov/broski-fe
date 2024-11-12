@@ -24,7 +24,7 @@ export const MainComponent = defineComponent({
 		return () => (
 			<>
 				<main class={styles.pageContainer}>
-					<RouterView class={styles.page} />
+					<RouterView />
 				</main>
 				<footer class={styles.footer}>
 					<nav
