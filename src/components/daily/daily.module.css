@@ -36,11 +36,11 @@
 }
 
 .dayBlock {
-	text-align: left;
-	display: flex;
-	flex-direction: column;
-	flex-flow: wrap;
 	min-height: 87px;
+	display: grid;
+	text-align: left;
+	grid-template-rows: min-content 1fr min-content;
+	grid-template-columns: 1fr;
 	align-content: space-between;
 	background-color: #141517;
 	border-radius: 10px;

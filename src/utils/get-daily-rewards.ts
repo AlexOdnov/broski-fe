@@ -52,7 +52,7 @@ export const getRewardByDay = (day: number) => {
 		} else {
 			return {
 				day,
-				tickets: 10000
+				coins: 10000
 			}
 		}
 	}

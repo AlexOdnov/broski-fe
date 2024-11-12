@@ -66,6 +66,7 @@ export const DailyComponent = defineComponent({
 										{`${t('day')} ${d.day}`}
 									</UiText>
 								</div>
+								<div/>
 								<div class={styles.content}>
 									{d.coins && (
 										<UiText
@@ -97,8 +98,8 @@ export const DailyComponent = defineComponent({
 											fontSize={'12px'}
 											lineHeight={'12px'}
 										>
-											{`${d.lootboxes} ${t('lootbox', d.lootboxes)}`}
-											<GiftIcon height={12} />
+											{`${d.lootboxes}`}
+											<GiftIcon height={24} />
 										</UiText>
 									)}
 									{d.superbro && (
