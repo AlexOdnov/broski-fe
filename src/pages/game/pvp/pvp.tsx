@@ -1,7 +1,7 @@
 import { computed, defineComponent, ref } from 'vue'
 
 import styles from './pvp.module.css'
-import { BuyPremium, MatchCharacterCard } from '@/components/pvp'
+import { BuyPremium, DropConfetti, MatchCharacterCard } from '@/components/pvp'
 import { usePvpStore } from '@/stores/pvp'
 import { TicketIcon } from '@/components/icons'
 import { MatchResult } from '@/api/generatedApi'
@@ -164,17 +164,20 @@ const PvpPage = defineComponent({
 			<div class={styles.pvp}>
 				<div class={[styles.textInFrontWrapper, styles.fullWidth]}>
 					{textInFront.value && (
-						<UiText
-							shadow
-							fontFamily="barcadeBrawl"
-							class={styles.textInFront}
-							fontSize="24px"
-							fontWeight={400}
-							lineHeight="40px"
-							color={pvpStore.pvpMatchResult?.result === MatchResult.Lose ? '#FF5449' : '#FFFFFF'}
-						>
-							{textInFront.value}
-						</UiText>
+						<>
+							{pvpStore.pvpMatchResult?.result === MatchResult.Win && <DropConfetti />}
+							<UiText
+								shadow
+								fontFamily="barcadeBrawl"
+								class={styles.textInFront}
+								fontSize="24px"
+								fontWeight={400}
+								lineHeight="40px"
+								color={pvpStore.pvpMatchResult?.result === MatchResult.Lose ? '#FF5449' : '#FFFFFF'}
+							>
+								{textInFront.value}
+							</UiText>
+						</>
 					)}
 				</div>
 				<MatchCharacterCard
