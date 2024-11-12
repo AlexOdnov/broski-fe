@@ -12,12 +12,13 @@
 		"lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
 		"format": "prettier --write src/",
 		"lint:all": "npm run format && npm run lint && npm run type-check",
-		"generate-api": "npx swagger-typescript-api -p https://api.itsbrocoin.wtf/openapi.json -o ./src/api -n generatedApi.ts --axios  --extract-request-params --extract-request-body --extract-enums && npm run format",
+		"generate-api": "npx swagger-typescript-api -p https://brocoin.site/openapi.json -o ./src/api -n generatedApi.ts --axios  --extract-request-params --extract-request-body --extract-enums",
 		"prepare": "husky install"
 	},
 	"dependencies": {
 		"@sentry/vite-plugin": "^2.22.5",
 		"@sentry/vue": "^8.33.1",
+		"@tsparticles/confetti": "^3.5.0",
 		"axios": "^1.7.4",
 		"normalize.css": "^8.0.1",
 		"pinia": "^2.1.7",
