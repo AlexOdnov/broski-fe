@@ -76,8 +76,8 @@ export const DailyComponent = defineComponent({
 											fontSize={'12px'}
 											lineHeight={'12px'}
 										>
-											<CoinIcon height={12} />
-											{`${d.coins} $BRO`}
+											<CoinIcon height={18} />&nbsp;
+											{`${d.coins > 1000 ? Math.trunc(d.coins/1000)+'k' : d.coins} $BRO`}
 										</UiText>
 									)}
 									{d.tickets && (
@@ -87,8 +87,8 @@ export const DailyComponent = defineComponent({
 											fontSize={'12px'}
 											lineHeight={'12px'}
 										>
-											{t('ticket', d.tickets)}
-											<TicketIcon height={12} />
+											{t('ticket', d.tickets)}&nbsp;
+											<TicketIcon height={18} />
 										</UiText>
 									)}
 									{d.lootboxes && (
@@ -98,8 +98,8 @@ export const DailyComponent = defineComponent({
 											fontSize={'12px'}
 											lineHeight={'12px'}
 										>
-											{`${d.lootboxes}`}
-											<GiftIcon height={24} />
+											{`${d.lootboxes}`}&nbsp;
+											<GiftIcon height={18} border={1}/>
 										</UiText>
 									)}
 									{d.superbro && (
@@ -109,7 +109,7 @@ export const DailyComponent = defineComponent({
 											fontSize={'12px'}
 											lineHeight={'12px'}
 										>
-											<StarsIcon height={12} style={{color: '#ffb800'}} />
+											<StarsIcon height={18} style={{color: '#ffb800'}} />&nbsp;
 											{`${t('days', d.superbro)} ${t('superBro')}`}
 										</UiText>
 									)}

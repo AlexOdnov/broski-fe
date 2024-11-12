@@ -10,7 +10,7 @@ export const getRewardByDay = (day: number) => {
 	const rewards: Reward[] = [
 		{
 			day: 1,
-			coins: 30,
+			coins: 250,
 			lootboxes: 1
 		},
 		{
