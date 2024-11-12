@@ -1,5 +1,5 @@
-import { defineComponent, onMounted } from 'vue'
-import { confetti } from "@tsparticles/confetti";
+import { confetti } from '@tsparticles/confetti'
+
 const confettiOptions = {
 	/**
 	 * @deprecated use count property instead
@@ -31,12 +31,9 @@ const confettiOptions = {
 	zIndex: 100,
 	disableForReducedMotion: true,
 }
-export const DropConfetti = defineComponent({
-	name: "DropConfetti",
-	setup: () => {
-		onMounted(async() => {
-			await confetti('tsparticles', confettiOptions)
-		})
-		return () => null
-	}
-})
+
+export async function dropConfetti() {
+	await confetti('tsparticles', confettiOptions)
+}
+
+
