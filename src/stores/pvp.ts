@@ -97,7 +97,11 @@ export const usePvpStore = defineStore('pvp', () => {
 			withLoader && commonStore.setIsLoading(true)
 			setIsLoading(true)
 			const response = await api.loadPvpCharacter({ userId: tgStore.userId })
-			if(response?.level && pvpCharacter.value?.level && response.level > pvpCharacter.value.level) {
+			if (
+				response?.level &&
+				pvpCharacter.value?.level &&
+				response.level > pvpCharacter.value.level
+			) {
 				await dropConfetti()
 			}
 			setPvpCharacter(response)

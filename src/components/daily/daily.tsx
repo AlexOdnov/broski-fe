@@ -50,7 +50,12 @@ export const DailyComponent = defineComponent({
 				<UiText fontFamily={'barcadeBrawl'} fontSize={'16px'} lineHeight={'16px'}>
 					{t('dailyRewards')}
 				</UiText>
-				<RewardBlock coins={currentReward.value.coins ?? 0} tickets={currentReward.value.tickets ?? 0} lootboxes={currentReward.value.lootboxes ?? 0} premium={currentReward.value.superbro ?? 0} />
+				<RewardBlock
+					coins={currentReward.value.coins ?? 0}
+					tickets={currentReward.value.tickets ?? 0}
+					lootboxes={currentReward.value.lootboxes ?? 0}
+					premium={currentReward.value.superbro ?? 0}
+				/>
 				<div class={styles.message}>
 					<span>{`${t('comeBackTomorrow')} ${props.day + 1}`}</span>
 					<br />
@@ -66,7 +71,7 @@ export const DailyComponent = defineComponent({
 										{`${t('day')} ${d.day}`}
 									</UiText>
 								</div>
-								<div/>
+								<div />
 								<div class={styles.content}>
 									{d.coins && (
 										<UiText
@@ -76,8 +81,9 @@ export const DailyComponent = defineComponent({
 											fontSize={'12px'}
 											lineHeight={'12px'}
 										>
-											<CoinIcon height={18} />&nbsp;
-											{`${d.coins > 1000 ? Math.trunc(d.coins/1000)+'k' : d.coins} $BRO`}
+											<CoinIcon height={18} />
+											&nbsp;
+											{`${d.coins > 1000 ? Math.trunc(d.coins / 1000) + 'k' : d.coins} $BRO`}
 										</UiText>
 									)}
 									{d.tickets && (
@@ -99,7 +105,7 @@ export const DailyComponent = defineComponent({
 											lineHeight={'12px'}
 										>
 											{`${d.lootboxes}`}&nbsp;
-											<GiftIcon height={18} border={1}/>
+											<GiftIcon height={18} border={1} />
 										</UiText>
 									)}
 									{d.superbro && (
@@ -109,7 +115,8 @@ export const DailyComponent = defineComponent({
 											fontSize={'12px'}
 											lineHeight={'12px'}
 										>
-											<StarsIcon height={18} style={{color: '#ffb800'}} />&nbsp;
+											<StarsIcon height={18} style={{ color: '#ffb800' }} />
+											&nbsp;
 											{`${t('days', d.superbro)} ${t('superBro')}`}
 										</UiText>
 									)}

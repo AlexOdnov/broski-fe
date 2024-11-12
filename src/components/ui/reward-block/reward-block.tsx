@@ -24,7 +24,10 @@ export const RewardBlock = defineComponent({
 		})
 
 		return () => (
-			<div class={styles.frame} style={`grid-template-columns: repeat(${length.value - 1}, 1fr 1px) 1fr;`}>
+			<div
+				class={styles.frame}
+				style={`grid-template-columns: repeat(${length.value - 1}, 1fr 1px) 1fr;`}
+			>
 				{props.coins != 0 && (
 					<>
 						<div class={styles.coins}>
@@ -46,14 +49,16 @@ export const RewardBlock = defineComponent({
 					<>
 						{(props.coins != 0 || props.tickets != 0) && <div class={styles.separator} />}
 						<div class={styles.tickets}>
-							<StarsIcon class={styles.marginHorizontal} height={50} style={{color: '#ffb800'}} />
+							<StarsIcon class={styles.marginHorizontal} height={50} style={{ color: '#ffb800' }} />
 							{`${t('days', props.premium)} ${t('superBro')}`}
 						</div>
 					</>
 				)}
 				{props.lootboxes != 0 && (
 					<>
-						{(props.coins != 0 || props.tickets != 0 || props.premium != 0) && <div class={styles.separator} />}
+						{(props.coins != 0 || props.tickets != 0 || props.premium != 0) && (
+							<div class={styles.separator} />
+						)}
 						<div class={styles.tickets}>
 							<GiftIcon class={styles.marginHorizontal} height={50} />
 							{`${props.lootboxes} ${t('lootbox', props.lootboxes)}`}
