@@ -93,7 +93,7 @@ const ReferralsPage = defineComponent({
 		})
 
 		return () => (
-			<div class={styles.referralsPage}>
+			<>
 				<UiHeader />
 				<div class={styles.header}>
 					<div class={styles.text}>
@@ -130,7 +130,7 @@ const ReferralsPage = defineComponent({
 				<div class={styles.claimButton}>
 					<UiButton size={'sm'} {...claimButtonProps.value} />
 				</div>
-			</div>
+			</>
 		)
 	}
 })

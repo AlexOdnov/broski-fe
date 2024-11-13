@@ -20,7 +20,7 @@ const TasksPage = defineComponent({
 		}
 
 		return () => (
-			<div>
+			<>
 				<UiHeader />
 				<div class={styles.tasks}>
 					<span class={styles.listTitle}>{t('task.tasks')}</span>
@@ -41,7 +41,7 @@ const TasksPage = defineComponent({
 							)
 						})}
 				</div>
-			</div>
+			</>
 		)
 	}
 })

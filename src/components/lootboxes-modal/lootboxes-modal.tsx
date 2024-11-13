@@ -137,7 +137,7 @@ export const LootboxesModal = defineComponent({
 											>
 												&nbsp;{userStore.user?.boxes}&nbsp;
 											</UiText>
-											<GiftIcon height={14} />
+											<GiftIcon height={14} border={1} />
 										</div>
 									</>
 								)}

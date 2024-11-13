@@ -5,6 +5,7 @@ import { useUserStore } from '@/stores/user'
 import { getRewardByDay, type Reward } from '@/utils/get-daily-rewards'
 import { UiText } from '../ui'
 import { useLocalization } from '@/services/localization'
+import { CoinIcon, GiftIcon, StarsIcon, TicketIcon } from '@/components/icons'
 
 export const DailyComponent = defineComponent({
 	name: 'DailyComponent',
@@ -49,7 +50,12 @@ export const DailyComponent = defineComponent({
 				<UiText fontFamily={'barcadeBrawl'} fontSize={'16px'} lineHeight={'16px'}>
 					{t('dailyRewards')}
 				</UiText>
-				<RewardBlock coins={currentReward.value.coins} tickets={currentReward.value.tickets} />
+				<RewardBlock
+					coins={currentReward.value.coins ?? 0}
+					tickets={currentReward.value.tickets ?? 0}
+					lootboxes={currentReward.value.lootboxes ?? 0}
+					premium={currentReward.value.superbro ?? 0}
+				/>
 				<div class={styles.message}>
 					<span>{`${t('comeBackTomorrow')} ${props.day + 1}`}</span>
 					<br />
@@ -60,28 +66,61 @@ export const DailyComponent = defineComponent({
 						<div class={styles.dayBlockWrapper}>
 							{props.day === d.day && <div class={styles.okBlock}>👌</div>}
 							<div class={[styles.dayBlock, props.day === d.day && styles.currentDayBlock]}>
-								<UiText color={'#f0f0f0'} fontWeight={600} fontSize={'14px'} lineHeight={'14px'}>
-									{`${t('day')} ${d.day}`}
-								</UiText>
-								<UiText
-									class={styles.dayBlockCoins}
-									isAccent
-									fontWeight={400}
-									fontSize={'12px'}
-									lineHeight={'12px'}
-								>
-									<img src="/images/bro-coin.webp" />
-									{`${d.coins} $BRO`}
-								</UiText>
-								<UiText
-									class={styles.dayBlockTickets}
-									fontWeight={400}
-									fontSize={'12px'}
-									lineHeight={'12px'}
-								>
-									{t('ticket', d.tickets)}
-									<img src="/images/ticket.webp" />
-								</UiText>
+								<div>
+									<UiText color={'#f0f0f0'} fontWeight={600} fontSize={'14px'} lineHeight={'14px'}>
+										{`${t('day')} ${d.day}`}
+									</UiText>
+								</div>
+								<div />
+								<div class={styles.content}>
+									{d.coins && (
+										<UiText
+											class={styles.dayBlockCoins}
+											isAccent
+											fontWeight={400}
+											fontSize={'12px'}
+											lineHeight={'12px'}
+										>
+											<CoinIcon height={18} />
+											&nbsp;
+											{`${d.coins > 1000 ? Math.trunc(d.coins / 1000) + 'k' : d.coins} $BRO`}
+										</UiText>
+									)}
+									{d.tickets && (
+										<UiText
+											class={styles.dayBlockTickets}
+											fontWeight={400}
+											fontSize={'12px'}
+											lineHeight={'12px'}
+										>
+											{t('ticket', d.tickets)}&nbsp;
+											<TicketIcon height={18} />
+										</UiText>
+									)}
+									{d.lootboxes && (
+										<UiText
+											class={styles.dayBlockTickets}
+											fontWeight={400}
+											fontSize={'12px'}
+											lineHeight={'12px'}
+										>
+											{`${d.lootboxes}`}&nbsp;
+											<GiftIcon height={18} border={1} />
+										</UiText>
+									)}
+									{d.superbro && (
+										<UiText
+											class={styles.dayBlockCoins}
+											fontWeight={400}
+											fontSize={'12px'}
+											lineHeight={'12px'}
+										>
+											<StarsIcon height={18} style={{ color: '#ffb800' }} />
+											&nbsp;
+											{`${t('days', d.superbro)} ${t('superBro')}`}
+										</UiText>
+									)}
+								</div>
 							</div>
 						</div>
 					))}

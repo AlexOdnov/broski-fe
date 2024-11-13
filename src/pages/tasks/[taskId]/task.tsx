@@ -39,7 +39,7 @@ const TaskPage = defineComponent({
 		}
 
 		return () => (
-			<div class={styles.taskWrapper}>
+			<>
 				<RouterLink class={styles.back} to={{ name: RouteName.Tasks }}>
 					<UiButton
 						mod="inverse"
@@ -81,7 +81,7 @@ const TaskPage = defineComponent({
 					<br />
 					{t('task.cheatersWillBePunished')}
 				</div>
-			</div>
+			</>
 		)
 	}
 })

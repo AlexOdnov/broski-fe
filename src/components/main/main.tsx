@@ -24,7 +24,7 @@ export const MainComponent = defineComponent({
 		return () => (
 			<>
 				<main class={styles.pageContainer}>
-					<RouterView class={styles.page} />
+					<RouterView />
 				</main>
 				<footer class={styles.footer}>
 					<nav
@@ -69,7 +69,7 @@ export const MainComponent = defineComponent({
 									class={[styles.centralNav, styles.navBtn, styles.border]}
 									onClick={() => tgStore.hapticFeedback()}
 								>
-									<GiftIcon height={40} />
+									<GiftIcon height={34} />
 									<UiText
 										fontSize="12px"
 										fontWeight={400}
