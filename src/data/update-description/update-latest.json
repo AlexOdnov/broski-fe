@@ -1,15 +1,13 @@
 {
-	"version": "v2.5",
+	"version": "v2.6",
 	"changes": {
 		"ru": [
-			"Обновлена страница профиля",
-			"Тоники теперь отображаются на странице профиля и показывают заряд",
-			"Увеличен шанс выпадения тоников"
+			"Добавлены лутбоксы в бонусы за вход",
+			"Добавлена анимация при победе"
 		],
 		"en": [
-			"Profile page updated",
-			"Tonics are now displayed on the profile page, showing their charge level",
-			"Increased the drop rate for tonics"
+			"Lootboxes added in daily bonuses as a prize",
+			"Added animation when you win"
 		]
 	}
 }
