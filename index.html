@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<script>
-			console.log(location.hash)
+			sessionStorage.setItem('initialHash', location.hash)
 		</script>
 		<link rel="icon" href="/favicon.ico" />
 		<link
@@ -131,8 +131,5 @@
 			</div>
 		</noscript>
 		<!-- /Yandex.Metrika counter -->
-		<script>
-			console.log(location.hash)
-		</script>
 	</body>
 </html>
