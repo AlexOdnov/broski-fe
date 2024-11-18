@@ -67,11 +67,10 @@ const router = createRouter({
 	]
 })
 
-router.beforeEach((to) => {
-	return {
-		path: to.path,
-		query: to.query,
-		hash: sessionStorage.getItem('initialHash') || undefined
+router.afterEach(() => {
+	const initialHash = sessionStorage.getItem('initialHash')
+	if (initialHash) {
+		location.hash = initialHash
 	}
 })
 
