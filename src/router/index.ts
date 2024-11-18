@@ -1,4 +1,5 @@
 import GamePage from '@/pages/game/game'
+import PvpProfilePage from '@/pages/game/pvp-profile/pvp-profile'
 
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -30,7 +31,7 @@ const router = createRouter({
 				{
 					path: 'profile',
 					name: RouteName.GamePvpProfile,
-					component: () => import('@/pages/game/pvp-profile/pvp-profile')
+					component: PvpProfilePage
 				},
 				{
 					path: 'find-bro',
