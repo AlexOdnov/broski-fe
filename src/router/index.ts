@@ -67,4 +67,11 @@ const router = createRouter({
 	]
 })
 
+router.afterEach(() => {
+	const initialHash = sessionStorage.getItem('initialHash')
+	if (initialHash) {
+		location.hash = initialHash
+	}
+})
+
 export default router
