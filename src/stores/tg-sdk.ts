@@ -66,6 +66,8 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			tg.value = Telegram.WebApp
 			tg.value.expand()
 			tg.value.disableVerticalSwipes()
+			// @ts-expect-error
+			tg.value?.requestFullscreen?.()
 			if (!user.value) {
 				initTgSdkRetryCount -= 1
 				if (initTgSdkRetryCount > 0) {
