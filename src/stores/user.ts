@@ -35,6 +35,8 @@ export const useUserStore = defineStore('user', () => {
 				ref_code: tgStore.startParam,
 				premium: tgStore.isPremium
 			})
+			console.log('user response: ', userResponse)
+
 			setUserLegacy(userResponse)
 		} catch (error) {
 			sentry.captureNetworkException(error)
