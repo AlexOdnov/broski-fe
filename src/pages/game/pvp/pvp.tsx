@@ -132,9 +132,9 @@ const PvpPage = defineComponent({
 				fontWeight: 400 as UiTextFontWeight
 			}
 			return (
-				<div class={[styles.fullWidth, styles.bottomText]}>
+				<>
 					{!pvpStore.pvpMatchResult && pvpStore.pvpMatch?.match_id && (
-						<>
+						<div class={[styles.fullWidth, styles.bottomText]}>
 							<UiText {...textProps}> {t('pvp.skipOpponent')}:</UiText>&nbsp;
 							{envVariables.skipPvpCost === 'ticket' ? (
 								<>
@@ -147,17 +147,17 @@ const PvpPage = defineComponent({
 							) : (
 								<CoinCounter reverse coins={50} />
 							)}
-						</>
+						</div>
 					)}
 					{pvpStore.pvpMatchResult?.result === MatchResult.Lose && (
-						<>
+						<div class={[styles.fullWidth, styles.bottomText]}>
 							<UiText {...textProps}> {t('pvp.youWas')}</UiText>&nbsp;
 							<UiText {...textProps} color={'#FF5449'}>
 								{t('pvp.knockedOut')}
 							</UiText>
-						</>
+						</div>
 					)}
-				</div>
+				</>
 			)
 		})
 
