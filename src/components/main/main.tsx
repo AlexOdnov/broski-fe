@@ -5,7 +5,14 @@ import { useTasksStore } from '@/stores/tasks'
 import { useReferralsStore } from '@/stores/referrals'
 import { RouteName } from '@/router'
 import { useCommonStore } from '@/stores/common'
-import { DollarIcon, GamepadIcon, GiftIcon, UserIcon, ConstructIcon } from '@/components/icons'
+import {
+	DollarIcon,
+	GamepadIcon,
+	GiftIcon,
+	UserIcon,
+	ConstructIcon,
+	NoticeIcon
+} from '@/components/icons'
 import { UiText } from '@/components'
 import { useLocalization } from '@/services/localization'
 import { LootboxesModal } from '@/components/lootboxes-modal'
@@ -55,7 +62,7 @@ export const MainComponent = defineComponent({
 								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback()}>
 									<DollarIcon />
 									{Boolean(tasksStore.uncompletedTasks.length) && (
-										<img class={styles.notice} src="/images/notice.webp" />
+										<NoticeIcon height={20} class={styles.notice} />
 									)}
 									<UiText fontSize="12px" fontWeight={400} lineHeight="12px" fontFamily="roboto">
 										{t('earn')}
@@ -90,7 +97,7 @@ export const MainComponent = defineComponent({
 							>
 								<div class={styles.navBtn} onClick={() => tgStore.hapticFeedback()}>
 									{Boolean(referralsStore.sumReferralsReward) && (
-										<img class={styles.notice} src="/images/notice.webp" />
+										<NoticeIcon height={20} class={styles.notice} />
 									)}
 									<UserIcon />
 									<UiText fontSize="12px" fontWeight={400} lineHeight="12px" fontFamily="roboto">

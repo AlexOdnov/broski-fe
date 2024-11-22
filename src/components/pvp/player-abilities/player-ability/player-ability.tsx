@@ -32,6 +32,7 @@ export const PlayerAbility = defineComponent({
 					loading={!props.disabled && props.loading}
 					disabled={props.disabled}
 					icon
+					shimmer
 					whenClick={props.whenUpgrade}
 				/>
 				<CoinCounter coins={props.upgradeCost} />
