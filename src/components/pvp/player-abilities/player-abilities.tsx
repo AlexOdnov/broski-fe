@@ -19,16 +19,6 @@ export const PlayerAbilities = defineComponent({
 			return Math.max(...Object.values(pvpStore.pvpCharacterAbilities)) ?? 1
 		})
 
-		const abilityUpgradeCosts = computed<Record<keyof AbilityScores, number>>(() => {
-			return {
-				combinations: Math.ceil(pvpStore.pvpCharacterAbilities.combinations ** 2.47),
-				defence: Math.ceil(pvpStore.pvpCharacterAbilities.defence ** 2.3425),
-				speed: Math.ceil(pvpStore.pvpCharacterAbilities.speed ** 2.27),
-				strength: Math.ceil(pvpStore.pvpCharacterAbilities.strength ** 2.595),
-				weight: Math.ceil(pvpStore.pvpCharacterAbilities.weight ** 2.38)
-			}
-		})
-
 		const upgradeAbility = (key: keyof AbilityScoresDelta) => {
 			pvpStore.upgradePvpCharacterAbility({
 				[key]: 1
@@ -36,7 +26,7 @@ export const PlayerAbilities = defineComponent({
 		}
 
 		const isDisabled = (key: keyof AbilityScores) => {
-			return abilityUpgradeCosts.value[key] > userStore.userScore
+			return pvpStore.abilityUpgradeCosts[key] > userStore.userScore
 		}
 
 		return () => (
@@ -55,7 +45,7 @@ export const PlayerAbilities = defineComponent({
 					abilityType={'strength'}
 					currentValue={pvpStore.pvpCharacterAbilities.strength}
 					maximumValue={maximumAbilityValue.value}
-					upgradeCost={abilityUpgradeCosts.value.strength}
+					upgradeCost={pvpStore.abilityUpgradeCosts.strength}
 					loading={pvpStore.isLoading}
 					disabled={isDisabled('strength')}
 					whenUpgrade={() => upgradeAbility('strength')}
@@ -64,7 +54,7 @@ export const PlayerAbilities = defineComponent({
 					abilityType={'defence'}
 					currentValue={pvpStore.pvpCharacterAbilities.defence}
 					maximumValue={maximumAbilityValue.value}
-					upgradeCost={abilityUpgradeCosts.value.defence}
+					upgradeCost={pvpStore.abilityUpgradeCosts.defence}
 					loading={pvpStore.isLoading}
 					disabled={isDisabled('defence')}
 					whenUpgrade={() => upgradeAbility('defence')}
@@ -73,7 +63,7 @@ export const PlayerAbilities = defineComponent({
 					abilityType={'speed'}
 					currentValue={pvpStore.pvpCharacterAbilities.speed}
 					maximumValue={maximumAbilityValue.value}
-					upgradeCost={abilityUpgradeCosts.value.speed}
+					upgradeCost={pvpStore.abilityUpgradeCosts.speed}
 					loading={pvpStore.isLoading}
 					disabled={isDisabled('speed')}
 					whenUpgrade={() => upgradeAbility('speed')}
@@ -82,7 +72,7 @@ export const PlayerAbilities = defineComponent({
 					abilityType={'weight'}
 					currentValue={pvpStore.pvpCharacterAbilities.weight}
 					maximumValue={maximumAbilityValue.value}
-					upgradeCost={abilityUpgradeCosts.value.weight}
+					upgradeCost={pvpStore.abilityUpgradeCosts.weight}
 					loading={pvpStore.isLoading}
 					disabled={isDisabled('weight')}
 					whenUpgrade={() => upgradeAbility('weight')}
@@ -91,7 +81,7 @@ export const PlayerAbilities = defineComponent({
 					abilityType={'combinations'}
 					currentValue={pvpStore.pvpCharacterAbilities.combinations}
 					maximumValue={maximumAbilityValue.value}
-					upgradeCost={abilityUpgradeCosts.value.combinations}
+					upgradeCost={pvpStore.abilityUpgradeCosts.combinations}
 					loading={pvpStore.isLoading}
 					disabled={isDisabled('combinations')}
 					whenUpgrade={() => upgradeAbility('combinations')}
