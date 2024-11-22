@@ -1,13 +1,7 @@
 {
 	"version": "v2.6",
 	"changes": {
-		"ru": [
-			"Добавлены лутбоксы в бонусы за вход",
-			"Добавлена анимация при победе"
-		],
-		"en": [
-			"Lootboxes added in daily bonuses as a prize",
-			"Added animation when you win"
-		]
+		"ru": ["Добавлены лутбоксы в бонусы за вход", "Добавлена анимация при победе"],
+		"en": ["Lootboxes added in daily bonuses as a prize", "Added animation when you win"]
 	}
 }

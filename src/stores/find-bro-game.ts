@@ -7,11 +7,9 @@ import {
 	createEmptyGameElements,
 	createFillGameElements,
 	GameStatus,
-	WIN_GAME_POINTS,
 	type IGameElement
 } from '@/utils/games'
 import { randomValueByChance } from '@/utils/random'
-import { envVariables } from '@/services/env'
 
 export const INITIAL_ATTEMPTS_COUNT = 6
 
@@ -56,7 +54,7 @@ const FAKE_GAME_ELEMENTS: IGameElement[] = [
 ]
 
 const createGameField = (): IGameElement[] => {
-	return randomValueByChance(envVariables.lootboxChance)
+	return randomValueByChance(5)
 		? [
 				...createFillGameElements(WIN_GAME_ELEMENTS),
 				...createEmptyGameElements(5),

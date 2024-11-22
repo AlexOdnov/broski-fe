@@ -17,7 +17,6 @@ import { useReferralsStore } from './stores/referrals'
 import { useAdvertisingStore } from '@/stores/advertising'
 import { envVariables } from './services/env'
 import { usePvpStore } from './stores/pvp'
-import { SentryError, useSentry } from './services/sentry'
 import { useLocalization } from './services/localization'
 
 export default defineComponent({
@@ -29,7 +28,6 @@ export default defineComponent({
 		const referralsStore = useReferralsStore()
 		const pvpStore = usePvpStore()
 		const advertisingStore = useAdvertisingStore()
-		const sentry = useSentry()
 		const { i18n } = useLocalization()
 
 		const isUserExist = ref(false)

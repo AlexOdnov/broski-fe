@@ -13,14 +13,12 @@ import type {
 import { useCommonStore } from './common'
 import { useUserStore } from './user'
 import { Temporal } from 'temporal-polyfill'
-import { useSentry } from '@/services/sentry'
 import { dropConfetti } from '@/utils/drop-confetti'
 
 export type AbilityType = keyof AbilityScores
 
 export const usePvpStore = defineStore('pvp', () => {
 	const api = useApi()
-	const sentry = useSentry()
 	const tgStore = useTgSdkStore()
 	const commonStore = useCommonStore()
 	const userStore = useUserStore()

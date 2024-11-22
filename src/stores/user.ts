@@ -20,12 +20,6 @@ export const useUserStore = defineStore('user', () => {
 	const userScore = computed(() => user.value?.score || 0)
 	const userBoxes = computed(() => user.value?.boxes || 0)
 
-	const setUserProperty = <T extends keyof User>(key: T, value: User[T]) => {
-		if (user.value) {
-			setUser({ ...user.value, [key]: value })
-		}
-	}
-
 	const loadUserLegacy = async (withLoader = false) => {
 		try {
 			withLoader && commonStore.setIsLoading(true)

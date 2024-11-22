@@ -3,7 +3,6 @@ import { computed, defineComponent, ref } from 'vue'
 import styles from './pvp.module.css'
 import { BuyPremium, DropConfetti, MatchCharacterCard } from '@/components/pvp'
 import { usePvpStore } from '@/stores/pvp'
-import { TicketIcon } from '@/components/icons'
 import { MatchResult } from '@/api/generatedApi'
 import {
 	CoinCounter,
@@ -136,17 +135,7 @@ const PvpPage = defineComponent({
 					{!pvpStore.pvpMatchResult && pvpStore.pvpMatch?.match_id && (
 						<div class={[styles.fullWidth, styles.bottomText]}>
 							<UiText {...textProps}> {t('pvp.skipOpponent')}:</UiText>&nbsp;
-							{envVariables.skipPvpCost === 'ticket' ? (
-								<>
-									<UiText {...textProps} color={'#FFB800'}>
-										1
-									</UiText>
-									&nbsp;
-									<TicketIcon height={14} />
-								</>
-							) : (
-								<CoinCounter reverse coins={50} />
-							)}
+							<CoinCounter reverse coins={50} />
 						</div>
 					)}
 					{pvpStore.pvpMatchResult?.result === MatchResult.Lose && (
