@@ -101,9 +101,6 @@ export default defineComponent({
 			tgStore.initTgApp()
 			if (!tgStore.user) {
 				console.warn('Failed to get telegram user information')
-				sentry.captureException(
-					new SentryError('Tg sdk error', 'Failed to get telegram user information')
-				)
 				return
 			}
 			i18n.locale.value = tgStore.languageCode
