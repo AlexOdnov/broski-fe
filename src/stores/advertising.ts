@@ -61,7 +61,7 @@ export const useAdvertisingStore = defineStore('advertising', () => {
 			await _showAdvOnClicka()
 			return true
 		} catch (e) {
-			console.warn('failed when show onclicka adv', e)
+			console.warn('error when show onclicka adv', e)
 			return false
 		}
 	}
