@@ -1,0 +1,15 @@
+{
+	"version": "v2.5",
+	"changes": {
+		"ru": [
+			"Обновлена страница профиля",
+			"Тоники теперь отображаются на странице профиля и показывают заряд",
+			"Увеличен шанс выпадения тоников"
+		],
+		"en": [
+			"Profile page updated",
+			"Tonics are now displayed on the profile page, showing their charge level",
+			"Increased the drop rate for tonics"
+		]
+	}
+}

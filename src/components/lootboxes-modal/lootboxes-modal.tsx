@@ -63,7 +63,10 @@ export const LootboxesModal = defineComponent({
 				if (status === 'cancelled') {
 					return
 				}
-				setTimeout(() => userStore.loadUser(), 1000)
+				setTimeout(() => {
+					userStore.loadUser()
+					tgStore.hapticFeedback()
+				}, 500)
 			})
 		}
 
@@ -134,7 +137,7 @@ export const LootboxesModal = defineComponent({
 											>
 												&nbsp;{userStore.user?.boxes}&nbsp;
 											</UiText>
-											<GiftIcon height={14} />
+											<GiftIcon height={14} border={1} />
 										</div>
 									</>
 								)}
@@ -156,6 +159,7 @@ export const LootboxesModal = defineComponent({
 											winIndex={winIndex.value}
 											onAnimationEnd={() => {
 												currentState.value = LootboxesModalState.prize
+												tgStore.hapticFeedback('heavy')
 											}}
 										/>
 									</div>

@@ -14,6 +14,7 @@ import { useCommonStore } from './common'
 import { useUserStore } from './user'
 import { Temporal } from 'temporal-polyfill'
 import { useSentry } from '@/services/sentry'
+import { dropConfetti } from '@/utils/drop-confetti'
 
 export type AbilityType = keyof AbilityScores
 
@@ -83,7 +84,7 @@ export const usePvpStore = defineStore('pvp', () => {
 	}
 
 	const timeToRestoreEnergy = computed(() =>
-		energyTimer.value?.total({ unit: 'seconds' })
+		energyTimer.value && energyTimer.value?.total({ unit: 'seconds' }) > 0
 			? `${energyTimer.value.minutes}:${energyTimer.value.seconds.toLocaleString('en-US', {
 					minimumIntegerDigits: 2,
 					useGrouping: false
@@ -96,6 +97,13 @@ export const usePvpStore = defineStore('pvp', () => {
 			withLoader && commonStore.setIsLoading(true)
 			setIsLoading(true)
 			const response = await api.loadPvpCharacter({ userId: tgStore.userId })
+			if (
+				response?.level &&
+				pvpCharacter.value?.level &&
+				response.level > pvpCharacter.value.level
+			) {
+				await dropConfetti()
+			}
 			setPvpCharacter(response)
 			setEnergyTimer(response.energy.time_to_restore)
 		} catch (error) {

@@ -2,7 +2,6 @@ import { useUserStore } from '@/stores/user'
 import styles from './onboarding.module.css'
 import { ref, computed, defineComponent, type VNode } from 'vue'
 import { UiPopup, UiText, type ButtonMod } from '../ui'
-import { BoxIcon, EnergyIcon, TicketIcon } from '@/components/icons'
 import { useLocalization } from '@/services/localization'
 
 export const OnboardingComponent = defineComponent({
@@ -25,27 +24,28 @@ export const OnboardingComponent = defineComponent({
 				switch (currentStep.value) {
 					case 1:
 						return {
-							image: '/images/onboarding-new-1.webp',
+							image: '/images/onboarding/slide1.webp',
 							title: (
 								<div class={styles.title}>
-									<UiText isAccent>{t('onboarding.yoBro')}</UiText>&nbsp;
-									<UiText>{t('onboarding.guide')}</UiText>
+									<UiText isAccent>{t('onboarding.slide1.title1')}</UiText>
 								</div>
 							),
 							description: (
 								<div class={styles.description}>
-									<span>{t('onboarding.boostUrStats')}</span>
 									<span>
-										{t('onboarding.eachVictory')}
-										<UiText isAccent> $BRO</UiText>
-										{t('onboarding.eachVictory2')}
+										<UiText isAccent>{t('onboarding.slide1.s1p1')}</UiText>
+										{t('onboarding.slide1.s1p2')}
+										<UiText isAccent>{t('onboarding.slide1.s1p3')}</UiText>
 									</span>
 									<span>
-										{t('onboarding.useEarned')}
-										<UiText isAccent> $BRO </UiText>
-										{t('onboarding.useEarned2')}
+										{t('onboarding.slide1.s2p1')}
+										<UiText isAccent>{t('onboarding.slide1.s2p2')}</UiText>
+										{t('onboarding.slide1.s2p3')}
 									</span>
-									<p class={styles.steps}>{currentStep.value}/3</p>
+									<span>
+										<UiText isAccent>{t('onboarding.slide1.s3p1')}</UiText>
+									</span>
+									<p class={styles.steps}>{currentStep.value}/4</p>
 								</div>
 							),
 							buttonMod: 'inverse',
@@ -54,31 +54,149 @@ export const OnboardingComponent = defineComponent({
 						}
 					case 2:
 						return {
-							image: '/images/onboarding-new-2.webp',
+							image: '/images/onboarding/slide2.webp',
 							title: (
-								<div class={[styles.title, styles.titleFlex]}>
-									<UiText isAccent>{t('onboarding.battlesAndEnergy')}</UiText>
+								<div class={styles.title}>
+									<UiText isAccent>{t('onboarding.slide2.title1')}</UiText>
+									<UiText isAccent>{t('onboarding.slide2.title2')}</UiText>
 								</div>
 							),
 							description: (
 								<div class={styles.description}>
 									<span>
-										{t('onboarding.winBattles')}
-										<UiText isAccent> $BRO</UiText>
-										{t('onboarding.winBattles2')}
+										<UiText isAccent>{t('onboarding.slide2.s1p1')}</UiText>
+										{t('onboarding.slide2.s1p2')}
 									</span>
-									<span>{t('onboarding.oneBattleOneEnergy')}</span>
 									<span>
-										<UiText isAccent>{t('onboarding.wantToWinMore')}</UiText>
+										<UiText isAccent>{t('onboarding.slide2.s2p1')}</UiText>
 									</span>
-									<span>{t('onboarding.keepUpdatingYourStats')}</span>
-									<p class={styles.steps}>{currentStep.value}/3</p>
+									<span>
+										<UiText isAccent>{t('onboarding.slide2.s3p1')}</UiText>
+										{t('onboarding.slide2.s3p2')}
+										<UiText isAccent>{t('onboarding.slide2.s3p3')}</UiText>
+									</span>
+									<p class={styles.steps}>{currentStep.value}/4</p>
 								</div>
 							),
 							buttonMod: 'inverse',
-							buttonText: t('onboarding.next'),
+							buttonText: t('next'),
 							handler: () => (currentStep.value += 1)
 						}
+					case 3:
+						return {
+							image: '/images/onboarding/slide3.webp',
+							title: (
+								<div class={styles.title}>
+									<UiText isAccent>{t('onboarding.slide3.title1')}</UiText>
+									<UiText isAccent>{t('onboarding.slide3.title2')}</UiText>
+								</div>
+							),
+							description: (
+								<div class={styles.description}>
+									<span>{t('onboarding.slide3.s1p1')}</span>
+									<span>{t('onboarding.slide3.s2p1')}</span>
+									<span>
+										{t('onboarding.slide3.s3p1')}
+										<UiText isAccent>{t('onboarding.slide3.s3p2')}</UiText>
+										{t('onboarding.slide3.s3p3')}
+									</span>
+									<span>
+										<UiText isAccent>{t('onboarding.slide3.s4p1')}</UiText>
+									</span>
+									<p class={styles.steps}>{currentStep.value}/4</p>
+								</div>
+							),
+							buttonMod: 'inverse',
+							buttonText: t('next'),
+							handler: () => (currentStep.value += 1)
+						}
+					case 4:
+						return {
+							image: '/images/onboarding/slide4.webp',
+							title: (
+								<div class={styles.title}>
+									<UiText isAccent>{t('onboarding.slide4.title1')}</UiText>
+									<UiText isAccent>{t('onboarding.slide4.title2')}</UiText>
+								</div>
+							),
+							description: (
+								<div class={styles.description}>
+									<span>
+										{t('onboarding.slide4.s1p0')}
+										<UiText isAccent>{t('onboarding.slide4.s1p1')}</UiText>
+										{t('onboarding.slide4.s1p2')}
+										<UiText isAccent>{t('onboarding.slide4.s1p3')}</UiText>
+									</span>
+									<span>
+										{t('onboarding.slide4.s2p1')}
+										<UiText isAccent>{t('onboarding.slide4.s2p2')}</UiText>
+										{t('onboarding.slide4.s2p3')}
+										<UiText isAccent>{t('onboarding.slide4.s2p4')}</UiText>
+									</span>
+									<span>{t('onboarding.slide4.s3p1')}</span>
+									<p class={styles.steps}>{currentStep.value}/4</p>
+								</div>
+							),
+							buttonMod: 'primary',
+							buttonText: t('onboarding.letsGo'),
+							handler: userStore.doneFirstLogin
+						}
+					// case 1:
+					// 	return {
+					// 		image: '/images/onboarding-new-1.webp',
+					// 		title: (
+					// 			<div class={styles.title}>
+					// 				<UiText isAccent>{t('onboarding.yoBro')}</UiText>&nbsp;
+					// 				<UiText>{t('onboarding.guide')}</UiText>
+					// 			</div>
+					// 		),
+					// 		description: (
+					// 			<div class={styles.description}>
+					// 				<span>{t('onboarding.boostUrStats')}</span>
+					// 				<span>
+					// 					{t('onboarding.eachVictory')}
+					// 					<UiText isAccent> $BRO</UiText>
+					// 					{t('onboarding.eachVictory2')}
+					// 				</span>
+					// 				<span>
+					// 					{t('onboarding.useEarned')}
+					// 					<UiText isAccent> $BRO </UiText>
+					// 					{t('onboarding.useEarned2')}
+					// 				</span>
+					// 				<p class={styles.steps}>{currentStep.value}/3</p>
+					// 			</div>
+					// 		),
+					// 		buttonMod: 'inverse',
+					// 		buttonText: t('next'),
+					// 		handler: () => (currentStep.value += 1)
+					// 	}
+					// case 2:
+					// 	return {
+					// 		image: '/images/onboarding-new-2.webp',
+					// 		title: (
+					// 			<div class={[styles.title, styles.titleFlex]}>
+					// 				<UiText isAccent>{t('onboarding.battlesAndEnergy')}</UiText>
+					// 			</div>
+					// 		),
+					// 		description: (
+					// 			<div class={styles.description}>
+					// 				<span>
+					// 					{t('onboarding.winBattles')}
+					// 					<UiText isAccent> $BRO</UiText>
+					// 					{t('onboarding.winBattles2')}
+					// 				</span>
+					// 				<span>{t('onboarding.oneBattleOneEnergy')}</span>
+					// 				<span>
+					// 					<UiText isAccent>{t('onboarding.wantToWinMore')}</UiText>
+					// 				</span>
+					// 				<span>{t('onboarding.keepUpdatingYourStats')}</span>
+					// 				<p class={styles.steps}>{currentStep.value}/3</p>
+					// 			</div>
+					// 		),
+					// 		buttonMod: 'inverse',
+					// 		buttonText: t('onboarding.next'),
+					// 		handler: () => (currentStep.value += 1)
+					// 	}
 					// пока не актуально
 					// case 3:
 					// 	return {
@@ -122,30 +240,6 @@ export const OnboardingComponent = defineComponent({
 					// 		buttonText: t('onboarding.next'),
 					// 		handler: () => (currentStep.value += 1)
 					// 	}
-					case 3:
-						return {
-							image: '/images/onboarding-new-4.webp',
-							title: (
-								<div class={styles.title}>
-									<UiText isAccent>{t('onboarding.growFaster')}</UiText>
-								</div>
-							),
-							description: (
-								<div class={styles.description}>
-									<span>
-										{t('onboarding.earnFivePercent')}
-										<UiText isAccent> $BRO </UiText>
-										{t('onboarding.earnings')}
-									</span>
-									<span>{t('onboarding.moreFriends')}</span>
-									<span>{t('onboarding.shareYourLink')}</span>
-									<p class={styles.steps}>{currentStep.value}/3</p>
-								</div>
-							),
-							buttonMod: 'primary',
-							buttonText: t('onboarding.letsGo'),
-							handler: userStore.doneFirstLogin
-						}
 					default:
 						return {
 							image: '/images/onboarding-new-1.webp',

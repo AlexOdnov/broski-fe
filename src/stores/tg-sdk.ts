@@ -5,6 +5,8 @@ import { defineStore } from 'pinia'
 import type { TelegramWebApps } from 'telegram-webapps'
 import { computed, ref } from 'vue'
 
+export type HapticStyle = 'light' | 'medium' | 'heavy' | 'rigid' | 'soft'
+
 export const useTgSdkStore = defineStore('tgSdk', () => {
 	const sentry = useSentry()
 
@@ -56,6 +58,9 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 		}
 	}
 
+	const hapticFeedback = (style: HapticStyle = 'soft') =>
+		Telegram.WebApp?.HapticFeedback.impactOccurred(style)
+
 	const initTgApp = () => {
 		try {
 			tg.value = Telegram.WebApp
@@ -90,6 +95,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 		languageCode,
 		initTgApp,
 		openLink,
-		openInvoice
+		openInvoice,
+		hapticFeedback
 	}
 })

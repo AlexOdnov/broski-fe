@@ -1,0 +1,21 @@
+{
+	"version": "v2.4",
+	"changes": {
+		"ru": [
+			"Обновление графики",
+			"Добавлен пассивный фарминг",
+			"Увеличена базовая энергия до 5 единиц",
+			"Сокращено время восстановления энергии до 5 минут",
+			"Повышен процент грабежа при победе с 5% до 12%",
+			"Обновленный онбординг"
+		],
+		"en": [
+			"Graphic update",
+			"Passive farming release",
+			"Increased base energy to 5 points",
+			"Reduced energy recovery time to 5 min",
+			"Increased loot percentage on victory from 5% to 12%",
+			"Updated onboarding"
+		]
+	}
+}

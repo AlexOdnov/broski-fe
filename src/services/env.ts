@@ -18,6 +18,7 @@ export interface Env {
 	symbolsShift: number
 	environment: 'prod' | 'dev'
 	disableApp: boolean
+	chatUrl: string
 }
 
 export const envVariables: Env = {
@@ -39,5 +40,6 @@ export const envVariables: Env = {
 	symbolsQuantity: Number(import.meta.env.VITE_SYMBOLS_QUANTITY) || 0,
 	symbolsShift: Number(import.meta.env.VITE_SYMBOLS_SHIFT) || 0,
 	environment: import.meta.env.VITE_ENVIRONMENT || 'dev',
-	disableApp: import.meta.env.VITE_DISABLE_APP === 'true'
+	disableApp: import.meta.env.VITE_DISABLE_APP === 'true',
+	chatUrl: import.meta.env.VITE_CHAT_URL || ''
 }
