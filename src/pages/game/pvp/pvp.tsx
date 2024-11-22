@@ -10,7 +10,8 @@ import {
 	UiButton,
 	UiText,
 	type UiTextFontWeight,
-	type UiBottomSheetMethods
+	type UiBottomSheetMethods,
+	UiBanner
 } from '@/components'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { envVariables } from '@/services/env'
@@ -131,9 +132,9 @@ const PvpPage = defineComponent({
 				fontWeight: 400 as UiTextFontWeight
 			}
 			return (
-				<div class={[styles.fullWidth, styles.bottomText]}>
+				<>
 					{!pvpStore.pvpMatchResult && pvpStore.pvpMatch?.match_id && (
-						<>
+						<div class={[styles.fullWidth, styles.bottomText]}>
 							<UiText {...textProps}> {t('pvp.skipOpponent')}:</UiText>&nbsp;
 							{envVariables.skipPvpCost === 'ticket' ? (
 								<>
@@ -146,17 +147,17 @@ const PvpPage = defineComponent({
 							) : (
 								<CoinCounter reverse coins={50} />
 							)}
-						</>
+						</div>
 					)}
 					{pvpStore.pvpMatchResult?.result === MatchResult.Lose && (
-						<>
+						<div class={[styles.fullWidth, styles.bottomText]}>
 							<UiText {...textProps}> {t('pvp.youWas')}</UiText>&nbsp;
 							<UiText {...textProps} color={'#FF5449'}>
 								{t('pvp.knockedOut')}
 							</UiText>
-						</>
+						</div>
 					)}
-				</div>
+				</>
 			)
 		})
 
@@ -189,6 +190,7 @@ const PvpPage = defineComponent({
 				/>
 				{renderButtons.value}
 				{renderBottomText.value}
+				<UiBanner class={styles.fullWidth} />
 				<BuyPremium ref={premiumModal} />
 			</div>
 		)

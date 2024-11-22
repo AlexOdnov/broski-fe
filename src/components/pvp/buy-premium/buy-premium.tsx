@@ -192,6 +192,11 @@ export const BuyPremium = defineComponent({
 									{t('premium.NFTcollection')}
 								</UiText>
 							</li>
+							<li class={styles.listItem}>
+								<UiText fontSize={'16px'} isAccent>
+									✅&nbsp;{t('premium.noAds')}
+								</UiText>
+							</li>
 						</ul>
 					</div>
 				}

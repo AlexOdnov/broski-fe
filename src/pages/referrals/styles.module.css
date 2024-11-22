@@ -39,7 +39,6 @@
 	gap: 10px;
 	flex-grow: 1;
 	width: 100%;
-	height: calc(100% - var(--headerHeight) - 89px - 48px);
 }
 
 .scrollContent {

@@ -3,7 +3,7 @@ import { defineComponent, ref } from 'vue'
 import styles from './styles.module.css'
 import { PlayerInventory, PlayerAbilities, BuyPremium } from '@/components/pvp'
 import { usePvpStore } from '@/stores/pvp'
-import { UiButton, type UiBottomSheetMethods } from '@/components'
+import { UiBanner, UiButton, type UiBottomSheetMethods } from '@/components'
 import { useLocalization } from '@/services/localization'
 
 const PvpProfilePage = defineComponent({
@@ -25,6 +25,7 @@ const PvpProfilePage = defineComponent({
 					/>
 				)}
 				<PlayerAbilities />
+				<UiBanner />
 				<BuyPremium ref={premiumModal} />
 			</div>
 		)
