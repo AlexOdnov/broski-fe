@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
-import { useApi } from '@/api/useApi'
+import { useApi, type IErrorData } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
 import { computed, ref } from 'vue'
 import type {
@@ -139,9 +139,7 @@ export const usePvpStore = defineStore('pvp', () => {
 		} catch (error) {
 			console.warn(error)
 			if (
-				((error as AxiosError).response?.data as { detail: string }).detail.includes(
-					'insufficient coins'
-				)
+				((error as AxiosError).response?.data as IErrorData).detail.includes('insufficient coins')
 			) {
 				userStore.loadUser()
 			} else {
@@ -177,7 +175,13 @@ export const usePvpStore = defineStore('pvp', () => {
 				loadPvpCharacter()
 			} catch (error) {
 				console.warn(error)
-				sentry.captureNetworkException(error)
+				if (
+					((error as AxiosError).response?.data as IErrorData).detail.includes('match not found')
+				) {
+					clearPvp()
+				} else {
+					sentry.captureNetworkException(error)
+				}
 			} finally {
 				setIsLoading(false)
 			}
@@ -193,7 +197,13 @@ export const usePvpStore = defineStore('pvp', () => {
 				userStore.loadUser()
 			} catch (error) {
 				console.warn(error)
-				sentry.captureNetworkException(error)
+				if (
+					((error as AxiosError).response?.data as IErrorData).detail.includes('match not found')
+				) {
+					clearPvp()
+				} else {
+					sentry.captureNetworkException(error)
+				}
 			} finally {
 				setIsLoading(false)
 			}
