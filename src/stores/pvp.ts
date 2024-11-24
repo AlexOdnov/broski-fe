@@ -13,17 +13,17 @@ import type {
 import { useCommonStore } from './common'
 import { useUserStore } from './user'
 import { Temporal } from 'temporal-polyfill'
-import { useSentry } from '@/services/sentry'
 import { dropConfetti } from '@/utils/drop-confetti'
+import { useSentry } from '@/services/sentry'
 
 export type AbilityType = keyof AbilityScores
 
 export const usePvpStore = defineStore('pvp', () => {
 	const api = useApi()
-	const sentry = useSentry()
 	const tgStore = useTgSdkStore()
 	const commonStore = useCommonStore()
 	const userStore = useUserStore()
+	const sentry = useSentry()
 
 	const loadingState = ref(0)
 	const [pvpCharacter, setPvpCharacter] = useState<CharacterProfile | null>(null)
@@ -46,6 +46,15 @@ export const usePvpStore = defineStore('pvp', () => {
 		strength: pvpCharacter.value?.abilities.strength ?? 1,
 		weight: pvpCharacter.value?.abilities.weight ?? 1
 	}))
+
+	const timeToRestoreEnergy = computed(() =>
+		energyTimer.value && energyTimer.value?.total({ unit: 'seconds' }) > 0
+			? `${energyTimer.value.minutes}:${energyTimer.value.seconds.toLocaleString('en-US', {
+					minimumIntegerDigits: 2,
+					useGrouping: false
+				})}`
+			: ''
+	)
 
 	const isCharacterPremium = computed(() => Boolean(pvpCharacter.value?.premium?.active))
 
@@ -83,15 +92,6 @@ export const usePvpStore = defineStore('pvp', () => {
 		}
 	}
 
-	const timeToRestoreEnergy = computed(() =>
-		energyTimer.value && energyTimer.value?.total({ unit: 'seconds' }) > 0
-			? `${energyTimer.value.minutes}:${energyTimer.value.seconds.toLocaleString('en-US', {
-					minimumIntegerDigits: 2,
-					useGrouping: false
-				})}`
-			: ''
-	)
-
 	const loadPvpCharacter = async (withLoader = false) => {
 		try {
 			withLoader && commonStore.setIsLoading(true)
@@ -107,9 +107,8 @@ export const usePvpStore = defineStore('pvp', () => {
 			setPvpCharacter(response)
 			setEnergyTimer(response.energy.time_to_restore)
 		} catch (error) {
-			// disable until fix issue on be
-			// sentry.captureNetworkException(error)
 			console.warn(error)
+			sentry.captureNetworkException(error)
 		} finally {
 			withLoader && commonStore.setIsLoading(false)
 			setIsLoading(false)
@@ -128,6 +127,7 @@ export const usePvpStore = defineStore('pvp', () => {
 			userStore.loadUser()
 		} catch (error) {
 			console.warn(error)
+			sentry.captureNetworkException(error)
 		} finally {
 			setIsLoading(false)
 		}
@@ -142,6 +142,7 @@ export const usePvpStore = defineStore('pvp', () => {
 			userStore.loadUser()
 		} catch (error) {
 			console.warn(error)
+			sentry.captureNetworkException(error)
 			commonStore.setDisableNavigation(false)
 		} finally {
 			setIsLoading(false)
@@ -157,6 +158,7 @@ export const usePvpStore = defineStore('pvp', () => {
 				loadPvpCharacter()
 			} catch (error) {
 				console.warn(error)
+				sentry.captureNetworkException(error)
 			} finally {
 				setIsLoading(false)
 			}
@@ -172,6 +174,7 @@ export const usePvpStore = defineStore('pvp', () => {
 				userStore.loadUser()
 			} catch (error) {
 				console.warn(error)
+				sentry.captureNetworkException(error)
 			} finally {
 				setIsLoading(false)
 			}
