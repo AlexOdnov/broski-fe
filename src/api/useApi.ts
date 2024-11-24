@@ -21,6 +21,10 @@ export type IDoneTaskRequest = IUserIdRequest & TaskRequest
 
 export type ISwitchRegionRequest = IUserIdRequest & RegionRequest
 
+export interface IErrorData {
+	detail: string
+}
+
 const apiInstance = new Api({
 	baseURL: envVariables.backendUrl
 })
