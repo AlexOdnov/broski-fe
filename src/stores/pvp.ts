@@ -138,6 +138,7 @@ export const usePvpStore = defineStore('pvp', () => {
 		} catch (error) {
 			console.warn(error)
 			sentry.captureNetworkException(error)
+			userStore.loadUser()
 		} finally {
 			setIsLoading(false)
 		}
