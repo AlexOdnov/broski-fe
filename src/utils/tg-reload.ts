@@ -1,4 +1,4 @@
-export const tgReload = async (): Promise<boolean> => {
+export const tgSdkReload = async (): Promise<boolean> => {
 	return new Promise<boolean>((resolve) => {
 		const scriptTag = document.createElement('script')
 		scriptTag.src = 'https://telegram.org/js/telegram-web-app.js'

@@ -1,7 +1,7 @@
 import type { LocaleType } from '@/services/localization'
 import { SentryError, useSentry } from '@/services/sentry'
 import { forceUpdateTgUser } from '@/utils/tg-parse'
-import { tgReload } from '@/utils/tg-reload'
+import { tgSdkReload } from '@/utils/tg-reload'
 import { defineStore } from 'pinia'
 import type { TelegramWebApps } from 'telegram-webapps'
 import { computed, ref } from 'vue'
@@ -84,7 +84,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 			initTgSdkRetryCount -= 1
 			if (initTgSdkRetryCount > 0) {
 				tg.value = null
-				await tgReload()
+				await tgSdkReload()
 				initTgApp()
 				return
 			}
