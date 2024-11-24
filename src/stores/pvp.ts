@@ -15,6 +15,7 @@ import { useUserStore } from './user'
 import { Temporal } from 'temporal-polyfill'
 import { dropConfetti } from '@/utils/drop-confetti'
 import { useSentry } from '@/services/sentry'
+import type { AxiosError } from 'axios'
 
 export type AbilityType = keyof AbilityScores
 
@@ -137,8 +138,15 @@ export const usePvpStore = defineStore('pvp', () => {
 			userStore.loadUser()
 		} catch (error) {
 			console.warn(error)
-			sentry.captureNetworkException(error)
-			userStore.loadUser()
+			if (
+				((error as AxiosError).response?.data as { detail: string }).detail.includes(
+					'insufficient coins'
+				)
+			) {
+				userStore.loadUser()
+			} else {
+				sentry.captureNetworkException(error)
+			}
 		} finally {
 			setIsLoading(false)
 		}
