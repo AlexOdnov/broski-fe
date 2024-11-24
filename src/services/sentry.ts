@@ -18,7 +18,7 @@ export const useSentry = () => {
 		Sentry.captureException(error, { extra })
 
 	const captureNetworkException = (error: unknown) => {
-		if ((error as AxiosError).code === 'ERR_NETWORK') {
+		if (['ECONNABORTED', 'ERR_NETWORK'].includes((error as AxiosError).code || '')) {
 			return
 		}
 		captureException(error, { cause: (error as AxiosError).cause })
