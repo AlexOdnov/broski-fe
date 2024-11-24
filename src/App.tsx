@@ -98,7 +98,7 @@ export default defineComponent({
 			if (envVariables.environment !== 'dev') {
 				disableDevTools()
 			}
-			tgStore.initTgApp()
+			await tgStore.initTgApp()
 			if (!tgStore.user) {
 				console.warn('Failed to get telegram user information')
 				return
