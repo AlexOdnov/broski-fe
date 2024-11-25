@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import styles from './notice-icon.module.css'
+import styles from './animated-icon.module.css'
 
 export const NoticeIcon = defineComponent({
 	name: 'NoticeIcon',
@@ -10,7 +10,7 @@ export const NoticeIcon = defineComponent({
 	setup: (props) => {
 		return () => (
 			<img
-				class={props.animated && styles.notice}
+				class={props.animated && styles.blink}
 				style={{ height: `${props.height}px`, width: `${props.height}px` }}
 				src="/images/notice.webp"
 			/>
