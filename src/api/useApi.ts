@@ -10,6 +10,7 @@ import {
 import { handleHeader } from '@/utils/string-shift'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { envVariables } from '@/services/env'
+import type { AxiosError } from 'axios'
 
 export interface IUserIdRequest {
 	userId: number
@@ -24,6 +25,11 @@ export type ISwitchRegionRequest = IUserIdRequest & RegionRequest
 export interface IErrorData {
 	detail: string
 }
+
+export const checkErrorMessage = (error: unknown, messages: string[]) =>
+	messages.some((message) =>
+		((error as AxiosError).response?.data as IErrorData).detail.includes(message)
+	)
 
 const apiInstance = new Api({
 	baseURL: envVariables.backendUrl
