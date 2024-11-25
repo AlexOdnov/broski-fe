@@ -19,17 +19,12 @@
 	border: solid 1px #35332e;
 }
 
-.centralNav {
-	height: 71px;
-	border-radius: 10px;
-	background-color: #141517;
-}
-
 .navigation {
 	display: grid;
 	grid-template-columns: 1fr 71px 1fr;
 	padding: 10px 15px 20px;
 	align-items: center;
+	--bgColor: #141517;
 }
 
 .navigationDisabled {
@@ -50,17 +45,23 @@
 }
 
 .navLeft {
-	background: linear-gradient(to right, #232323, #141517);
+	background: linear-gradient(to right, #232323, var(--bgColor));
 	border-right: none;
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
 }
 
 .navRight {
-	background: linear-gradient(to left, #232323, #141517);
+	background: linear-gradient(to left, #232323, var(--bgColor));
 	border-left: none;
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
+}
+
+.centralNav {
+	height: 71px;
+	border-radius: 10px;
+	background-color: var(--bgColor);
 }
 
 .delimiter {
@@ -106,4 +107,23 @@
 
 .activeLink {
 	color: #ffb800;
+}
+
+.shimmer {
+	background: linear-gradient(
+			100deg,
+			rgba(255, 255, 255, 0) 40%,
+			rgba(255, 255, 255, 0.25) 50%,
+			rgba(255, 255, 255, 0) 60%
+		)
+		var(--bgColor);
+	background-size: 200% 100%;
+	background-position-x: 180%;
+	animation: 1.2s shimmer ease-in-out infinite;
+}
+
+@keyframes shimmer {
+	to {
+		background-position-x: -20%;
+	}
 }

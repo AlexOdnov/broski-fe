@@ -17,6 +17,7 @@ import { UiText } from '@/components'
 import { useLocalization } from '@/services/localization'
 import { LootboxesModal } from '@/components/lootboxes-modal'
 import { useTgSdkStore } from '@/stores/tg-sdk'
+import { useUserStore } from '@/stores/user'
 
 export const MainComponent = defineComponent({
 	name: 'MainComponent',
@@ -27,6 +28,7 @@ export const MainComponent = defineComponent({
 		const referralsStore = useReferralsStore()
 		const commonStore = useCommonStore()
 		const tgStore = useTgSdkStore()
+		const userStore = useUserStore()
 
 		return () => (
 			<>
@@ -73,7 +75,12 @@ export const MainComponent = defineComponent({
 						<LootboxesModal
 							openButton={
 								<div
-									class={[styles.centralNav, styles.navBtn, styles.border]}
+									class={[
+										styles.centralNav,
+										styles.navBtn,
+										styles.border,
+										userStore.user?.boxes && styles.shimmer
+									]}
 									onClick={() => tgStore.hapticFeedback()}
 								>
 									<GiftIcon height={34} />
