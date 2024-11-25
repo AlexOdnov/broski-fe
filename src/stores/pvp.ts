@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
-import { useApi, type IErrorData } from '@/api/useApi'
+import { checkErrorMessage, useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
 import { computed, ref } from 'vue'
 import type {
@@ -15,7 +15,6 @@ import { useUserStore } from './user'
 import { Temporal } from 'temporal-polyfill'
 import { dropConfetti } from '@/utils/drop-confetti'
 import { useSentry } from '@/services/sentry'
-import type { AxiosError } from 'axios'
 
 export type AbilityType = keyof AbilityScores
 
@@ -138,9 +137,7 @@ export const usePvpStore = defineStore('pvp', () => {
 			userStore.loadUser()
 		} catch (error) {
 			console.warn(error)
-			if (
-				((error as AxiosError).response?.data as IErrorData).detail.includes('insufficient coins')
-			) {
+			if (checkErrorMessage(error, ['insufficient coins'])) {
 				userStore.loadUser()
 			} else {
 				sentry.captureNetworkException(error)
@@ -175,9 +172,7 @@ export const usePvpStore = defineStore('pvp', () => {
 				loadPvpCharacter()
 			} catch (error) {
 				console.warn(error)
-				if (
-					((error as AxiosError).response?.data as IErrorData).detail.includes('match not found')
-				) {
+				if (checkErrorMessage(error, ['match not found', 'insufficient energy', 'match expired'])) {
 					clearPvp()
 				} else {
 					sentry.captureNetworkException(error)
@@ -197,9 +192,7 @@ export const usePvpStore = defineStore('pvp', () => {
 				userStore.loadUser()
 			} catch (error) {
 				console.warn(error)
-				if (
-					((error as AxiosError).response?.data as IErrorData).detail.includes('match not found')
-				) {
+				if (checkErrorMessage(error, ['match not found', 'insufficient coins', 'match expired'])) {
 					clearPvp()
 				} else {
 					sentry.captureNetworkException(error)
@@ -212,6 +205,7 @@ export const usePvpStore = defineStore('pvp', () => {
 
 	const clearPvp = () => {
 		userStore.loadUser()
+		loadPvpCharacter()
 		resetPvpMatch()
 		resetPvpMatchResult()
 		commonStore.setDisableNavigation(false)
