@@ -162,7 +162,7 @@ export const usePvpStore = defineStore('pvp', () => {
 				loadPvpCharacter()
 			} catch (error) {
 				console.warn(error)
-				if (checkErrorMessage(error, ['match not found', 'insufficient energy'])) {
+				if (checkErrorMessage(error, ['match not found', 'insufficient energy', 'match expired'])) {
 					clearPvp()
 				} else {
 					sentry.captureNetworkException(error)
@@ -182,7 +182,7 @@ export const usePvpStore = defineStore('pvp', () => {
 				userStore.loadUser()
 			} catch (error) {
 				console.warn(error)
-				if (checkErrorMessage(error, ['match not found', 'insufficient coins'])) {
+				if (checkErrorMessage(error, ['match not found', 'insufficient coins', 'match expired'])) {
 					clearPvp()
 				} else {
 					sentry.captureNetworkException(error)

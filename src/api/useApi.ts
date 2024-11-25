@@ -28,7 +28,7 @@ export interface IErrorData {
 
 export const checkErrorMessage = (error: unknown, messages: string[]) =>
 	messages.some((message) =>
-		((error as AxiosError).response?.data as IErrorData).detail.includes(message)
+		((error as AxiosError)?.response?.data as IErrorData)?.detail?.includes(message)
 	)
 
 const apiInstance = new Api({
