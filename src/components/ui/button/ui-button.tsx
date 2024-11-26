@@ -19,6 +19,7 @@ export const UiButton = defineComponent({
 		minWidth: { type: String, default: 'auto' },
 		bordered: { type: Boolean, default: false },
 		icon: { type: Boolean, default: false },
+		shimmer: { type: Boolean, default: false },
 		hapticFeedback: { type: String as PropType<HapticStyle | 'none'>, default: 'soft' },
 		whenClick: { type: Function as PropType<(e: MouseEvent) => void>, required: true }
 	},
@@ -80,7 +81,8 @@ export const UiButton = defineComponent({
 					modClass.value,
 					fontVariantClass.value,
 					props.bordered && styles.bordered,
-					props.icon && styles.onlyIcon
+					props.icon && styles.onlyIcon,
+					props.shimmer && styles.shimmer
 				]}
 				type="button"
 				disabled={props.disabled}

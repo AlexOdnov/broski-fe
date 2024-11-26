@@ -9,8 +9,7 @@ export enum RouteName {
 	GameFindBro = 'game-find-bro',
 	Tasks = 'tasks',
 	Task = 'task',
-	Referrals = 'referrals',
-	Profile = 'profile'
+	Referrals = 'referrals'
 }
 
 const router = createRouter({
@@ -54,11 +53,6 @@ const router = createRouter({
 			path: '/referrals',
 			name: RouteName.Referrals,
 			component: () => import('@/pages/referrals/referrals')
-		},
-		{
-			path: '/profile',
-			name: RouteName.Profile,
-			component: () => import('@/pages/profile/profile')
 		},
 		{
 			path: '/:pathMatch(.*)',

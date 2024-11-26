@@ -1,7 +1,4 @@
-import { SentryError, useSentry } from '@/services/sentry'
 import type { TelegramWebApps } from 'telegram-webapps'
-
-const sentry = useSentry()
 
 function urlSafeDecode(urlencoded: string) {
 	try {
@@ -59,6 +56,7 @@ function urlParseHashParams(locationHash: string) {
 	return params
 }
 
+/** @deprecated */
 export function forceUpdateTgUser() {
 	let tgUser: null | TelegramWebApps.WebAppUser = null
 	let locationHash = ''
@@ -75,7 +73,4 @@ export function forceUpdateTgUser() {
 	}
 	// @ts-expect-error
 	Telegram.WebApp.initDataUnsafe.user = tgUser
-	// sentry.captureException(new SentryError('Tg sdk error', 'Forced update tg user info'), {
-	// 	...Telegram.WebApp.initDataUnsafe
-	// })
 }
