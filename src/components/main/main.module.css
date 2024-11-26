@@ -118,12 +118,16 @@
 		)
 		var(--bgColor);
 	background-size: 200% 100%;
-	background-position-x: 180%;
-	animation: 1.2s shimmer ease-in-out infinite;
+	background-position-x: 170%;
+	animation: 2.4s shimmer ease-in-out infinite;
 }
 
 @keyframes shimmer {
-	to {
-		background-position-x: -20%;
+	50% {
+		background-position-x: 170%;
+	}
+
+	100% {
+		background-position-x: -30%;
 	}
 }

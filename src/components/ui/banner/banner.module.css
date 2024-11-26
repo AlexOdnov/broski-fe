@@ -24,10 +24,10 @@
 		#222;
 	background-size: 200% 100%;
 	background-position-x: 180%;
-	animation: 1.5s shimmer ease-in-out infinite;
+	animation: 1.5s loading-shimmer ease-in-out infinite;
 }
 
-@keyframes shimmer {
+@keyframes loading-shimmer {
 	to {
 		background-position-x: -20%;
 	}

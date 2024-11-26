@@ -1,17 +1,17 @@
 .blink {
-	animation: blink 1.5s infinite linear;
+	animation: blink 2.4s infinite linear;
 }
 
 @keyframes blink {
-	0% {
-		opacity: 0;
-	}
-
 	50% {
 		opacity: 1;
 	}
 
-	100% {
+	75% {
 		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
 	}
 }
