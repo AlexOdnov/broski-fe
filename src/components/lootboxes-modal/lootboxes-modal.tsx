@@ -6,7 +6,7 @@ import {
 	OpenConveyorBelt,
 	type OpenConveyorBeltMethods
 } from '@/components/lootboxes-modal/open-conveyor-belt'
-import { GiftIcon, StarsIcon, TicketIcon } from '@/components/icons'
+import { GiftIcon, StarsIcon } from '@/components/icons'
 import { useLootboxesStore } from '@/stores/lootboxes'
 import { useLocalization } from '@/services/localization'
 import { useUserStore } from '@/stores/user'

@@ -47,6 +47,16 @@ export const usePvpStore = defineStore('pvp', () => {
 		weight: pvpCharacter.value?.abilities.weight ?? 1
 	}))
 
+	const abilityUpgradeCosts = computed<Record<keyof AbilityScores, number>>(() => {
+		return {
+			combinations: Math.ceil(pvpCharacterAbilities.value.combinations ** 2.47),
+			defence: Math.ceil(pvpCharacterAbilities.value.defence ** 2.3425),
+			speed: Math.ceil(pvpCharacterAbilities.value.speed ** 2.27),
+			strength: Math.ceil(pvpCharacterAbilities.value.strength ** 2.595),
+			weight: Math.ceil(pvpCharacterAbilities.value.weight ** 2.38)
+		}
+	})
+
 	const timeToRestoreEnergy = computed(() =>
 		energyTimer.value && energyTimer.value?.total({ unit: 'seconds' }) > 0
 			? `${energyTimer.value.minutes}:${energyTimer.value.seconds.toLocaleString('en-US', {
@@ -205,6 +215,7 @@ export const usePvpStore = defineStore('pvp', () => {
 		isLoading,
 		pvpCharacter,
 		pvpCharacterAbilities,
+		abilityUpgradeCosts,
 		isCharacterPremium,
 		pvpMatch,
 		pvpMatchResult,

@@ -2,11 +2,23 @@
 	background-color: #1d1e20;
 	border: 1px solid #35332e;
 	border-radius: 10px;
-	overflow: hidden;
 	padding: 2px;
 	display: flex;
+	justify-content: stretch;
 }
 
 .tabsDisabled {
 	opacity: 45%;
+}
+
+.tab {
+	position: relative;
+	flex-grow: 1;
+}
+
+.notice {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -90%);
 }
