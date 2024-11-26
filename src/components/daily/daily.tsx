@@ -6,6 +6,7 @@ import { getRewardByDay, type Reward } from '@/utils/get-daily-rewards'
 import { UiText } from '../ui'
 import { useLocalization } from '@/services/localization'
 import { CoinIcon, GiftIcon, StarsIcon, TicketIcon } from '@/components/icons'
+import { usePvpStore } from '@/stores/pvp'
 
 export const DailyComponent = defineComponent({
 	name: 'DailyComponent',
@@ -14,6 +15,7 @@ export const DailyComponent = defineComponent({
 	},
 	setup: (props) => {
 		const userStore = useUserStore()
+		const pvpStore = usePvpStore()
 		const { t } = useLocalization()
 
 		const currentReward = computed(() => getRewardByDay(props.day))
@@ -35,6 +37,7 @@ export const DailyComponent = defineComponent({
 
 		const claimDailyReward = async () => {
 			await userStore.claimDailyReward()
+			await pvpStore.loadPvpCharacter()
 		}
 
 		return () => (
