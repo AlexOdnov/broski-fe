@@ -5,11 +5,13 @@ import { useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
 import { computed } from 'vue'
 import { useUserStore } from './user'
+import { useSentry } from '@/services/sentry'
 
 export const useReferralsStore = defineStore('referrals', () => {
 	const api = useApi()
 	const tgStore = useTgSdkStore()
 	const userStore = useUserStore()
+	const sentry = useSentry()
 
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [referralsResponse, setReferralsResponse, resetReferralsResponse] =
@@ -34,6 +36,7 @@ export const useReferralsStore = defineStore('referrals', () => {
 			await loadReferrals()
 		} catch (error) {
 			console.warn(error)
+			sentry.captureNetworkException(error)
 		}
 	}
 
@@ -57,6 +60,7 @@ export const useReferralsStore = defineStore('referrals', () => {
 			setIsLoading(false)
 		} catch (error) {
 			console.warn(error)
+			sentry.captureNetworkException(error)
 		}
 	}
 

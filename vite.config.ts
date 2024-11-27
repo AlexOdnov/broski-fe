@@ -33,6 +33,6 @@ export default defineConfig({
 
 	build: {
 		sourcemap: true,
-		target: ['es2020', 'edge86', 'firefox78', 'chrome86', 'safari12']
+		target: ['es2020', 'edge80', 'firefox78', 'chrome80', 'safari12']
 	}
 })

@@ -57,6 +57,7 @@ export const useUserStore = defineStore('user', () => {
 			await loadUserLegacy()
 		} catch (error) {
 			console.warn(error)
+			sentry.captureNetworkException(error)
 		}
 	}
 
@@ -65,6 +66,7 @@ export const useUserStore = defineStore('user', () => {
 			await api.claimAdvertisingReward({ userId: tgStore.userId })
 		} catch (error) {
 			console.warn(error)
+			sentry.captureNetworkException(error)
 		} finally {
 			await loadUser()
 		}
@@ -76,6 +78,7 @@ export const useUserStore = defineStore('user', () => {
 			await loadUserLegacy()
 		} catch (error) {
 			console.warn(error)
+			sentry.captureNetworkException(error)
 		}
 	}
 
@@ -85,6 +88,7 @@ export const useUserStore = defineStore('user', () => {
 			await loadUserLegacy()
 		} catch (error) {
 			console.warn(error)
+			sentry.captureNetworkException(error)
 		}
 	}
 
@@ -94,6 +98,7 @@ export const useUserStore = defineStore('user', () => {
 			await loadUserLegacy()
 		} catch (error) {
 			console.warn(error)
+			sentry.captureNetworkException(error)
 		}
 	}
 
@@ -105,6 +110,7 @@ export const useUserStore = defineStore('user', () => {
 			})
 		} catch (error) {
 			console.warn(error)
+			sentry.captureNetworkException(error)
 		}
 	}
 
