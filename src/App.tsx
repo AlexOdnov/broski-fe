@@ -7,7 +7,8 @@ import {
 	MainComponent,
 	OnboardingComponent,
 	UpdateNotificationComponent,
-	DisabledScreen
+	DisabledScreen,
+	LevelUpModal
 } from './components'
 import { useUserStore } from './stores/user'
 import { useTgSdkStore } from './stores/tg-sdk'
@@ -118,6 +119,11 @@ export default defineComponent({
 
 		onCreated()
 
-		return () => <div class={styles.app}>{getComponent.value}</div>
+		return () => (
+			<div class={styles.app}>
+				{getComponent.value}
+				<LevelUpModal />
+			</div>
+		)
 	}
 })

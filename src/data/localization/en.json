@@ -167,5 +167,10 @@
 		"buy": "buy",
 		"claim": "claim",
 		"youHave": "You have"
+	},
+	"levelUp": {
+		"newLevel": "NEW LEVEL!",
+		"congratulation": "Congratulations! Keep going, you’re doing great!",
+		"next": "Let's go!"
 	}
 }

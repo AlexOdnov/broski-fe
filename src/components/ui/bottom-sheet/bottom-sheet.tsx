@@ -15,7 +15,9 @@ export const UiBottomSheet = defineComponent({
 		footer: { type: null as unknown as PropType<VNode>, required: false },
 		withBackground: { type: Boolean, default: true },
 		fullscreen: { type: Boolean, default: false },
-		withExitButton: { type: Boolean, default: false }
+		withExitButton: { type: Boolean, default: false },
+		whenOpen: { type: Function as PropType<() => void>, required: false },
+		whenClose: { type: Function as PropType<() => void>, required: false }
 	},
 	setup: (props, { expose }) => {
 		const { t } = useLocalization()
@@ -24,10 +26,12 @@ export const UiBottomSheet = defineComponent({
 
 		const open = () => {
 			isOpen.value = true
+			props.whenOpen && props.whenOpen()
 		}
 
 		const close = () => {
 			isOpen.value = false
+			props.whenClose && props.whenClose()
 		}
 
 		const publicApi: UiBottomSheetMethods = {

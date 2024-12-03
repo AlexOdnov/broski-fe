@@ -13,7 +13,6 @@ import type {
 import { useCommonStore } from './common'
 import { useUserStore } from './user'
 import { Temporal } from 'temporal-polyfill'
-import { dropConfetti } from '@/utils/drop-confetti'
 import { useSentry } from '@/services/sentry'
 
 export type AbilityType = keyof AbilityScores
@@ -33,6 +32,7 @@ export const usePvpStore = defineStore('pvp', () => {
 	)
 	const energyTimerInterval = ref<ReturnType<typeof setInterval> | null>(null)
 	const [energyTimer, setEnergyTimerValue] = useState<Temporal.Duration | null>(null)
+	const [isLevelUp, setIsLevelUp] = useState(false)
 
 	const setIsLoading = (isLoading: boolean) =>
 		isLoading ? (loadingState.value += 1) : (loadingState.value -= 1)
@@ -112,7 +112,7 @@ export const usePvpStore = defineStore('pvp', () => {
 				pvpCharacter.value?.level &&
 				response.level > pvpCharacter.value.level
 			) {
-				await dropConfetti()
+				setIsLevelUp(true)
 			}
 			setPvpCharacter(response)
 			setEnergyTimer(response.energy.time_to_restore)
@@ -220,6 +220,8 @@ export const usePvpStore = defineStore('pvp', () => {
 		pvpMatch,
 		pvpMatchResult,
 		timeToRestoreEnergy,
+		isLevelUp,
+		setIsLevelUp,
 		loadPvpCharacter,
 		upgradePvpCharacterAbility,
 		searchPvpOpponent,
