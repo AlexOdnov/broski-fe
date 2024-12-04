@@ -1,4 +1,9 @@
 import GamePage from '@/pages/game/game'
+import PvpProfilePage from '@/pages/game/pvp-profile/pvp-profile'
+import PvpPage from '@/pages/game/pvp/pvp'
+import ReferralsPage from '@/pages/referrals/referrals'
+import TaskPage from '@/pages/tasks/[taskId]/task'
+import TasksPage from '@/pages/tasks/tasks'
 
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -24,12 +29,12 @@ const router = createRouter({
 				{
 					path: 'pvp',
 					name: RouteName.GamePvp,
-					component: () => import('@/pages/game/pvp/pvp')
+					component: PvpPage
 				},
 				{
 					path: 'profile',
 					name: RouteName.GamePvpProfile,
-					component: () => import('@/pages/game/pvp-profile/pvp-profile')
+					component: PvpProfilePage
 				},
 				{
 					path: 'find-bro',
@@ -42,17 +47,17 @@ const router = createRouter({
 		{
 			path: '/tasks',
 			name: RouteName.Tasks,
-			component: () => import('@/pages/tasks/tasks')
+			component: TasksPage
 		},
 		{
 			path: '/tasks/:taskId',
 			name: RouteName.Task,
-			component: () => import('@/pages/tasks/[taskId]/task')
+			component: TaskPage
 		},
 		{
 			path: '/referrals',
 			name: RouteName.Referrals,
-			component: () => import('@/pages/referrals/referrals')
+			component: ReferralsPage
 		},
 		{
 			path: '/:pathMatch(.*)',
