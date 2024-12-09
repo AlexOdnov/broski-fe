@@ -9,8 +9,7 @@ export enum RouteName {
 	GameFindBro = 'game-find-bro',
 	Tasks = 'tasks',
 	Task = 'task',
-	Referrals = 'referrals',
-	Profile = 'profile'
+	Referrals = 'referrals'
 }
 
 const router = createRouter({
@@ -56,15 +55,17 @@ const router = createRouter({
 			component: () => import('@/pages/referrals/referrals')
 		},
 		{
-			path: '/profile',
-			name: RouteName.Profile,
-			component: () => import('@/pages/profile/profile')
-		},
-		{
 			path: '/:pathMatch(.*)',
 			redirect: { name: RouteName.GamePvpProfile }
 		}
 	]
+})
+
+router.afterEach(() => {
+	const initialHash = sessionStorage.getItem('initialHash')
+	if (initialHash) {
+		location.hash = initialHash
+	}
 })
 
 export default router

@@ -1,6 +1,7 @@
 import type { LocaleType } from '@/services/localization'
 import { SentryError, useSentry } from '@/services/sentry'
 import { forceUpdateTgUser } from '@/utils/tg-parse'
+import { tgSdkReload } from '@/utils/tg-reload'
 import { defineStore } from 'pinia'
 import type { TelegramWebApps } from 'telegram-webapps'
 import { computed, ref } from 'vue'
@@ -61,7 +62,7 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 	const hapticFeedback = (style: HapticStyle = 'soft') =>
 		Telegram.WebApp?.HapticFeedback.impactOccurred(style)
 
-	const initTgApp = () => {
+	const initTgApp = async () => {
 		try {
 			tg.value = Telegram.WebApp
 			tg.value.expand()
@@ -74,11 +75,16 @@ export const useTgSdkStore = defineStore('tgSdk', () => {
 					initTgApp()
 					return
 				}
+				sentry.captureException(
+					new SentryError('Tg sdk error', 'Failed to get telegram user information')
+				)
 			}
 			tg.value.ready()
 		} catch (error) {
 			initTgSdkRetryCount -= 1
 			if (initTgSdkRetryCount > 0) {
+				tg.value = null
+				await tgSdkReload()
 				initTgApp()
 				return
 			}

@@ -1,11 +1,13 @@
 import { defineComponent, type PropType } from 'vue'
 import styles from './ui-tabs.module.css'
 import { UiButton } from '../button'
+import { NoticeIcon } from '@/components/icons'
 
 export interface ITabOption {
 	label: string
 	value: string
 	disabled?: boolean
+	notice?: boolean
 }
 
 export const UiTabs = defineComponent({
@@ -20,15 +22,18 @@ export const UiTabs = defineComponent({
 		return () => (
 			<div class={[styles.tabs, props.disabled && styles.tabsDisabled]}>
 				{props.options.map((el) => (
-					<UiButton
-						size={'sm'}
-						font={'Roboto'}
-						text={el.label}
-						disabled={props.disabled || el.disabled}
-						minWidth={`${100 / props.options.length}%`}
-						mod={props.selected === el.value ? 'primary' : 'inverse'}
-						whenClick={() => props.whenChange(el.value)}
-					/>
+					<div class={styles.tab} style={{ width: `${100 / props.options.length}%` }}>
+						{el.notice && <NoticeIcon height={20} class={styles.notice} />}
+						<UiButton
+							size={'sm'}
+							font={'Roboto'}
+							text={el.label}
+							disabled={props.disabled || el.disabled}
+							minWidth={'100%'}
+							mod={props.selected === el.value ? 'primary' : 'inverse'}
+							whenClick={() => props.whenChange(el.value)}
+						/>
+					</div>
 				))}
 			</div>
 		)

@@ -8,7 +8,7 @@ export const StarsIcon = defineComponent({
 	setup: (props) => {
 		return () => (
 			<svg
-				width={props.height * 17 / 16}
+				width={(props.height * 17) / 16}
 				height={props.height}
 				viewBox="0 0 17 16"
 				fill="none"

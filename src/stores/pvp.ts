@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { useState } from '@/utils/useState'
-import { useApi } from '@/api/useApi'
+import { checkErrorMessage, useApi } from '@/api/useApi'
 import { useTgSdkStore } from './tg-sdk'
 import { computed, ref } from 'vue'
 import type {
@@ -13,16 +13,17 @@ import type {
 import { useCommonStore } from './common'
 import { useUserStore } from './user'
 import { Temporal } from 'temporal-polyfill'
+import { dropConfetti } from '@/utils/drop-confetti'
 import { useSentry } from '@/services/sentry'
 
 export type AbilityType = keyof AbilityScores
 
 export const usePvpStore = defineStore('pvp', () => {
 	const api = useApi()
-	const sentry = useSentry()
 	const tgStore = useTgSdkStore()
 	const commonStore = useCommonStore()
 	const userStore = useUserStore()
+	const sentry = useSentry()
 
 	const loadingState = ref(0)
 	const [pvpCharacter, setPvpCharacter] = useState<CharacterProfile | null>(null)
@@ -45,6 +46,25 @@ export const usePvpStore = defineStore('pvp', () => {
 		strength: pvpCharacter.value?.abilities.strength ?? 1,
 		weight: pvpCharacter.value?.abilities.weight ?? 1
 	}))
+
+	const abilityUpgradeCosts = computed<Record<keyof AbilityScores, number>>(() => {
+		return {
+			combinations: Math.ceil(pvpCharacterAbilities.value.combinations ** 2.47),
+			defence: Math.ceil(pvpCharacterAbilities.value.defence ** 2.3425),
+			speed: Math.ceil(pvpCharacterAbilities.value.speed ** 2.27),
+			strength: Math.ceil(pvpCharacterAbilities.value.strength ** 2.595),
+			weight: Math.ceil(pvpCharacterAbilities.value.weight ** 2.38)
+		}
+	})
+
+	const timeToRestoreEnergy = computed(() =>
+		energyTimer.value && energyTimer.value?.total({ unit: 'seconds' }) > 0
+			? `${energyTimer.value.minutes}:${energyTimer.value.seconds.toLocaleString('en-US', {
+					minimumIntegerDigits: 2,
+					useGrouping: false
+				})}`
+			: ''
+	)
 
 	const isCharacterPremium = computed(() => Boolean(pvpCharacter.value?.premium?.active))
 
@@ -82,26 +102,23 @@ export const usePvpStore = defineStore('pvp', () => {
 		}
 	}
 
-	const timeToRestoreEnergy = computed(() =>
-		energyTimer.value && energyTimer.value?.total({ unit: 'seconds' }) > 0
-			? `${energyTimer.value.minutes}:${energyTimer.value.seconds.toLocaleString('en-US', {
-					minimumIntegerDigits: 2,
-					useGrouping: false
-				})}`
-			: ''
-	)
-
 	const loadPvpCharacter = async (withLoader = false) => {
 		try {
 			withLoader && commonStore.setIsLoading(true)
 			setIsLoading(true)
 			const response = await api.loadPvpCharacter({ userId: tgStore.userId })
+			if (
+				response?.level &&
+				pvpCharacter.value?.level &&
+				response.level > pvpCharacter.value.level
+			) {
+				await dropConfetti()
+			}
 			setPvpCharacter(response)
 			setEnergyTimer(response.energy.time_to_restore)
 		} catch (error) {
-			// disable until fix issue on be
-			// sentry.captureNetworkException(error)
 			console.warn(error)
+			sentry.captureNetworkException(error)
 		} finally {
 			withLoader && commonStore.setIsLoading(false)
 			setIsLoading(false)
@@ -120,6 +137,11 @@ export const usePvpStore = defineStore('pvp', () => {
 			userStore.loadUser()
 		} catch (error) {
 			console.warn(error)
+			if (checkErrorMessage(error, ['insufficient coins'])) {
+				userStore.loadUser()
+			} else {
+				sentry.captureNetworkException(error)
+			}
 		} finally {
 			setIsLoading(false)
 		}
@@ -134,6 +156,7 @@ export const usePvpStore = defineStore('pvp', () => {
 			userStore.loadUser()
 		} catch (error) {
 			console.warn(error)
+			sentry.captureNetworkException(error)
 			commonStore.setDisableNavigation(false)
 		} finally {
 			setIsLoading(false)
@@ -149,6 +172,11 @@ export const usePvpStore = defineStore('pvp', () => {
 				loadPvpCharacter()
 			} catch (error) {
 				console.warn(error)
+				if (checkErrorMessage(error, ['match not found', 'insufficient energy', 'match expired'])) {
+					clearPvp()
+				} else {
+					sentry.captureNetworkException(error)
+				}
 			} finally {
 				setIsLoading(false)
 			}
@@ -164,6 +192,11 @@ export const usePvpStore = defineStore('pvp', () => {
 				userStore.loadUser()
 			} catch (error) {
 				console.warn(error)
+				if (checkErrorMessage(error, ['match not found', 'insufficient coins', 'match expired'])) {
+					clearPvp()
+				} else {
+					sentry.captureNetworkException(error)
+				}
 			} finally {
 				setIsLoading(false)
 			}
@@ -173,6 +206,7 @@ export const usePvpStore = defineStore('pvp', () => {
 	const clearPvp = async (x3 = false) => {
 		await endMatch(x3)
 		await userStore.loadUser()
+		await loadPvpCharacter()
 		resetPvpMatch()
 		resetPvpMatchResult()
 		commonStore.setDisableNavigation(false)
@@ -195,6 +229,7 @@ export const usePvpStore = defineStore('pvp', () => {
 		isLoading,
 		pvpCharacter,
 		pvpCharacterAbilities,
+		abilityUpgradeCosts,
 		isCharacterPremium,
 		pvpMatch,
 		pvpMatchResult,

@@ -8,7 +8,8 @@ import { envVariables } from '@/services/env'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { StarIcon, TicketIcon } from '@/components/icons'
 import { useLocalization } from '@/services/localization'
-import { UiHeader } from '@/components/ui'
+import { UiBanner, UiHeader } from '@/components/ui'
+import { usePvpStore } from '@/stores/pvp'
 
 const ReferralsPage = defineComponent({
 	name: 'ReferralsPage',
@@ -16,6 +17,7 @@ const ReferralsPage = defineComponent({
 		const referralsStore = useReferralsStore()
 		const userStore = useUserStore()
 		const tgSdk = useTgSdkStore()
+		const pvpStore = usePvpStore()
 		const { t } = useLocalization()
 
 		const isLinkCopied = ref(false)
@@ -93,7 +95,7 @@ const ReferralsPage = defineComponent({
 		})
 
 		return () => (
-			<div class={styles.referralsPage}>
+			<>
 				<UiHeader />
 				<div class={styles.header}>
 					<div class={styles.text}>
@@ -111,7 +113,14 @@ const ReferralsPage = defineComponent({
 					</div>
 					<UiButton size={'sm'} {...copyButtonProps.value} whenClick={whenCopyLink} />
 				</div>
-				<div class={styles.content}>
+				<div
+					class={styles.content}
+					style={{
+						height: pvpStore.isCharacterPremium
+							? 'calc(100% - var(--headerHeight) - 89px - 48px)'
+							: 'calc(100% - var(--headerHeight) - 89px - 48px - var(--bannerHeight))'
+					}}
+				>
 					<div class={styles.listHeader}>
 						<UiText fontSize={'18px'} color={'#f0f0f0'} fontWeight={500} class={styles.subTitle}>
 							{t('myBros')}
@@ -130,7 +139,8 @@ const ReferralsPage = defineComponent({
 				<div class={styles.claimButton}>
 					<UiButton size={'sm'} {...claimButtonProps.value} />
 				</div>
-			</div>
+				<UiBanner />
+			</>
 		)
 	}
 })

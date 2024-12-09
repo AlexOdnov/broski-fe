@@ -6,7 +6,7 @@ import {
 	OpenConveyorBelt,
 	type OpenConveyorBeltMethods
 } from '@/components/lootboxes-modal/open-conveyor-belt'
-import { GiftIcon, StarsIcon, TicketIcon } from '@/components/icons'
+import { GiftIcon, StarsIcon } from '@/components/icons'
 import { useLootboxesStore } from '@/stores/lootboxes'
 import { useLocalization } from '@/services/localization'
 import { useUserStore } from '@/stores/user'
@@ -99,10 +99,7 @@ export const LootboxesModal = defineComponent({
 						<div class={styles.content}>
 							<div
 								class={styles.card}
-								style={
-									currentState.value === LootboxesModalState.boxOpen &&
-									'padding: 0; min-height: min-content;'
-								}
+								style={currentState.value === LootboxesModalState.boxOpen && 'padding: 0;'}
 							>
 								{currentState.value === LootboxesModalState.default && (
 									<>
@@ -137,7 +134,7 @@ export const LootboxesModal = defineComponent({
 											>
 												&nbsp;{userStore.user?.boxes}&nbsp;
 											</UiText>
-											<GiftIcon height={14} border={1}/>
+											<GiftIcon height={14} border={1} />
 										</div>
 									</>
 								)}

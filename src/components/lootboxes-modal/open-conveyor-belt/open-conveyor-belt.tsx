@@ -96,7 +96,7 @@ export const OpenConveyorBelt = defineComponent({
 		}
 
 		const reset = () => {
-			window.document.querySelectorAll('.' + styles.item).forEach((item, idx) => {
+			window.document.querySelectorAll('.' + styles.item).forEach((item) => {
 				;(item as HTMLDivElement).style.transform = 'none'
 			})
 		}

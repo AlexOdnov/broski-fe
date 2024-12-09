@@ -1,16 +1,17 @@
 import { computed, defineComponent, ref } from 'vue'
 
 import styles from './pvp.module.css'
-import { BuyPremium, MatchCharacterCard } from '@/components/pvp'
+import { BuyPremium, DropConfetti, MatchCharacterCard } from '@/components/pvp'
 import { usePvpStore } from '@/stores/pvp'
-import { AdIcon, TicketIcon } from '@/components/icons'
+import { AdIcon } from '@/components/icons'
 import { MatchResult } from '@/api/generatedApi'
 import {
 	CoinCounter,
 	UiButton,
 	UiText,
 	type UiTextFontWeight,
-	type UiBottomSheetMethods
+	type UiBottomSheetMethods,
+	UiBanner
 } from '@/components'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { envVariables } from '@/services/env'
@@ -155,32 +156,22 @@ const PvpPage = defineComponent({
 				fontWeight: 400 as UiTextFontWeight
 			}
 			return (
-				<div class={[styles.fullWidth, styles.bottomText]}>
+				<>
 					{!pvpStore.pvpMatchResult && pvpStore.pvpMatch?.match_id && (
-						<>
+						<div class={[styles.fullWidth, styles.bottomText]}>
 							<UiText {...textProps}> {t('pvp.skipOpponent')}:</UiText>&nbsp;
-							{envVariables.skipPvpCost === 'ticket' ? (
-								<>
-									<UiText {...textProps} color={'#FFB800'}>
-										1
-									</UiText>
-									&nbsp;
-									<TicketIcon height={14} />
-								</>
-							) : (
-								<CoinCounter reverse coins={50} />
-							)}
-						</>
+							<CoinCounter reverse coins={50} />
+						</div>
 					)}
 					{pvpStore.pvpMatchResult?.result === MatchResult.Lose && (
-						<>
+						<div class={[styles.fullWidth, styles.bottomText]}>
 							<UiText {...textProps}> {t('pvp.youWas')}</UiText>&nbsp;
 							<UiText {...textProps} color={'#FF5449'}>
 								{t('pvp.knockedOut')}
 							</UiText>
-						</>
+						</div>
 					)}
-				</div>
+				</>
 			)
 		})
 
@@ -188,17 +179,20 @@ const PvpPage = defineComponent({
 			<div class={styles.pvp}>
 				<div class={[styles.textInFrontWrapper, styles.fullWidth]}>
 					{textInFront.value && (
-						<UiText
-							shadow
-							fontFamily="barcadeBrawl"
-							class={styles.textInFront}
-							fontSize="24px"
-							fontWeight={400}
-							lineHeight="40px"
-							color={pvpStore.pvpMatchResult?.result === MatchResult.Lose ? '#FF5449' : '#FFFFFF'}
-						>
-							{textInFront.value}
-						</UiText>
+						<>
+							{pvpStore.pvpMatchResult?.result === MatchResult.Win && <DropConfetti />}
+							<UiText
+								shadow
+								fontFamily="barcadeBrawl"
+								class={styles.textInFront}
+								fontSize="24px"
+								fontWeight={400}
+								lineHeight="40px"
+								color={pvpStore.pvpMatchResult?.result === MatchResult.Lose ? '#FF5449' : '#FFFFFF'}
+							>
+								{textInFront.value}
+							</UiText>
+						</>
 					)}
 				</div>
 				<MatchCharacterCard
@@ -210,6 +204,7 @@ const PvpPage = defineComponent({
 				/>
 				{renderButtons.value}
 				{renderBottomText.value}
+				<UiBanner class={styles.fullWidth} />
 				<BuyPremium ref={premiumModal} />
 			</div>
 		)

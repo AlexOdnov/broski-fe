@@ -17,7 +17,6 @@ import { useReferralsStore } from './stores/referrals'
 import { useAdvertisingStore } from '@/stores/advertising'
 import { envVariables } from './services/env'
 import { usePvpStore } from './stores/pvp'
-import { SentryError, useSentry } from './services/sentry'
 import { useLocalization } from './services/localization'
 
 export default defineComponent({
@@ -29,7 +28,6 @@ export default defineComponent({
 		const referralsStore = useReferralsStore()
 		const pvpStore = usePvpStore()
 		const advertisingStore = useAdvertisingStore()
-		const sentry = useSentry()
 		const { i18n } = useLocalization()
 
 		const isUserExist = ref(false)
@@ -98,12 +96,9 @@ export default defineComponent({
 			if (envVariables.environment !== 'dev') {
 				disableDevTools()
 			}
-			tgStore.initTgApp()
+			await tgStore.initTgApp()
 			if (!tgStore.user) {
 				console.warn('Failed to get telegram user information')
-				sentry.captureException(
-					new SentryError('Tg sdk error', 'Failed to get telegram user information')
-				)
 				return
 			}
 			i18n.locale.value = tgStore.languageCode

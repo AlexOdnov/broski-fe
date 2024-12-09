@@ -7,7 +7,8 @@
 	font-size: 16px;
 	line-height: 16px;
 	border: 1px solid transparent;
-	background: none;
+	color: var(--textColor);
+	background: var(--bgColor);
 	cursor: pointer;
 }
 
@@ -50,33 +51,39 @@
 }
 
 .modPrimary {
-	color: #141517;
-	background-color: #ffb800;
+	--textColor: #141517;
+	--bgColor: #ffb800;
+	--shimmerColor: rgba(255, 255, 255, 0.8);
 }
 
 .modPrimary[disabled] {
-	color: #141517;
-	background-color: #4e4f4f;
+	--textColor: #141517;
+	--bgColor: #4e4f4f;
+	--shimmerColor: rgba(255, 255, 255, 0);
 }
 
 .modSecondary {
-	color: #797979;
-	background-color: #1d1e20;
+	--textColor: #797979;
+	--bgColor: #1d1e20;
+	--shimmerColor: rgba(255, 255, 255, 0.1);
 }
 
 .modSecondary[disabled] {
-	color: #4e4f4f;
-	background-color: #1d1e20;
+	--textColor: #4e4f4f;
+	--bgColor: #1d1e20;
+	--shimmerColor: rgba(255, 255, 255, 0);
 }
 
 .modInverse {
-	color: #ffb800;
-	background-color: #1d1e20;
+	--textColor: #ffb800;
+	--bgColor: #1d1e20;
+	--shimmerColor: rgba(255, 255, 255, 0.1);
 }
 
 .modInverse[disabled] {
-	color: #4e4f4f;
-	background-color: #1d1e20;
+	--textColor: #4e4f4f;
+	--bgColor: #1d1e20;
+	--shimmerColor: rgba(255, 255, 255, 0);
 }
 
 .leftIcon {
@@ -135,5 +142,28 @@
 	}
 	100% {
 		clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+	}
+}
+
+.shimmer {
+	background: linear-gradient(
+			100deg,
+			rgba(255, 255, 255, 0) 40%,
+			var(--shimmerColor) 50%,
+			rgba(255, 255, 255, 0) 60%
+		)
+		var(--bgColor);
+	background-size: 200% 100%;
+	background-position-x: 170%;
+	animation: 2.4s shimmer ease-in-out infinite;
+}
+
+@keyframes shimmer {
+	50% {
+		background-position-x: 170%;
+	}
+
+	100% {
+		background-position-x: -30%;
 	}
 }

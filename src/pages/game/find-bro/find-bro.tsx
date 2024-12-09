@@ -1,6 +1,5 @@
 import { computed, defineComponent, ref } from 'vue'
 
-import styles from './styles.module.css'
 import { FindBroGame, SuperGame } from '@/components'
 
 export enum GameVariant {

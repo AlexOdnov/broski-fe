@@ -4,9 +4,12 @@ import { useState } from '@/utils/useState'
 import type { Task } from '@/api/generatedApi'
 import { useTgSdkStore } from './tg-sdk'
 import { computed } from 'vue'
+import { useSentry } from '@/services/sentry'
+
 export const useTasksStore = defineStore('tasks', () => {
 	const tgStore = useTgSdkStore()
 	const api = useApi()
+	const sentry = useSentry()
 
 	const [tasks, setTasks] = useState<Task[]>([])
 
@@ -25,6 +28,7 @@ export const useTasksStore = defineStore('tasks', () => {
 			}
 		} catch (error) {
 			console.warn(error)
+			sentry.captureNetworkException(error)
 		}
 	}
 
@@ -34,13 +38,16 @@ export const useTasksStore = defineStore('tasks', () => {
 			if (response.status === 200) {
 				const task = tasks.value.find((x) => x.id === taskId)
 				if (!task) {
-					return
+					return false
 				}
 				task.complete = true
 				setTasks([...tasks.value.filter((t) => t.id !== taskId), task])
+				return true
 			}
 		} catch (error) {
 			console.warn(error)
+			sentry.captureNetworkException(error)
+			return false
 		}
 	}
 
