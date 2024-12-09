@@ -84,6 +84,12 @@ export interface CharacterProfilePremium {
 	until: string
 }
 
+/** ClaimLootRequest */
+export interface ClaimLootRequest {
+	/** X3 */
+	x3?: boolean | null
+}
+
 /** CreateUser */
 export interface CreateUser {
 	/** Username */
@@ -617,6 +623,29 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 			this.request<PVPMatchResult, HTTPValidationError>({
 				path: `/api/v1/users/${userId}/start-pvp`,
 				method: 'POST',
+				format: 'json',
+				...params
+			}),
+
+		/**
+		 * No description
+		 *
+		 * @tags pvp
+		 * @name ClaimLootApiV1UsersUserIdMatchesMatchUuidClaimLootPost
+		 * @summary Claim Loot
+		 * @request POST:/api/v1/users/{user_id}/matches/{match_uuid}/claim-loot
+		 */
+		claimLootApiV1UsersUserIdMatchesMatchUuidClaimLootPost: (
+			userId: number,
+			matchUuid: string,
+			data: ClaimLootRequest,
+			params: RequestParams = {}
+		) =>
+			this.request<MatchLoot, HTTPValidationError>({
+				path: `/api/v1/users/${userId}/matches/${matchUuid}/claim-loot`,
+				method: 'POST',
+				body: data,
+				type: ContentType.Json,
 				format: 'json',
 				...params
 			}),

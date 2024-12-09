@@ -23,12 +23,19 @@
 	font-family: 'Roboto', Arial, sans-serif;
 }
 
+.sizeXs {
+	padding: 5px 10px;
+	height: 28px;
+	font-size: 12px;
+	line-height: 12px;
+	font-weight: 500;
+}
+
 .sizeSm {
 	padding: 5px 15px;
 	height: 28px;
 	font-size: 18px;
 	line-height: 18px;
-	font-family: 'Roboto', Arial, sans-serif;
 	font-weight: 500;
 }
 
