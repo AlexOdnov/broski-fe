@@ -44,6 +44,7 @@ export const useTasksStore = defineStore('tasks', () => {
 				setTasks([...tasks.value.filter((t) => t.id !== taskId), task])
 				return true
 			}
+			return false
 		} catch (error) {
 			console.warn(error)
 			sentry.captureNetworkException(error)
