@@ -132,6 +132,14 @@ export const useApi = () => {
 		return (await apiInstance.api.skipMatchApiV1UsersUserIdSkipPvpPost(payload.userId)).data
 	}
 
+	const getPvpLoot = async (payload: { userId: number; matchId: string; x3: boolean }) => {
+		return await apiInstance.api.claimLootApiV1UsersUserIdMatchesMatchUuidClaimLootPost(
+			payload.userId,
+			payload.matchId,
+			{ x3: payload.x3 }
+		)
+	}
+
 	const getPrizes = async () => {
 		return (await apiInstance.api.getPrizesApiV1PrizesGet()).data
 	}
@@ -159,6 +167,7 @@ export const useApi = () => {
 		startPvpMatch,
 		skipPvpMatch,
 		getPrizes,
+		getPvpLoot,
 		openLootbox
 	}
 }
