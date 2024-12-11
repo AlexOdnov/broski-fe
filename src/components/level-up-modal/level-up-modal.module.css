@@ -1,0 +1,12 @@
+.levelUp {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	gap: 24px;
+	flex-grow: 1;
+}
+
+.image {
+	width: 100%;
+	height: auto;
+}
