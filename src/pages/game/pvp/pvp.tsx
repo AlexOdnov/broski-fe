@@ -108,7 +108,7 @@ const PvpPage = defineComponent({
 							leftIcon={<AdIcon />}
 							disabled={!userStore.user?.advertising.limit}
 							whenClick={async () => {
-								if ((await advStore.showAdv()) && userStore.user?.advertising.limit !== 0) {
+								if (await advStore.showAdv()) {
 									await pvpStore.clearPvp(true)
 									return
 								}
