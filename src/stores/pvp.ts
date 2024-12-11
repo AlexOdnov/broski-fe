@@ -203,12 +203,26 @@ export const usePvpStore = defineStore('pvp', () => {
 		}
 	}
 
-	const clearPvp = () => {
-		userStore.loadUser()
-		loadPvpCharacter()
+	const clearPvp = async (x3 = false) => {
+		await endMatch(x3)
+		await userStore.loadUser()
+		await loadPvpCharacter()
 		resetPvpMatch()
 		resetPvpMatchResult()
 		commonStore.setDisableNavigation(false)
+	}
+
+	const endMatch = async (x3 = false) => {
+		if(pvpMatch.value) {
+			setIsLoading(true)
+			try {
+				await api.getPvpLoot({ userId: tgStore.userId, matchId: pvpMatch.value.match_id, x3 })
+			} catch (error) {
+				console.warn(error)
+			} finally {
+				setIsLoading(false)
+			}
+		}
 	}
 
 	return {
