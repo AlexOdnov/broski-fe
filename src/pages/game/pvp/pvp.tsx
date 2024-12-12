@@ -3,6 +3,7 @@ import { computed, defineComponent, ref } from 'vue'
 import styles from './pvp.module.css'
 import { BuyPremium, DropConfetti, MatchCharacterCard } from '@/components/pvp'
 import { usePvpStore } from '@/stores/pvp'
+import { AdIcon } from '@/components/icons'
 import { MatchResult } from '@/api/generatedApi'
 import {
 	CoinCounter,
@@ -15,12 +16,16 @@ import {
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { envVariables } from '@/services/env'
 import { useLocalization } from '@/services/localization'
+import { useUserStore } from '@/stores/user'
+import { useAdvertisingStore } from '@/stores/advertising'
 
 const PvpPage = defineComponent({
 	name: 'PvpPage',
 	setup() {
 		const pvpStore = usePvpStore()
 		const tgStore = useTgSdkStore()
+		const userStore = useUserStore()
+		const advStore = useAdvertisingStore()
 		const { t } = useLocalization()
 
 		const premiumModal = ref<UiBottomSheetMethods | null>(null)
@@ -92,16 +97,36 @@ const PvpPage = defineComponent({
 				)
 			}
 			return (
-				<UiButton
-					class={styles.fullWidth}
-					font="BarcadeBrawlRegular"
-					text={t(pvpStore.pvpMatchResult.result === MatchResult.Win ? 'claim' : 'pvp.exit')}
-					loading={pvpStore.isLoading}
-					mod="inverse"
-					whenClick={async () => {
-						pvpStore.clearPvp()
-					}}
-				/>
+				<>
+					{pvpStore.pvpMatchResult?.result === MatchResult.Win && (
+						<UiButton
+							font="BarcadeBrawlRegular"
+							size={'xs'}
+							text={'X3 $BRO'}
+							loading={pvpStore.isLoading}
+							mod="primary"
+							leftIcon={<AdIcon />}
+							disabled={!userStore.user?.advertising.limit}
+							whenClick={async () => {
+								if (await advStore.showAdv()) {
+									await pvpStore.clearPvp(true)
+									return
+								}
+							}}
+						/>
+					)}
+					<UiButton
+						class={pvpStore.pvpMatchResult?.result === MatchResult.Lose && styles.fullWidth}
+						size={'xs'}
+						font="BarcadeBrawlRegular"
+						text={t(pvpStore.pvpMatchResult?.result === MatchResult.Win ? 'claim' : 'pvp.exit')}
+						loading={pvpStore.isLoading}
+						mod="inverse"
+						whenClick={async () => {
+							await pvpStore.clearPvp()
+						}}
+					/>
+				</>
 			)
 		})
 

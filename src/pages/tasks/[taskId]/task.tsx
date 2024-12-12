@@ -5,7 +5,7 @@ import styles from './task.module.css'
 import { useTasksStore } from '@/stores/tasks'
 import { useTgSdkStore } from '@/stores/tg-sdk'
 import { useUserStore } from '@/stores/user'
-import { UiButton, RewardBlock } from '@/components'
+import { UiButton, RewardBlock, type UiBottomSheetMethods, UiBottomSheet, UiText } from '@/components'
 import { BackArrowIcon } from '@/components/icons'
 import { RouteName } from '@/router'
 import { useLocalization } from '@/services/localization'
@@ -21,6 +21,7 @@ const TaskPage = defineComponent({
 
 		const isChecking = ref(false)
 		const isCheckingDisabled = ref(true)
+		const failedCheckTaskModal = ref<UiBottomSheetMethods | null>(null)
 
 		const taskId = computed(() => +route.params.taskId)
 		const task = computed(() => tasksStore.tasks.find((t) => t.id === taskId.value))
@@ -32,14 +33,21 @@ const TaskPage = defineComponent({
 
 		const whenCheckClicked = async () => {
 			isChecking.value = true
-			await tasksStore.setTaskDone(taskId.value)
+			const result = await tasksStore.setTaskDone(taskId.value)
 			tasksStore.getTasks()
 			userStore.loadUser()
 			isChecking.value = false
+			!result && failedCheckTaskModal.value?.open()
 		}
 
 		return () => (
 			<>
+			<UiBottomSheet
+				ref={failedCheckTaskModal}
+				withExitButton
+				withBackground
+				body={<UiText fontSize='14px' lineHeight='17.5px' color='#f0f0f0' alignCenter>{t('task.notCompleted')}</UiText>}
+			/>
 				<RouterLink class={styles.back} to={{ name: RouteName.Tasks }}>
 					<UiButton
 						mod="inverse"

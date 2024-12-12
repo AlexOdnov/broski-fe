@@ -38,14 +38,17 @@ export const useTasksStore = defineStore('tasks', () => {
 			if (response.status === 200) {
 				const task = tasks.value.find((x) => x.id === taskId)
 				if (!task) {
-					return
+					return false
 				}
 				task.complete = true
 				setTasks([...tasks.value.filter((t) => t.id !== taskId), task])
+				return true
 			}
+			return false
 		} catch (error) {
 			console.warn(error)
 			sentry.captureNetworkException(error)
+			return false
 		}
 	}
 

@@ -99,7 +99,8 @@
 		"start": "Start",
 		"check": "Check",
 		"noCrooksAllowed": "No crooks allowed!",
-		"cheatersWillBePunished": "Cheaters will be punished 🪑"
+		"cheatersWillBePunished": "Cheaters will be punished 🪑",
+		"notCompleted": "Not all conditions are met!"
 	},
 	"whatsNew": "what’s new?",
 	"update": "update",
@@ -167,5 +168,10 @@
 		"buy": "buy",
 		"claim": "claim",
 		"youHave": "You have"
+	},
+	"levelUp": {
+		"newLevel": "NEW LEVEL!",
+		"congratulation": "Congratulations! Keep going, you’re doing great!",
+		"next": "Let's go!"
 	}
 }
