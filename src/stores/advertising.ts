@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { AdController } from '../../adsgram'
+import { useSentry } from '@/services/sentry'
 
 const LAST_ADSGRAM_SHOW_TIME = 'lastAdsgramShowTime'
 
 export const useAdvertisingStore = defineStore('advertising', () => {
+	const sentry = useSentry()
+
 	//Adsgram
 	const _adController = ref<AdController | null>(null)
 	//OnClicka
@@ -16,6 +19,7 @@ export const useAdvertisingStore = defineStore('advertising', () => {
 			_showAdvOnClicka = await window.initCdTma({ id: '6029415' })
 		} catch (e) {
 			console.warn('failed adv init', e)
+			sentry.captureException(e)
 		}
 
 		// Adsgram
@@ -62,6 +66,7 @@ export const useAdvertisingStore = defineStore('advertising', () => {
 			return true
 		} catch (e) {
 			console.warn('error when show onclicka adv', e)
+			sentry.captureException(e)
 			return false
 		}
 	}
